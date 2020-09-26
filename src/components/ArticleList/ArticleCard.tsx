@@ -15,7 +15,6 @@ type ArticleCardProps = Article;
 export default function ArticleCard(props: Article): JSX.Element {
   const { title, content, author, createAt } = props;
   const { thumbnail, name, group } = author as Profile;
-  console.log(thumbnail);
   return (
     <Card>
       <Head>

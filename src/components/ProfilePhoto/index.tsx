@@ -11,7 +11,6 @@ const defaultImage =
 
 export default function ProfilePhoto(props: ProfilePhotoProps): JSX.Element {
   const { src } = props;
-  console.log(src);
   return <Self src={src || defaultImage} />;
 }
 
