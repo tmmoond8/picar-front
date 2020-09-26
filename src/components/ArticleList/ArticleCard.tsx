@@ -11,7 +11,7 @@ import { colors } from '../../styles';
 type ArticleCardProps = Article;
 
 export default function ArticleCard(props: Article): JSX.Element {
-  const { title, author, createAt } = props;
+  const { title, content, author, createAt } = props;
   const { thumbnail, name, group } = author as Profile;
   console.log(thumbnail);
   return (
@@ -24,7 +24,10 @@ export default function ArticleCard(props: Article): JSX.Element {
           {new Date(createAt).toLocaleDateString()}
         </p>
       </Head>
-      <Body>{title}</Body>
+      <Body>
+        <p className="article-title">{title}</p>
+        <p className="article-content">{content}</p>
+      </Body>
     </Card>
   );
 }
@@ -68,6 +71,23 @@ const Head = styled.div`
   }
 `;
 
-const Body = styled.div``;
+const Body = styled.div`
+  padding: 16px 0;
 
-const Bottom = styled.div``;
+  .article-title {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 24px;
+    color: ${colors.black100};
+  }
+
+  .article-content {
+    margin-top: 8px;
+    font-size: 14px;
+    color: ${colors.black99};
+  }
+`;
+
+const Bottom = styled.div`
+  height: 32px;
+`;
