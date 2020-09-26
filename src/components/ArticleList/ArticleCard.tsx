@@ -89,6 +89,11 @@ const Body = styled.div`
     font-weight: 500;
     line-height: 24px;
     color: ${colors.black100};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .article-content {
@@ -96,6 +101,11 @@ const Body = styled.div`
     font-size: 14px;
     line-height: 20px;
     color: ${colors.black99};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 `;
 
