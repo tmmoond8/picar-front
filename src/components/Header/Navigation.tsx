@@ -2,24 +2,41 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+
+import { useStore, observer } from '../../stores';
+
 import { colors } from '../../styles';
 
-import { navigations } from './constants';
+import { navigations } from '../../types/constants';
 
-export default function Navigation(): JSX.Element {
-  const [selected, setSelected] = React.useState('free');
+export default observer(function Navigation(): JSX.Element {
+  const { article } = useStore();
+
+  const handleSetGroup = React.useCallback(
+    (selected: string) => {
+      article.selectedGroup = selected;
+    },
+    [article],
+  );
+
   return (
     <Self>
       <List>
         {navigations.map((item) => (
-          <Item selected={item.name === selected} key={item.name}>
+          <Item
+            selected={item.name === article.selectedGroup}
+            key={item.name}
+            onClick={() => {
+              handleSetGroup(item.name);
+            }}
+          >
             {item.displayName}
           </Item>
         ))}
       </List>
     </Self>
   );
-}
+});
 
 const Self = styled.nav`
   display: flex;

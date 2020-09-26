@@ -1,5 +1,10 @@
 export const navigations = [
   {
+    name: 'group',
+    displayName: '선택',
+    items: [{ name: 'food', displayName: '요식업' }],
+  },
+  {
     name: 'best',
     displayName: '베스트글',
   },
