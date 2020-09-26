@@ -11,4 +11,8 @@ export const navigations = [
     name: 'humor',
     displayName: '유머',
   },
+  {
+    name: 'govermentSupport',
+    displayName: '정부지원',
+  },
 ];
