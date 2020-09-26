@@ -42,6 +42,6 @@ const List = styled.ol`
 const Item = styled.li<{ selected: boolean }>`
   font-size: 20px;
   font-weight: 600;
-  color: ${(p) => (p.selected ? colors.primary : colors.greyBF)};
+  color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};
   cursor: pointer;
 `;
