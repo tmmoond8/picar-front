@@ -22,6 +22,7 @@ export default function ArticleList(props: ArticleListProps): JSX.Element {
 }
 
 const Self = styled.ol`
+  height: 100%;
   background: ${colors.blackF5F6F7};
   li + li {
     margin-top: 8px;

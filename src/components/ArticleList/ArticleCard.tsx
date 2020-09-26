@@ -94,6 +94,7 @@ const Body = styled.div`
   .article-content {
     margin-top: 8px;
     font-size: 14px;
+    line-height: 20px;
     color: ${colors.black99};
   }
 `;
