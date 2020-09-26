@@ -5,6 +5,7 @@ export interface Profile {
   coverImg?: string;
   email: string;
   description?: string;
+  group?: string;
 }
 
 export default interface User extends Profile {

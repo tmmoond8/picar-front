@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import GlobalStyles from './styles/globalStyles';
-import Articles from './pages/Articles';
+import Articles from './pages/HomePage';
 import Header from './components/Header';
 
 function App() {

@@ -6,6 +6,6 @@ export default interface Article {
   content: string;
   group: string;
   author: Profile;
-  createAt: Date;
-  updateAt: Date;
+  createAt: string;
+  updateAt: string;
 }
