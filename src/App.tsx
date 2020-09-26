@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import GlobalStyles from './styles/globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import GlobalStyles from './styles/globalStyles';
 import Articles from './pages/Articles';
+import Header from './components/Header';
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
       <GlobalStyles />
       <Router>
         <Page>
+          <Header />
           <Switch>
             <Route path="/article">
               <Articles />
@@ -27,6 +30,6 @@ function App() {
 export default App;
 
 const Page = styled.div`
-  padding: 50px 0 0 0;
+  padding: 56px 0 0 0;
   height: 100%;
 `;
