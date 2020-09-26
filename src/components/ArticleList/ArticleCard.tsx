@@ -5,6 +5,8 @@ import React from 'react';
 import Article from '../../types/Article';
 import ProfilePhoto from '../ProfilePhoto';
 import { Profile } from '../../types/User';
+import Button from '../Button';
+import Icon from '../Icon';
 
 import { colors } from '../../styles';
 
@@ -28,12 +30,20 @@ export default function ArticleCard(props: Article): JSX.Element {
         <p className="article-title">{title}</p>
         <p className="article-content">{content}</p>
       </Body>
+      <Bottom>
+        <Button icon={<Icon icon="like" size="18px" />}>공감하기</Button>
+        <Button icon={<Icon icon="chat" size="18px" />}>댓글달기</Button>
+        <div className="right">
+          <Button icon={<Icon icon="bookmark" size="18px" />} />
+        </div>
+      </Bottom>
     </Card>
   );
 }
 
-const Card = styled.article`
+const Card = styled.li`
   padding: 16px 18px;
+  background-color: ${colors.white};
 `;
 
 const Head = styled.div`
@@ -89,5 +99,15 @@ const Body = styled.div`
 `;
 
 const Bottom = styled.div`
+  display: flex;
   height: 32px;
+  * + * {
+    margin-left: 8px;
+  }
+  margin-top: 4px;
+  .right {
+    display: flex;
+    flex-direction: row-reverse;
+    flex: 1;
+  }
 `;
