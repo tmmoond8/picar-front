@@ -7,6 +7,7 @@ const customReset = css`
   body,
   body > div {
     height: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
   }
   a {
     text-decoration: none;
