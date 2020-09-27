@@ -1,23 +1,19 @@
 export const navigations = [
   {
-    name: 'group',
-    displayName: '선택',
-    items: [{ name: 'food', displayName: '요식업' }],
+    name: '선택',
+    items: [{ name: '요식업' }],
   },
   // {
   //   name: 'best',
   //   displayName: '베스트글',
   // },
   {
-    name: 'free',
-    displayName: '자유',
+    name: '자유',
   },
   {
-    name: 'humor',
-    displayName: '유머',
+    name: '유머',
   },
   {
-    name: 'govermentSupport',
-    displayName: '정부지원',
+    name: '정부지원',
   },
 ];

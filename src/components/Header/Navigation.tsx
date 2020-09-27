@@ -30,7 +30,7 @@ export default observer(function Navigation(): JSX.Element {
               handleSetGroup(item.name);
             }}
           >
-            {item.displayName}
+            {item.name}
           </Item>
         ))}
       </List>
