@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
 import React from 'react';
 
 import { article, observer, useStore } from '../stores';
@@ -20,16 +19,20 @@ export default observer(function HomePage(): JSX.Element {
     return articles.filter((article) => article.group === 'humor');
   }, [articles]);
 
+  const govermentSupportArticles = React.useMemo(() => {
+    return articles.filter((article) => article.group === 'govermentSupport');
+  }, [articles]);
+
   const handleChangeIndex = React.useCallback((index: number) => {
     article.groupIndex = index;
-    // setGroupIndex(index);
   }, []);
 
   return (
     <Carousel index={groupIndex} onChangeIndex={handleChangeIndex}>
       <ArticleList articles={articles} />
-      <ArticleList articles={humorArticles} />
       <ArticleList articles={freeArticles} />
+      <ArticleList articles={humorArticles} />
+      <ArticleList articles={govermentSupportArticles} />
     </Carousel>
   );
 });
