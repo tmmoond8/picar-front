@@ -53,7 +53,7 @@ export default function Craousel(props: CraouselProps): JSX.Element {
         adaptive={false}
         zIndex={2000}
         bound={false}
-        overflow={false}
+        overflow={true}
         hanger={'50%'}
         anchor={'50%'}
         gap={0}
