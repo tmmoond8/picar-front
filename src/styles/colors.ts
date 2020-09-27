@@ -3,6 +3,7 @@ export default {
   black: '#000000',
   black50: '#080d1f',
   black100: '#1f1f1f',
+  black33: '#333333',
   black66: '#666666',
   black99: '#999999',
   blackBF: '#bfbfbf',

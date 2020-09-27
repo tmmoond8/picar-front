@@ -30,5 +30,9 @@ export default observer(function ArticlePage(): JSX.Element {
       } catch (error) {}
     })();
   }, [articleId, history]);
-  return <Article article={article} />;
+  return (
+    <React.Fragment>
+      {article && <Article article={article as any} />}
+    </React.Fragment>
+  );
 });
