@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import GlobalStyles from './styles/globalStyles';
-import Articles from './pages/HomePage';
+import * as Pages from './pages';
 import Header from './components/Header';
 
 function App() {
@@ -14,11 +14,11 @@ function App() {
         <Page>
           <Header />
           <Switch>
-            <Route path="/article">
-              <Articles />
+            <Route path="/article/:articleId">
+              <Pages.ArticlePage />
             </Route>
             <Route path="/">
-              <Articles />
+              <Pages.HomePage />
             </Route>
           </Switch>
         </Page>

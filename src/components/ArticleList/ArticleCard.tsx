@@ -18,7 +18,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   return (
     <Card>
       <Head>
-        <ProfilePhoto src={thumbnail} />
+        <ProfilePhoto src={thumbnail} size={24} />
         <p className="user-name">{name}</p>
         <p className="user-group">{group}</p>
         <p className="article-time">
@@ -53,14 +53,12 @@ const Head = styled.div`
   .user-name {
     margin-left: 11px;
     font-size: 13px;
-    font-weight: 500;
     color: ${colors.black50};
   }
   .user-group {
     position: relative;
     margin-left: 10px;
     font-size: 13px;
-    font-weight: 500;
     color: ${colors.black99};
     &::before {
       content: '·';
@@ -75,7 +73,6 @@ const Head = styled.div`
     flex: 1;
     text-align: right;
     font-size: 13px;
-    font-weight: 500;
     color: ${colors.black99};
   }
 `;
@@ -85,7 +82,6 @@ const Body = styled.div`
 
   .article-title {
     font-size: 17px;
-    font-weight: 500;
     line-height: 24px;
     color: ${colors.black100};
     overflow: hidden;

@@ -18,7 +18,12 @@ const customReset = css`
     border: none;
     outline: none;
   }
+
+  .owner * {
+    line-height: normal;
+  }
   * {
+    font-weight: 500;
     box-sizing: border-box;
   }
 `;
