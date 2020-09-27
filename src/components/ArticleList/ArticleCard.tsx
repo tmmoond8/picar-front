@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
+
 import Article from '../../types/Article';
 import ProfilePhoto from '../ProfilePhoto';
 import { Profile } from '../../types/User';
@@ -12,7 +12,7 @@ import { colors } from '../../styles';
 
 type ArticleCardProps = Article;
 
-export default function ArticleCard(props: Article): JSX.Element {
+export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   const { title, content, author, createAt } = props;
   const { thumbnail, name, group } = author as Profile;
   return (
