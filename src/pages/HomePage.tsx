@@ -1,12 +1,35 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { observer, useStore } from '../stores';
+import styled from '@emotion/styled';
+import React from 'react';
+
+import { article, observer, useStore } from '../stores';
 import ArticleList from '../components/ArticleList';
+import Carousel from '../components/Carousel';
 
 export default observer(function HomePage(): JSX.Element {
   const {
-    article: { articles },
+    article: { articles, groupIndex },
   } = useStore();
 
-  return <ArticleList articles={articles} />;
+  const freeArticles = React.useMemo(() => {
+    return articles.filter((article) => article.group === 'free');
+  }, [articles]);
+
+  const humorArticles = React.useMemo(() => {
+    return articles.filter((article) => article.group === 'humor');
+  }, [articles]);
+
+  const handleChangeIndex = React.useCallback((index: number) => {
+    article.groupIndex = index;
+    // setGroupIndex(index);
+  }, []);
+
+  return (
+    <Carousel index={groupIndex} onChangeIndex={handleChangeIndex}>
+      <ArticleList articles={articles} />
+      <ArticleList articles={humorArticles} />
+      <ArticleList articles={freeArticles} />
+    </Carousel>
+  );
 });

@@ -2,7 +2,10 @@
   "name": "owner-front",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4000",
   "dependencies": {
+    "@egjs/flicking": "^3.5.1",
+    "@egjs/react-flicking": "^3.3.1",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@testing-library/jest-dom": "^4.2.4",

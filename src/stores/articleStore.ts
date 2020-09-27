@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
 import { navigations } from '../types/constants';
@@ -18,7 +18,7 @@ class ArticleStore implements ArticleStoreInterface {
   constructor() {
     this.bestArticles = [];
     this.articles = [];
-    this.selectedGroup = navigations[1].name;
+    this.selectedGroup = navigations[0].name;
     this.fetch();
   }
 
@@ -35,16 +35,14 @@ class ArticleStore implements ArticleStoreInterface {
 
   @computed
   get groupIndex() {
-    let foundIndex = navigations.findIndex(
-      ({ name }) => name === this.selectedGroup,
+    return Math.max(
+      navigations.findIndex(({ name }) => name === this.selectedGroup),
+      0,
     );
-    if (foundIndex) {
-      return foundIndex;
-    }
-    foundIndex = (navigations[0] as any).items.findIndex(
-      (subNav: any) => subNav.name === this.selectedGroup,
-    );
-    return foundIndex;
+  }
+
+  set groupIndex(index: number) {
+    this.selectedGroup = navigations[index].name;
   }
 }
 

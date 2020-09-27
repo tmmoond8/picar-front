@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
+
 import Article from '../../types/Article';
 import ArticleCard from './ArticleCard';
 import { colors } from '../../styles';
@@ -22,6 +22,7 @@ export default function ArticleList(props: ArticleListProps): JSX.Element {
 }
 
 const Self = styled.ol`
+  width: 100%;
   height: 100%;
   background: ${colors.blackF5F6F7};
   li + li {
