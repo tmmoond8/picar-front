@@ -16,28 +16,35 @@ export default function ArticleBody(props: ArticleBodyProps): JSX.Element {
     <Self>
       <Title>{title}</Title>
       <Content>{content}</Content>
-      <Image src="https://pelicana.co.kr/resources/images/menu/hotdevil_menu_200623.jpg" />
+      <ImageWrapper>
+        <Image src="https://pelicana.co.kr/resources/images/menu/hotdevil_menu_200623.jpg" />
+      </ImageWrapper>
     </Self>
   );
 }
 
-const Self = styled.div``;
+const Self = styled.div`
+  padding: 10px 18px;
+`;
 const Title = styled.h1`
-  margin: 10px 18px 0;
   font-size: 18px;
   color: ${colors.black100};
   line-height: 26px;
 `;
 
 const Content = styled.p`
-  margin: 24px 18px 0;
+  margin: 24px 0 0 0;
   font-size: 16px;
   color: ${colors.black33};
   line-height: 24px;
 `;
 
+const ImageWrapper = styled.div`
+  margin: 37px -18px 0 -18px;
+  width: auto;
+`;
+
 const Image = styled.img`
-  margin: 37px 0 0 0;
   width: 100%;
   height: auto;
 `;
