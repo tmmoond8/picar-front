@@ -5,6 +5,7 @@ import React from 'react';
 
 import ArticleHead from './ArticleHead';
 import ArticleBody from './ArticleBody';
+import ArticleFooter from './ArticleFooter';
 import IArticle from '../../types/Article';
 
 interface ArticleProps {
@@ -25,6 +26,12 @@ export default function Article(props: ArticleProps): JSX.Element {
             createdDate={article.createAt}
           />
           <ArticleBody title={title} content={content} />
+          <ArticleFooter
+            viewCount={1004}
+            commentCount={12}
+            sympathyCount={12}
+            emojiHappy={4}
+          />
         </Self>
       )}
     </React.Fragment>
