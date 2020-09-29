@@ -17,7 +17,37 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
           group="요식업"
           createAt="2020.09.24"
           content="저 오늘까지만 하겠습니다"
-        ></Comment>
+        />
+        <Comment
+          authorId="ajsshdhdud"
+          name="두올아이"
+          group="요식업"
+          createAt="2020.09.24"
+          content="권리금 알려주세요.. 그리고 본사홈페이지를 찾을 수 없는데 혹시 주소가 바뀌었나요?"
+        >
+          <Comment
+            authorId="dhsd9ds9hd"
+            name="인천아사"
+            group="요식업"
+            createAt="2020.09.24"
+            content="아뇨 주소는 그대로입니다."
+          />
+          <Comment
+            authorId="dis8s"
+            name="예비사장"
+            group="요식업"
+            createAt="2020.09.24"
+            content="저도 부탁드립니다."
+          />
+        </Comment>
+
+        <Comment
+          authorId="dhd88d"
+          name="서울맘마뭄"
+          group="요식업"
+          createAt="2020.09.24"
+          content="권리금 쪽지 부탁드립니다."
+        />
       </ol>
     </Area>
   );

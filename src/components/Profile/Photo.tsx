@@ -32,7 +32,9 @@ export default function ProfilePhoto(props: ProfilePhotoProps): JSX.Element {
 
 const Photo = styled.div<{ src: string; size: number }>`
   width: ${(p) => p.size}px;
+  min-width: ${(p) => p.size}px;
   height: ${(p) => p.size}px;
+  min-height: ${(p) => p.size}px;
   border-radius: ${(p) => p.size / 3}px;
   background: url(${(p) => p.src});
   background-size: contain;

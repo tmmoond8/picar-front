@@ -42,6 +42,9 @@ export default function Comment(props: CommentProps): JSX.Element {
 
 const StyledComment = styled.li`
   display: flex;
+  min-height: 107px;
+  padding-top: 14px;
+  box-shadow: inset 0 -1px 0 0 ${colors.blackF5F6F7};
 `;
 
 const ProfilePhoto = styled(Profile.Photo)`
