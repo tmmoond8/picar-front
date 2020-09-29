@@ -3,8 +3,8 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import Article from '../../types/Article';
-import ProfilePhoto from '../ProfilePhoto';
-import { Profile } from '../../types/User';
+import Profile from '../Profile';
+import { Profile as IProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
 
@@ -14,13 +14,12 @@ type ArticleCardProps = Article;
 
 export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   const { title, content, author, createAt } = props;
-  const { thumbnail, name, group } = author as Profile;
+  const { thumbnail, name, group } = author as IProfile;
   return (
     <Card>
       <Head>
         <ProfilePhoto src={thumbnail} size={24} />
-        <p className="user-name">{name}</p>
-        <p className="user-group">{group}</p>
+        <Profile.Who name={name} group={group} />
         <p className="article-time">
           {new Date(createAt).toLocaleDateString()}
         </p>
@@ -50,31 +49,16 @@ const Head = styled.div`
   align-items: center;
   height: 24px;
 
-  .user-name {
-    margin-left: 11px;
-    font-size: 13px;
-    color: ${colors.black50};
-  }
-  .user-group {
-    position: relative;
-    margin-left: 10px;
-    font-size: 13px;
-    color: ${colors.black99};
-    &::before {
-      content: '·';
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      left: -8px;
-      top: 0px;
-    }
-  }
   .article-time {
     flex: 1;
     text-align: right;
     font-size: 13px;
     color: ${colors.black99};
   }
+`;
+
+const ProfilePhoto = styled(Profile.Photo)`
+  margin-right: 8px;
 `;
 
 const Body = styled.div`
