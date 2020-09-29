@@ -21,6 +21,8 @@ export default function ProfileWho(props: WhoProps): JSX.Element {
 
 const Who = styled.div`
   display: flex;
+  font-weight: 500;
+
   .user-name {
     font-size: 13px;
     color: ${colors.black50};
