@@ -25,20 +25,22 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
           createAt="2020.09.24"
           content="권리금 알려주세요.. 그리고 본사홈페이지를 찾을 수 없는데 혹시 주소가 바뀌었나요?"
         >
-          <Comment
-            authorId="dhsd9ds9hd"
-            name="인천아사"
-            group="요식업"
-            createAt="2020.09.24"
-            content="아뇨 주소는 그대로입니다."
-          />
-          <Comment
-            authorId="dis8s"
-            name="예비사장"
-            group="요식업"
-            createAt="2020.09.24"
-            content="저도 부탁드립니다."
-          />
+          <ReplyList>
+            <Comment
+              authorId="dhsd9ds9hd"
+              name="인천아사"
+              group="요식업"
+              createAt="2020.09.24"
+              content="아뇨 주소는 그대로입니다."
+            />
+            <Comment
+              authorId="dis8s"
+              name="예비사장"
+              group="요식업"
+              createAt="2020.09.24"
+              content="저도 부탁드립니다."
+            />
+          </ReplyList>
         </Comment>
 
         <Comment
@@ -63,4 +65,8 @@ const Area = styled.div`
     letter-spacing: -0.25px;
     color: #3e4045;
   }
+`;
+
+const ReplyList = styled.ol`
+  margin-top: 20px;
 `;

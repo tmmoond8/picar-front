@@ -46,6 +46,9 @@ export default function Article(props: ArticleProps): JSX.Element {
 const Self = styled.div``;
 const HR = styled.hr`
   margin: 0;
+  border: 0;
   height: 12px;
+  box-shadow: inset 0 0.5px 0 0 ${colors.blackD9},
+    inset 0 -0.5px 0 0 ${colors.blackD9};
   background-color: ${colors.blackF5F6F7};
 `;
