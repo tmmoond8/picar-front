@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import Comment from './Comment';
+import CommentEditor from './CommentEditor';
 
 interface CommentAreaProps {}
 
@@ -50,6 +51,7 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
           createAt="2020.09.24"
           content="권리금 쪽지 부탁드립니다."
         />
+        <CommentEditor />
       </ol>
     </Area>
   );

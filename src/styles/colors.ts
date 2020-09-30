@@ -11,4 +11,5 @@ export default {
   blackEB: '#ebebeb',
   blackF5F6F7: '#f5f6f7',
   primary: '#2346cf',
+  primary2: '#4467f1',
 };
