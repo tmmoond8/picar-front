@@ -38,7 +38,7 @@ const Editor = styled.div`
     font-size: 15px;
   }
 `;
-const Context = styled.textarea<{ value: string }>`
+const Context = styled.textarea`
   position: relative;
   flex: 1;
   height: 64px;
