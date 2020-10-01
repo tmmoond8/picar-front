@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { colors } from '../styles';
-import { useTextInput } from '../hooks';
+import { useTextInput, useTextarea } from '../hooks';
 import Selector, { useSelector } from '../components/Selector';
 import HR from '../components/HR';
 
@@ -13,6 +13,7 @@ const items = ['자유', '유머', '정부지원', '요식업'];
 export default function WritePage(): JSX.Element {
   const [selected, setSelected] = useSelector(items, '자유');
   const [title, setTitle] = useTextInput('');
+  const [content, setContent] = useTextarea('');
   return (
     <Page>
       <Selector items={items} selected={selected} handleChange={setSelected} />
@@ -22,6 +23,12 @@ export default function WritePage(): JSX.Element {
         placeholder="제목을 입력하세요."
       />
       <HR marginTop={30} />
+      <Content
+        value={content}
+        onChange={setContent}
+        placeholder="내용을 입력하세요."
+      />
+      <HR full />
     </Page>
   );
 }
@@ -43,8 +50,9 @@ const Title = styled.input`
 const Content = styled.textarea`
   position: relative;
   flex: 1;
-  height: 64px;
-  margin: 0 16px;
+  width: 100%;
+  height: 312px;
+  margin-top: 21px;
 
   font-size: 16px;
   font-weight: normal;
