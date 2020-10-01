@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import Article from '../../types/Article';
 import Profile from '../Profile';
@@ -15,6 +16,16 @@ type ArticleCardProps = Article;
 export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   const { title, content, author, createAt } = props;
   const { thumbnail, name, group } = author as IProfile;
+  const handleClickLike = React.useCallback(() => {
+    console.log(title);
+  }, [title]);
+  const handleClickComment = React.useCallback(() => {
+    console.log(title);
+  }, [title]);
+  const handleClickBookmark = React.useCallback(() => {
+    console.log(title);
+  }, [title]);
+
   return (
     <Card>
       <Head>
@@ -29,10 +40,23 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
         <p className="article-content">{content}</p>
       </Body>
       <Bottom>
-        <Button icon={<Icon icon="like" size="18px" />}>공감하기</Button>
-        <Button icon={<Icon icon="chat" size="18px" />}>댓글달기</Button>
+        <Button
+          icon={<Icon icon="like" size="18px" />}
+          onClick={handleClickLike}
+        >
+          공감하기
+        </Button>
+        <Button
+          icon={<Icon icon="chat" size="18px" />}
+          onClick={handleClickComment}
+        >
+          댓글달기
+        </Button>
         <div className="right">
-          <Button icon={<Icon icon="bookmark" size="18px" />} />
+          <Button
+            onClick={handleClickBookmark}
+            icon={<Icon icon="bookmark" size="18px" />}
+          />
         </div>
       </Bottom>
     </Card>

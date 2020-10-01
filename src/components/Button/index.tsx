@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
@@ -7,25 +7,27 @@ import { colors } from '../../styles';
 interface ButtonProps {
   icon?: React.ReactNode;
   children?: React.ReactNode;
+  onClick: () => void;
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
   const { icon, children } = props;
   return (
-    <Self>
+    <StyledButton>
       {icon && icon}
       {children && <span>{children}</span>}
-    </Self>
+    </StyledButton>
   );
 }
 
-const Self = styled.button`
+const StyledButton = styled.button`
   display: flex;
   align-items: center;
   height: 28px;
 
   border-radius: 4px;
   border: solid 1px ${colors.blackEB};
+
   span {
     margin-left: 6px;
     font-size: 13px;
