@@ -14,6 +14,9 @@ function App() {
         <Page>
           <Header />
           <Switch>
+            <Route path="/article/write">
+              <Pages.WritePage />
+            </Route>
             <Route path="/article/:articleId">
               <Pages.ArticlePage />
             </Route>
