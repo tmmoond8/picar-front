@@ -70,12 +70,12 @@ export default function Craousel(props: CraouselProps): JSX.Element {
 const Self = styled.div`
   height: 100%;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
 
   & > div,
   & > div > div {
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
   }
 `;
