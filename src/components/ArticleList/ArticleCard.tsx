@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Article from '../../types/Article';
 import Profile from '../Profile';
@@ -14,8 +15,9 @@ import { colors } from '../../styles';
 type ArticleCardProps = Article;
 
 export default function ArticleCard(props: ArticleCardProps): JSX.Element {
-  const { title, content, author, createAt } = props;
+  const { title, content, author, createAt, id } = props;
   const { thumbnail, name, group } = author as IProfile;
+  const history = useHistory();
   const handleClickLike = React.useCallback(() => {
     console.log(title);
   }, [title]);
@@ -26,6 +28,10 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
     console.log(title);
   }, [title]);
 
+  const handleClickArticle = React.useCallback(() => {
+    history.push(`/article/${id}`);
+  }, [history, id]);
+
   return (
     <Card>
       <Head>
@@ -35,7 +41,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
           {new Date(createAt).toLocaleDateString()}
         </p>
       </Head>
-      <Body>
+      <Body onClick={handleClickArticle}>
         <p className="article-title">{title}</p>
         <p className="article-content">{content}</p>
       </Body>
@@ -87,6 +93,7 @@ const ProfilePhoto = styled(Profile.Photo)`
 
 const Body = styled.div`
   padding: 16px 0;
+  cursor: pointer;
 
   .article-title {
     font-size: 17px;
