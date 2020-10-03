@@ -5,14 +5,19 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
 import Header from './components/Header';
+import { useStore, observer } from './stores';
 
 function App() {
+  const {
+    ui: { header },
+  } = useStore();
+
   return (
     <React.Fragment>
       <GlobalStyles />
       <Router>
-        <Page>
-          <Header />
+        <Page headerHeight={header.height}>
+          <Header {...header} />
           <Switch>
             <Route path="/article/write">
               <Pages.WritePage />
@@ -30,9 +35,9 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
 
-const Page = styled.div`
-  padding: 56px 0 0 0;
+const Page = styled.div<{ headerHeight: number }>`
+  padding-top: ${(p) => p.headerHeight}px;
   height: 100%;
 `;

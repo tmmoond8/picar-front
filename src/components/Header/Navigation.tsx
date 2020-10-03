@@ -9,8 +9,11 @@ import { colors } from '../../styles';
 
 import { navigations } from '../../types/constants';
 
-export default observer(function Navigation(): JSX.Element {
-  const { article } = useStore();
+function Navigation(): JSX.Element {
+  const {
+    article,
+    ui: { header },
+  } = useStore();
 
   const handleSetGroup = React.useCallback(
     (selected: string) => {
@@ -20,7 +23,7 @@ export default observer(function Navigation(): JSX.Element {
   );
 
   return (
-    <Self>
+    <Self headerHeight={header?.height || 0}>
       <List>
         {navigations.map((item) => (
           <Item
@@ -36,12 +39,16 @@ export default observer(function Navigation(): JSX.Element {
       </List>
     </Self>
   );
-});
+}
 
-const Self = styled.nav`
+Navigation.type = 'Navition';
+
+export default observer(Navigation);
+
+const Self = styled.nav<{ headerHeight: number }>`
   display: flex;
   align-items: center;
-  height: 56px;
+  height: ${(p) => p.headerHeight}px;
   width: 100%;
   box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6);
 `;

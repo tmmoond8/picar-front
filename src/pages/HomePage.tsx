@@ -7,7 +7,8 @@ import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
 
 export default observer(function HomePage(): JSX.Element {
-  const { article } = useStore();
+  const { article, ui } = useStore();
+  ui.setHeaderNavigation();
   const { articles, groupIndex } = article;
 
   const freeArticles = React.useMemo(() => {

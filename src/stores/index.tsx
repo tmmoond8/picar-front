@@ -5,15 +5,19 @@ import {
   observer as _observer,
 } from 'mobx-react';
 import ArticleStore, { ArticleStoreInterface } from './articleStore';
+import UiStroe, { UiStoreInterface } from './uiStore';
 
 export interface Stores {
   article: ArticleStoreInterface;
+  ui: UiStoreInterface;
 }
 
 export const article = new ArticleStore();
+export const ui = new UiStroe();
 
 const rootStore: Stores = {
   article,
+  ui,
 };
 
 export const MobxProvider = (props: { children: ReactNode }): JSX.Element => (
