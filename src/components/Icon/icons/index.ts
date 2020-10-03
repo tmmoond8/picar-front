@@ -7,3 +7,4 @@ export { ReactComponent as emojiSmile } from './emoji-smile.svg';
 export { ReactComponent as chatOutline } from './chat-outline.svg';
 export { ReactComponent as externalLink } from './external-link.svg';
 export { ReactComponent as image } from './image.svg';
+export { ReactComponent as back } from './back.svg';

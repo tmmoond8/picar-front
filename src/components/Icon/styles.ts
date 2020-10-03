@@ -21,6 +21,7 @@ export const customStyle = (p: { color?: string }): SerializedStyles => css`
 
 export const size = (size: string): SerializedStyles => css`
   width: ${size};
+  max-width: ${size};
   min-height: ${size};
   & > svg {
     width: ${size};
