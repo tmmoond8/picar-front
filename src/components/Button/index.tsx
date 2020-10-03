@@ -11,9 +11,9 @@ interface ButtonProps {
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
-  const { icon, children } = props;
+  const { icon, children, onClick } = props;
   return (
-    <StyledButton>
+    <StyledButton onClick={onClick}>
       {icon && icon}
       {children && <span>{children}</span>}
     </StyledButton>

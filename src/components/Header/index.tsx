@@ -7,7 +7,7 @@ import React from 'react';
 
 export const headerType = {
   Navigation: 'Navigation' as 'Navigation',
-  // Normal: 'Normal' as 'Normal',
+  Back: 'Back' as 'Back',
   None: 'None' as 'None',
 };
 
@@ -16,6 +16,10 @@ const getHeader = (type: keyof typeof headerType | undefined) => {
     case headerType.Navigation: {
       const Navigation = require('./Navigation').default;
       return <Navigation />;
+    }
+    case headerType.Back: {
+      const Back = require('./Back').default;
+      return <Back />;
     }
     default: {
       return <React.Fragment />;
@@ -34,21 +38,19 @@ export const initalHeader: HeaderProps = {
   height: 0,
 };
 
-export default function Header(props: HeaderProps): JSX.Element {
+export default React.memo(function Header(props: HeaderProps): JSX.Element {
   const { type, height } = props;
 
   const CurrentHeader = React.useMemo(() => {
     return getHeader(type);
   }, [type]);
 
-  console.log(CurrentHeader);
-
   return (
     <React.Fragment>
       <Self headerHeight={height}>{CurrentHeader}</Self>
     </React.Fragment>
   );
-}
+});
 
 const Self = styled.header<{ headerHeight: number }>`
   position: fixed;

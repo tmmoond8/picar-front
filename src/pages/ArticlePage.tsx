@@ -8,11 +8,28 @@ import { observer, useStore } from '../stores';
 import Article from '../components/Article';
 import APIS from '../apis';
 
+import Icon from '../components/Icon';
+import { colors } from '../styles';
+
 interface ArticlePageParams {
   articleId: string;
 }
 
 export default observer(function ArticlePage(): JSX.Element {
+  const { ui } = useStore();
+  const handleClickBookmark = () => {
+    console.log('bookmark');
+  };
+  ui.setHeaderBack({
+    right: (
+      <Icon
+        color={colors.black100}
+        icon="bookmark"
+        size="24px"
+        onClick={handleClickBookmark}
+      />
+    ),
+  });
   const { articleId } = useParams<ArticlePageParams>();
   const history = useHistory();
   const [article, setArticle] = React.useState(null);

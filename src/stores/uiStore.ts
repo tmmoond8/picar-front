@@ -5,6 +5,7 @@ export interface UiStoreInterface {
   header: HeaderProps;
   setHeaderNavigation: () => void;
   setHeaderNone: () => void;
+  setHeaderBack: (options: Record<string, any>) => void;
 }
 
 class UiStore implements UiStoreInterface {
@@ -27,6 +28,15 @@ class UiStore implements UiStoreInterface {
     this.header = {
       type: headerType.None,
       height: 0,
+    };
+  }
+
+  @action
+  setHeaderBack(options: Record<string, any>) {
+    this.header = {
+      type: headerType.Back,
+      height: 56,
+      options,
     };
   }
 }
