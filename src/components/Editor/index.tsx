@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import Uploader from './Uploader';
+import Image from './Image';
 import { colors } from '../../styles';
 
 const SendButton = styled.button`
@@ -61,4 +63,6 @@ export default {
   Title,
   Content,
   Tools,
+  Uploader,
+  Image,
 };

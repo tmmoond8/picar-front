@@ -1,16 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { colors } from '../styles';
 import { useTextarea } from '../hooks';
 import Selector, { useSelector } from '../components/Selector';
-import Button from '../components/Button';
+
 import HR from '../components/HR';
-import Icon from '../components/Icon';
-import Editor from '../components//Editor';
+import Editor from '../components/Editor';
 import { observer, useStore } from '../stores';
 import API from '../apis';
 
@@ -22,6 +19,8 @@ export default observer(function WritePage(): JSX.Element {
   const [selected, setSelected] = useSelector(dummySelect, '자유');
   const [title, setTitle] = useTextarea('');
   const [content, setContent] = useTextarea('');
+  const [uploadedUrl, setUploadedUrl] = React.useState('');
+  const [preUploadUrl, setPreUploadUrl] = React.useState('');
 
   const handleClickPost = React.useCallback(async () => {
     try {
@@ -41,9 +40,10 @@ export default observer(function WritePage(): JSX.Element {
 
   ui.setHeaderClose({});
 
-  const handleClickImage = React.useCallback(() => {
-    console.log(title);
-  }, [title]);
+  const handleImageClear = React.useCallback(() => {
+    setUploadedUrl('');
+    setPreUploadUrl('');
+  }, [setUploadedUrl, setPreUploadUrl]);
 
   return (
     <Editor.Page>
@@ -59,12 +59,19 @@ export default observer(function WritePage(): JSX.Element {
         onChange={setContent}
         placeholder="내용을 입력하세요."
       />
+      {preUploadUrl && (
+        <Editor.Image
+          uploadedUrl={uploadedUrl}
+          preUploadUrl={preUploadUrl}
+          clear={handleImageClear}
+        />
+      )}
       <HR full />
       <Editor.Tools>
-        <Button
-          onClick={handleClickImage}
-          icon={<Icon icon="image" size="24px" />}
-        ></Button>
+        <Editor.Uploader
+          setUploadedUrl={setUploadedUrl}
+          setPreUploadUrl={setPreUploadUrl}
+        />
       </Editor.Tools>
       <Editor.SendButton onClick={handleClickPost}>게시</Editor.SendButton>
     </Editor.Page>
