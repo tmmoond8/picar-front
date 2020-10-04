@@ -7,12 +7,11 @@ import { colors } from '../../styles';
 
 interface SelectorProps {
   items: string[];
-  selected: string;
   handleChange: (value: string) => void;
 }
 
 export default function Selector(props: SelectorProps): JSX.Element {
-  const { items, handleChange, selected } = props;
+  const { items, handleChange } = props;
 
   const handleChangeSelect = React.useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
@@ -23,9 +22,7 @@ export default function Selector(props: SelectorProps): JSX.Element {
   return (
     <StyledSelector onChange={handleChangeSelect}>
       {items.map((item) => (
-        <option value={item} selected={selected === item}>
-          {item}
-        </option>
+        <option value={item}>{item}</option>
       ))}
     </StyledSelector>
   );

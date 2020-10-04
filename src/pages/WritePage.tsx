@@ -36,11 +36,7 @@ export default function WritePage(): JSX.Element {
   }, [title]);
   return (
     <Page>
-      <Selector
-        items={dummy.items}
-        selected={selected}
-        handleChange={setSelected}
-      />
+      <Selector items={dummy.items} handleChange={setSelected} />
       <Title
         value={title}
         onChange={setTitle}
