@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
+import styled from '@emotion/styled';
 
 import { observer, useStore } from '../stores';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
+import MenuBar from '../components/MenuBar';
 
 export default observer(function HomePage(): JSX.Element {
   const { article, ui } = useStore();
@@ -31,11 +33,19 @@ export default observer(function HomePage(): JSX.Element {
   );
 
   return (
-    <Carousel index={groupIndex} onChangeIndex={handleChangeIndex}>
-      <ArticleList articles={articles} />
-      <ArticleList articles={freeArticles} />
-      <ArticleList articles={humorArticles} />
-      <ArticleList articles={govermentSupportArticles} />
-    </Carousel>
+    <Wrapper>
+      <Carousel index={groupIndex} onChangeIndex={handleChangeIndex}>
+        <ArticleList articles={articles} />
+        <ArticleList articles={freeArticles} />
+        <ArticleList articles={humorArticles} />
+        <ArticleList articles={govermentSupportArticles} />
+      </Carousel>
+      <MenuBar />
+    </Wrapper>
   );
 });
+
+const Wrapper = styled.main`
+  height: 100%;
+  padding-bottom: 56px;
+`;
