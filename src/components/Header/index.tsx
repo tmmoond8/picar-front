@@ -8,6 +8,7 @@ import React from 'react';
 export const headerType = {
   Navigation: 'Navigation' as 'Navigation',
   Back: 'Back' as 'Back',
+  Close: 'Close' as 'Close',
   None: 'None' as 'None',
 };
 
@@ -20,6 +21,10 @@ const getHeader = (type: keyof typeof headerType | undefined) => {
     case headerType.Back: {
       const Back = require('./Back').default;
       return <Back />;
+    }
+    case headerType.Close: {
+      const Close = require('./Close').default;
+      return <Close />;
     }
     default: {
       return <React.Fragment />;

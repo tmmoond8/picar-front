@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { colors } from '../styles';
 import { useTextarea } from '../hooks';
@@ -9,34 +10,43 @@ import Selector, { useSelector } from '../components/Selector';
 import Button from '../components/Button';
 import HR from '../components/HR';
 import Icon from '../components/Icon';
+import { observer, useStore } from '../stores';
+import API from '../apis';
 
-const dummy = {
-  items: ['자유', '유머', '정부지원', '요식업'],
-  title:
-    '가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하',
-  content: `이번주 대목을 앞두고 장사를 말아먹었거든요.
-  오늘 출근하셨는데 담배만 스무대 피시고 표정이 안좋아보이세요
-  어떻게 해야 될까요? 웃겨드릴려고 별짓을 다 해봤는데 효과가 없어요
-  가만히 있을까요? 우울해요
-  으
-  아
-  아
-  아
-  아
-  아
-  아`,
-};
+const dummySelect = ['자유', '유머', '정부지원', '요식업'];
 
-export default function WritePage(): JSX.Element {
-  const [selected, setSelected] = useSelector(dummy.items, '자유');
-  const [title, setTitle] = useTextarea(dummy.title);
-  const [content, setContent] = useTextarea(dummy.content);
+export default observer(function WritePage(): JSX.Element {
+  const history = useHistory();
+  const { ui, article } = useStore();
+  const [selected, setSelected] = useSelector(dummySelect, '자유');
+  const [title, setTitle] = useTextarea('');
+  const [content, setContent] = useTextarea('');
+
+  const handleClickPost = React.useCallback(async () => {
+    try {
+      const { data } = await API.article.post({
+        title,
+        content,
+        group: selected,
+      });
+
+      article.articles = [...article.articles, data.article];
+      history.goBack();
+      history.replace('/');
+    } catch (error) {
+      console.error(error);
+    }
+  }, [title, content, selected, article.articles, history]);
+
+  ui.setHeaderClose({});
+
   const handleClickImage = React.useCallback(() => {
     console.log(title);
   }, [title]);
+
   return (
     <Page>
-      <Selector items={dummy.items} handleChange={setSelected} />
+      <Selector items={dummySelect} handleChange={setSelected} />
       <Title
         value={title}
         onChange={setTitle}
@@ -55,9 +65,17 @@ export default function WritePage(): JSX.Element {
           icon={<Icon icon="image" size="24px" />}
         ></Button>
       </Tools>
+      <SendButton onClick={handleClickPost}>게시</SendButton>
     </Page>
   );
-}
+});
+
+const SendButton = styled.button`
+  position: fixed;
+  right: 18px;
+  top: 18px;
+  font-size: 16px;
+`;
 
 const Page = styled.section`
   padding: 24px 18px 34px;

@@ -8,26 +8,26 @@ import { useStore } from '../../stores';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 
-export default function Back(): JSX.Element {
+export default function Close(): JSX.Element {
   const { article, ui } = useStore();
   const headerOptions = ui.header.options;
   const history = useHistory();
 
   return (
-    <StyledBack headerHeight={ui.header?.height || 0}>
-      <h2 className="title">{headerOptions?.title || ''}</h2>
+    <StyledClose headerHeight={ui.header?.height || 0}>
+      <h2 className="title">글 쓰기</h2>
       <Icon
-        icon="back"
+        icon="close"
         size="24px"
         color={colors.black100}
         onClick={() => history.goBack()}
       />
       <div className="right">{headerOptions?.right}</div>
-    </StyledBack>
+    </StyledClose>
   );
 }
 
-const StyledBack = styled.nav<{ headerHeight: number }>`
+const StyledClose = styled.nav<{ headerHeight: number }>`
   position: relative;
   height: ${(p) => p.headerHeight}px;
   width: 100%;

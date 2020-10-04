@@ -12,3 +12,4 @@ export { ReactComponent as edit } from './edit.svg';
 export { ReactComponent as package } from './package.svg';
 export { ReactComponent as search } from './search.svg';
 export { ReactComponent as user } from './user.svg';
+export { ReactComponent as close } from './close.svg';
