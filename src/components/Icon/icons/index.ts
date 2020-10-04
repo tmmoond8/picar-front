@@ -8,3 +8,7 @@ export { ReactComponent as chatOutline } from './chat-outline.svg';
 export { ReactComponent as externalLink } from './external-link.svg';
 export { ReactComponent as image } from './image.svg';
 export { ReactComponent as back } from './back.svg';
+export { ReactComponent as edit } from './edit.svg';
+export { ReactComponent as package } from './package.svg';
+export { ReactComponent as search } from './search.svg';
+export { ReactComponent as user } from './user.svg';
