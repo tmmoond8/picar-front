@@ -2,11 +2,12 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useParams, useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
 import APIS from '../apis';
+import { useInitBefore } from '../hooks';
 
 import Icon from '../components/Icon';
 import { colors } from '../styles';
@@ -30,23 +31,24 @@ export default observer(function ArticlePage(): JSX.Element {
       />
     ),
   });
-  const { articleId } = useParams<ArticlePageParams>();
   const history = useHistory();
   const [article, setArticle] = React.useState(null);
+  const fetch = React.useCallback(async () => {
+    try {
+      const {
+        data: { data },
+      } = await APIS.article.get(
+        window.location.pathname.split('/').pop() as string,
+      );
+      if (!data) {
+        history.goBack();
+      }
+      setArticle(data);
+    } catch (error) {}
+  }, [history]);
 
-  React.useEffect(() => {
-    (async function fetch() {
-      try {
-        const {
-          data: { data },
-        } = await APIS.article.get(articleId);
-        if (!data) {
-          history.goBack();
-        }
-        setArticle(data);
-      } catch (error) {}
-    })();
-  }, [articleId, history]);
+  useInitBefore(fetch);
+
   return (
     <React.Fragment>
       {article && <Article article={article as any} />}
