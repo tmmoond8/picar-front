@@ -28,7 +28,11 @@ export default function Article(props: ArticleProps): JSX.Element {
             group={author.group}
             createdDate={article.createAt}
           />
-          <ArticleBody title={title} content={content} />
+          <ArticleBody
+            title={title}
+            content={content}
+            photos={article.photos}
+          />
           <ArticleFooter
             viewCount={1004}
             commentCount={12}

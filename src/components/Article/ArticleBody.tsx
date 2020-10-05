@@ -8,17 +8,20 @@ import { colors } from '../../styles';
 interface ArticleBodyProps {
   title: string;
   content: string;
+  photos: string | null;
 }
 
 export default function ArticleBody(props: ArticleBodyProps): JSX.Element {
-  const { title, content } = props;
+  const { title, content, photos } = props;
   return (
     <Self>
       <Title>{title}</Title>
       <Content>{content}</Content>
-      <ImageWrapper>
-        <Image src="https://pelicana.co.kr/resources/images/menu/hotdevil_menu_200623.jpg" />
-      </ImageWrapper>
+      {photos && (
+        <ImageWrapper>
+          <Image src={photos} />
+        </ImageWrapper>
+      )}
     </Self>
   );
 }

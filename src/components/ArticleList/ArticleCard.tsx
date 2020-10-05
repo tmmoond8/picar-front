@@ -15,7 +15,7 @@ import { colors } from '../../styles';
 type ArticleCardProps = Article;
 
 export default function ArticleCard(props: ArticleCardProps): JSX.Element {
-  const { title, content, author, createAt, id } = props;
+  const { title, content, author, createAt, id, photos } = props;
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
   const handleClickLike = React.useCallback(() => {
@@ -42,8 +42,11 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
         </p>
       </Head>
       <Body onClick={handleClickArticle}>
-        <p className="article-title">{title}</p>
-        <p className="article-content">{content}</p>
+        <div>
+          <p className="article-title">{title}</p>
+          <p className="article-content">{content}</p>
+        </div>
+        {photos && <Thumbnail src={photos} />}
       </Body>
       <Bottom>
         <Button
@@ -92,6 +95,7 @@ const ProfilePhoto = styled(Profile.Photo)`
 `;
 
 const Body = styled.div`
+  display: flex;
   padding: 16px 0;
   cursor: pointer;
 
@@ -117,6 +121,14 @@ const Body = styled.div`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+`;
+
+const Thumbnail = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 2px;
+  object-fit: contain;
+  margin-left: 16px;
 `;
 
 const Bottom = styled.div`
