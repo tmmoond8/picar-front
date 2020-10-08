@@ -21,6 +21,9 @@ export default function Image(props: ImageProps): JSX.Element {
     <Wrapper isLoading={isLoading}>
       <img src={preUploadUrl} />
       {isLoading && <Loader icon="loading" size="24px" />}
+      <ClearButton onClick={clear}>
+        <Icon icon="close" size="16px" />
+      </ClearButton>
     </Wrapper>
   );
 }
@@ -30,13 +33,15 @@ const Wrapper = styled.figure<{ isLoading: boolean }>`
   width: 72px;
   height: 72px;
   margin: 15px 0;
+  background: ${(p) =>
+    p.isLoading ? 'rgba(51, 51, 51, 0.4)' : 'rgba(51, 51, 51, 0.1)'};
+  border-radius: 4px;
 
   img {
     width: 100%;
     height: 100%;
     border-radius: 4px;
     object-fit: cover;
-    filter: ${(p) => (p.isLoading ? 'brightness(0.8)' : 'none')};
   }
 `;
 
@@ -55,4 +60,17 @@ const Loader = styled(Icon)`
     }
   }
   animation: rotate 1.5s linear infinite;
+`;
+
+const ClearButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -6px;
+  top: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgba(51, 51, 51, 0.8);
 `;

@@ -73,7 +73,7 @@ export default observer(function WritePage(): JSX.Element {
           setPreUploadUrl={setPreUploadUrl}
         />
       </Editor.Tools>
-      <Editor.SendButton onClick={handleClickPost}>게시</Editor.SendButton>
+      <Editor.SendButton onClick={handleClickPost}>작성</Editor.SendButton>
     </Editor.Page>
   );
 });

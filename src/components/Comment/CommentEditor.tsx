@@ -33,7 +33,7 @@ const Editor = styled.div`
   padding: 14px 0;
 
   button {
-    color: ${colors.primary2};
+    color: ${colors.primary4};
     font-weight: 500;
     font-size: 15px;
   }

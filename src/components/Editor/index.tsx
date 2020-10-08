@@ -9,6 +9,7 @@ const SendButton = styled.button`
   right: 18px;
   top: 18px;
   font-size: 16px;
+  color: ${colors.primary};
 `;
 
 const Page = styled.section`

@@ -27,7 +27,6 @@ export default function Uploader(props: UploaderProps) {
         reader.onload = () => setPreUploadUrl(reader!.result!.toString());
 
         const tempImage = await API.imageUpload(files[0]);
-        console.log(tempImage);
         setUploadedUrl(tempImage.imgUrl);
       } catch (error) {
         console.log(error);
