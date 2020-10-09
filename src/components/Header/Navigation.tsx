@@ -37,6 +37,11 @@ function Navigation(): JSX.Element {
   const handleSetGroup = React.useCallback(
     (selected: string) => {
       article.selectedGroup = selected;
+      const moveIndex = Math.max(
+        NAVIGATIONS.findIndex(({ name }) => name === selected),
+        0,
+      );
+      article.flickingMoveTo(moveIndex);
     },
     [article],
   );

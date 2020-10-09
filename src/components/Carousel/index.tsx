@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { useStore, observer } from '../../stores';
 import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
 
@@ -12,19 +13,21 @@ interface CraouselProps {
   onChangeIndex: (i: number) => void;
 }
 
-export default function Craousel(props: CraouselProps): JSX.Element {
+export default observer(function Craousel(props: CraouselProps): JSX.Element {
   const { index, children, onChangeIndex } = props;
+  const { article } = useStore();
   const flickingRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (flickingRef.current) {
-      const cameraEl = (flickingRef.current as any)
-        .cameraElement as HTMLDivElement;
-      cameraEl.style.transform = `translate3d(${
-        -1 * index * window.innerWidth
-      }px, 0px, 0px)`;
+  useEffect(() => {
+    if (flickingRef?.current) {
+      article.flickingMoveTo = (_index: number) => {
+        (flickingRef.current as any).moveTo(
+          _index,
+          Math.abs(index - _index) > 1 ? 0 : 500,
+        );
+      };
     }
-  }, [index]);
+  }, [flickingRef.current, index]);
 
   return (
     <Self className="carousel-contener">
@@ -33,7 +36,7 @@ export default function Craousel(props: CraouselProps): JSX.Element {
         tag="div"
         viewportTag="div"
         cameraTag="div"
-        onMoveEnd={(e: FlickingEvent) => {
+        onChange={(e: FlickingEvent) => {
           onChangeIndex(e.index);
         }}
         classPrefix="eg-flick"
@@ -65,7 +68,7 @@ export default function Craousel(props: CraouselProps): JSX.Element {
       </Flicking>
     </Self>
   );
-}
+});
 
 const Self = styled.div`
   height: 100%;

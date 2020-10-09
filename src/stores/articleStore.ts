@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
 import { NAVIGATIONS, ROUNGE, ROUNGES } from '../types/constants';
@@ -9,6 +9,7 @@ export interface ArticleStoreInterface {
   selectedGroup: string;
   groupIndex: number;
   selectedRounge: string;
+  flickingMoveTo: (index: number) => void;
 }
 
 class ArticleStore implements ArticleStoreInterface {
@@ -16,12 +17,16 @@ class ArticleStore implements ArticleStoreInterface {
   @observable articles: Article[];
   @observable selectedGroup: string;
   @observable selectedRounge: string;
+  @observable flickingMoveTo: (index: number) => void;
 
   constructor() {
     this.bestArticles = [];
     this.articles = [];
     this.selectedGroup = ROUNGE;
     this.selectedRounge = ROUNGES[0].name;
+    this.flickingMoveTo = () => {
+      console.error('flickingMoveTo not initalized');
+    };
     this.fetch();
   }
 
