@@ -17,15 +17,7 @@ interface CommentProps {
 }
 
 export default function Comment(props: CommentProps): JSX.Element {
-  const {
-    authorId,
-    thumbnail,
-    content,
-    name,
-    group,
-    createAt,
-    children,
-  } = props;
+  const { thumbnail, content, name, group, createAt, children } = props;
   return (
     <StyledComment>
       <ProfilePhoto src={thumbnail} />

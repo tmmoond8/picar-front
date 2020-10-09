@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useStore } from '../../stores';
@@ -9,7 +8,7 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 
 export default function Close(): JSX.Element {
-  const { article, ui } = useStore();
+  const { ui } = useStore();
   const headerOptions = ui.header.options;
   const history = useHistory();
 

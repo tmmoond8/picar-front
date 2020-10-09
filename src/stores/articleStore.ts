@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { observable, computed } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
 import { navigations } from '../types/constants';

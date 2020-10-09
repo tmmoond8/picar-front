@@ -19,7 +19,7 @@ export default function Image(props: ImageProps): JSX.Element {
 
   return (
     <Wrapper isLoading={isLoading}>
-      <img src={preUploadUrl} />
+      <img src={preUploadUrl} alt="image for article" />
       {isLoading && <Loader icon="loading" size="24px" />}
       <ClearButton onClick={clear}>
         <Icon icon="close" size="16px" />
