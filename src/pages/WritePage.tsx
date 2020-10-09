@@ -10,13 +10,19 @@ import HR from '../components/HR';
 import Editor from '../components/Editor';
 import { observer, useStore } from '../stores';
 import API from '../apis';
+import { NAVIGATIONS, ROUNGES, ROUNGE } from '../types/constants';
 
-const dummySelect = ['자유', '유머', '정부지원', '요식업'];
+const selects = [
+  ...NAVIGATIONS.filter((navigation) => navigation.name !== ROUNGE).map(
+    (navigation) => navigation.name,
+  ),
+  ...ROUNGES.map((rounge) => rounge.name),
+];
 
 export default observer(function WritePage(): JSX.Element {
   const history = useHistory();
   const { ui, article } = useStore();
-  const [selected, setSelected] = useSelector(dummySelect, '자유');
+  const [selected, setSelected] = useSelector(selects, '자유');
   const [title, setTitle] = useTextarea('');
   const [content, setContent] = useTextarea('');
   const [uploadedUrl, setUploadedUrl] = React.useState('');
@@ -47,7 +53,7 @@ export default observer(function WritePage(): JSX.Element {
 
   return (
     <Editor.Page>
-      <Selector items={dummySelect} handleChange={setSelected} />
+      <Selector items={selects} handleChange={setSelected} />
       <Editor.Title
         value={title}
         onChange={setTitle}
