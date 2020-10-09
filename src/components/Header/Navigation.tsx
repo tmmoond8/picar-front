@@ -4,16 +4,26 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { useStore, observer } from '../../stores';
+import BottomSheet from '../BottomSheet';
 
 import { colors } from '../../styles';
 
 import { navigations } from '../../types/constants';
+import RoungeGrid from '../RoungeGrid';
 
 function Navigation(): JSX.Element {
   const {
     article,
     ui: { header },
   } = useStore();
+
+  const bottomSheet = BottomSheet.useBottomSheet();
+  const handleOpenBottomSheet = React.useCallback(() => {
+    bottomSheet.open({
+      title: '업종 라운지를 선택해 주세요',
+      contents: <RoungeGrid />,
+    });
+  }, [bottomSheet]);
 
   const handleSetGroup = React.useCallback(
     (selected: string) => {
@@ -25,6 +35,7 @@ function Navigation(): JSX.Element {
   return (
     <Self headerHeight={header?.height || 0}>
       <List>
+        <RougeSelector onClick={handleOpenBottomSheet}>선택</RougeSelector>
         {navigations.map((item) => (
           <Item
             selected={item.name === article.selectedGroup}
@@ -69,3 +80,5 @@ const Item = styled.li<{ selected: boolean }>`
   color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};
   cursor: pointer;
 `;
+
+const RougeSelector = styled.li``;

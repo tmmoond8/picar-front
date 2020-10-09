@@ -19,5 +19,4 @@ export default {
   notDimmed: 'rgba(47, 52, 55, 0)',
   dimmed: 'rgba(15, 15, 15, 0.6)',
   bottomSheetContentWrapper: 'rgb(247, 246, 243)',
-  bottomSheetBody: 'rgb(242, 241, 238)',
 };

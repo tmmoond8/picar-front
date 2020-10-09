@@ -101,7 +101,7 @@ const BottomSheetBox = styled.div<{ open: boolean }>`
 const BottomSheetBody = styled.div`
   flex: 1;
   padding: 0;
-  background-color: ${colors.bottomSheetBody};
+  background-color: ${colors.white};
   color: ${colors.black22};
   overflow: scroll;
 `;
