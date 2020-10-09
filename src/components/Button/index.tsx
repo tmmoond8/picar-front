@@ -8,12 +8,13 @@ interface ButtonProps {
   icon?: React.ReactNode;
   children?: React.ReactNode;
   onClick: () => void;
+  className?: string;
 }
 
 export default function Button(props: ButtonProps): JSX.Element {
-  const { icon, children, onClick } = props;
+  const { icon, children, onClick, className } = props;
   return (
-    <StyledButton onClick={onClick}>
+    <StyledButton onClick={onClick} className={className}>
       {icon && icon}
       {children && <span>{children}</span>}
     </StyledButton>
