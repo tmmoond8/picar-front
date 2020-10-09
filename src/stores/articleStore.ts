@@ -1,24 +1,27 @@
 import { observable, computed } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
-import { navigations } from '../types/constants';
+import { NAVIGATIONS, ROUNGE, ROUNGES } from '../types/constants';
 
 export interface ArticleStoreInterface {
   bestArticles: Article[];
   articles: Article[];
   selectedGroup: string;
   groupIndex: number;
+  selectedRounge: string;
 }
 
 class ArticleStore implements ArticleStoreInterface {
   @observable bestArticles: Article[];
   @observable articles: Article[];
   @observable selectedGroup: string;
+  @observable selectedRounge: string;
 
   constructor() {
     this.bestArticles = [];
     this.articles = [];
-    this.selectedGroup = navigations[0].name;
+    this.selectedGroup = ROUNGE;
+    this.selectedRounge = ROUNGES[0].name;
     this.fetch();
   }
 
@@ -36,13 +39,13 @@ class ArticleStore implements ArticleStoreInterface {
   @computed
   get groupIndex() {
     return Math.max(
-      navigations.findIndex(({ name }) => name === this.selectedGroup),
+      NAVIGATIONS.findIndex(({ name }) => name === this.selectedGroup),
       0,
     );
   }
 
   set groupIndex(index: number) {
-    this.selectedGroup = navigations[index].name;
+    this.selectedGroup = NAVIGATIONS[index].name;
   }
 }
 

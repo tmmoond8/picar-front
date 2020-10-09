@@ -1,4 +1,9 @@
-export const navigations = [
+export const ROUNGE = '라운지';
+
+export const NAVIGATIONS = [
+  {
+    name: ROUNGE,
+  },
   {
     name: '자유',
   },
@@ -10,7 +15,7 @@ export const navigations = [
   },
 ];
 
-export const rounges = [
+export const ROUNGES = [
   {
     image:
       'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',

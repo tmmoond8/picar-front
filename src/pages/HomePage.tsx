@@ -13,6 +13,12 @@ export default observer(function HomePage(): JSX.Element {
   ui.setHeaderNavigation();
   const { articles, groupIndex } = article;
 
+  const roungeArticles = React.useMemo(() => {
+    return articles.filter(
+      (_article) => _article.group === article.selectedRounge,
+    );
+  }, [article.selectedRounge, articles]);
+
   const freeArticles = React.useMemo(() => {
     return articles.filter((article) => article.group === '자유');
   }, [articles]);
@@ -35,7 +41,7 @@ export default observer(function HomePage(): JSX.Element {
   return (
     <Wrapper>
       <Carousel index={groupIndex} onChangeIndex={handleChangeIndex}>
-        <ArticleList articles={articles} />
+        <ArticleList articles={roungeArticles} />
         <ArticleList articles={freeArticles} />
         <ArticleList articles={humorArticles} />
         <ArticleList articles={govermentSupportArticles} />

@@ -5,10 +5,11 @@ import React from 'react';
 
 import { useStore, observer } from '../../stores';
 import BottomSheet from '../BottomSheet';
+import Icon from '../Icon';
 
 import { colors } from '../../styles';
 
-import { navigations } from '../../types/constants';
+import { NAVIGATIONS, ROUNGE } from '../../types/constants';
 import RoungeGrid from '../RoungeGrid';
 
 function Navigation(): JSX.Element {
@@ -21,9 +22,17 @@ function Navigation(): JSX.Element {
   const handleOpenBottomSheet = React.useCallback(() => {
     bottomSheet.open({
       title: '업종 라운지를 선택해 주세요',
-      contents: <RoungeGrid />,
+      contents: (
+        <RoungeGrid
+          onClick={(group: string) => {
+            article.selectedRounge = group;
+            article.selectedGroup = ROUNGE;
+            bottomSheet.close();
+          }}
+        />
+      ),
     });
-  }, [bottomSheet]);
+  }, [article.selectedGroup, article.selectedRounge, bottomSheet]);
 
   const handleSetGroup = React.useCallback(
     (selected: string) => {
@@ -35,17 +44,35 @@ function Navigation(): JSX.Element {
   return (
     <Self headerHeight={header?.height || 0}>
       <List>
-        <RougeSelector onClick={handleOpenBottomSheet}>선택</RougeSelector>
-        {navigations.map((item) => (
-          <Item
-            selected={item.name === article.selectedGroup}
-            key={item.name}
-            onClick={() => {
-              handleSetGroup(item.name);
-            }}
-          >
-            {item.name}
-          </Item>
+        {NAVIGATIONS.map((item) => (
+          <React.Fragment>
+            {item.name === ROUNGE ? (
+              <RougeSelector
+                selected={article.selectedGroup === ROUNGE}
+                key={ROUNGE}
+                onClick={() => {
+                  if (article.selectedGroup === ROUNGE) {
+                    handleOpenBottomSheet();
+                  } else {
+                    handleSetGroup(item.name);
+                  }
+                }}
+              >
+                {article.selectedRounge}
+                <Icon icon="dropdown" size="16px" />
+              </RougeSelector>
+            ) : (
+              <Item
+                selected={item.name === article.selectedGroup}
+                key={item.name}
+                onClick={() => {
+                  handleSetGroup(item.name);
+                }}
+              >
+                {item.name}
+              </Item>
+            )}
+          </React.Fragment>
         ))}
       </List>
     </Self>
@@ -81,4 +108,9 @@ const Item = styled.li<{ selected: boolean }>`
   cursor: pointer;
 `;
 
-const RougeSelector = styled.li``;
+const RougeSelector = styled(Item)`
+  display: flex;
+  svg {
+    margin-left: 4px;
+  }
+`;

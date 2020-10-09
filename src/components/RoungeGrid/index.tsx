@@ -4,16 +4,19 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { colors } from '../../styles';
-import { rounges } from '../../types/constants';
+import { ROUNGES } from '../../types/constants';
 
-// interface RoungeGridProps {}
+interface RoungeGridProps {
+  onClick: (group: string) => void;
+}
 
-export default function RoungeGrid(): JSX.Element {
+export default function RoungeGrid(props: RoungeGridProps): JSX.Element {
+  const { onClick } = props;
   return (
     <Grid>
       <ul>
-        {rounges.map(({ name }) => (
-          <Rounge>
+        {ROUNGES.map(({ name }) => (
+          <Rounge onClick={() => onClick(name)}>
             <img src="https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png" />
             <span>{name}</span>
           </Rounge>
