@@ -34,6 +34,7 @@ export default observer(function WritePage(): JSX.Element {
         title,
         content,
         group: selected,
+        photos: uploadedUrl,
       });
 
       article.articles = [...article.articles, data.article];
@@ -42,7 +43,7 @@ export default observer(function WritePage(): JSX.Element {
     } catch (error) {
       console.error(error);
     }
-  }, [title, content, selected, article.articles, history]);
+  }, [title, content, selected, uploadedUrl, article.articles, history]);
 
   ui.setHeaderClose({});
 

@@ -28,6 +28,7 @@ export default function Uploader(props: UploaderProps) {
 
         const tempImage = await API.imageUpload(files[0]);
         setUploadedUrl(tempImage.imgUrl);
+        console.log(tempImage.imgUrl);
       } catch (error) {
         console.log(error);
       }

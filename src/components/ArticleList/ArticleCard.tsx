@@ -42,7 +42,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
         </p>
       </Head>
       <Body onClick={handleClickArticle}>
-        <div>
+        <div className="article-content-wrapper">
           <p className="article-title">{title}</p>
           <p className="article-content">{content}</p>
         </div>
@@ -98,6 +98,10 @@ const Body = styled.div`
   display: flex;
   padding: 16px 0;
   cursor: pointer;
+
+  .article-content-wrapper {
+    flex: 1;
+  }
 
   .article-title {
     font-size: 17px;
