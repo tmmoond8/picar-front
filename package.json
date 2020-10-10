@@ -2,7 +2,7 @@
   "name": "owner-front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
+  "proxy": "http://localhost:4040",
   "dependencies": {
     "@egjs/flicking": "^3.5.1",
     "@egjs/react-flicking": "^3.3.1",
