@@ -1,23 +1,37 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
-import { colors } from '../../styles';
+import React from 'react';
 
-import Icon from '../Icon';
 import MenuItem from './MenuItem';
+import BottomSheet from '../BottomSheet';
+import Icon from '../Icon';
+import Editor from '../Editor';
 
-export default function MenuBar(): JSX.Element {
-  const history = useHistory();
+import { observer, useStore } from '../../stores';
+import { colors } from '../../styles';
+import Article from '../../types/Article';
+
+export default observer(function MenuBar(): JSX.Element {
+  const { article } = useStore();
+  const bottomSheet = BottomSheet.useBottomSheet();
+  
   const handleClickCommunity = () => {
     console.log('커뮤니티');
   };
   const handleClickSearch = () => {
     console.log('검색');
   };
-  const handleClickWrite = () => {
-    history.push('/article/write');
-  };
+  const handleClickWrite = React.useCallback(() => {
+    const appendArticle = (newArticle: Article) => {
+      article.articles = [...article.articles, newArticle];
+    }
+    bottomSheet.open({
+      title: ' 글 쓰기',
+      contents: <Editor appendArticle={appendArticle}/>,
+    })
+    
+  }, [bottomSheet]);
   const handleClickMarket = () => {
     console.log('장터');
   };
@@ -56,7 +70,7 @@ export default function MenuBar(): JSX.Element {
       </ul>
     </MenuBarContainer>
   );
-}
+})
 
 const MenuBarContainer = styled.div`
   position: fixed;

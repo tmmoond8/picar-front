@@ -1,69 +1,88 @@
-import styled from '@emotion/styled';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-import Uploader from './Uploader';
-import Image from './Image';
-import { colors } from '../../styles';
+import { useTextarea } from '../../hooks';
+import Selector, { useSelector } from '../Selector';
 
-const SendButton = styled.button`
-  position: fixed;
-  right: 18px;
-  top: 18px;
-  font-size: 16px;
-  color: ${colors.primary};
-`;
+import HR from '../HR';
+import Styled from './Styled';
+import API from '../../apis';
+import { NAVIGATIONS, ROUNGES, ROUNGE } from '../../types/constants';
+import Article from '../../types/Article';
+import { article } from '../../stores';
 
-const Page = styled.section`
-  padding: 24px 18px 34px;
-`;
+const selects = [
+  ...NAVIGATIONS.filter((navigation) => navigation.name !== ROUNGE).map(
+    (navigation) => navigation.name,
+  ),
+  ...ROUNGES.map((rounge) => rounge.name),
+];
 
-const Title = styled.textarea`
-  width: 100%;
-  height: auto;
-  max-height: 72px;
-  margin-top: 30px;
-  overflow: hidden;
+interface EditorProps {
+  appendArticle: (article: Article) => void;
+}
 
-  outline: none;
-  border: none;
-  color: ${colors.black100};
-  font-size: 17px;
-  line-height: 24px;
-  resize: none;
-`;
+export default function Editor(props: EditorProps): JSX.Element {
+  const { appendArticle } = props;
+  const history = useHistory();
+  const [selected, setSelected] = useSelector(selects, '자유');
+  const [title, setTitle] = useTextarea('');
+  const [content, setContent] = useTextarea('');
+  const [uploadedUrl, setUploadedUrl] = React.useState('');
+  const [preUploadUrl, setPreUploadUrl] = React.useState('');
 
-const Content = styled.textarea`
-  position: relative;
-  flex: 1;
-  width: 100%;
-  height: 312px;
-  margin-top: 21px;
+  const handleClickPost = React.useCallback(async () => {
+    try {
+      const { data } = await API.article.post({
+        title,
+        content,
+        group: selected,
+        photos: uploadedUrl,
+      });
+      appendArticle(data.article)
+      history.goBack();
+      history.replace('/');
+    } catch (error) {
+      console.error(error);
+    }
+  }, [title, content, selected, uploadedUrl, appendArticle, history]);
 
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1.4;
-  resize: none;
-  &::placeholder {
-    color: ${colors.black99};
-  }
-  outline: none;
-  border: none;
-`;
+  const handleImageClear = React.useCallback(() => {
+    setUploadedUrl('');
+    setPreUploadUrl('');
+  }, [setUploadedUrl, setPreUploadUrl]);
 
-const Tools = styled.div`
-  display: flex;
-  padding: 14px 0;
-  button {
-    border: none;
-    padding: 0;
-  }
-`;
-
-export default {
-  SendButton,
-  Page,
-  Title,
-  Content,
-  Tools,
-  Uploader,
-  Image,
+  return (
+    <Styled.Page>
+      <Selector items={selects} handleChange={setSelected} />
+      <Styled.Title
+        value={title}
+        onChange={setTitle}
+        placeholder="제목을 입력하세요."
+      />
+      <HR marginTop={30} />
+      <Styled.Content
+        value={content}
+        onChange={setContent}
+        placeholder="내용을 입력하세요."
+      />
+      {preUploadUrl && (
+        <Styled.Image
+          uploadedUrl={uploadedUrl}
+          preUploadUrl={preUploadUrl}
+          clear={handleImageClear}
+        />
+      )}
+      <HR full />
+      <Styled.Tools>
+        <Styled.Uploader
+          setUploadedUrl={setUploadedUrl}
+          setPreUploadUrl={setPreUploadUrl}
+        />
+      </Styled.Tools>
+      <Styled.SendButton onClick={handleClickPost}>작성</Styled.SendButton>
+    </Styled.Page>
+  );
 };
