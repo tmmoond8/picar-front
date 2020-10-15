@@ -5,6 +5,8 @@ import styled from '@emotion/styled';
 import { colors } from '../../styles';
 import Profile from '../Profile';
 
+import { getDateGoodLook } from '../../modules/string';
+
 interface ArticleHeadProps {
   authorId: string;
   name: string;
@@ -19,7 +21,7 @@ export default function ArticleHead(props: ArticleHeadProps): JSX.Element {
       <Profile.Photo onClick={() => console.log(authorId)} />
       <Content>
         <Profile.Who name={name} group={group} />
-        <p className="date">{createdDate}</p>
+        <p className="date">{getDateGoodLook(createdDate)}</p>
       </Content>
     </Self>
   );

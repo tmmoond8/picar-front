@@ -10,6 +10,7 @@ import { Profile as IProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
 
+import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
 
 type ArticleCardProps = Article;
@@ -38,7 +39,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
         <ProfilePhoto src={thumbnail} size={24} />
         <Profile.Who name={name} group={group} />
         <p className="article-time">
-          {new Date(createAt).toLocaleDateString()}
+          {getDateGoodLook(createAt)}
         </p>
       </Head>
       <Body onClick={handleClickArticle}>
