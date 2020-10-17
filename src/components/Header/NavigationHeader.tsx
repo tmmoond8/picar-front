@@ -12,7 +12,7 @@ import { colors } from '../../styles';
 import { NAVIGATIONS, ROUNGE } from '../../types/constants';
 import RoungeGrid from '../RoungeGrid';
 
-function Navigation(): JSX.Element {
+const NavigationHeader = (): JSX.Element => {
   const {
     article,
     ui: { header },
@@ -47,7 +47,7 @@ function Navigation(): JSX.Element {
   );
 
   return (
-    <Self headerHeight={header?.height || 0}>
+    <Self >
       <List>
         {NAVIGATIONS.map((item) => (
           <React.Fragment>
@@ -84,15 +84,18 @@ function Navigation(): JSX.Element {
   );
 }
 
-Navigation.type = 'Navition';
+NavigationHeader.type = 'Navition';
 
-export default observer(Navigation);
+export default observer(NavigationHeader);
 
-const Self = styled.nav<{ headerHeight: number }>`
+const HEIGHT = 56;
+
+const Self = styled.nav`
   display: flex;
   align-items: center;
-  height: ${(p) => p.headerHeight}px;
+  height: ${HEIGHT}px;
   width: 100%;
+  background: ${colors.white};
   box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6);
 `;
 

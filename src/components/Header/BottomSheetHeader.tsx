@@ -6,17 +6,17 @@ import Button from '../Button';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 
-interface HeadProps {
+interface BottomSheetHeaderProps {
   className?: string;
   title: string;
   handleClose: () => void;
   noRadius?: boolean;
 }
 
-export default function ModalHead(props: HeadProps) {
+export default function BottomSheetHeader(props: BottomSheetHeaderProps) {
   const { className, title, handleClose, noRadius = false } = props;
   return (
-    <Head className={cx('ModalHead', className)} noRadius={noRadius}>
+    <Head className={cx('BottomSheetHeader', className)} noRadius={noRadius}>
       <Title>{title}</Title>
       <CloseButton onClick={handleClose}>
         <Icon icon="close" size="20px" color={colors.black} />
@@ -25,10 +25,12 @@ export default function ModalHead(props: HeadProps) {
   );
 }
 
+const HEIGHT = 64;
+
 const Head = styled.div<{ noRadius: boolean }>`
   display: flex;
   align-items: center;
-  height: 64px;
+  height: ${HEIGHT}px;
   padding: 18px 20px;
   border-radius: ${(p) => (p.noRadius ? 'none' : '12px 12px 0 0')};
   background-color: ${colors.white};

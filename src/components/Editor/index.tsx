@@ -34,6 +34,7 @@ export default function Editor(props: EditorProps): JSX.Element {
   const [preUploadUrl, setPreUploadUrl] = React.useState('');
 
   const handleClickPost = React.useCallback(async () => {
+    if (title.length === 0 || content.length === 0) return;
     try {
       const { data } = await API.article.post({
         title,

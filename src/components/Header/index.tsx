@@ -5,31 +5,13 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { useStore, observer } from '../../stores';
+
 export const headerType = {
   Navigation: 'Navigation' as 'Navigation',
   Back: 'Back' as 'Back',
   Close: 'Close' as 'Close',
   None: 'None' as 'None',
-};
-
-const getHeader = (type: keyof typeof headerType | undefined) => {
-  switch (type) {
-    case headerType.Navigation: {
-      const Navigation = require('./Navigation').default;
-      return <Navigation />;
-    }
-    case headerType.Back: {
-      const Back = require('./Back').default;
-      return <Back />;
-    }
-    case headerType.Close: {
-      const Close = require('./Close').default;
-      return <Close />;
-    }
-    default: {
-      return <React.Fragment />;
-    }
-  }
 };
 
 export interface HeaderProps {
@@ -43,12 +25,34 @@ export const initalHeader: HeaderProps = {
   height: 0,
 };
 
-export default React.memo(function Header(props: HeaderProps): JSX.Element {
+const getHeader = (type: keyof typeof headerType | undefined, header: HeaderProps) => {
+  const { height, options } = header;
+  switch (type) {
+    case headerType.Navigation: {
+      const NavigationHeader = require('./NavigationHeader').default;
+      return <NavigationHeader height={height} options={options}/>;
+    }
+    case headerType.Back: {
+      const BackHeader = require('./BackHeader').default;
+      return <BackHeader height={height} options={options}/>;
+    }
+    case headerType.Close: {
+      const CloseHeader = require('./CloseHeader').default;
+      return <CloseHeader height={height} options={options}/>;
+    }
+    default: {
+      return <React.Fragment />;
+    }
+  }
+};
+
+export default (function Header(props: HeaderProps): JSX.Element {
   const { type, height } = props;
+  const { ui: { header } } = useStore();
 
   const CurrentHeader = React.useMemo(() => {
-    return getHeader(type);
-  }, [type]);
+    return getHeader(type, header);
+  }, [type, header]);
 
   return (
     <React.Fragment>

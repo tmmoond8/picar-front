@@ -3,34 +3,39 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
 
-import { useStore } from '../../stores';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 
-export default function Back(): JSX.Element {
-  const { ui } = useStore();
-  const headerOptions = ui.header.options;
+interface BackHeaderProps {
+  options?: Record<string, any>
+}
+
+export default function BackHeader(props: BackHeaderProps): JSX.Element {
+  const { options = {} } = props;
   const history = useHistory();
 
   return (
-    <StyledBack headerHeight={ui.header?.height || 0}>
-      <h2 className="title">{headerOptions?.title || ''}</h2>
+    <StyledBack >
+      <h2 className="title">{options?.title || ''}</h2>
       <Icon
         icon="back"
         size="24px"
         color={colors.black100}
         onClick={() => history.goBack()}
       />
-      <div className="right">{headerOptions?.right}</div>
+      <div className="right">{options?.right}</div>
     </StyledBack>
   );
 }
 
-const StyledBack = styled.nav<{ headerHeight: number }>`
+const HEIGHT = 56;
+
+const StyledBack = styled.nav`
   position: relative;
-  height: ${(p) => p.headerHeight}px;
+  height: ${HEIGHT}px;
   width: 100%;
   padding: 0 18px;
+  background: ${colors.white};
   color: ${colors.black100};
   box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6);
   & > svg {
@@ -40,7 +45,7 @@ const StyledBack = styled.nav<{ headerHeight: number }>`
   }
 
   .title {
-    line-height: ${(p) => p.headerHeight}px;
+    line-height: ${HEIGHT}px;
     text-align: center;
   }
 

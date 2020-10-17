@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import BottomSheet from './BottomSheet';
 import global from '../../types/global';
+import { HeaderType } from './BottomSheet';
 
 export const useBottomSheet = () => {
   const WRAPPER = 'OwnerBottomSheetWrapper';
@@ -27,11 +28,12 @@ export const useBottomSheet = () => {
 
   global.__OWNER__.closeBottomSheet = close;
 
-  const open = (params: { title: string; contents: React.ReactNode }) => {
-    const { title, contents } = params;
+  const open = (params: { title: string; contents: React.ReactNode; headerType?: HeaderType }) => {
+    const { title, contents, headerType } = params;
     const bottomSheet = (
       <BottomSheet
         title={title}
+        headerType={headerType}
         handleClose={close}
         ref={bottomSheetRef}
         contents={contents}

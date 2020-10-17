@@ -28,10 +28,11 @@ export default observer(function MenuBar(): JSX.Element {
     }
     bottomSheet.open({
       title: ' 글 쓰기',
+      headerType: 'close',
       contents: <Editor appendArticle={appendArticle}/>,
     })
     
-  }, [bottomSheet]);
+  }, [article.articles, bottomSheet]);
   const handleClickMarket = () => {
     console.log('장터');
   };

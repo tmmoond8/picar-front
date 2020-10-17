@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 import {
   ReactNode,
   useState,
@@ -12,20 +13,30 @@ import {
 } from 'react';
 import cx from 'classnames';
 
-import BottomSheetHead from './BottomSheetHead';
+import BottomSheetHeader from '../Header/BottomSheetHeader';
+import CloseHeader from '../Header/CloseHeader';
 import { desktop } from '../../styles/mediaQuery';
 import { colors } from '../../styles';
 
+export const HEADER_TYPE = {
+  default: 'default',
+  close: 'close',
+} as const;
+
+export type HeaderType = keyof typeof HEADER_TYPE;
+
 export interface BottomSheetProps {
   className?: string;
-  title: string;
+  title?: string;
+  headerType?: HeaderType;
   contents: ReactNode;
   handleClose: () => void;
+  isFull?: boolean;
 }
 
 const BottomSheet = forwardRef(
   (props: BottomSheetProps, ref): JSX.Element => {
-    const { className, title, contents, handleClose } = props;
+    const { className, title = '', contents, handleClose, headerType = HEADER_TYPE.default, isFull = false } = props;
     const [open, setOpen] = useState<boolean>(false);
     const handleClickWrapper = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
@@ -35,6 +46,13 @@ const BottomSheet = forwardRef(
       },
       [handleClose],
     );
+
+    const Header = React.useMemo(() => {
+      if (headerType === HEADER_TYPE.close) {
+        return <CloseHeader options={{title}} onClose={handleClose} />;
+      }
+      return <BottomSheetHeader title={title} handleClose={handleClose}  />;
+    }, [handleClose, headerType, title])
 
     useEffect(() => {
       if (!open) {
@@ -49,8 +67,8 @@ const BottomSheet = forwardRef(
         className={cx('BottomSheetWrapper', className)}
         open={open}
       >
-        <BottomSheetBox open={open} ref={ref as RefObject<HTMLDivElement>}>
-          <BottomSheetHead title={title} handleClose={handleClose} />
+        <BottomSheetBox open={open} ref={ref as RefObject<HTMLDivElement>} isFull>
+          {Header}
           <BottomSheetBody>{contents}</BottomSheetBody>
         </BottomSheetBox>
       </Wrapper>
@@ -75,10 +93,11 @@ const Wrapper = styled.div<{ open: boolean }>`
   transition: background-color 0.2s ease 0s;
 `;
 
-const BottomSheetBox = styled.div<{ open: boolean }>`
+const BottomSheetBox = styled.div<{ open: boolean, isFull: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
+  top: ${({isFull}) => isFull ? '0' : 'auto'};
   left: 0;
   right: 0;
   bottom: 0;
