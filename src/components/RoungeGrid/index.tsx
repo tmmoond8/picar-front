@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
 
-import { colors } from '../../styles';
+import { colors, desktop } from '../../styles';
 import { ROUNGES } from '../../types/constants';
 
 interface RoungeGridProps {
@@ -32,13 +31,6 @@ const Grid = styled.div`
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     padding: 16px 18px;
-
-    li {
-      position: relative;
-      height: calc((100vw - 36px - 2 * 10px) / 3);
-      border-radius: 8px;
-      background-color: ${colors.blackF5F6F7};
-    }
   }
 `;
 
@@ -47,6 +39,12 @@ const Rounge = styled.li`
   height: calc((100vw - 36px - 2 * 10px) / 3);
   border-radius: 8px;
   background-color: ${colors.blackF5F6F7};
+  cursor: pointer;
+  ${desktop(
+    css`
+      height: 120px;
+    `
+  )}
 
   img {
     position: absolute;

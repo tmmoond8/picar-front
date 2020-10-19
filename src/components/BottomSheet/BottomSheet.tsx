@@ -15,8 +15,7 @@ import cx from 'classnames';
 
 import BottomSheetHeader from '../Header/BottomSheetHeader';
 import CloseHeader from '../Header/CloseHeader';
-import { desktop } from '../../styles/mediaQuery';
-import { colors } from '../../styles';
+import { colors, desktop } from '../../styles';
 
 export const HEADER_TYPE = {
   default: 'default',
