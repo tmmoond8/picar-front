@@ -28,8 +28,8 @@ export const useBottomSheet = () => {
 
   global.__OWNER__.closeBottomSheet = close;
 
-  const open = (params: { title: string; contents: React.ReactNode; headerType?: HeaderType }) => {
-    const { title, contents, headerType } = params;
+  const open = (params: { title: string; contents: React.ReactNode; headerType?: HeaderType, isFull?: boolean }) => {
+    const { title, contents, headerType, isFull } = params;
     const bottomSheet = (
       <BottomSheet
         title={title}
@@ -37,6 +37,7 @@ export const useBottomSheet = () => {
         handleClose={close}
         ref={bottomSheetRef}
         contents={contents}
+        isFull={isFull}
       />
     );
     bottomSheetWrapper = document.createElement('div');

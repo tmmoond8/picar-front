@@ -66,7 +66,7 @@ const BottomSheet = forwardRef(
         className={cx('BottomSheetWrapper', className)}
         open={open}
       >
-        <BottomSheetBox open={open} ref={ref as RefObject<HTMLDivElement>} isFull>
+        <BottomSheetBox open={open} ref={ref as RefObject<HTMLDivElement>} isFull={isFull}>
           {Header}
           <BottomSheetBody>{contents}</BottomSheetBody>
         </BottomSheetBox>

@@ -29,6 +29,7 @@ export default observer(function MenuBar(): JSX.Element {
     bottomSheet.open({
       title: ' 글 쓰기',
       headerType: 'close',
+      isFull: true,
       contents: <Editor appendArticle={appendArticle}/>,
     })
     
@@ -38,6 +39,10 @@ export default observer(function MenuBar(): JSX.Element {
   };
   const handleClickProfile = () => {
     console.log('프로필');
+    bottomSheet.open({
+      title: '',
+      contents: <p>abc</p>
+    })
   };
 
   return (
