@@ -5,6 +5,7 @@ import React from 'react';
 
 import MenuItem from './MenuItem';
 import BottomSheet from '../BottomSheet';
+import LoginBox from '../Login/LoginBox';
 import Icon from '../Icon';
 import Editor from '../Editor';
 
@@ -41,7 +42,7 @@ export default observer(function MenuBar(): JSX.Element {
     console.log('프로필');
     bottomSheet.open({
       title: '',
-      contents: <p>abc</p>
+      contents: <LoginBox onClose={bottomSheet.close}/>
     })
   };
 

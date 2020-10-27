@@ -9216,6 +9216,11 @@ react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-kakao-login@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-kakao-login/-/react-kakao-login-2.0.0.tgz#5ea013c101915fedbc1e378e23e09b0fa406b67d"
+  integrity sha512-lAeEVrhBymopeCxowVpNVEYC0hwD5Oa2GkqR4tLAwyNWsIjnBxjuwqVlWClxfc3dq36+Lwa8GljRjfJRpDr/gA==
+
 react-router-dom@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.2.0.tgz#9e65a4d0c45e13289e66c7b17c7e175d0ea15662"
