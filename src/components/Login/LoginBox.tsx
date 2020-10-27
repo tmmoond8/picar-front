@@ -46,10 +46,10 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
     <Box>
       <h2>간편하게 로그인하고 <br/> 오너들과 이야기를 나눠보세요.</h2>
       <ul>
-        <li onClick={handleClickKakao}>
+        <li>
           <KakaoLogin 
-            onClick={handleClickKakao}
-            onLoginKakao={() => console.log('kakao')}
+            // onClick={handleClickKakao}
+            onLoginKakao={(result) => console.log('kakao', result)}
           />
         </li>
         <li>
