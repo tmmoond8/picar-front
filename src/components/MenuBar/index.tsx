@@ -39,7 +39,6 @@ export default observer(function MenuBar(): JSX.Element {
     console.log('장터');
   };
   const handleClickProfile = () => {
-    console.log('프로필');
     bottomSheet.open({
       title: '',
       contents: <LoginBox onClose={bottomSheet.close}/>

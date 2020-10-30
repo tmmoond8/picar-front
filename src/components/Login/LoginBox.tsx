@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import KakaoLogin from './KakaoLogin';
+import { SignUpUser } from '../../types/User';
 
 const Box = styled.div`
   padding: 29px 42px;
@@ -38,7 +39,8 @@ interface LoginBoxProps {
 
 export default function LoginBox(props: LoginBoxProps): JSX.Element {
   const { onClose } = props;
-  const handleClickKakao = React.useCallback(() => {
+  const handleClickKakao = React.useCallback((user: SignUpUser) => {
+    console.log(user);
     onClose();
   }, [onClose])
 
@@ -48,8 +50,7 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
       <ul>
         <li>
           <KakaoLogin 
-            // onClick={handleClickKakao}
-            onLoginKakao={(result) => console.log('kakao', result)}
+            onLoginKakao={handleClickKakao}
           />
         </li>
         <li>
