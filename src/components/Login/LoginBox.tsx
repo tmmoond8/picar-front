@@ -5,6 +5,8 @@ import React from 'react';
 
 import KakaoLogin from './KakaoLogin';
 import { SignUpUser } from '../../types/User';
+import BottomSheet from '../BottomSheet';
+import SignUp from '../SignUp';
 
 const Box = styled.div`
   padding: 29px 42px;
@@ -39,10 +41,18 @@ interface LoginBoxProps {
 
 export default function LoginBox(props: LoginBoxProps): JSX.Element {
   const { onClose } = props;
+  const bottomSheet = BottomSheet.useBottomSheet();
   const handleClickKakao = React.useCallback((user: SignUpUser) => {
-    console.log(user);
     onClose();
-  }, [onClose])
+    setTimeout(() => {
+      bottomSheet.open({
+        title: ' 회원가입',
+        headerType: 'close',
+        isFull: true,
+        contents: <SignUp {...user}/>,
+      });
+    }, 300);
+  }, [bottomSheet, onClose])
 
   return (
     <Box>
