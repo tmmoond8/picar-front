@@ -50,7 +50,7 @@ const NavigationHeader = (): JSX.Element => {
     <Self >
       <List>
         {NAVIGATIONS.map((item) => (
-          <React.Fragment>
+          <React.Fragment key={item.name}>
             {item.name === ROUNGE ? (
               <RougeSelector
                 selected={article.selectedGroup === ROUNGE}

@@ -15,7 +15,7 @@ export default function RoungeGrid(props: RoungeGridProps): JSX.Element {
     <Grid>
       <ul>
         {ROUNGES.map(({ name }) => (
-          <Rounge onClick={() => onClick(name)}>
+          <Rounge onClick={() => onClick(name)} key={name}>
             <img src="https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png" />
             <span>{name}</span>
           </Rounge>
