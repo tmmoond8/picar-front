@@ -11,11 +11,7 @@ export const useTextField = (initialValue: string): [string, (e: ChangeEvent<HTM
   ]
 }
 
-export const useSwitch = (values: string[]) => {
-  const [currentValue, setCurrentValue ] = React.useState(values[0]);
-  return {
-    values,
-    currentValue,
-    setCurrentValue
-  }
+export const useSwitch = (values: { value: string; displayName: string}[]): [string, (v: string) => void] => {
+  const [ value, setValue ] = React.useState(values[0].value);
+  return [ value, setValue ];
 }

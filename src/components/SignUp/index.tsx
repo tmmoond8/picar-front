@@ -3,20 +3,15 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import SignupContext from './context';
+import { ownerTypes } from './constants';
+import NicknameForm from './NicknameForm';
+
 import Input from '../Input';
 import Button from '../Button';
 
 import { SignUpUser } from '../../types/User';
 
-const Form = styled.form`
-  height: 100%;
-  padding: 16px;
-`;
-
-const TextField = styled(Input.TextField)``;
-const Switch = styled(Input.Switch)`
-  margin-top: 10px;
-`;
 const BobbomCTA = styled(Button.Full)`
   position: absolute;
   bottom: 0;
@@ -25,33 +20,27 @@ const BobbomCTA = styled(Button.Full)`
 `;
 
 export default function SignUp(props: SignUpUser): JSX.Element {
-  const [nickname, onChangeNickname, clearNickname] = Input.useTextField('');
-  const { values, currentValue, setCurrentValue } = Input.useSwitch([
-    '오너',
-    '예비오너',
-  ]);
+  const { name } = props;
+  const [nickname, onChangeNickname, onClearNickname] = Input.useTextField(
+    name || '',
+  );
+  const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
 
   const handleNext = React.useCallback(() => {
     console.log('abc');
   }, []);
   return (
-    <Form>
-      <TextField
-        id="signup-nickname"
-        label="닉네임"
-        onChange={onChangeNickname}
-        value={nickname}
-        placeholder="닉네임을 입력해주세요"
-        onClear={clearNickname}
-        autocomplete={false}
-      />
-      <Switch
-        label="직업"
-        values={values}
-        currentValue={currentValue}
-        setCurrentValue={setCurrentValue}
-      />
+    <SignupContext.Provider
+      value={{
+        nickname,
+        onChangeNickname,
+        onClearNickname,
+        ownerType,
+        setOwnerType,
+      }}
+    >
+      <NicknameForm />
       <BobbomCTA onClick={handleNext}>다음</BobbomCTA>
-    </Form>
+    </SignupContext.Provider>
   );
 }

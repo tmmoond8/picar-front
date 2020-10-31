@@ -8,7 +8,7 @@ import { colors } from '../../styles';
 interface SwitchProps {
   className?: string;
   label?: string;
-  values: string[];
+  values: { value: string; displayName: string }[];
   currentValue: string;
   setCurrentValue: (value: string) => void;
 }
@@ -70,7 +70,10 @@ const Indicator = styled.div<{ isRight: boolean }>`
 
 export default function Switch(props: SwitchProps): JSX.Element {
   const { className, label, values, currentValue, setCurrentValue } = props;
-  const [left, right] = values;
+  const [
+    { value: left, displayName: leftDisplay },
+    { value: right, displayName: rightDisplay },
+  ] = values;
   const isRight = React.useMemo(() => currentValue === right, [
     currentValue,
     right,
@@ -84,14 +87,14 @@ export default function Switch(props: SwitchProps): JSX.Element {
           key={left}
           onClick={() => setCurrentValue(left)}
         >
-          <span>{left}</span>
+          <span>{leftDisplay}</span>
         </Button>
         <Button
           selected={right === currentValue}
           key={right}
           onClick={() => setCurrentValue(right)}
         >
-          <span>{right}</span>
+          <span>{rightDisplay}</span>
         </Button>
         <Indicator isRight={isRight} />
       </ul>
