@@ -38,6 +38,11 @@ function App() {
 export default observer(App);
 
 const Page = styled.div<{ headerHeight: number }>`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
   padding-top: ${(p) => p.headerHeight}px;
-  height: 100%;
 `;

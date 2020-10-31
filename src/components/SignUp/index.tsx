@@ -8,22 +8,21 @@ import SignupContext from './context';
 import { ownerTypes } from './constants';
 import NicknameForm from './NicknameForm';
 import RoungeForm from './RoungeForm';
+import SignUpHeader from './SignUpHeader';
 
 import Input from '../Input';
-import Button from '../Button';
 
 import { SignUpUser } from '../../types/User';
-
-const BottomCTA = styled(Button.Full)`
-  position: absolute;
-  bottom: 0;
-  width: calc(100% - 32px);
-  margin: 0 14px 12px 14px;
-`;
 
 interface SignUpProps extends SignUpUser {
   onClose: () => void;
 }
+
+const SignUpCarousel = styled(Carousel)`
+  margin-top: -60px;
+  padding-top: 60px;
+  height: 100vh;
+`;
 
 export default function SignUp(props: SignUpProps): JSX.Element {
   const { name, onClose } = props;
@@ -31,33 +30,34 @@ export default function SignUp(props: SignUpProps): JSX.Element {
     console.log('step', step);
   }, []);
   const [step, setStep] = React.useState(0);
-  const flickingRef = React.useRef(null);
   const [nickname, onChangeNickname, onClearNickname] = Input.useTextField(
     name || '',
   );
   const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
-
-  const handleNext = React.useCallback(() => {
-    console.log('handleNext');
-  }, []);
 
   const signUpSteps = [<NicknameForm />, <RoungeForm />];
 
   return (
     <SignupContext.Provider
       value={{
+        step,
+        setStep,
         nickname,
         onChangeNickname,
         onClearNickname,
         ownerType,
         setOwnerType,
+        onClose,
       }}
     >
-      <Carousel index={step} onChangeIndex={handleChangeStep} gesture={false}>
+      <SignUpHeader />
+      <SignUpCarousel
+        index={step}
+        onChangeIndex={handleChangeStep}
+        gesture={false}
+      >
         {signUpSteps}
-      </Carousel>
-
-      <BottomCTA onClick={handleNext}>다음</BottomCTA>
+      </SignUpCarousel>
     </SignupContext.Provider>
   );
 }

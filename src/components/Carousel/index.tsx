@@ -2,12 +2,14 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
+import cx from 'classnames';
 
 import { useStore, observer } from '../../stores';
 import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
 
 interface CraouselProps {
+  className?: string;
   index: number;
   children: React.ReactNode;
   gesture?: boolean;
@@ -15,7 +17,7 @@ interface CraouselProps {
 }
 
 export default observer(function Craousel(props: CraouselProps): JSX.Element {
-  const { index, children, onChangeIndex, gesture = true } = props;
+  const { className, index, children, onChangeIndex, gesture = true } = props;
   const { article } = useStore();
   const flickingRef = React.useRef<HTMLElement>(null);
 
@@ -44,7 +46,7 @@ export default observer(function Craousel(props: CraouselProps): JSX.Element {
   }, [flickingRef.current, gesture]);
 
   return (
-    <Self className="carousel-container">
+    <Self className={cx('carousel-container', className)}>
       <Flicking
         ref={flickingRef as any}
         tag="div"

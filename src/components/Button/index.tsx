@@ -14,8 +14,15 @@ interface ButtonProps {
 
 function Button(props: ButtonProps): JSX.Element {
   const { icon, children, onClick, className } = props;
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      onClick();
+    },
+    [onClick],
+  );
   return (
-    <StyledButton onClick={onClick} className={className}>
+    <StyledButton onClick={handleClick} className={className}>
       {icon && icon}
       {children && <span>{children}</span>}
     </StyledButton>

@@ -13,9 +13,16 @@ interface FullButtonProps {
 
 export default function FullButton(props: FullButtonProps): JSX.Element {
   const { children, onClick, className, disabled = false } = props;
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      onClick();
+    },
+    [onClick],
+  );
   return (
     <StyledFullButton
-      onClick={onClick}
+      onClick={handleClick}
       className={className}
       disabled={disabled}
     >
