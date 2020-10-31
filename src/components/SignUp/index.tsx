@@ -12,10 +12,10 @@ import Button from '../Button';
 
 import { SignUpUser } from '../../types/User';
 
-const BobbomCTA = styled(Button.Full)`
+const BottomCTA = styled(Button.Full)`
   position: absolute;
   bottom: 0;
-  width: calc(100%);
+  width: calc(100% + 32px);
   margin: 0 -16px;
 `;
 
@@ -40,7 +40,7 @@ export default function SignUp(props: SignUpUser): JSX.Element {
       }}
     >
       <NicknameForm />
-      <BobbomCTA onClick={handleNext}>다음</BobbomCTA>
+      <BottomCTA onClick={handleNext}>다음</BottomCTA>
     </SignupContext.Provider>
   );
 }

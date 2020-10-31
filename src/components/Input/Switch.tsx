@@ -65,7 +65,7 @@ const Indicator = styled.div<{ isRight: boolean }>`
     css`
       transform: translateX(calc(100% + 6px));
     `}
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.2s ease-out;
 `;
 
 export default function Switch(props: SwitchProps): JSX.Element {
