@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 
+import Icon from '../Icon';
 import { colors, desktop } from '../../styles';
 import { ROUNGES } from '../../types/constants';
 
@@ -14,9 +15,9 @@ export default function RoungeGrid(props: RoungeGridProps): JSX.Element {
   return (
     <Grid>
       <ul>
-        {ROUNGES.map(({ name }) => (
+        {ROUNGES.map(({ name, icon }) => (
           <Rounge onClick={() => onClick(name)} key={name}>
-            <img src="https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png" />
+            <Icon icon={icon} size="40%" />
             <span>{name}</span>
           </Rounge>
         ))}
@@ -29,8 +30,7 @@ const Grid = styled.div`
   ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    padding: 16px 18px;
+    grid-gap: 11px;
   }
 `;
 
@@ -43,24 +43,24 @@ const Rounge = styled.li`
   ${desktop(
     css`
       height: 120px;
-    `
+    `,
   )}
 
-  img {
+  svg {
     position: absolute;
-    width: 50px;
+    width: 40%;
     height: auto;
     left: 50%;
-    top: 40%;
+    top: 34%;
     transform: translate(-50%, -50%);
   }
 
   span {
     position: absolute;
     left: 0;
-    bottom: 13px;
+    bottom: 20%;
     width: 100%;
-    font-size: 15px;
+    font-size: 13px;
     text-align: center;
   }
 `;

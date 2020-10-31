@@ -8,12 +8,16 @@ const SignUpContext = React.createContext<{
   onClearNickname: () => void;
   ownerType: string;
   setOwnerType: (v: string) => void;
+  // rounge: string;
+  // setRounge: (v: string) => void;
 }>({
   nickname: '',
   onChangeNickname: () => {},
   onClearNickname: () => {},
   ownerType: 'owner',
   setOwnerType: () => {},
+  // rounge: '',
+  // setRounge: () => {},
 });
 
 SignUpContext.displayName = 'SignUpContext';

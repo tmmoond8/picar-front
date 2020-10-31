@@ -1,3 +1,4 @@
+import { IconKey } from '../components/Icon';
 export const ROUNGE = '라운지';
 
 export const NAVIGATIONS = [
@@ -15,50 +16,19 @@ export const NAVIGATIONS = [
   },
 ];
 
-export const ROUNGES = [
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '요식업',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '카페',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '주점',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '편의점',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '쇼핑몰',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '숙박업',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '스타트업',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '애견샵',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/dgggcrkxq/image/upload/v1566913146/noticon/tana13ypatttkymflhse.png',
-    name: '올 라운지',
-  },
+interface Rounge {
+  name: string;
+  icon: IconKey;
+}
+
+export const ROUNGES: Rounge[] = [
+  { name: '요식업', icon: 'roungeFood'},
+  { name: '카페', icon: 'roungeCafe'},
+  { name: '주점', icon: 'roungeAlchol'},
+  { name: '편의점', icon: 'roungeRetail'},
+  { name: '쇼핑몰', icon: 'roungeShop'},
+  { name: '숙박업', icon: 'roungeMotel'},
+  { name: '스타트업', icon: 'roungeStartup'},
+  { name: '펫샵', icon: 'roungePet'},
+  { name: '기타라운지', icon: 'roungeAll'},
 ];

@@ -6,13 +6,13 @@ import { colors } from '../../styles';
 import * as icons from './icons';
 import * as styles from './styles';
 
-type IconType = keyof typeof icons;
+export type IconKey = keyof typeof icons;
 
-export const iconTypes: IconType[] = Object.keys(icons) as any[]; // for storybook
+export const iconTypes: IconKey[] = Object.keys(icons) as any[]; // for storybook
 
 export type IconProps = {
   /** icon name (ex: hambug) */
-  icon: IconType;
+  icon: IconKey;
   /** icon color */
   color?: string;
   size?: string;

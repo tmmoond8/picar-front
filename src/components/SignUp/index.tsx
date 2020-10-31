@@ -5,7 +5,7 @@ import React from 'react';
 
 import SignupContext from './context';
 import { ownerTypes } from './constants';
-import NicknameForm from './NicknameForm';
+import RoungeForm from './RoungeForm';
 
 import Input from '../Input';
 import Button from '../Button';
@@ -39,7 +39,8 @@ export default function SignUp(props: SignUpUser): JSX.Element {
         setOwnerType,
       }}
     >
-      <NicknameForm />
+      {/* <NicknameForm /> */}
+      <RoungeForm />
       <BottomCTA onClick={handleNext}>다음</BottomCTA>
     </SignupContext.Provider>
   );
