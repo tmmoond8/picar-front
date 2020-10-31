@@ -15,7 +15,7 @@ const TextField = styled(Input.TextField)``;
 const Switch = styled(Input.Switch)``;
 
 export default function SignUp(props: SignUpUser): JSX.Element {
-  const [nickname, onChangeNickname] = Input.useTextField('');
+  const [nickname, onChangeNickname, clearNickname] = Input.useTextField('');
   const { values, currentValue, setCurrentValue } = Input.useSwitch([
     '오너',
     '예비오너',
@@ -28,6 +28,7 @@ export default function SignUp(props: SignUpUser): JSX.Element {
         onChange={onChangeNickname}
         value={nickname}
         placeholder="닉네임을 입력해주세요"
+        onClear={clearNickname}
       />
       <Switch
         label="직업"

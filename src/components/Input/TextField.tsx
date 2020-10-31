@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { ChangeEvent, useState, useRef, useEffect } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import { colors } from '../../styles';
+import Icon from '../Icon';
 
 interface TextFieldProps {
   className?: string;
@@ -11,7 +12,8 @@ interface TextFieldProps {
   label?: string;
   placeholder?: string;
   value: string | number;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear?: () => void;
   errorMessage?: string;
   onBlur?: () => void;
 }
@@ -44,6 +46,18 @@ const Field = styled.div<{ error: boolean; focus: boolean }>`
   input::placeholder {
     color: ${colors.blackCC};
   }
+
+  ${(p) =>
+    p.focus &&
+    css`
+      border-bottom: 1px solid ${colors.black33};
+    `}
+`;
+
+const ClearButton = styled.button`
+  width: 20px;
+  height: 20px;
+  padding: 0;
 `;
 
 export default function TextField(props: TextFieldProps): JSX.Element {
@@ -56,11 +70,12 @@ export default function TextField(props: TextFieldProps): JSX.Element {
     errorMessage,
     className,
     onBlur = () => {},
+    onClear = () => {},
   } = props;
-  const [isFocus, setFocus] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocus, setFocus] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (inputRef?.current) {
       const focusEvent = (): void => setFocus(true);
       const blurEvent = (): void => setFocus(false);
@@ -75,6 +90,18 @@ export default function TextField(props: TextFieldProps): JSX.Element {
     }
     return (): void => {};
   }, [inputRef]);
+
+  const handleClear = React.useCallback(
+    (e) => {
+      e.preventDefault();
+      onClear();
+      const inputElement = inputRef.current;
+      if (inputElement) {
+        inputElement.focus();
+      }
+    },
+    [onClear],
+  );
 
   return (
     <Wrapper className={cx('TextField', className)}>
@@ -93,6 +120,9 @@ export default function TextField(props: TextFieldProps): JSX.Element {
           onChange={onChange}
           onBlur={onBlur}
         />
+        <ClearButton onClick={handleClear}>
+          <Icon icon="inputClear" size="20px" />
+        </ClearButton>
       </Field>
     </Wrapper>
   );
