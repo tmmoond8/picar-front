@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
 import BottomSheet from '../BottomSheet';
@@ -16,7 +17,8 @@ import Article from '../../types/Article';
 export default observer(function MenuBar(): JSX.Element {
   const { article } = useStore();
   const bottomSheet = BottomSheet.useBottomSheet();
-  
+  const history = useHistory();
+
   const handleClickCommunity = () => {
     console.log('커뮤니티');
   };
@@ -26,23 +28,23 @@ export default observer(function MenuBar(): JSX.Element {
   const handleClickWrite = React.useCallback(() => {
     const appendArticle = (newArticle: Article) => {
       article.articles = [...article.articles, newArticle];
-    }
+    };
     bottomSheet.open({
       title: ' 글 쓰기',
       headerType: 'close',
       isFull: true,
-      contents: <Editor appendArticle={appendArticle}/>,
-    })
-    
+      contents: <Editor appendArticle={appendArticle} />,
+    });
   }, [article.articles, bottomSheet]);
   const handleClickMarket = () => {
     console.log('장터');
+    history.push('/test');
   };
   const handleClickProfile = () => {
     bottomSheet.open({
       title: '',
-      contents: <LoginBox onClose={bottomSheet.close}/>
-    })
+      contents: <LoginBox onClose={bottomSheet.close} />,
+    });
   };
 
   return (
@@ -76,7 +78,7 @@ export default observer(function MenuBar(): JSX.Element {
       </ul>
     </MenuBarContainer>
   );
-})
+});
 
 const MenuBarContainer = styled.div`
   position: fixed;
