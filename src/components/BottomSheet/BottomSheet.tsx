@@ -20,6 +20,7 @@ import { colors, desktop } from '../../styles';
 export const HEADER_TYPE = {
   default: 'default',
   close: 'close',
+  none: 'none',
 } as const;
 
 export type HeaderType = keyof typeof HEADER_TYPE;
@@ -35,7 +36,14 @@ export interface BottomSheetProps {
 
 const BottomSheet = forwardRef(
   (props: BottomSheetProps, ref): JSX.Element => {
-    const { className, title = '', contents, handleClose, headerType = HEADER_TYPE.default, isFull = false } = props;
+    const {
+      className,
+      title = '',
+      contents,
+      handleClose,
+      headerType = HEADER_TYPE.default,
+      isFull = false,
+    } = props;
     const [open, setOpen] = useState<boolean>(false);
     const handleClickWrapper = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
@@ -48,10 +56,13 @@ const BottomSheet = forwardRef(
 
     const Header = React.useMemo(() => {
       if (headerType === HEADER_TYPE.close) {
-        return <CloseHeader options={{title}} onClose={handleClose} />;
+        return <CloseHeader options={{ title }} onClose={handleClose} />;
       }
-      return <BottomSheetHeader title={title} handleClose={handleClose}  />;
-    }, [handleClose, headerType, title])
+      if (headerType === HEADER_TYPE.none) {
+        return <React.Fragment />;
+      }
+      return <BottomSheetHeader title={title} handleClose={handleClose} />;
+    }, [handleClose, headerType, title]);
 
     useEffect(() => {
       if (!open) {
@@ -66,7 +77,11 @@ const BottomSheet = forwardRef(
         className={cx('BottomSheetWrapper', className)}
         open={open}
       >
-        <BottomSheetBox open={open} ref={ref as RefObject<HTMLDivElement>} isFull={isFull}>
+        <BottomSheetBox
+          open={open}
+          ref={ref as RefObject<HTMLDivElement>}
+          isFull={isFull}
+        >
           {Header}
           <BottomSheetBody>{contents}</BottomSheetBody>
         </BottomSheetBox>
@@ -92,11 +107,11 @@ const Wrapper = styled.div<{ open: boolean }>`
   transition: background-color 0.2s ease 0s;
 `;
 
-const BottomSheetBox = styled.div<{ open: boolean, isFull: boolean }>`
+const BottomSheetBox = styled.div<{ open: boolean; isFull: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: ${({isFull}) => isFull ? '0' : 'auto'};
+  top: ${({ isFull }) => (isFull ? '0' : 'auto')};
   left: 0;
   right: 0;
   bottom: 0;

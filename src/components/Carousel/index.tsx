@@ -10,13 +10,14 @@ import Flicking from '@egjs/react-flicking';
 interface CraouselProps {
   index: number;
   children: React.ReactNode;
+  gesture?: boolean;
   onChangeIndex: (i: number) => void;
 }
 
 export default observer(function Craousel(props: CraouselProps): JSX.Element {
-  const { index, children, onChangeIndex } = props;
+  const { index, children, onChangeIndex, gesture = true } = props;
   const { article } = useStore();
-  const flickingRef = React.useRef(null);
+  const flickingRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (flickingRef?.current) {
@@ -29,10 +30,23 @@ export default observer(function Craousel(props: CraouselProps): JSX.Element {
     }
   }, [flickingRef.current, index]);
 
+  useEffect(() => {
+    const blockEvent = (e: MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    if (flickingRef.current && !gesture) {
+      const cameraElement = (flickingRef.current as any).cameraElement as any;
+
+      cameraElement.ontouchmove = blockEvent;
+      cameraElement.onmousemove = blockEvent;
+    }
+  }, [flickingRef.current, gesture]);
+
   return (
-    <Self className="carousel-contener">
+    <Self className="carousel-container">
       <Flicking
-        ref={flickingRef}
+        ref={flickingRef as any}
         tag="div"
         viewportTag="div"
         cameraTag="div"

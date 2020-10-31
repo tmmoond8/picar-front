@@ -7,7 +7,8 @@ import { ownerTypes } from './constants';
 import { useSignUpContext, observer } from './context';
 
 const Form = styled.form`
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   padding: 16px;
 `;
 

@@ -8,7 +8,8 @@ import RoungeGrid from '../RoungeGrid';
 import { colors } from '../../styles';
 
 const Form = styled.form`
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   padding: 0 16px;
   h2 {
     color: ${colors.black};

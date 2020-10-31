@@ -42,29 +42,32 @@ interface LoginBoxProps {
 export default function LoginBox(props: LoginBoxProps): JSX.Element {
   const { onClose } = props;
   const bottomSheet = BottomSheet.useBottomSheet();
-  const handleClickKakao = React.useCallback((user: SignUpUser) => {
-    onClose();
-    setTimeout(() => {
-      bottomSheet.open({
-        title: ' 회원가입',
-        headerType: 'close',
-        isFull: true,
-        contents: <SignUp {...user}/>,
-      });
-    }, 300);
-  }, [bottomSheet, onClose])
+  const handleClickKakao = React.useCallback(
+    (user: SignUpUser) => {
+      onClose();
+      setTimeout(() => {
+        bottomSheet.open({
+          title: ' 회원가입',
+          headerType: 'none',
+          isFull: true,
+          contents: <SignUp {...user} onClose={onClose} />,
+        });
+      }, 300);
+    },
+    [bottomSheet, onClose],
+  );
 
   return (
     <Box>
-      <h2>간편하게 로그인하고 <br/> 오너들과 이야기를 나눠보세요.</h2>
+      <h2>
+        간편하게 로그인하고 <br /> 오너들과 이야기를 나눠보세요.
+      </h2>
       <ul>
         <li>
-          <KakaoLogin 
-            onLoginKakao={handleClickKakao}
-          />
+          <KakaoLogin onLoginKakao={handleClickKakao} />
         </li>
         <li>
-          <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566815760/noticon/s1118wnuadritgbmm9by.png"/>
+          <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566815760/noticon/s1118wnuadritgbmm9by.png" />
         </li>
       </ul>
     </Box>
