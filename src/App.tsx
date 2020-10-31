@@ -19,6 +19,9 @@ function App() {
         <Page headerHeight={header.height}>
           <Header {...header} />
           <Switch>
+            <Route path="/test">
+              <Pages.TestPage />
+            </Route>
             <Route path="/article/:articleId">
               <Pages.ArticlePage />
             </Route>
