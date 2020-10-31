@@ -29,8 +29,9 @@ const Wrapper = styled.div`
 
 const Field = styled.div<{ error: boolean; focus: boolean }>`
   display: flex;
-  align-items: center;
   height: 48px;
+  margin-top: 9px;
+  align-items: center;
   border-bottom: 1px solid ${colors.blackEB};
 
   input {
