@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
+import FullButton from './FullButton';
 
 interface ButtonProps {
   icon?: React.ReactNode;
@@ -11,7 +12,7 @@ interface ButtonProps {
   className?: string;
 }
 
-export default function Button(props: ButtonProps): JSX.Element {
+function Button(props: ButtonProps): JSX.Element {
   const { icon, children, onClick, className } = props;
   return (
     <StyledButton onClick={onClick} className={className}>
@@ -36,3 +37,7 @@ const StyledButton = styled.button`
   }
   cursor: pointer;
 `;
+
+Button.Full = FullButton;
+
+export default Button;

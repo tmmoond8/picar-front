@@ -13,7 +13,7 @@ export default {
   blackD9: '#d9d9d9',
   blackEB: '#ebebeb',
   blackF5F6F7: '#f5f6f7',
-  primary: '#2346cf',
+  primary: '#147BF9',
   primary3: '#3c6af2',
   primary4: '#4467f1',
   greyA08: 'rgba(255, 255, 255, 0.8)',

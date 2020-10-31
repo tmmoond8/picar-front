@@ -11,11 +11,12 @@ interface TextFieldProps {
   id: string;
   label?: string;
   placeholder?: string;
-  value: string | number;
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClear?: () => void;
   errorMessage?: string;
   onBlur?: () => void;
+  autocomplete?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -58,6 +59,7 @@ const ClearButton = styled.button`
   width: 20px;
   height: 20px;
   padding: 0;
+  cursor: pointer;
 `;
 
 export default function TextField(props: TextFieldProps): JSX.Element {
@@ -71,6 +73,7 @@ export default function TextField(props: TextFieldProps): JSX.Element {
     className,
     onBlur = () => {},
     onClear = () => {},
+    autocomplete = true,
   } = props;
   const [isFocus, setFocus] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -119,10 +122,13 @@ export default function TextField(props: TextFieldProps): JSX.Element {
           placeholder={placeholder}
           onChange={onChange}
           onBlur={onBlur}
+          autoComplete={autocomplete ? 'on' : 'off'}
         />
-        <ClearButton onClick={handleClear}>
-          <Icon icon="inputClear" size="20px" />
-        </ClearButton>
+        {value.length > 0 && (
+          <ClearButton onClick={handleClear}>
+            <Icon icon="inputClear" size="20px" />
+          </ClearButton>
+        )}
       </Field>
     </Wrapper>
   );
