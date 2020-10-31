@@ -32,6 +32,7 @@ const StyledFullButton = styled.button<{ disabled: boolean }>`
   width: 100%;
   background-color: ${colors.primary};
   color: ${colors.white};
+  border-radius: 7px;
 
   span {
     margin-left: 6px;

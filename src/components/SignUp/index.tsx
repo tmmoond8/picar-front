@@ -15,8 +15,8 @@ import { SignUpUser } from '../../types/User';
 const BottomCTA = styled(Button.Full)`
   position: absolute;
   bottom: 0;
-  width: calc(100% + 32px);
-  margin: 0 -16px;
+  width: calc(100% - 32px);
+  margin: 0 14px 12px 14px;
 `;
 
 export default function SignUp(props: SignUpUser): JSX.Element {
