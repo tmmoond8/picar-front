@@ -39,9 +39,21 @@ interface LoginBoxProps {
   onClose: () => void;
 }
 
+const DealySignUp = (props: LoginBoxProps & SignUpUser) => {
+  const [isShown, setIsShown] = React.useState(false);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsShown(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+  return <React.Fragment>{isShown && <SignUp {...props} />}</React.Fragment>;
+};
+
 export default function LoginBox(props: LoginBoxProps): JSX.Element {
   const { onClose } = props;
   const bottomSheet = BottomSheet.useBottomSheet();
+
   const handleClickKakao = React.useCallback(
     (user: SignUpUser) => {
       onClose();
@@ -50,7 +62,7 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
           title: ' 회원가입',
           headerType: 'none',
           isFull: true,
-          contents: <SignUp {...user} onClose={onClose} />,
+          contents: <DealySignUp {...user} onClose={onClose} />,
         });
       }, 300);
     },

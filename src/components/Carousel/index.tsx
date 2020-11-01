@@ -6,7 +6,6 @@ import cx from 'classnames';
 
 import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
-import { useStore, observer } from '../../stores';
 import global from '../../types/global';
 import { CAROUSEL } from '../../types/constants';
 
@@ -19,7 +18,7 @@ interface CraouselProps {
   onChangeIndex: (i: number) => void;
 }
 
-export default observer(function Craousel(props: CraouselProps): JSX.Element {
+export default function Craousel(props: CraouselProps): JSX.Element {
   const {
     id,
     className,
@@ -28,11 +27,10 @@ export default observer(function Craousel(props: CraouselProps): JSX.Element {
     onChangeIndex,
     gesture = true,
   } = props;
-  const { article } = useStore();
   const flickingRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (flickingRef?.current && article) {
+    if (flickingRef?.current) {
       global.__OWNER__[id as typeof CAROUSEL[keyof typeof CAROUSEL]] = (
         _index: number,
       ) => {
@@ -96,7 +94,7 @@ export default observer(function Craousel(props: CraouselProps): JSX.Element {
       </Flicking>
     </Self>
   );
-});
+}
 
 const Self = styled.div`
   height: 100%;

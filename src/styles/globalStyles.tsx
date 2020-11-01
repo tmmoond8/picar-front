@@ -5,7 +5,9 @@ import emotionReset from 'emotion-reset';
 const customReset = css`
   html,
   body,
-  body > div {
+  body > div,
+  #root {
+    width: 100%;
     height: 100%;
     font-family: 'Noto Sans KR', sans-serif;
   }
@@ -25,6 +27,15 @@ const customReset = css`
   * {
     font-weight: 500;
     box-sizing: border-box;
+  }
+
+  .OwnerBottomSheetWrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
   }
 `;
 

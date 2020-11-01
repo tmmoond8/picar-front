@@ -37,7 +37,7 @@ const BottomCTA = styled(Button.Full)`
 export default function SignUp(props: SignUpProps): JSX.Element {
   const { name, onClose } = props;
   const handleChangeStep = React.useCallback((step: number) => {}, []);
-  const [step, setStep] = React.useState(1);
+  const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');
   const [nickname, onChangeNickname, onClearNickname] = Input.useTextField(
     name || '',
@@ -50,7 +50,6 @@ export default function SignUp(props: SignUpProps): JSX.Element {
   }, [step]);
 
   const handleNext = React.useCallback(() => {
-    console.log('abcsdf');
     setStep(step + 1);
   }, [step, setStep]);
 
@@ -80,7 +79,6 @@ export default function SignUp(props: SignUpProps): JSX.Element {
       >
         {signUpSteps}
       </SignUpCarousel>
-
       <BottomCTA onClick={handleNext} disabled={disabled}>
         다음
       </BottomCTA>

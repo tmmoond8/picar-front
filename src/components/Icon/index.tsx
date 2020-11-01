@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import cx from 'classnames';
 
 import { colors } from '../../styles';
@@ -35,10 +35,12 @@ function Icon(props: IconProps): JSX.Element {
   } = props;
   const customStyle = styles.customStyle({
     color,
+    cursor: typeof onClick === 'function' ? 'pointer' : 'auto',
   });
   const handleClick = () => {
     if (typeof onClick === 'function') onClick();
   };
+
   const SVGIcon = icons[icon];
   return (
     <SVGIcon
