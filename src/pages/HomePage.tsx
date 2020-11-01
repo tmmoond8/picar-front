@@ -7,6 +7,7 @@ import { observer, useStore } from '../stores';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
 import MenuBar from '../components/MenuBar';
+import { CAROUSEL } from '../types/constants';
 
 export default observer(function HomePage(): JSX.Element {
   const { article, ui } = useStore();
@@ -40,7 +41,11 @@ export default observer(function HomePage(): JSX.Element {
 
   return (
     <Wrapper>
-      <Carousel index={groupIndex} onChangeIndex={handleChangeIndex}>
+      <Carousel
+        id={CAROUSEL.HOME}
+        index={groupIndex}
+        onChangeIndex={handleChangeIndex}
+      >
         <ArticleList articles={roungeArticles} />
         <ArticleList articles={freeArticles} />
         <ArticleList articles={humorArticles} />

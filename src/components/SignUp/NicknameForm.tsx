@@ -10,7 +10,7 @@ import Button from '../Button';
 
 const Form = styled.form`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 16px;
 `;
 
@@ -33,11 +33,15 @@ export default observer(function NicknameForm(): JSX.Element {
     onClearNickname,
     ownerType,
     setOwnerType,
+    step,
+    setStep,
   } = useSignUpContext();
 
   const handleNext = React.useCallback(() => {
-    console.log('handleNext');
-  }, []);
+    setStep(step + 1);
+  }, [step, setStep]);
+
+  const disabled = React.useMemo(() => nickname.length < 3, [nickname]);
 
   return (
     <Form>
@@ -56,7 +60,9 @@ export default observer(function NicknameForm(): JSX.Element {
         currentValue={ownerType}
         setCurrentValue={setOwnerType}
       />
-      <BottomCTA onClick={handleNext}>다음</BottomCTA>
+      <BottomCTA onClick={handleNext} disabled={disabled}>
+        다음
+      </BottomCTA>
     </Form>
   );
 });

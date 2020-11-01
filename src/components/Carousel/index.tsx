@@ -4,11 +4,13 @@ import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 import cx from 'classnames';
 
-import { useStore, observer } from '../../stores';
 import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
+import { useStore, observer } from '../../stores';
+import { CAROUSEL } from '../../types/constants';
 
 interface CraouselProps {
+  id: keyof typeof CAROUSEL;
   className?: string;
   index: number;
   children: React.ReactNode;
@@ -17,13 +19,20 @@ interface CraouselProps {
 }
 
 export default observer(function Craousel(props: CraouselProps): JSX.Element {
-  const { className, index, children, onChangeIndex, gesture = true } = props;
+  const {
+    id,
+    className,
+    index,
+    children,
+    onChangeIndex,
+    gesture = true,
+  } = props;
   const { article } = useStore();
   const flickingRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (flickingRef?.current) {
-      article.flickingMoveTo = (_index: number) => {
+    if (flickingRef?.current && article) {
+      (window as any).__OWNER__[id] = (_index: number) => {
         (flickingRef.current as any).moveTo(
           _index,
           Math.abs(index - _index) > 1 ? 0 : 500,
@@ -46,7 +55,7 @@ export default observer(function Craousel(props: CraouselProps): JSX.Element {
   }, [flickingRef.current, gesture]);
 
   return (
-    <Self className={cx('carousel-container', className)}>
+    <Self id={id} className={cx('carousel-container', className)}>
       <Flicking
         ref={flickingRef as any}
         tag="div"

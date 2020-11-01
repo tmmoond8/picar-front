@@ -13,6 +13,7 @@ import SignUpHeader from './SignUpHeader';
 import Input from '../Input';
 
 import { SignUpUser } from '../../types/User';
+import { CAROUSEL } from '../../types/constants';
 
 interface SignUpProps extends SignUpUser {
   onClose: () => void;
@@ -21,7 +22,7 @@ interface SignUpProps extends SignUpUser {
 const SignUpCarousel = styled(Carousel)`
   margin-top: -60px;
   padding-top: 60px;
-  height: 100vh;
+  height: 100%;
 `;
 
 export default function SignUp(props: SignUpProps): JSX.Element {
@@ -52,6 +53,7 @@ export default function SignUp(props: SignUpProps): JSX.Element {
     >
       <SignUpHeader />
       <SignUpCarousel
+        id={CAROUSEL.SIGNUP}
         index={step}
         onChangeIndex={handleChangeStep}
         gesture={false}

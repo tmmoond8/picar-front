@@ -8,6 +8,7 @@ import BottomSheet from '../BottomSheet';
 import Icon from '../Icon';
 
 import { colors } from '../../styles';
+import { CAROUSEL } from '../../types/constants';
 
 import { NAVIGATIONS, ROUNGE } from '../../types/constants';
 import RoungeGrid from '../RoungeGrid';
@@ -41,13 +42,13 @@ const NavigationHeader = (): JSX.Element => {
         NAVIGATIONS.findIndex(({ name }) => name === selected),
         0,
       );
-      article.flickingMoveTo(moveIndex);
+      (window as any).__OWNER__[CAROUSEL.HOME](moveIndex);
     },
     [article],
   );
 
   return (
-    <Self >
+    <Self>
       <List>
         {NAVIGATIONS.map((item) => (
           <React.Fragment key={item.name}>
@@ -82,7 +83,7 @@ const NavigationHeader = (): JSX.Element => {
       </List>
     </Self>
   );
-}
+};
 
 NavigationHeader.type = 'Navition';
 

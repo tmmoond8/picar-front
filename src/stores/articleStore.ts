@@ -9,7 +9,6 @@ export interface ArticleStoreInterface {
   selectedGroup: string;
   groupIndex: number;
   selectedRounge: string;
-  flickingMoveTo: (index: number) => void;
 }
 
 class ArticleStore implements ArticleStoreInterface {
@@ -17,16 +16,12 @@ class ArticleStore implements ArticleStoreInterface {
   @observable articles: Article[];
   @observable selectedGroup: string;
   @observable selectedRounge: string;
-  @observable flickingMoveTo: (index: number) => void;
 
   constructor() {
     this.bestArticles = [];
     this.articles = [];
     this.selectedGroup = ROUNGE;
     this.selectedRounge = ROUNGES[0].name;
-    this.flickingMoveTo = () => {
-      console.error('flickingMoveTo not initalized');
-    };
     this.fetch();
   }
 

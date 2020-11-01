@@ -32,3 +32,8 @@ export const ROUNGES: Rounge[] = [
   { name: '펫샵', icon: 'roungePet'},
   { name: '기타라운지', icon: 'roungeAll'},
 ];
+
+export const CAROUSEL = {
+  HOME: 'HOME',
+  SIGNUP: 'SIGNUP',
+} as const;
