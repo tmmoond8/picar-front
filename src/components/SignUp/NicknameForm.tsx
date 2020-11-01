@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import { ownerTypes } from './constants';
 import { useSignUpContext, observer } from './context';
+import BottomCTA from './BottomCTA';
 import Input from '../Input';
 
 const Form = styled.form`
@@ -17,7 +19,7 @@ const Switch = styled(Input.Switch)`
   margin-top: 10px;
 `;
 
-export default observer(function NicknameForm(): JSX.Element {
+function NicknameForm(): JSX.Element {
   const {
     nickname,
     onChangeNickname,
@@ -45,4 +47,17 @@ export default observer(function NicknameForm(): JSX.Element {
       />
     </Form>
   );
+}
+
+NicknameForm.BottomCTA = observer((props: { onClick: () => void }) => {
+  const { onClick } = props;
+  const { nickname } = useSignUpContext();
+  const disabled = React.useMemo(() => nickname.length < 2, [nickname]);
+  return (
+    <BottomCTA onClick={onClick} disabled={disabled}>
+      다음
+    </BottomCTA>
+  );
 });
+
+export default observer(NicknameForm);

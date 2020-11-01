@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import { useSignUpContext, observer } from './context';
+import BottomCTA from './BottomCTA';
 import Content from '../Content';
 import RoungeGrid from '../RoungeGrid';
 import { colors } from '../../styles';
@@ -24,7 +26,7 @@ const Form = styled.form`
   }
 `;
 
-export default observer(function RoungeForm(): JSX.Element {
+function RoungeForm(): JSX.Element {
   const { lounge, setLounge } = useSignUpContext();
 
   return (
@@ -45,4 +47,17 @@ export default observer(function RoungeForm(): JSX.Element {
       />
     </Form>
   );
+}
+
+RoungeForm.BottomCTA = observer((props: { onClick: () => void }) => {
+  const { onClick } = props;
+  const { lounge } = useSignUpContext();
+  const disabled = React.useMemo(() => lounge === '', [lounge]);
+  return (
+    <BottomCTA onClick={onClick} disabled={disabled}>
+      가입하기
+    </BottomCTA>
+  );
 });
+
+export default observer(RoungeForm);
