@@ -1,9 +1,9 @@
 import { IconKey } from '../components/Icon';
-export const ROUNGE = '라운지';
+export const LOUNGE = '라운지';
 
 export const NAVIGATIONS = [
   {
-    name: ROUNGE,
+    name: LOUNGE,
   },
   {
     name: '자유',
@@ -21,16 +21,16 @@ interface Rounge {
   icon: IconKey;
 }
 
-export const ROUNGES: Rounge[] = [
-  { name: '요식업', icon: 'roungeFood'},
-  { name: '카페', icon: 'roungeCafe'},
-  { name: '주점', icon: 'roungeAlchol'},
-  { name: '편의점', icon: 'roungeRetail'},
-  { name: '쇼핑몰', icon: 'roungeShop'},
-  { name: '숙박업', icon: 'roungeMotel'},
-  { name: '스타트업', icon: 'roungeStartup'},
-  { name: '펫샵', icon: 'roungePet'},
-  { name: '기타라운지', icon: 'roungeAll'},
+export const LOUNGES: Rounge[] = [
+  { name: '요식업', icon: 'loungeFood'},
+  { name: '카페', icon: 'loungeCafe'},
+  { name: '주점', icon: 'loungeAlchol'},
+  { name: '편의점', icon: 'loungeRetail'},
+  { name: '쇼핑몰', icon: 'loungeShop'},
+  { name: '숙박업', icon: 'loungeMotel'},
+  { name: '스타트업', icon: 'loungeStartup'},
+  { name: '펫샵', icon: 'loungePet'},
+  { name: '기타라운지', icon: 'loungeAll'},
 ];
 
 export const CAROUSEL = {

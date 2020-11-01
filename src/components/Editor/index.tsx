@@ -9,15 +9,15 @@ import Selector, { useSelector } from '../Selector';
 import HR from '../HR';
 import Styled from './Styled';
 import API from '../../apis';
-import { NAVIGATIONS, ROUNGES, ROUNGE } from '../../types/constants';
+import { NAVIGATIONS, LOUNGES, LOUNGE } from '../../types/constants';
 import Article from '../../types/Article';
 import { article } from '../../stores';
 
 const selects = [
-  ...NAVIGATIONS.filter((navigation) => navigation.name !== ROUNGE).map(
+  ...NAVIGATIONS.filter((navigation) => navigation.name !== LOUNGE).map(
     (navigation) => navigation.name,
   ),
-  ...ROUNGES.map((rounge) => rounge.name),
+  ...LOUNGES.map((lounge) => lounge.name),
 ];
 
 interface EditorProps {
@@ -42,7 +42,7 @@ export default function Editor(props: EditorProps): JSX.Element {
         group: selected,
         photos: uploadedUrl,
       });
-      appendArticle(data.article)
+      appendArticle(data.article);
       history.goBack();
       history.replace('/');
     } catch (error) {
@@ -86,4 +86,4 @@ export default function Editor(props: EditorProps): JSX.Element {
       <Styled.SendButton onClick={handleClickPost}>작성</Styled.SendButton>
     </Styled.Page>
   );
-};
+}

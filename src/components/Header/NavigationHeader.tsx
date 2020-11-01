@@ -10,7 +10,7 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import { CAROUSEL } from '../../types/constants';
 
-import { NAVIGATIONS, ROUNGE } from '../../types/constants';
+import { NAVIGATIONS, LOUNGE } from '../../types/constants';
 import RoungeGrid from '../RoungeGrid';
 
 const NavigationHeader = (): JSX.Element => {
@@ -27,7 +27,7 @@ const NavigationHeader = (): JSX.Element => {
         <RoungeGrid
           onClick={(group: string) => {
             article.selectedRounge = group;
-            article.selectedGroup = ROUNGE;
+            article.selectedGroup = LOUNGE;
             bottomSheet.close();
           }}
         />
@@ -52,12 +52,12 @@ const NavigationHeader = (): JSX.Element => {
       <List>
         {NAVIGATIONS.map((item) => (
           <React.Fragment key={item.name}>
-            {item.name === ROUNGE ? (
+            {item.name === LOUNGE ? (
               <RougeSelector
-                selected={article.selectedGroup === ROUNGE}
-                key={ROUNGE}
+                selected={article.selectedGroup === LOUNGE}
+                key={LOUNGE}
                 onClick={() => {
-                  if (article.selectedGroup === ROUNGE) {
+                  if (article.selectedGroup === LOUNGE) {
                     handleOpenBottomSheet();
                   } else {
                     handleSetGroup(item.name);

@@ -1,7 +1,7 @@
 import { observable, computed, action } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
-import { NAVIGATIONS, ROUNGE, ROUNGES } from '../types/constants';
+import { NAVIGATIONS, LOUNGE, LOUNGES } from '../types/constants';
 
 export interface ArticleStoreInterface {
   bestArticles: Article[];
@@ -20,8 +20,8 @@ class ArticleStore implements ArticleStoreInterface {
   constructor() {
     this.bestArticles = [];
     this.articles = [];
-    this.selectedGroup = ROUNGE;
-    this.selectedRounge = ROUNGES[0].name;
+    this.selectedGroup = LOUNGE;
+    this.selectedRounge = LOUNGES[0].name;
     this.fetch();
   }
 

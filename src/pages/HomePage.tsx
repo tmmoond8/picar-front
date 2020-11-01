@@ -14,7 +14,7 @@ export default observer(function HomePage(): JSX.Element {
   ui.setHeaderNavigation();
   const { articles, groupIndex } = article;
 
-  const roungeArticles = React.useMemo(() => {
+  const loungeArticles = React.useMemo(() => {
     return articles.filter(
       (_article) => _article.group === article.selectedRounge,
     );
@@ -46,7 +46,7 @@ export default observer(function HomePage(): JSX.Element {
         index={groupIndex}
         onChangeIndex={handleChangeIndex}
       >
-        <ArticleList articles={roungeArticles} />
+        <ArticleList articles={loungeArticles} />
         <ArticleList articles={freeArticles} />
         <ArticleList articles={humorArticles} />
         <ArticleList articles={govermentSupportArticles} />

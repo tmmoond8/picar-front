@@ -1,2 +1,2 @@
-export const rounges = [
+export const lounges = [
 ];

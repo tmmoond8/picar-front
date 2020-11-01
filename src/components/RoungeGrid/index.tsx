@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import Icon from '../Icon';
 import { colors, desktop } from '../../styles';
-import { ROUNGES } from '../../types/constants';
+import { LOUNGES } from '../../types/constants';
 
 interface LoungeGridProps {
   selectedLounge?: string;
@@ -16,7 +16,7 @@ export default function LoungeGrid(props: LoungeGridProps): JSX.Element {
   return (
     <Grid>
       <ul>
-        {ROUNGES.map(({ name, icon }) => (
+        {LOUNGES.map(({ name, icon }) => (
           <Lounge
             onClick={() => onClick(name)}
             key={name}
