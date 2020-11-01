@@ -6,20 +6,25 @@ import Icon from '../Icon';
 import { colors, desktop } from '../../styles';
 import { ROUNGES } from '../../types/constants';
 
-interface RoungeGridProps {
+interface LoungeGridProps {
+  selectedLounge?: string;
   onClick: (group: string) => void;
 }
 
-export default function RoungeGrid(props: RoungeGridProps): JSX.Element {
-  const { onClick } = props;
+export default function LoungeGrid(props: LoungeGridProps): JSX.Element {
+  const { onClick, selectedLounge = '' } = props;
   return (
     <Grid>
       <ul>
         {ROUNGES.map(({ name, icon }) => (
-          <Rounge onClick={() => onClick(name)} key={name}>
+          <Lounge
+            onClick={() => onClick(name)}
+            key={name}
+            selected={selectedLounge === name}
+          >
             <Icon icon={icon} size="40%" />
             <span>{name}</span>
-          </Rounge>
+          </Lounge>
         ))}
       </ul>
     </Grid>
@@ -34,11 +39,12 @@ const Grid = styled.div`
   }
 `;
 
-const Rounge = styled.li`
+const Lounge = styled.li<{ selected: boolean }>`
   position: relative;
   height: calc((100vw - 36px - 2 * 10px) / 3);
   border-radius: 8px;
   background-color: ${colors.blackF5F6F7};
+  outline: none;
   cursor: pointer;
   ${desktop(
     css`
@@ -63,4 +69,11 @@ const Rounge = styled.li`
     font-size: 13px;
     text-align: center;
   }
+
+  ${(p) =>
+    p.selected &&
+    css`
+      background-color: ${colors.white};
+      border: 1px solid ${colors.black33};
+    `}
 `;

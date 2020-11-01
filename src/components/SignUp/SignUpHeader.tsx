@@ -44,11 +44,12 @@ export default observer(function SignUpHeader(): JSX.Element {
       setStep(step - 1);
     }
   }, [onClose, setStep, step]);
+  const icon = React.useMemo(() => (step === 0 ? 'close' : 'back'), [step]);
 
   return (
     <Header>
       <Icon
-        icon="close"
+        icon={icon}
         size="24px"
         color={colors.black100}
         onClick={handleClick}

@@ -11,8 +11,8 @@ const SignUpContext = React.createContext<{
   ownerType: string;
   setOwnerType: (v: string) => void;
   onClose: () => void;
-  // rounge: string;
-  // setRounge: (v: string) => void;
+  lounge: string;
+  setLounge: (v: string) => void;
 }>({
   step: 0,
   setStep: () => {},
@@ -22,8 +22,8 @@ const SignUpContext = React.createContext<{
   ownerType: 'owner',
   setOwnerType: () => {},
   onClose: () => {},
-  // rounge: '',
-  // setRounge: () => {},
+  lounge: '',
+  setLounge: () => {},
 });
 
 SignUpContext.displayName = 'SignUpContext';

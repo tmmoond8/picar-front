@@ -25,7 +25,7 @@ const Form = styled.form`
 `;
 
 export default observer(function RoungeForm(): JSX.Element {
-  const {} = useSignUpContext();
+  const { lounge, setLounge } = useSignUpContext();
 
   return (
     <Form>
@@ -38,8 +38,9 @@ export default observer(function RoungeForm(): JSX.Element {
       </p>
       <Content.Spacing size={30} />
       <RoungeGrid
-        onClick={(group: string) => {
-          console.log(group);
+        selectedLounge={lounge}
+        onClick={(lounge: string) => {
+          setLounge(lounge);
         }}
       />
     </Form>
