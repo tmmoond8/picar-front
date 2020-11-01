@@ -2,18 +2,19 @@
 type OwnerGlobal = typeof globalThis & {
   __OWNER__: {
     closeBottomSheet: () => void;
+    homeFlickingMoveTo: (i: number) => void;
+    signupFlickingMoveTo: (i: number) => void;
   };
 };
 
-if ((globalThis as OwnerGlobal).__OWNER__ === undefined) {
-  Object.defineProperty(globalThis, '__OWNER__', {
-    value: {
-      closeBottomSheet: () => {},
-    },
-    enumerable: false,
-    configurable: false,
-    writable: false,
-  });
+const global = globalThis as OwnerGlobal;
+
+if (global.__OWNER__ === undefined) {
+  global.__OWNER__ = {
+    closeBottomSheet: () => {},
+    homeFlickingMoveTo: (i: number) => {},
+    signupFlickingMoveTo: (i: number) => {},
+  };
 }
 
-export default globalThis as OwnerGlobal;
+export default global;

@@ -35,7 +35,6 @@ export default function SignUp(props: SignUpProps): JSX.Element {
     name || '',
   );
   const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
-
   const signUpSteps = [<NicknameForm />, <RoungeForm />];
 
   return (

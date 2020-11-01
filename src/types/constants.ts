@@ -34,6 +34,6 @@ export const ROUNGES: Rounge[] = [
 ];
 
 export const CAROUSEL = {
-  HOME: 'HOME',
-  SIGNUP: 'SIGNUP',
+  HOME: 'homeFlickingMoveTo',
+  SIGNUP: 'signupFlickingMoveTo',
 } as const;

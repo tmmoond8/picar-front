@@ -7,10 +7,11 @@ import cx from 'classnames';
 import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
 import { useStore, observer } from '../../stores';
+import global from '../../types/global';
 import { CAROUSEL } from '../../types/constants';
 
 interface CraouselProps {
-  id: keyof typeof CAROUSEL;
+  id: typeof CAROUSEL[keyof typeof CAROUSEL];
   className?: string;
   index: number;
   children: React.ReactNode;
@@ -32,7 +33,9 @@ export default observer(function Craousel(props: CraouselProps): JSX.Element {
 
   useEffect(() => {
     if (flickingRef?.current && article) {
-      (window as any).__OWNER__[id] = (_index: number) => {
+      global.__OWNER__[id as typeof CAROUSEL[keyof typeof CAROUSEL]] = (
+        _index: number,
+      ) => {
         (flickingRef.current as any).moveTo(
           _index,
           Math.abs(index - _index) > 1 ? 0 : 500,
