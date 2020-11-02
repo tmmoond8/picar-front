@@ -8,20 +8,20 @@ export interface ArticleStoreInterface {
   articles: Article[];
   selectedGroup: string;
   groupIndex: number;
-  selectedRounge: string;
+  selectedLounge: string;
 }
 
 class ArticleStore implements ArticleStoreInterface {
   @observable bestArticles: Article[];
   @observable articles: Article[];
   @observable selectedGroup: string;
-  @observable selectedRounge: string;
+  @observable selectedLounge: string;
 
   constructor() {
     this.bestArticles = [];
     this.articles = [];
     this.selectedGroup = LOUNGE;
-    this.selectedRounge = LOUNGES[0].name;
+    this.selectedLounge = LOUNGES[0].name;
     this.fetch();
   }
 

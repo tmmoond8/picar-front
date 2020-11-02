@@ -6,7 +6,7 @@ import React from 'react';
 import { useSignUpContext, observer } from './context';
 import BottomCTA from './BottomCTA';
 import Content from '../Content';
-import RoungeGrid from '../RoungeGrid';
+import LoungeGrid from '../LoungeGrid';
 import { colors } from '../../styles';
 
 const Form = styled.form`
@@ -26,7 +26,7 @@ const Form = styled.form`
   }
 `;
 
-function RoungeForm(): JSX.Element {
+function LoungeForm(): JSX.Element {
   const { lounge, setLounge } = useSignUpContext();
 
   return (
@@ -39,7 +39,7 @@ function RoungeForm(): JSX.Element {
         라운지도 얼마든지 이동 할 수 있어요.
       </p>
       <Content.Spacing size={30} />
-      <RoungeGrid
+      <LoungeGrid
         selectedLounge={lounge}
         onClick={(lounge: string) => {
           setLounge(lounge);
@@ -49,7 +49,7 @@ function RoungeForm(): JSX.Element {
   );
 }
 
-RoungeForm.BottomCTA = observer((props: { onClick: () => void }) => {
+LoungeForm.BottomCTA = observer((props: { onClick: () => void }) => {
   const { onClick } = props;
   const { lounge } = useSignUpContext();
   const disabled = React.useMemo(() => lounge === '', [lounge]);
@@ -60,4 +60,4 @@ RoungeForm.BottomCTA = observer((props: { onClick: () => void }) => {
   );
 });
 
-export default observer(RoungeForm);
+export default observer(LoungeForm);

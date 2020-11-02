@@ -16,12 +16,12 @@ export const NAVIGATIONS = [
   },
 ];
 
-interface Rounge {
+interface Lounge {
   name: string;
   icon: IconKey;
 }
 
-export const LOUNGES: Rounge[] = [
+export const LOUNGES: Lounge[] = [
   { name: '요식업', icon: 'loungeFood'},
   { name: '카페', icon: 'loungeCafe'},
   { name: '주점', icon: 'loungeAlchol'},

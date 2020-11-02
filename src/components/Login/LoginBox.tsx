@@ -62,7 +62,7 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
           title: ' 회원가입',
           headerType: 'none',
           isFull: true,
-          contents: <DealySignUp {...user} onClose={onClose} />,
+          contents: <DealySignUp {...user} onClose={bottomSheet.close} />,
         });
       }, 300);
     },

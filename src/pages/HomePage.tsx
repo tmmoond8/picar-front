@@ -16,9 +16,9 @@ export default observer(function HomePage(): JSX.Element {
 
   const loungeArticles = React.useMemo(() => {
     return articles.filter(
-      (_article) => _article.group === article.selectedRounge,
+      (_article) => _article.group === article.selectedLounge,
     );
-  }, [article.selectedRounge, articles]);
+  }, [article.selectedLounge, articles]);
 
   const freeArticles = React.useMemo(() => {
     return articles.filter((article) => article.group === '자유');

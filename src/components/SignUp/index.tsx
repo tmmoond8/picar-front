@@ -26,7 +26,7 @@ const SignUpCarousel = styled(Carousel)`
 `;
 
 export default function SignUp(props: SignUpProps): JSX.Element {
-  const { name, onClose } = props;
+  const { name, onClose, email } = props;
   const handleChangeStep = React.useCallback((step: number) => {}, []);
   const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');

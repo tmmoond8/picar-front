@@ -11,7 +11,7 @@ import { colors } from '../../styles';
 import { CAROUSEL } from '../../types/constants';
 
 import { NAVIGATIONS, LOUNGE } from '../../types/constants';
-import RoungeGrid from '../RoungeGrid';
+import LoungeGrid from '../LoungeGrid';
 
 const NavigationHeader = (): JSX.Element => {
   const {
@@ -24,16 +24,16 @@ const NavigationHeader = (): JSX.Element => {
     bottomSheet.open({
       title: '업종 라운지를 선택해 주세요',
       contents: (
-        <RoungeGrid
+        <LoungeGrid
           onClick={(group: string) => {
-            article.selectedRounge = group;
+            article.selectedLounge = group;
             article.selectedGroup = LOUNGE;
             bottomSheet.close();
           }}
         />
       ),
     });
-  }, [article.selectedGroup, article.selectedRounge, bottomSheet]);
+  }, [article.selectedGroup, article.selectedLounge, bottomSheet]);
 
   const handleSetGroup = React.useCallback(
     (selected: string) => {
@@ -64,7 +64,7 @@ const NavigationHeader = (): JSX.Element => {
                   }
                 }}
               >
-                {article.selectedRounge}
+                {article.selectedLounge}
                 <Icon icon="dropdown" size="16px" />
               </RougeSelector>
             ) : (
