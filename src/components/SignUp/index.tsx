@@ -14,6 +14,9 @@ import Input from '../Input';
 import { SignUpUser } from '../../types/User';
 import { CAROUSEL } from '../../types/constants';
 import global from '../../types/global';
+import { useStore, observer } from '../../stores';
+
+import API from '../../apis';
 
 interface SignUpProps extends SignUpUser {
   onClose: () => void;
@@ -25,8 +28,9 @@ const SignUpCarousel = styled(Carousel)`
   height: 100%;
 `;
 
-export default function SignUp(props: SignUpProps): JSX.Element {
-  const { name, onClose, email } = props;
+export default observer(function SignUp(props: SignUpProps): JSX.Element {
+  const { name, email, onClose } = props;
+  const { user } = useStore();
   const handleChangeStep = React.useCallback((step: number) => {}, []);
   const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');
@@ -42,6 +46,22 @@ export default function SignUp(props: SignUpProps): JSX.Element {
     setStep(step + 1);
   }, [step, setStep]);
 
+  const handleSignUp = React.useCallback(async () => {
+    try {
+      const { data } = await API.auth.kakaoLogin({
+        ...props,
+        name: nicknameField[0],
+        email: emailField[0],
+        isOwner: ownerType === ownerTypes[0].value,
+        group: lounge,
+      });
+      user.profile = data;
+    } catch (error) {
+    } finally {
+      onClose();
+    }
+  }, [emailField, lounge, nicknameField, onClose, ownerType, props, user]);
+
   const signUpSteps = [
     {
       Form: NicknameForm,
@@ -49,7 +69,7 @@ export default function SignUp(props: SignUpProps): JSX.Element {
     },
     {
       Form: LoungeForm,
-      bottomCTA: <LoungeForm.BottomCTA onClick={() => console.log('join')} />,
+      bottomCTA: <LoungeForm.BottomCTA onClick={handleSignUp} />,
     },
   ];
 
@@ -81,4 +101,4 @@ export default function SignUp(props: SignUpProps): JSX.Element {
       {signUpSteps[step].bottomCTA}
     </SignupContext.Provider>
   );
-}
+});

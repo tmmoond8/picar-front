@@ -6,18 +6,22 @@ import {
 } from 'mobx-react';
 import ArticleStore, { ArticleStoreInterface } from './articleStore';
 import UiStroe, { UiStoreInterface } from './uiStore';
+import UserStroe, { UserStoreInterface } from './userStore';
 
 export interface Stores {
   article: ArticleStoreInterface;
   ui: UiStoreInterface;
+  user: UserStoreInterface;
 }
 
 export const article = new ArticleStore();
 export const ui = new UiStroe();
+export const user = new UserStroe();
 
 const rootStore: Stores = {
   article,
   ui,
+  user,
 };
 
 export const MobxProvider = (props: { children: ReactNode }): JSX.Element => (

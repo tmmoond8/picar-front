@@ -2,10 +2,11 @@ export interface Profile {
   id?: string;
   name: string;
   thumbnail?: string;
-  coverImg?: string;
+  profile?: string;
   email: string;
   description?: string;
   group?: string;
+  isOwner?: boolean;
 }
 
 export default interface User extends Profile {
