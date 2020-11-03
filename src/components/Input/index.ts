@@ -1,7 +1,7 @@
 import TextField from './TextField';
 import Switch from './Switch';
 import * as hooks from './hooks';
-import { TextFiledHandler as _TextFiledHandler } from './hooks';
+import { TextFieldHandler as _TextFieldHandler } from './hooks';
 
 export default {
   TextField,
@@ -9,4 +9,4 @@ export default {
   ...hooks,
 }
 
-export type TextFiledHandler = _TextFiledHandler;
+export type TextFieldHandler = _TextFieldHandler;

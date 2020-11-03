@@ -28,11 +28,13 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "throttle-debounce": "^2.2.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
     "@types/throttle-debounce": "^2.1.0",
+    "@types/validator": "^13.1.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-typescript": "^2.0.0",

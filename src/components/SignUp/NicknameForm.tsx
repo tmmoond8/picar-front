@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import validator from 'validator';
 
 import { ownerTypes } from './constants';
 import { useSignUpContext, observer } from './context';
@@ -20,9 +21,15 @@ const Switch = styled(Input.Switch)`
 `;
 
 function NicknameForm(): JSX.Element {
-  const { nicknameFiled, ownerType, setOwnerType } = useSignUpContext();
+  const {
+    nicknameField,
+    emailField,
+    ownerType,
+    setOwnerType,
+  } = useSignUpContext();
 
-  const [nickname, onChangeNickname, onClearNickname] = nicknameFiled;
+  const [nickname, onChangeNickname, onClearNickname] = nicknameField;
+  const [email, onChangeEmail, onClearEmail] = emailField;
 
   return (
     <Form>
@@ -34,6 +41,15 @@ function NicknameForm(): JSX.Element {
         placeholder="닉네임을 입력해주세요"
         onClear={onClearNickname}
         autocomplete={false}
+      />
+      <TextField
+        id="signup-email"
+        label="이메일"
+        onChange={onChangeEmail}
+        value={email}
+        placeholder="이메일을 입력해주세요"
+        onClear={onClearEmail}
+        autocomplete={true}
       />
       <Switch
         label="직업"
@@ -48,10 +64,14 @@ function NicknameForm(): JSX.Element {
 NicknameForm.BottomCTA = observer((props: { onClick: () => void }) => {
   const { onClick } = props;
   const {
-    nicknameFiled: [nickname],
+    nicknameField: [nickname],
+    emailField: [email],
   } = useSignUpContext();
 
-  const disabled = React.useMemo(() => nickname.length < 2, [nickname]);
+  const disabled = React.useMemo(
+    () => nickname.length < 2 || !validator.isEmail(email),
+    [email, nickname.length],
+  );
   return (
     <BottomCTA onClick={onClick} disabled={disabled}>
       다음

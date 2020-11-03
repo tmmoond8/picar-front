@@ -1,12 +1,13 @@
 import React from 'react';
-import { TextFiledHandler } from '../Input';
+import { TextFieldHandler } from '../Input';
 
 export { observer } from 'mobx-react';
 
 const SignUpContext = React.createContext<{
   step: number;
   setStep: (v: number) => void;
-  nicknameFiled: TextFiledHandler;
+  nicknameField: TextFieldHandler;
+  emailField: TextFieldHandler;
   ownerType: string;
   setOwnerType: (v: string) => void;
   onClose: () => void;
@@ -15,7 +16,8 @@ const SignUpContext = React.createContext<{
 }>({
   step: 0,
   setStep: () => {},
-  nicknameFiled: ['', () => {}, () => {}],
+  nicknameField: ['', () => {}, () => {}],
+  emailField: ['', () => {}, () => {}],
   ownerType: 'owner',
   setOwnerType: () => {},
   onClose: () => {},

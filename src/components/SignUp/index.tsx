@@ -30,7 +30,8 @@ export default function SignUp(props: SignUpProps): JSX.Element {
   const handleChangeStep = React.useCallback((step: number) => {}, []);
   const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');
-  const nicknameFiled = Input.useTextField(name || '');
+  const nicknameField = Input.useTextField(name || '');
+  const emailField = Input.useTextField(email || '');
   const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
 
   React.useEffect(() => {
@@ -57,7 +58,8 @@ export default function SignUp(props: SignUpProps): JSX.Element {
       value={{
         step,
         setStep,
-        nicknameFiled,
+        nicknameField,
+        emailField,
         ownerType,
         setOwnerType,
         onClose,
