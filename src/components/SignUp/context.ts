@@ -1,13 +1,12 @@
 import React from 'react';
+import { TextFiledHandler } from '../Input';
 
 export { observer } from 'mobx-react';
 
 const SignUpContext = React.createContext<{
   step: number;
   setStep: (v: number) => void;
-  nickname: string;
-  onChangeNickname: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClearNickname: () => void;
+  nicknameFiled: TextFiledHandler;
   ownerType: string;
   setOwnerType: (v: string) => void;
   onClose: () => void;
@@ -16,9 +15,7 @@ const SignUpContext = React.createContext<{
 }>({
   step: 0,
   setStep: () => {},
-  nickname: '',
-  onChangeNickname: () => {},
-  onClearNickname: () => {},
+  nicknameFiled: ['', () => {}, () => {}],
   ownerType: 'owner',
   setOwnerType: () => {},
   onClose: () => {},

@@ -20,13 +20,9 @@ const Switch = styled(Input.Switch)`
 `;
 
 function NicknameForm(): JSX.Element {
-  const {
-    nickname,
-    onChangeNickname,
-    onClearNickname,
-    ownerType,
-    setOwnerType,
-  } = useSignUpContext();
+  const { nicknameFiled, ownerType, setOwnerType } = useSignUpContext();
+
+  const [nickname, onChangeNickname, onClearNickname] = nicknameFiled;
 
   return (
     <Form>
@@ -51,7 +47,10 @@ function NicknameForm(): JSX.Element {
 
 NicknameForm.BottomCTA = observer((props: { onClick: () => void }) => {
   const { onClick } = props;
-  const { nickname } = useSignUpContext();
+  const {
+    nicknameFiled: [nickname],
+  } = useSignUpContext();
+
   const disabled = React.useMemo(() => nickname.length < 2, [nickname]);
   return (
     <BottomCTA onClick={onClick} disabled={disabled}>
