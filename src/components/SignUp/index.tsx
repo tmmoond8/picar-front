@@ -11,7 +11,7 @@ import LoungeForm from './LoungeForm';
 import SignUpHeader from './SignUpHeader';
 
 import Input from '../Input';
-import { SignUpUser } from '../../types/User';
+import { SignUpUser, Profile } from '../../types/User';
 import { CAROUSEL } from '../../types/constants';
 import global from '../../types/global';
 import { useStore, observer } from '../../stores';
@@ -20,6 +20,7 @@ import API from '../../apis';
 
 interface SignUpProps extends SignUpUser {
   onClose: () => void;
+  onSetUserProfile: (profile: Profile) => void;
 }
 
 const SignUpCarousel = styled(Carousel)`
@@ -29,7 +30,7 @@ const SignUpCarousel = styled(Carousel)`
 `;
 
 export default observer(function SignUp(props: SignUpProps): JSX.Element {
-  const { name, email, onClose } = props;
+  const { name, email, onClose, onSetUserProfile } = props;
   const { user } = useStore();
   const handleChangeStep = React.useCallback((step: number) => {}, []);
   const [step, setStep] = React.useState(0);
@@ -55,12 +56,20 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         isOwner: ownerType === ownerTypes[0].value,
         group: lounge,
       });
-      user.profile = data;
+      onSetUserProfile(data);
     } catch (error) {
     } finally {
       onClose();
     }
-  }, [emailField, lounge, nicknameField, onClose, ownerType, props, user]);
+  }, [
+    emailField,
+    lounge,
+    nicknameField,
+    onClose,
+    onSetUserProfile,
+    ownerType,
+    props,
+  ]);
 
   const signUpSteps = [
     {

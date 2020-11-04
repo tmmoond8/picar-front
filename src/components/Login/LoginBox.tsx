@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import KakaoLogin from './KakaoLogin';
-import { SignUpUser } from '../../types/User';
+import { SignUpUser, Profile } from '../../types/User';
 import BottomSheet from '../BottomSheet';
 import SignUp from '../SignUp';
 
@@ -37,9 +37,10 @@ const Box = styled.div`
 
 interface LoginBoxProps {
   onClose: () => void;
+  onSetUserProfile: (profile: Profile) => void;
 }
 
-const DealySignUp = (props: LoginBoxProps & SignUpUser) => {
+const SignUpWithDelay = (props: LoginBoxProps & SignUpUser) => {
   const [isShown, setIsShown] = React.useState(false);
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,10 +52,10 @@ const DealySignUp = (props: LoginBoxProps & SignUpUser) => {
 };
 
 export default function LoginBox(props: LoginBoxProps): JSX.Element {
-  const { onClose } = props;
+  const { onClose, onSetUserProfile } = props;
   const bottomSheet = BottomSheet.useBottomSheet();
 
-  const handleClickKakao = React.useCallback(
+  const handleSignUp = React.useCallback(
     (user: SignUpUser) => {
       onClose();
       setTimeout(() => {
@@ -62,11 +63,25 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
           title: ' 회원가입',
           headerType: 'none',
           isFull: true,
-          contents: <DealySignUp {...user} onClose={bottomSheet.close} />,
+          contents: (
+            <SignUpWithDelay
+              {...user}
+              onClose={bottomSheet.close}
+              onSetUserProfile={onSetUserProfile}
+            />
+          ),
         });
       }, 300);
     },
-    [bottomSheet, onClose],
+    [bottomSheet, onClose, onSetUserProfile],
+  );
+
+  const handleSetUserProfile = React.useCallback(
+    (profile: any) => {
+      onClose();
+      onSetUserProfile(profile);
+    },
+    [onClose, onSetUserProfile],
   );
 
   return (
@@ -76,7 +91,10 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
       </h2>
       <ul>
         <li>
-          <KakaoLogin onLoginKakao={handleClickKakao} />
+          <KakaoLogin
+            onSignUp={handleSignUp}
+            onSetUserProfile={handleSetUserProfile}
+          />
         </li>
         <li>
           <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566815760/noticon/s1118wnuadritgbmm9by.png" />

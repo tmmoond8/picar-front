@@ -9,6 +9,7 @@ export default (function TestPage(): JSX.Element {
       provider="kakao"
       snsId="1231321321"
       onClose={() => console.log('close')}
+      onSetUserProfile={() => console.log('abc')}
     />
   );
 });

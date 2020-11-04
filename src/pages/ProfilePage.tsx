@@ -70,8 +70,6 @@ export default observer(function ProfilePage(): JSX.Element {
   ui.setHeaderNone();
   const { profileImage, name, group } = profile;
 
-  console.log(profileImage);
-
   return (
     <Page>
       <UserProfile>

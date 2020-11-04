@@ -4,18 +4,19 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import ReactKakaoLogin from 'react-kakao-login';
+import APIS from '../../apis';
 
-import { SignUpUser } from '../../types/User';
+import { SignUpUser, Profile } from '../../types/User';
 
 interface KakaoLoginProps {
-  onLoginKakao: (user: SignUpUser) => void;
+  onSignUp: (user: SignUpUser) => void;
+  onSetUserProfile: (userProfile: Profile) => void;
 }
 
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
-  const { onLoginKakao } = props;
+  const { onSignUp, onSetUserProfile } = props;
   const handleLogin = React.useCallback(
-    (result) => {
-      console.log(result);
+    async (result) => {
       const {
         id,
         kakao_account: {
@@ -23,8 +24,18 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
           profile: { nickname, profile_image_url, thumbnail_image_url },
         },
       } = result.profile;
-      const { access_token } = result.response;
-      localStorage.setItem('kakaoOAuth', access_token);
+      try {
+        const {
+          data: { data },
+        } = await APIS.auth.check(id, 'kakao');
+        if (data) {
+          onSetUserProfile(data);
+          return;
+        }
+      } catch (error) {
+        return;
+      }
+
       const user: SignUpUser = {
         email,
         snsId: id.toString(),
@@ -33,10 +44,9 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
         profileImage: profile_image_url,
         provider: 'kakao',
       };
-      console.log(user);
-      onLoginKakao(user);
+      onSignUp(user);
     },
-    [onLoginKakao],
+    [onSetUserProfile, onSignUp],
   );
   return (
     <ReactKakaoLogin

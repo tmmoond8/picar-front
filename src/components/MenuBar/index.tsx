@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useCallback } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
 import BottomSheet from '../BottomSheet';
@@ -10,25 +10,34 @@ import LoginBox from '../Login/LoginBox';
 import Icon from '../Icon';
 import Editor from '../Editor';
 
-import { observer, useStore } from '../../stores';
+import { observer, user, useStore } from '../../stores';
 import { colors } from '../../styles';
 import Article from '../../types/Article';
+import { Profile } from '../../types/User';
 
 export default observer(function MenuBar(): JSX.Element {
   const {
     article,
     user: { profile },
   } = useStore();
+  const location = useLocation();
+  const { pathname } = location;
   const bottomSheet = BottomSheet.useBottomSheet();
   const history = useHistory();
 
-  const handleClickCommunity = () => {
-    console.log('커뮤니티');
-  };
-  const handleClickSearch = () => {
-    console.log('검색');
-  };
-  const handleClickWrite = React.useCallback(() => {
+  const moveTo = useCallback(
+    (path: string) => {
+      if (pathname !== path) {
+        history.push(path);
+      }
+    },
+    [history, pathname],
+  );
+
+  const handleSetUserProfile = (profile: Profile) => (user.profile = profile);
+  const handleClickCommunity = useCallback(() => moveTo('/'), [moveTo]);
+  const handleClickSearch = useCallback(() => moveTo('/search'), [moveTo]);
+  const handleClickWrite = useCallback(() => {
     const appendArticle = (newArticle: Article) => {
       article.articles = [...article.articles, newArticle];
     };
@@ -39,20 +48,22 @@ export default observer(function MenuBar(): JSX.Element {
       contents: <Editor appendArticle={appendArticle} />,
     });
   }, [article.articles, bottomSheet]);
-  const handleClickMarket = () => {
-    console.log('장터');
-    history.push('/test');
-  };
-  const handleClickProfile = () => {
-    if (profile) {
-      alert(JSON.stringify(profile));
+  const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
+  const handleClickProfile = useCallback(() => {
+    if (profile.code !== 'test') {
+      moveTo('/profile');
     } else {
       bottomSheet.open({
         title: '',
-        contents: <LoginBox onClose={bottomSheet.close} />,
+        contents: (
+          <LoginBox
+            onClose={bottomSheet.close}
+            onSetUserProfile={handleSetUserProfile}
+          />
+        ),
       });
     }
-  };
+  }, [bottomSheet, moveTo, profile]);
 
   return (
     <MenuBarContainer>

@@ -31,7 +31,7 @@ class UserStore implements UserStoreInterface {
         data: {
           ok, data
         },
-      } = await APIS.auth.check();
+      } = await APIS.auth.getUser();
       if (ok) {
         this.profile = data;
       }
