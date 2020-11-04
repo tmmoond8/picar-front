@@ -2,7 +2,7 @@ export interface Profile {
   id?: string;
   name: string;
   thumbnail?: string;
-  profile?: string;
+  profileImage?: string;
   email: string;
   description?: string;
   group?: string;
@@ -19,7 +19,7 @@ export interface SignUpUser {
   snsId: string;
   name?: string;
   thumbnail?: string;
-  profile?: string;
+  profileImage?: string;
   email?: string;
   group?: string;
   isOwner?: boolean;

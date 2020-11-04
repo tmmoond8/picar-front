@@ -1,5 +1,4 @@
 import { observable, computed } from 'mobx';
-import Article from '../types/Article';
 import APIS from '../apis';
 import { Profile } from '../types/User';
 
@@ -12,18 +11,23 @@ class UserStore implements UserStoreInterface {
 
   constructor() {
     this.profile = null;
+    this.fetch();
   }
 
-  // async fetch() {
-  //   try {
-  //     const {
-  //       data: { articles },
-  //     } = await APIS.article.list();
-  //     this.articles = articles;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  async fetch() {
+    try {
+      const {
+        data: {
+          ok, data
+        },
+      } = await APIS.auth.check();
+      if (ok) {
+        this.profile = data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 }
 

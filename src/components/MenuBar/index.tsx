@@ -15,7 +15,10 @@ import { colors } from '../../styles';
 import Article from '../../types/Article';
 
 export default observer(function MenuBar(): JSX.Element {
-  const { article } = useStore();
+  const {
+    article,
+    user: { profile },
+  } = useStore();
   const bottomSheet = BottomSheet.useBottomSheet();
   const history = useHistory();
 
@@ -41,10 +44,14 @@ export default observer(function MenuBar(): JSX.Element {
     history.push('/test');
   };
   const handleClickProfile = () => {
-    bottomSheet.open({
-      title: '',
-      contents: <LoginBox onClose={bottomSheet.close} />,
-    });
+    if (profile) {
+      alert(JSON.stringify(profile));
+    } else {
+      bottomSheet.open({
+        title: '',
+        contents: <LoginBox onClose={bottomSheet.close} />,
+      });
+    }
   };
 
   return (

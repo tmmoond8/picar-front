@@ -30,7 +30,7 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
         snsId: id.toString(),
         name: nickname,
         thumbnail: thumbnail_image_url,
-        profile: profile_image_url,
+        profileImage: profile_image_url,
         provider: 'kakao',
       };
       console.log(user);
