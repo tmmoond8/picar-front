@@ -2,15 +2,26 @@ import { observable, computed } from 'mobx';
 import APIS from '../apis';
 import { Profile } from '../types/User';
 
+const initalProfile = {
+  code: 'test',
+  name: 'guest',
+  thumbnail: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
+  profileImage: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
+  description: '',
+  group: '요식업',
+  isOwner: true,
+  email: 'test@gmail.com',
+}
+
 export interface UserStoreInterface {
-  profile: Profile | null;
+  profile: Profile;
 }
 
 class UserStore implements UserStoreInterface {
-  @observable profile: Profile | null;
+  @observable profile: Profile;
 
   constructor() {
-    this.profile = null;
+    this.profile = initalProfile;
     this.fetch();
   }
 

@@ -24,3 +24,4 @@ export { ReactComponent as loungePet } from './lounge-pet.svg';
 export { ReactComponent as loungeRetail } from './lounge-retail.svg';
 export { ReactComponent as loungeShop } from './lounge-shop.svg';
 export { ReactComponent as loungeStartup } from './lounge-startup.svg';
+export { ReactComponent as customerCenter } from './customer-center.svg';
