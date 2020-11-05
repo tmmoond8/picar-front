@@ -22,11 +22,11 @@ const selects = [
 
 interface EditorProps {
   appendArticle: (article: Article) => void;
+  onClose: () => void;
 }
 
 export default function Editor(props: EditorProps): JSX.Element {
-  const { appendArticle } = props;
-  const history = useHistory();
+  const { appendArticle, onClose } = props;
   const [selected, setSelected] = useSelector(selects, '자유');
   const [title, setTitle] = useTextarea('');
   const [content, setContent] = useTextarea('');
@@ -43,12 +43,11 @@ export default function Editor(props: EditorProps): JSX.Element {
         photos: uploadedUrl,
       });
       appendArticle(data.article);
-      history.goBack();
-      history.replace('/');
+      onClose();
     } catch (error) {
       console.error(error);
     }
-  }, [title, content, selected, uploadedUrl, appendArticle, history]);
+  }, [title, content, selected, uploadedUrl, appendArticle, onClose]);
 
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');

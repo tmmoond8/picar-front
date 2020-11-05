@@ -45,7 +45,9 @@ export default observer(function MenuBar(): JSX.Element {
       title: ' 글 쓰기',
       headerType: 'close',
       isFull: true,
-      contents: <Editor appendArticle={appendArticle} />,
+      contents: (
+        <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
+      ),
     });
   }, [article.articles, bottomSheet]);
   const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
