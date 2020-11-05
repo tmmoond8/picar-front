@@ -23,6 +23,7 @@ export default function Article(props: ArticleProps): JSX.Element {
       {article && (
         <Self>
           <ArticleHead
+            thumbnail={author.thumbnail}
             authorId={author.id}
             name={author.name}
             group={author.group}

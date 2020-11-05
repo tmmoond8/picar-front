@@ -8,6 +8,7 @@ import Profile from '../Profile';
 import { getDateGoodLook } from '../../modules/string';
 
 interface ArticleHeadProps {
+  thumbnail?: string;
   authorId: string;
   name: string;
   group?: string;
@@ -15,10 +16,10 @@ interface ArticleHeadProps {
 }
 
 export default function ArticleHead(props: ArticleHeadProps): JSX.Element {
-  const { authorId, name, group, createdDate } = props;
+  const { authorId, name, group, createdDate, thumbnail } = props;
   return (
     <Self>
-      <Profile.Photo onClick={() => console.log(authorId)} />
+      <Profile.Photo src={thumbnail} onClick={() => console.log(authorId)} />
       <Content>
         <Profile.Who name={name} group={group} />
         <p className="date">{getDateGoodLook(createdDate)}</p>
