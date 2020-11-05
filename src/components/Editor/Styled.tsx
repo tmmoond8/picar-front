@@ -10,6 +10,7 @@ const SendButton = styled.button`
   top: 18px;
   font-size: 16px;
   color: ${colors.primary};
+  cursor: pointer;
 `;
 
 const Page = styled.section`

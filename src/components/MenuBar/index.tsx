@@ -39,7 +39,7 @@ export default observer(function MenuBar(): JSX.Element {
   const handleClickSearch = useCallback(() => moveTo('/search'), [moveTo]);
   const handleClickWrite = useCallback(() => {
     const appendArticle = (newArticle: Article) => {
-      article.articles = [...article.articles, newArticle];
+      article.articles = [newArticle, ...article.articles];
     };
     bottomSheet.open({
       title: ' 글 쓰기',
