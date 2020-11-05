@@ -32,15 +32,12 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   const handleClickArticle = React.useCallback(() => {
     history.push(`/article/${id}`);
   }, [history, id]);
-
   return (
     <Card>
       <Head>
         <ProfilePhoto src={thumbnail} size={24} />
         <Profile.Who name={name} group={group} />
-        <p className="article-time">
-          {getDateGoodLook(createAt)}
-        </p>
+        <p className="article-time">{getDateGoodLook(createAt)}</p>
       </Head>
       <Body onClick={handleClickArticle}>
         <div className="article-content-wrapper">

@@ -1,10 +1,22 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
+import styled from '@emotion/styled';
 
 import API from '../../apis';
 import Button from '../Button';
 import Icon from '../Icon';
+
+const HiddenInput = styled.input`
+  width: 30px;
+  height: 30px;
+  padding: 15px;
+  opacity: 0;
+  cursor: pointer;
+`;
+const UploadButton = styled(Button)`
+  position: absolute;
+`;
 
 interface UploaderProps {
   setUploadedUrl: (imgUrl: string) => void;
@@ -35,17 +47,14 @@ export default function Uploader(props: UploaderProps) {
   };
 
   return (
-    <Button
-      onClick={() => {
-        if (fileRef?.current) {
-          fileRef.current.click();
-        }
-      }}
-      icon={<Icon icon="image" size="24px" />}
-    >
-      <input
-        ref={fileRef}
-        hidden
+    <React.Fragment>
+      <UploadButton
+        onClick={() => {
+          console.log('click');
+        }}
+        icon={<Icon icon="image" size="24px" />}
+      />
+      <HiddenInput
         type="file"
         onChange={handleChangeFile}
         onError={(e) => {
@@ -53,6 +62,6 @@ export default function Uploader(props: UploaderProps) {
           console.log('Error: ', e);
         }}
       />
-    </Button>
+    </React.Fragment>
   );
 }
