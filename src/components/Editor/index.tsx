@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { useTextarea } from '../../hooks';
 import Selector, { useSelector } from '../Selector';
@@ -11,7 +10,6 @@ import Styled from './Styled';
 import API from '../../apis';
 import { NAVIGATIONS, LOUNGES, LOUNGE } from '../../types/constants';
 import Article from '../../types/Article';
-import { article } from '../../stores';
 
 const selects = [
   ...NAVIGATIONS.filter((navigation) => navigation.name !== LOUNGE).map(
