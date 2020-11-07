@@ -35,37 +35,45 @@ export default observer(function MenuBar(): JSX.Element {
   );
 
   const handleSetUserProfile = (profile: Profile) => (user.profile = profile);
+  const requireLogin = useCallback(() => {
+    bottomSheet.open({
+      title: '',
+      contents: (
+        <LoginBox
+          onClose={bottomSheet.close}
+          onSetUserProfile={handleSetUserProfile}
+        />
+      ),
+    });
+  }, [bottomSheet]);
+
   const handleClickCommunity = useCallback(() => moveTo('/'), [moveTo]);
   const handleClickSearch = useCallback(() => moveTo('/search'), [moveTo]);
   const handleClickWrite = useCallback(() => {
-    const appendArticle = (newArticle: Article) => {
-      article.articles = [newArticle, ...article.articles];
-    };
-    bottomSheet.open({
-      title: ' 글 쓰기',
-      headerType: 'close',
-      isFull: true,
-      contents: (
-        <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
-      ),
-    });
-  }, [article.articles, bottomSheet]);
+    if (profile.code !== 'test') {
+      const appendArticle = (newArticle: Article) => {
+        article.articles = [newArticle, ...article.articles];
+      };
+      bottomSheet.open({
+        title: ' 글 쓰기',
+        headerType: 'close',
+        isFull: true,
+        contents: (
+          <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
+        ),
+      });
+    } else {
+      requireLogin();
+    }
+  }, [article.articles, bottomSheet, profile.code, requireLogin]);
   const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
   const handleClickProfile = useCallback(() => {
     if (profile.code !== 'test') {
       moveTo('/profile');
     } else {
-      bottomSheet.open({
-        title: '',
-        contents: (
-          <LoginBox
-            onClose={bottomSheet.close}
-            onSetUserProfile={handleSetUserProfile}
-          />
-        ),
-      });
+      requireLogin();
     }
-  }, [bottomSheet, moveTo, profile]);
+  }, [moveTo, profile.code, requireLogin]);
 
   return (
     <MenuBarContainer>
