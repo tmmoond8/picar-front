@@ -52,6 +52,10 @@ export default function Editor(props: EditorProps): JSX.Element {
     setPreUploadUrl('');
   }, [setUploadedUrl, setPreUploadUrl]);
 
+  const disabledWrite = React.useMemo(() => {
+    return title.length > 0 && content.length > 0;
+  }, [content.length, title.length]);
+
   return (
     <Styled.Page>
       <Selector items={selects} handleChange={setSelected} />
@@ -80,7 +84,9 @@ export default function Editor(props: EditorProps): JSX.Element {
           setPreUploadUrl={setPreUploadUrl}
         />
       </Styled.Tools>
-      <Styled.SendButton onClick={handleClickPost}>작성</Styled.SendButton>
+      <Styled.SendButton disabled={disabledWrite} onClick={handleClickPost}>
+        작성
+      </Styled.SendButton>
     </Styled.Page>
   );
 }

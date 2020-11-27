@@ -4,12 +4,12 @@ import Uploader from './Uploader';
 import Image from './Image';
 import { colors } from '../../styles';
 
-const SendButton = styled.button`
+const SendButton = styled.button<{ disabled: boolean }>`
   position: fixed;
   right: 18px;
   top: 18px;
   font-size: 16px;
-  color: ${colors.primary};
+  color: ${(p) => (p.disabled ? colors.black50 : colors.primary)};
   cursor: pointer;
 `;
 
