@@ -5,8 +5,9 @@ import React from 'react';
 
 import Icon from '../Icon';
 import { colors } from '../../styles';
+import { useWriteComment } from './hooks';
 
-export default function CommentEditor(): JSX.Element {
+const CommentEditor: React.FC<{ articleId: number }> = ({ articleId }) => {
   const [content, setContent] = React.useState('');
   const handleChangeContent = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -14,6 +15,8 @@ export default function CommentEditor(): JSX.Element {
     },
     [],
   );
+  const { handleWriteComment, refreshId } = useWriteComment(articleId, content);
+
   return (
     <Editor>
       <Icon icon="emojiSmile" size="24px" />
@@ -22,10 +25,12 @@ export default function CommentEditor(): JSX.Element {
         onChange={handleChangeContent}
         placeholder="댓글을 입력하세요"
       />
-      <button>게시</button>
+      <button onClick={handleWriteComment}>게시</button>
     </Editor>
   );
-}
+};
+
+export default CommentEditor;
 
 const Editor = styled.div`
   position: fixed;

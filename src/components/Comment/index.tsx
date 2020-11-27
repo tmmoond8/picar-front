@@ -44,7 +44,7 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
           </Comment>
         ))}
       </CommentList>
-      <CommentEditor />
+      <CommentEditor articleId={articleId} />
     </Area>
   );
 }
