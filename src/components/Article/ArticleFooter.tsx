@@ -15,7 +15,7 @@ interface ArticleFooterProps {
 export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
   const { viewCount, commentCount, sympathyCount, emojiHappy } = props;
   return (
-    <Self>
+    <StyledArticleFooter>
       <InteractionCounter>
         <ul>
           <li>{`조회 ${viewCount}회`}</li>
@@ -38,11 +38,11 @@ export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
           </li>
         </ul>
       </InteractionPanel>
-    </Self>
+    </StyledArticleFooter>
   );
 }
 
-const Self = styled.div``;
+const StyledArticleFooter = styled.div``;
 
 const InteractionCounter = styled.div`
   display: flex;

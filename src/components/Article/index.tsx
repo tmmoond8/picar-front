@@ -41,7 +41,7 @@ export default function Article(props: ArticleProps): JSX.Element {
             emojiHappy={4}
           />
           <HR />
-          <CommentArea />
+          {article.id && <CommentArea articleId={article.id} />}
         </Self>
       )}
     </React.Fragment>
