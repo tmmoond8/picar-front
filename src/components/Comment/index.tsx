@@ -14,7 +14,6 @@ interface CommentAreaProps {
 export default function CommentArea(props: CommentAreaProps): JSX.Element {
   const { articleId } = props;
   const comments = useFectch(articleId);
-  console.log(comments);
 
   return (
     <Area>
@@ -27,6 +26,7 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
             group={comment.author.group}
             createAt={comment.createAt}
             content={comment.content}
+            thumbnail={comment.author.thumbnail}
           >
             <ReplyList>
               {comment.replies.map((reply) => (
@@ -37,6 +37,7 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
                   group={reply.author.group}
                   createAt={reply.createAt}
                   content={reply.content}
+                  thumbnail={reply.author.thumbnail}
                 />
               ))}
             </ReplyList>
@@ -49,7 +50,7 @@ export default function CommentArea(props: CommentAreaProps): JSX.Element {
 }
 
 const Area = styled.div`
-  padding: 0 19px;
+  padding: 0 19px 92px;
   h3 {
     height: 59px;
     font-size: 14px;

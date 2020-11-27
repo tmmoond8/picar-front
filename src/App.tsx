@@ -48,4 +48,5 @@ const Page = styled.div<{ headerHeight: number }>`
   left: 0;
   margin: auto;
   padding-top: ${(p) => p.headerHeight}px;
+  overflow: scroll;
 `;

@@ -36,6 +36,7 @@ const customReset = css`
     right: 0;
     left: 0;
     margin: auto;
+    overflow: scroll;
   }
 `;
 

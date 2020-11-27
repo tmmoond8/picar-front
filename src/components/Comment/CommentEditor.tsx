@@ -28,9 +28,14 @@ export default function CommentEditor(): JSX.Element {
 }
 
 const Editor = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   display: flex;
   align-items: flex-start;
-  padding: 14px 0;
+  padding: 14px 19px;
+  background: ${colors.white};
 
   button {
     color: ${colors.primary4};
