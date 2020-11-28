@@ -1,21 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
-    <defs>
-        <filter id="m7e0swy8bb">
-            <feColorMatrix in="SourceGraphic" values="0 0 0 0 0.750000 0 0 0 0 0.750000 0 0 0 0 0.750000 0 0 0 1.000000 0"/>
-        </filter>
-        <path id="d3anjyj32a" d="M5.244 13.577c.156-.156.368-.244.59-.244h10c.46 0 .833-.373.833-.833V5c0-.46-.373-.833-.834-.833H4.167c-.46 0-.834.373-.834.833v10.488l1.911-1.91zM6.18 15l-3.09 3.09c-.525.524-1.422.152-1.422-.59V5c0-1.38 1.119-2.5 2.5-2.5h11.666c1.381 0 2.5 1.12 2.5 2.5v7.5c0 1.38-1.119 2.5-2.5 2.5H6.18z"/>
-    </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
     <g fill="none" fill-rule="evenodd">
-        <g transform="translate(-149 -716) translate(0 651) translate(0 48) translate(149 17)">
-            <mask id="ovyebx4l2c" fill="currentColor">
-                <use xlink:href="#d3anjyj32a"/>
-            </mask>
-            <use fill="#000" fill-rule="nonzero" xlink:href="#d3anjyj32a"/>
-            <g filter="url(#m7e0swy8bb)">
-                <g mask="url(#ovyebx4l2c)">
-                    <path fill="#000" d="M0 0H20V20H0z"/>
-                </g>
-            </g>
+        <g stroke="currentColor" stroke-width="1.5">
+            <path d="M15 3.75c1.45 0 2.762.588 3.712 1.538.95.95 1.538 2.262 1.538 3.712h0v3c0 1.556-.677 2.953-1.751 3.914h0l-5.749 4.603V17.25H9c-1.45 0-2.762-.588-3.712-1.538-.95-.95-1.538-2.262-1.538-3.712h0V9c0-1.45.588-2.762 1.538-3.712C6.238 4.338 7.55 3.75 9 3.75h0z" transform="translate(-145 -714) translate(0 651) translate(0 48) translate(145 15)"/>
         </g>
     </g>
 </svg>

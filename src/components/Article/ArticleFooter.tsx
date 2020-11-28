@@ -28,13 +28,13 @@ export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
       <InteractionPanel>
         <ul>
           <li>
-            <Icon icon="emojiSmile" size="20px" /> 공감표현
+            <Icon icon="emojiSmileOutline" size="20px" /> 공감표현
           </li>
           <li>
             <Icon icon="chatOutline" size="20px" /> 댓글쓰기
           </li>
           <li>
-            <Icon icon="emojiSmile" size="20px" /> 공감표현
+            <Icon icon="share" size="20px" /> 공유하기
           </li>
         </ul>
       </InteractionPanel>
