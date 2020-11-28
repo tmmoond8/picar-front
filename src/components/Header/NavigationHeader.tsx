@@ -47,6 +47,9 @@ const NavigationHeader = (): JSX.Element => {
     [article],
   );
 
+  const delayCondition = React.useRef(Date.now());
+  const isFreezed = () => Date.now() - delayCondition.current < 500;
+
   return (
     <Self>
       <List>
@@ -57,6 +60,8 @@ const NavigationHeader = (): JSX.Element => {
                 selected={article.selectedGroup === LOUNGE}
                 key={LOUNGE}
                 onClick={() => {
+                  if (isFreezed()) return;
+                  delayCondition.current = Date.now();
                   if (article.selectedGroup === LOUNGE) {
                     handleOpenBottomSheet();
                   } else {
@@ -72,6 +77,9 @@ const NavigationHeader = (): JSX.Element => {
                 selected={item.name === article.selectedGroup}
                 key={item.name}
                 onClick={() => {
+                  console.log(isFreezed());
+                  if (isFreezed()) return;
+                  delayCondition.current = Date.now();
                   handleSetGroup(item.name);
                 }}
               >
