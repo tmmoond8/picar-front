@@ -7,6 +7,7 @@ import cx from 'classnames';
 import Profile from '../Profile';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
+import { getDateGoodLook } from '../../modules/string';
 
 interface CommentProps {
   id: string;
@@ -34,7 +35,7 @@ const Comment: React.FC<CommentProps> = (props) => {
       <ContentBox>
         <Profile.Who name={name} group={group} />
         <Content>{content}</Content>
-        <span className="date">{createAt}</span>
+        <span className="date">{getDateGoodLook(createAt)}</span>
         {!isReply && (
           <span
             className={cx('replay-btn', isFocus)}
