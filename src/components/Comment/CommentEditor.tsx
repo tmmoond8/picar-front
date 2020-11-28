@@ -28,6 +28,7 @@ const CommentEditor = () => {
         value={content}
         onChange={handleChangeContent}
         placeholder={placeholder}
+        rows={3}
       />
       <button
         onClick={() =>
@@ -53,13 +54,13 @@ const CommentEditor = () => {
 export default observer(CommentEditor);
 
 const Editor = styled.div`
+  display: flex;
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  display: flex;
   align-items: flex-start;
-  padding: 14px 19px;
+  padding: 18px;
   background: ${colors.white};
 
   button {
@@ -72,12 +73,13 @@ const Editor = styled.div`
 const Context = styled.textarea`
   position: relative;
   flex: 1;
-  height: 64px;
+  height: auto;
+  max-height: 64px;
   margin: 0 16px;
   font-size: 16px;
   font-weight: normal;
   line-height: 1.4;
-  resize: none;
+  /* resize: none; */
   &::placeholder {
     color: ${colors.black99};
   }

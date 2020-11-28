@@ -19,19 +19,20 @@ export default function BottomSheetHeader(props: BottomSheetHeaderProps) {
     <Head className={cx('BottomSheetHeader', className)} noRadius={noRadius}>
       <Title>{title}</Title>
       <CloseButton onClick={handleClose}>
-        <Icon icon="close" size="20px" color={colors.black} />
+        <Icon icon="close" size="20px" color={colors.black33} />
       </CloseButton>
     </Head>
   );
 }
 
-const HEIGHT = 64;
+const HEIGHT = 60;
 
 const Head = styled.div<{ noRadius: boolean }>`
   display: flex;
-  align-items: center;
+  position: relative;
   height: ${HEIGHT}px;
-  padding: 18px 20px;
+  padding: 18px 16px;
+  align-items: center;
   border-radius: ${(p) => (p.noRadius ? 'none' : '12px 12px 0 0')};
   background-color: ${colors.white};
   box-shadow: inset 0 -0.5px 0 0 ${colors.blackBF};
@@ -39,12 +40,14 @@ const Head = styled.div<{ noRadius: boolean }>`
 
 const Title = styled.h2`
   flex: 1;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: ${colors.black22};
+  text-align: center;
 `;
 
 const CloseButton = styled(Button)`
+  position: absolute;
   width: 24px;
   height: 24px;
   margin: 0;

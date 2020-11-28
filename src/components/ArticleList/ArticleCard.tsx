@@ -9,6 +9,8 @@ import Profile from '../Profile';
 import { Profile as IProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
+import BottomSheet from '../BottomSheet';
+import Comment from '../Comment';
 
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
@@ -26,14 +28,20 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
     commentCount,
     emotionCount,
   } = props;
+  const bottomSheet = BottomSheet.useBottomSheet();
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
   const handleClickLike = React.useCallback(() => {
     console.log(title);
   }, [title]);
   const handleClickComment = React.useCallback(() => {
-    console.log(title);
-  }, [title]);
+    if (id) {
+      bottomSheet.open({
+        title: `댓글 ${commentCount}`,
+        contents: <Comment articleId={id} />,
+      });
+    }
+  }, [bottomSheet, id, commentCount]);
   const handleClickBookmark = React.useCallback(() => {
     console.log(title);
   }, [title]);
