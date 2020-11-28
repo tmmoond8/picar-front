@@ -32,9 +32,10 @@ export default function Editor(props: EditorProps): JSX.Element {
   const [preUploadUrl, setPreUploadUrl] = React.useState('');
 
   const handleClickPost = React.useCallback(async () => {
+    console.log('write');
     if (title.length === 0 || content.length === 0) return;
     try {
-      const { data } = await API.article.post({
+      const { data } = await API.article.write({
         title,
         content,
         group: selected,
@@ -53,7 +54,7 @@ export default function Editor(props: EditorProps): JSX.Element {
   }, [setUploadedUrl, setPreUploadUrl]);
 
   const disabledWrite = React.useMemo(() => {
-    return title.length > 0 && content.length > 0;
+    return title.length === 0 || content.length === 0;
   }, [content.length, title.length]);
 
   return (
