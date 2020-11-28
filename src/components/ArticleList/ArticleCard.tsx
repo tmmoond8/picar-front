@@ -11,6 +11,7 @@ import Button from '../Button';
 import Icon from '../Icon';
 import BottomSheet from '../BottomSheet';
 import Comment from '../Comment';
+import Emotion from '../Emotion';
 
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
@@ -31,9 +32,14 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   const bottomSheet = BottomSheet.useBottomSheet();
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
-  const handleClickLike = React.useCallback(() => {
-    console.log(title);
-  }, [title]);
+  const handleClickEmotion = React.useCallback(() => {
+    if (id) {
+      bottomSheet.open({
+        title: `공감 ${emotionCount}`,
+        contents: <Emotion.Box articleId={id} />,
+      });
+    }
+  }, [id, bottomSheet, emotionCount]);
   const handleClickComment = React.useCallback(() => {
     if (id) {
       bottomSheet.open({
@@ -67,7 +73,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
       <Bottom>
         <Button
           icon={<Icon icon="emojiSmile" size="18px" />}
-          onClick={handleClickLike}
+          onClick={handleClickEmotion}
         >
           {emotionCount}
         </Button>
