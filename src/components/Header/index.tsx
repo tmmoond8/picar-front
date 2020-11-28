@@ -25,20 +25,23 @@ export const initalHeader: HeaderProps = {
   height: 0,
 };
 
-const getHeader = (type: keyof typeof headerType | undefined, header: HeaderProps) => {
+const getHeader = (
+  type: keyof typeof headerType | undefined,
+  header: HeaderProps,
+) => {
   const { height, options } = header;
   switch (type) {
     case headerType.Navigation: {
       const NavigationHeader = require('./NavigationHeader').default;
-      return <NavigationHeader height={height} options={options}/>;
+      return <NavigationHeader height={height} options={options} />;
     }
     case headerType.Back: {
       const BackHeader = require('./BackHeader').default;
-      return <BackHeader height={height} options={options}/>;
+      return <BackHeader height={height} options={options} />;
     }
     case headerType.Close: {
       const CloseHeader = require('./CloseHeader').default;
-      return <CloseHeader height={height} options={options}/>;
+      return <CloseHeader height={height} options={options} />;
     }
     default: {
       return <React.Fragment />;
@@ -48,7 +51,9 @@ const getHeader = (type: keyof typeof headerType | undefined, header: HeaderProp
 
 export default (function Header(props: HeaderProps): JSX.Element {
   const { type, height } = props;
-  const { ui: { header } } = useStore();
+  const {
+    ui: { header },
+  } = useStore();
 
   const CurrentHeader = React.useMemo(() => {
     return getHeader(type, header);
@@ -67,4 +72,5 @@ const Self = styled.header<{ headerHeight: number }>`
   top: 0;
   width: 100%;
   height: ${(p) => p.headerHeight}px;
+  z-index: 100;
 `;

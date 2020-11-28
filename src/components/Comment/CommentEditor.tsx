@@ -5,9 +5,9 @@ import React from 'react';
 
 import Icon from '../Icon';
 import { colors } from '../../styles';
-import { useWriteComment } from './hooks';
+import { useCommentContext, observer } from './context';
 
-const CommentEditor: React.FC<{ articleId: number }> = ({ articleId }) => {
+const CommentEditor = () => {
   const [content, setContent] = React.useState('');
   const handleChangeContent = React.useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -15,7 +15,7 @@ const CommentEditor: React.FC<{ articleId: number }> = ({ articleId }) => {
     },
     [],
   );
-  const { handleWriteComment, refreshId } = useWriteComment(articleId, content);
+  const { handleWriteComment } = useCommentContext();
 
   return (
     <Editor>
@@ -25,12 +25,24 @@ const CommentEditor: React.FC<{ articleId: number }> = ({ articleId }) => {
         onChange={handleChangeContent}
         placeholder="댓글을 입력하세요"
       />
-      <button onClick={handleWriteComment}>게시</button>
+      <button
+        onClick={() =>
+          handleWriteComment(content, (_, error) => {
+            if (error) {
+              console.error('error');
+            } else {
+              setContent('');
+            }
+          })
+        }
+      >
+        게시
+      </button>
     </Editor>
   );
 };
 
-export default CommentEditor;
+export default observer(CommentEditor);
 
 const Editor = styled.div`
   position: fixed;
@@ -46,6 +58,7 @@ const Editor = styled.div`
     color: ${colors.primary4};
     font-weight: 500;
     font-size: 15px;
+    cursor: pointer;
   }
 `;
 const Context = styled.textarea`

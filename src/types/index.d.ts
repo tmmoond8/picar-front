@@ -7,3 +7,5 @@ export interface Product {
 }
 
 export type PagePaths = typeof Page[keyof typeof Page];
+
+export type Callback<T> = (result: T | null, error?: unknown) => void;

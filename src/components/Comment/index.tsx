@@ -1,53 +1,60 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import Comment from './Comment';
 import CommentEditor from './CommentEditor';
 
-import { useFectch } from './hooks';
+import CommentContext from './context';
+import { useFectch, useWriteComment } from './hooks';
 
-interface CommentAreaProps {
-  articleId: number;
-}
-
-export default function CommentArea(props: CommentAreaProps): JSX.Element {
-  const { articleId } = props;
-  const comments = useFectch(articleId);
+const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
+  const { comments, fetchRefresh } = useFectch(articleId);
+  const handleWriteComment = useWriteComment(articleId, fetchRefresh);
 
   return (
-    <Area>
-      <CommentList>
-        {comments.map((comment) => (
-          <Comment
-            key={comment.id}
-            authorId={comment.author.id}
-            name={comment.author.name}
-            group={comment.author.group}
-            createAt={comment.createAt}
-            content={comment.content}
-            thumbnail={comment.author.thumbnail}
-          >
-            <ReplyList>
-              {comment.replies.map((reply) => (
-                <Comment
-                  key={reply.id}
-                  authorId={reply.author.id}
-                  name={reply.author.name}
-                  group={reply.author.group}
-                  createAt={reply.createAt}
-                  content={reply.content}
-                  thumbnail={reply.author.thumbnail}
-                />
-              ))}
-            </ReplyList>
-          </Comment>
-        ))}
-      </CommentList>
-      <CommentEditor articleId={articleId} />
-    </Area>
+    <CommentContext.Provider
+      value={{
+        comments,
+        fetchRefresh,
+        handleWriteComment,
+      }}
+    >
+      <Area>
+        <CommentList>
+          {comments.map((comment) => (
+            <Comment
+              key={comment.id}
+              authorId={comment.author.id}
+              name={comment.author.name}
+              group={comment.author.group}
+              createAt={comment.createAt}
+              content={comment.content}
+              thumbnail={comment.author.thumbnail}
+            >
+              <ReplyList>
+                {comment.replies.map((reply) => (
+                  <Comment
+                    key={reply.id}
+                    authorId={reply.author.id}
+                    name={reply.author.name}
+                    group={reply.author.group}
+                    createAt={reply.createAt}
+                    content={reply.content}
+                    thumbnail={reply.author.thumbnail}
+                  />
+                ))}
+              </ReplyList>
+            </Comment>
+          ))}
+        </CommentList>
+        <CommentEditor />
+      </Area>
+    </CommentContext.Provider>
   );
-}
+};
+export default CommentArea;
 
 const Area = styled.div`
   padding: 0 19px 92px;
