@@ -7,11 +7,12 @@ import Comment from './Comment';
 import CommentEditor from './CommentEditor';
 
 import CommentContext from './context';
-import { useFectch, useWriteComment } from './hooks';
+import { useFectch, useWriteComment, useAbout } from './hooks';
 
 const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
   const { comments, fetchRefresh } = useFectch(articleId);
   const handleWriteComment = useWriteComment(articleId, fetchRefresh);
+  const { about, handleClickReply } = useAbout();
 
   return (
     <CommentContext.Provider
@@ -19,6 +20,8 @@ const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
         comments,
         fetchRefresh,
         handleWriteComment,
+        handleClickReply,
+        about,
       }}
     >
       <Area>
@@ -26,6 +29,7 @@ const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
           {comments.map((comment) => (
             <Comment
               key={comment.id}
+              id={comment.id}
               authorId={comment.author.id}
               name={comment.author.name}
               group={comment.author.group}
@@ -37,6 +41,7 @@ const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
                 {comment.replies.map((reply) => (
                   <Comment
                     key={reply.id}
+                    id={comment.id}
                     authorId={reply.author.id}
                     name={reply.author.name}
                     group={reply.author.group}

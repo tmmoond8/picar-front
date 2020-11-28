@@ -22,11 +22,12 @@ export const useFectch = (articleId: number) => {
 }
 
 export const useWriteComment = (articleId: number, refreshFetch: () => void) => {
-  const handleWriteComment = React.useCallback(async (content: string, callback: Callback<Comment>) => {
+  const handleWriteComment = React.useCallback(async (content: string, callback: Callback<Comment>, about?: string) => {
     try {
       const { data: { ok, comment } } = await API.comment.write({
         articleId,
         content,
+        about,
       });
         if (ok) {
           refreshFetch();
@@ -39,4 +40,16 @@ export const useWriteComment = (articleId: number, refreshFetch: () => void) => 
     }
   },[articleId, refreshFetch]);
   return handleWriteComment;
+}
+
+export const useAbout = () => {
+  const [about, setAbout] = React.useState<null | string>(null);
+  const handleClickReply = (commentId: string) => {
+    setAbout(commentId === about ? null : commentId);
+  };
+
+  return {
+    about,
+    handleClickReply,
+  }
 }

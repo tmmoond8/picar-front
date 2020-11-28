@@ -15,7 +15,11 @@ const CommentEditor = () => {
     },
     [],
   );
-  const { handleWriteComment } = useCommentContext();
+  const { handleWriteComment, about } = useCommentContext();
+  const placeholder = React.useMemo(
+    () => `${about === null ? '댓글' : '답글'}을 입력하세요`,
+    [about],
+  );
 
   return (
     <Editor>
@@ -23,17 +27,21 @@ const CommentEditor = () => {
       <Context
         value={content}
         onChange={handleChangeContent}
-        placeholder="댓글을 입력하세요"
+        placeholder={placeholder}
       />
       <button
         onClick={() =>
-          handleWriteComment(content, (_, error) => {
-            if (error) {
-              console.error('error');
-            } else {
-              setContent('');
-            }
-          })
+          handleWriteComment(
+            content,
+            (_, error) => {
+              if (error) {
+                console.error('error');
+              } else {
+                setContent('');
+              }
+            },
+            about ?? undefined,
+          )
         }
       >
         게시
