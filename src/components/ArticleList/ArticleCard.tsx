@@ -16,7 +16,16 @@ import { colors } from '../../styles';
 type ArticleCardProps = Article;
 
 export default function ArticleCard(props: ArticleCardProps): JSX.Element {
-  const { title, content, author, createAt, id, photos } = props;
+  const {
+    title,
+    content,
+    author,
+    createAt,
+    id,
+    photos,
+    commentCount,
+    emotionCount,
+  } = props;
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
   const handleClickLike = React.useCallback(() => {
@@ -32,6 +41,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
   const handleClickArticle = React.useCallback(() => {
     history.push(`/article/${id}`);
   }, [history, id]);
+
   return (
     <Card>
       <Head>
@@ -48,16 +58,16 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
       </Body>
       <Bottom>
         <Button
-          icon={<Icon icon="like" size="18px" />}
+          icon={<Icon icon="emojiSmile" size="18px" />}
           onClick={handleClickLike}
         >
-          공감하기
+          {emotionCount}
         </Button>
         <Button
           icon={<Icon icon="chat" size="18px" />}
           onClick={handleClickComment}
         >
-          댓글달기
+          {commentCount}
         </Button>
         <div className="right">
           <Button
