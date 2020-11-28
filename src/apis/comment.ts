@@ -8,4 +8,3 @@ export const write = (data: {
   articleId: number;
   about?: string;
 }): Promise<AxiosResponse<{ ok: boolean; message: string; comment: Comment}>> => api.post('/comment/write', data);
-export const count = (articleId: number): Promise<AxiosResponse<{ ok: boolean; message: string; count: number}>> => api.get(`/comment/count/${articleId}`);
