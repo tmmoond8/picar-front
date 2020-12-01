@@ -1,55 +1,67 @@
 import React from 'react';
-import Comment from '../../types/Comment';
 import API from '../../apis';
-import { Callback } from '../../types';
+import { Emotion, EMOTION_TYPE, EMOTION_ICON } from '../../types/Emotion';
+
+
+const defaultEmotions: Emotion[] = [
+  {
+    type: EMOTION_TYPE.LOVE,
+    icon: EMOTION_ICON.LOVE,
+    count: 0,
+  },
+  {
+    type: EMOTION_TYPE.SAD,
+    icon: EMOTION_ICON.SAD,
+    count: 0,
+  },
+  {
+    type: EMOTION_TYPE.LAUGHING,
+    icon: EMOTION_ICON.LAUGHING,
+    count: 0,
+  },
+  {
+    type: EMOTION_TYPE.ANGRY,
+    icon: EMOTION_ICON.ANGRY,
+    count: 0,
+  },
+];
+
 
 export const useFectch = (articleId: number) => {
-  const [comments, setComments] = React.useState<Comment[]>([]);
-  const [refreshId, setRefreshId] = React.useState(0);
+  const [emotions, setEmotions] = React.useState<Emotion[]>(defaultEmotions);
+  const [_yourEmotion, setYourEmotion] = React.useState('');
+
   React.useEffect(() => {
     (async () => {
-      const { data: { comments, ok } } = await API.comment.list(articleId);
+      const { data: { emotionCount, yourEmotion, ok } } = await API.emotion.list(articleId);
       if (ok) {
-        setComments(comments);
+        setEmotions(emotions.map(emotion => ({
+          ...emotion,
+          count: emotionCount[emotion.type]
+        })));
+        setYourEmotion(yourEmotion);
       }
     })();
-  }, [articleId, refreshId])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [articleId])
 
   return {
-    comments,
-    fetchRefresh: () => setRefreshId(refreshId + 1),
+    emotions,
+    yourEmotion: _yourEmotion,
   };
 }
 
-export const useWriteComment = (articleId: number, refreshFetch: () => void) => {
-  const handleWriteComment = React.useCallback(async (content: string, callback: Callback<Comment>, about?: string) => {
+export const useCUD = (articleId: number, callback: () => void) => {
+  const handleCUD = React.useCallback(async (type: keyof typeof EMOTION_TYPE) => {
     try {
-      const { data: { ok, comment } } = await API.comment.write({
+      await API.emotion.cud({
         articleId,
-        content,
-        about,
+        type,
       });
-        if (ok) {
-          refreshFetch();
-          callback(comment as Comment);
-        } else {
-          callback(null, 'server error');
-        }
     } catch(error) {
-      callback(null, 'network error');
+      console.error(error);
     }
-  },[articleId, refreshFetch]);
-  return handleWriteComment;
-}
-
-export const useAbout = () => {
-  const [about, setAbout] = React.useState<null | string>(null);
-  const handleClickReply = (commentId: string) => {
-    setAbout(commentId === about ? null : commentId);
-  };
-
-  return {
-    about,
-    handleClickReply,
-  }
+    callback();
+  },[articleId, callback]);
+  return handleCUD;
 }

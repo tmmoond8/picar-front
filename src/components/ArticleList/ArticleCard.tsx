@@ -36,7 +36,9 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
     if (id) {
       bottomSheet.open({
         title: `공감 ${emotionCount}`,
-        contents: <Emotion.Box articleId={id} />,
+        contents: (
+          <Emotion.Box articleId={id} handleClose={bottomSheet.close} />
+        ),
       });
     }
   }, [id, bottomSheet, emotionCount]);
