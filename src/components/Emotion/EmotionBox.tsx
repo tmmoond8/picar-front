@@ -14,7 +14,7 @@ interface EmotionBoxProp {
   yourEmotion: EmotionType | null;
   handleClickEmotion: (result: {
     updateStatus: UpdateStatus;
-    emotionCount: any;
+    emotionCount: Record<EmotionType, number>;
     yourEmotion: EmotionType;
   }) => void;
 }

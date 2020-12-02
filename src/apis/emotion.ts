@@ -6,6 +6,6 @@ export const list = (articleId: number): Promise<AxiosResponse<{ ok: boolean; me
 export const cud = (data: {
   type: string;
   articleId: number;
-}): Promise<AxiosResponse<{ ok: boolean; message: string; updateStatus: UpdateStatus; emotionCount: any; yourEmotion: EmotionType }>> => api.post('/emotion', data);
+}): Promise<AxiosResponse<{ ok: boolean; message: string; updateStatus: UpdateStatus; emotionCount: Record<EmotionType, number>; yourEmotion: EmotionType }>> => api.post('/emotion', data);
 
 export const deleteEmotion = (articleId: number): Promise<AxiosResponse<{ ok: boolean; message: string}>> => api.delete(`/emotion/delete/${articleId}`);

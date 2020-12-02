@@ -54,7 +54,7 @@ export const useFetch = (articleId: number) => {
 
 export const useCUD = (articleId: number, callback: (result: {
   updateStatus: UpdateStatus;
-  emotionCount: any;
+  emotionCount: Record<EmotionType, number>;
   yourEmotion: EmotionType;
 }) => void) => {
   const handleCUD = React.useCallback(async (type: EmotionType) => {
