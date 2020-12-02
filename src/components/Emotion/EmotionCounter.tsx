@@ -49,21 +49,28 @@ const EmotionCounter: React.FC<{ articleId: number }> = ({ articleId }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleId, bottomSheet, emotionCount, emotions, yourEmotion]);
+  const color = React.useMemo(
+    () => (yourEmotion ? colors.primary : undefined),
+    [yourEmotion],
+  );
 
   return (
     <Button
-      icon={
-        <Icon
-          icon="emojiSmile"
-          size="18px"
-          color={yourEmotion ? colors.primary : undefined}
-        />
-      }
+      icon={<Icon icon="emojiSmile" size="18px" color={color} />}
       onClick={handleClickEmotion}
     >
-      {emotionCount}
+      <Counter className="Counter" color={color}>
+        {emotionCount}
+      </Counter>
     </Button>
   );
 };
 
 export default React.memo(EmotionCounter);
+
+const Counter = styled.span<{ color?: string }>`
+  &.Counter {
+    margin-left: 0;
+    ${(p) => p.color && `color: ${p.color};`}
+  }
+`;
