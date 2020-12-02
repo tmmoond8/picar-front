@@ -8,22 +8,22 @@ import Icon from '../Icon';
 interface ArticleFooterProps {
   viewCount: number;
   commentCount: number;
-  sympathyCount: number;
-  emojiHappy: number;
+  emotionCount: number;
+  emotions: any;
 }
 
 export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
-  const { viewCount, commentCount, sympathyCount, emojiHappy } = props;
+  const { viewCount, commentCount, emotions, emotionCount } = props;
   return (
     <StyledArticleFooter>
       <InteractionCounter>
         <ul>
           <li>{`조회 ${viewCount}회`}</li>
           <li>{`댓글 ${commentCount}`}</li>
-          <li>{`공감 ${sympathyCount}`}</li>
+          <li>{`공감 ${emotionCount}`}</li>
         </ul>
         <Icon icon="emojiLove" size="18px" />
-        <span>{emojiHappy}</span>
+        <span>{12}</span>
       </InteractionCounter>
       <InteractionPanel>
         <ul>

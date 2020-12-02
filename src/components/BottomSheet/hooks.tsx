@@ -28,7 +28,12 @@ export const useBottomSheet = () => {
 
   global.__OWNER__.closeBottomSheet = close;
 
-  const open = (params: { title: string; contents: React.ReactNode; headerType?: HeaderType, isFull?: boolean }) => {
+  const open = (params: {
+    title: string;
+    contents: React.ReactNode;
+    headerType?: HeaderType;
+    isFull?: boolean;
+  }) => {
     const { title, contents, headerType, isFull } = params;
     const bottomSheet = (
       <BottomSheet

@@ -17,7 +17,16 @@ interface ArticleProps {
 
 export default function Article(props: ArticleProps): JSX.Element {
   const { article } = props;
-  const { author, title, content } = article;
+  const {
+    author,
+    title,
+    content,
+    commentCount: _commentCount,
+    emotionCount: _emotionCount,
+  } = article;
+  const [commentCount, setCommentCount] = React.useState(_commentCount);
+  const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
+
   return (
     <React.Fragment>
       {article && (
@@ -36,12 +45,17 @@ export default function Article(props: ArticleProps): JSX.Element {
           />
           <ArticleFooter
             viewCount={1004}
-            commentCount={12}
-            sympathyCount={12}
-            emojiHappy={4}
+            commentCount={commentCount}
+            emotionCount={emotionCount}
+            emotions={{ LOVE: 123 }}
           />
           <HR />
-          {article.id && <CommentArea articleId={article.id} />}
+          {article.id && (
+            <CommentArea
+              articleId={article.id}
+              setCommentCount={setCommentCount}
+            />
+          )}
         </Self>
       )}
     </React.Fragment>

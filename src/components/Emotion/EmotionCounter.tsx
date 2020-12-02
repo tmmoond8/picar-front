@@ -11,7 +11,10 @@ import EmotionBox from './EmotionBox';
 import Button from '../Button';
 import { UpdateStatus, UpdateStatusKey } from '../../types/Emotion';
 
-const EmotionCounter: React.FC<{ articleId: number }> = ({ articleId }) => {
+const EmotionCounter: React.FC<{ articleId: number; emotionCount: number }> = ({
+  articleId,
+  emotionCount: _emotionCount,
+}) => {
   const bottomSheet = BottomSheet.useBottomSheet();
   const { emotions, yourEmotion, setEmotions, setYourEmotion } = useFetch(
     articleId,

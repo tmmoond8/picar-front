@@ -10,8 +10,7 @@ import { Profile as IProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
 import Emotion from '../Emotion';
-import BottomSheet from '../BottomSheet';
-import Comment from '../Comment';
+import CommentCounter from '../Comment/CommentCounter';
 
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
@@ -19,19 +18,18 @@ import { colors } from '../../styles';
 type ArticleCardProps = Article;
 
 export default function ArticleCard(props: ArticleCardProps): JSX.Element {
-  const { title, content, author, createAt, id, photos, commentCount } = props;
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const {
+    title,
+    content,
+    author,
+    createAt,
+    id,
+    photos,
+    commentCount,
+    emotionCount,
+  } = props;
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
-
-  const handleClickComment = React.useCallback(() => {
-    if (id) {
-      bottomSheet.open({
-        title: `댓글 ${commentCount}`,
-        contents: <Comment articleId={id} />,
-      });
-    }
-  }, [bottomSheet, id, commentCount]);
   const handleClickBookmark = React.useCallback(() => {
     console.log(title);
   }, [title]);
@@ -55,13 +53,8 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
         {photos && <Thumbnail src={photos} />}
       </Body>
       <Bottom>
-        {id && <Emotion.Counter articleId={id} />}
-        <Button
-          icon={<Icon icon="chat" size="18px" />}
-          onClick={handleClickComment}
-        >
-          {commentCount}
-        </Button>
+        {id && <Emotion.Counter articleId={id} emotionCount={emotionCount} />}
+        {id && <CommentCounter articleId={id} commentCount={commentCount} />}
         <div className="right">
           <Button
             onClick={handleClickBookmark}

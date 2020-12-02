@@ -9,7 +9,10 @@ import CommentEditor from './CommentEditor';
 import CommentContext from './context';
 import { useFetch, useWriteComment, useAbout } from './hooks';
 
-const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
+const CommentArea: React.FC<{
+  articleId: number;
+  setCommentCount: (count: number) => void;
+}> = ({ articleId, setCommentCount }) => {
   const { comments, fetchRefresh } = useFetch(articleId);
   const handleWriteComment = useWriteComment(articleId, fetchRefresh);
   const { about, handleClickReply } = useAbout();
@@ -59,6 +62,7 @@ const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
     </CommentContext.Provider>
   );
 };
+
 export default CommentArea;
 
 const Area = styled.div`
