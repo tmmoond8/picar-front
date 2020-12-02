@@ -4,35 +4,46 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { colors } from '../../styles';
-import { observer } from './context';
 import Icon, { IconKey } from '../Icon';
-import { useFectch, useCUD } from './hooks';
+import { useCUD } from './hooks';
+import { Emotion, EmotionType, UpdateStatus } from '../../types/Emotion';
 
-const EmotionBox: React.FC<{ articleId: number; handleClose: () => void }> = ({
+interface EmotionBoxProp {
+  articleId: number;
+  emotions: Emotion[];
+  yourEmotion: EmotionType | null;
+  handleClickEmotion: (result: {
+    updateStatus: UpdateStatus;
+    emotionCount: any;
+    yourEmotion: EmotionType;
+  }) => void;
+}
+
+const EmotionBox: React.FC<EmotionBoxProp> = ({
   articleId,
-  handleClose,
+  emotions,
+  yourEmotion,
+  handleClickEmotion,
 }) => {
-  const { emotions, yourEmotion } = useFectch(articleId);
-  const handleCUD = useCUD(articleId, handleClose);
-  console.log(yourEmotion);
+  const handleCUD = useCUD(articleId, handleClickEmotion);
 
   return (
     <StyledEmotionBox>
       {emotions.map((emotion) => (
-        <Emotion
+        <EmotionItem
           key={emotion.type}
           selected={yourEmotion === emotion.type}
           onClick={() => handleCUD(emotion.type)}
         >
           <Icon icon={emotion.icon as IconKey} size="48px" />
           <p>{emotion.count}</p>
-        </Emotion>
+        </EmotionItem>
       ))}
     </StyledEmotionBox>
   );
 };
 
-export default observer(EmotionBox);
+export default EmotionBox;
 
 const StyledEmotionBox = styled.ol`
   display: flex;
@@ -42,7 +53,7 @@ const StyledEmotionBox = styled.ol`
   padding: 24px 18px;
 `;
 
-const Emotion = styled.li<{ selected: boolean }>`
+const EmotionItem = styled.li<{ selected: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;

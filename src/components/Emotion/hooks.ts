@@ -1,6 +1,6 @@
 import React from 'react';
 import API from '../../apis';
-import { Emotion, EMOTION_TYPE, EMOTION_ICON } from '../../types/Emotion';
+import { Emotion, EMOTION_TYPE, EMOTION_ICON, EmotionType, UpdateStatus } from '../../types/Emotion';
 
 
 const defaultEmotions: Emotion[] = [
@@ -27,10 +27,9 @@ const defaultEmotions: Emotion[] = [
 ];
 
 
-export const useFectch = (articleId: number) => {
+export const useFetch = (articleId: number) => {
   const [emotions, setEmotions] = React.useState<Emotion[]>(defaultEmotions);
-  const [_yourEmotion, setYourEmotion] = React.useState('');
-
+  const [_yourEmotion, setYourEmotion] = React.useState<EmotionType | null>(null);
   React.useEffect(() => {
     (async () => {
       const { data: { emotionCount, yourEmotion, ok } } = await API.emotion.list(articleId);
@@ -39,7 +38,7 @@ export const useFectch = (articleId: number) => {
           ...emotion,
           count: emotionCount[emotion.type]
         })));
-        setYourEmotion(yourEmotion);
+        setYourEmotion(yourEmotion as EmotionType);
       }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,21 +46,44 @@ export const useFectch = (articleId: number) => {
 
   return {
     emotions,
+    setEmotions,
     yourEmotion: _yourEmotion,
+    setYourEmotion,
   };
 }
 
-export const useCUD = (articleId: number, callback: () => void) => {
-  const handleCUD = React.useCallback(async (type: keyof typeof EMOTION_TYPE) => {
+export const useCUD = (articleId: number, callback: (result: {
+  updateStatus: UpdateStatus;
+  emotionCount: any;
+  yourEmotion: EmotionType;
+}) => void) => {
+  const handleCUD = React.useCallback(async (type: EmotionType) => {
     try {
-      await API.emotion.cud({
+      const { data: {
+        ok,
+        updateStatus,
+        emotionCount,
+        yourEmotion,
+      }} = await API.emotion.cud({
         articleId,
         type,
       });
+      if (ok) {
+        callback({
+          updateStatus,
+          emotionCount,
+          yourEmotion,
+        });
+      } else {
+        callback({
+          updateStatus: UpdateStatus.updated,
+          emotionCount,
+          yourEmotion,
+        });
+      }
     } catch(error) {
       console.error(error);
     }
-    callback();
   },[articleId, callback]);
   return handleCUD;
 }

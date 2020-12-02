@@ -7,10 +7,10 @@ import Comment from './Comment';
 import CommentEditor from './CommentEditor';
 
 import CommentContext from './context';
-import { useFectch, useWriteComment, useAbout } from './hooks';
+import { useFetch, useWriteComment, useAbout } from './hooks';
 
 const CommentArea: React.FC<{ articleId: number }> = ({ articleId }) => {
-  const { comments, fetchRefresh } = useFectch(articleId);
+  const { comments, fetchRefresh } = useFetch(articleId);
   const handleWriteComment = useWriteComment(articleId, fetchRefresh);
   const { about, handleClickReply } = useAbout();
 

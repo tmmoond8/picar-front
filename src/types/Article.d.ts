@@ -7,7 +7,6 @@ export default interface Article {
   group: string;
   author: Profile;
   commentCount: number;
-  emotionCount: number;
   photos: string | null;
   createAt: string;
   updateAt: string;

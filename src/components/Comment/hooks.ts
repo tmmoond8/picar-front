@@ -3,7 +3,7 @@ import Comment from '../../types/Comment';
 import API from '../../apis';
 import { Callback } from '../../types';
 
-export const useFectch = (articleId: number) => {
+export const useFetch = (articleId: number) => {
   const [comments, setComments] = React.useState<Comment[]>([]);
   const [refreshId, setRefreshId] = React.useState(0);
   React.useEffect(() => {
