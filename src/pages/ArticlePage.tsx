@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
@@ -11,25 +11,11 @@ import { useInitBefore } from '../hooks';
 import Icon from '../components/Icon';
 import { colors } from '../styles';
 
-interface ArticlePageParams {
-  articleId: string;
-}
-
 export default observer(function ArticlePage(): JSX.Element {
-  const { ui } = useStore();
-  const handleClickBookmark = () => {
-    console.log('bookmark');
-  };
-  ui.setHeaderBack({
-    right: (
-      <Icon
-        color={colors.black100}
-        icon="bookmark"
-        size="24px"
-        onClick={handleClickBookmark}
-      />
-    ),
-  });
+  const { ui, article: articleStore } = useStore();
+  const { pathname } = useLocation();
+  const [_, __, articleId] = pathname.split('/');
+
   const history = useHistory();
   const [article, setArticle] = React.useState(null);
   const fetch = React.useCallback(async () => {
@@ -47,6 +33,32 @@ export default observer(function ArticlePage(): JSX.Element {
   }, [history]);
 
   useInitBefore(fetch);
+
+  const bookmark = React.useMemo(() => {
+    return articleId && articleStore.bookmarks.has(parseInt(articleId));
+  }, [articleId, articleStore.bookmarks]);
+
+  const handleClickBookmark = React.useCallback(() => {
+    if (bookmark) {
+      articleStore.removeBookmark(parseInt(articleId));
+    } else {
+      articleStore.addBookmark(parseInt(articleId));
+    }
+  }, [bookmark, articleStore, articleId]);
+  React.useEffect(() => {
+    if (ui) {
+      ui.setHeaderBack({
+        right: (
+          <Icon
+            color={bookmark ? colors.black33 : 'transparent'}
+            icon="bookmarkOutline"
+            size="24px"
+            onClick={handleClickBookmark}
+          />
+        ),
+      });
+    }
+  }, [ui, bookmark, handleClickBookmark]);
 
   return (
     <React.Fragment>
