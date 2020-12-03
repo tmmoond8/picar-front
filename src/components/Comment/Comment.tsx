@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
@@ -23,14 +23,11 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = (props) => {
   const { thumbnail, content, name, group, createAt, children, id } = props;
   const { handleClickReply, about } = useCommentContext();
-  const isFocus = React.useMemo(() => (about === id ? 'isFocus' : null), [
-    about,
-    id,
-  ]);
+  const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
 
   return (
-    <StyledComment>
+    <StyledComment isFocus={isFocus}>
       <ProfilePhoto src={thumbnail} />
       <ContentBox>
         <Profile.Who name={name} group={group} />
@@ -38,7 +35,7 @@ const Comment: React.FC<CommentProps> = (props) => {
         <span className="date">{getDateGoodLook(createAt)}</span>
         {!isReply && (
           <span
-            className={cx('replay-btn', isFocus)}
+            className={cx('replay-btn')}
             onClick={() => handleClickReply(id)}
           >
             답글 달기
@@ -52,16 +49,18 @@ const Comment: React.FC<CommentProps> = (props) => {
 
 export default observer(Comment);
 
-const StyledComment = styled.li`
+const StyledComment = styled.li<{ isFocus: boolean }>`
   display: flex;
   min-height: 107px;
-  padding-top: 14px;
-  box-shadow: inset 0 -1px 0 0 ${colors.blackF5F6F7};
-  .isReply {
-    .isFocus {
-      display: none;
-    }
-  }
+  padding: 14px 19px 0;
+  ${(p) =>
+    p.isFocus &&
+    css`
+      background-color: ${colors.blackF5F6F7};
+      .replay-btn.replay-btn {
+        color: ${colors.primary};
+      }
+    `}
 `;
 
 const ProfilePhoto = styled(Profile.Photo)`
@@ -81,9 +80,6 @@ const ContentBox = styled.div`
     font-weight: 500;
     line-height: normal;
     cursor: pointer;
-  }
-  .isFocus {
-    color: ${colors.primary};
   }
 `;
 

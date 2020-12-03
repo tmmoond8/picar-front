@@ -95,7 +95,7 @@ const CommentArea: React.FC<{
 export default CommentArea;
 
 const Area = styled.div`
-  padding: 0 19px 92px;
+  padding: 0 0 92px;
   h3 {
     height: 59px;
     font-size: 14px;
@@ -106,8 +106,14 @@ const Area = styled.div`
   }
 `;
 
-const CommentList = styled.ol``;
+const CommentList = styled.ol`
+  overflow: hidden;
+`;
 
 const ReplyList = styled.ol`
   margin-top: 20px;
+  & > li {
+    background-color: white;
+    box-shadow: -100px 0 white, 150px 0 white;
+  }
 `;
