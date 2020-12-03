@@ -46,10 +46,13 @@ export default observer(function HomePage(): JSX.Element {
         index={groupIndex}
         onChangeIndex={handleChangeIndex}
       >
-        <ArticleList articles={loungeArticles} />
-        <ArticleList articles={freeArticles} />
-        <ArticleList articles={humorArticles} />
-        <ArticleList articles={govermentSupportArticles} />
+        <ArticleList articles={loungeArticles} bookmarks={article.bookmarks} />
+        <ArticleList articles={freeArticles} bookmarks={article.bookmarks} />
+        <ArticleList articles={humorArticles} bookmarks={article.bookmarks} />
+        <ArticleList
+          articles={govermentSupportArticles}
+          bookmarks={article.bookmarks}
+        />
       </Carousel>
       <MenuBar />
     </Wrapper>

@@ -8,22 +8,50 @@ import CommentEditor from './CommentEditor';
 
 import CommentContext from './context';
 import { useFetch, useWriteComment, useAbout } from './hooks';
+import CommentType from '../../types/Comment';
 
 const CommentArea: React.FC<{
   articleId: number;
   setCommentCount: (count: number) => void;
 }> = ({ articleId, setCommentCount }) => {
-  const { comments, fetchRefresh } = useFetch(articleId);
-  const handleWriteComment = useWriteComment(articleId, fetchRefresh);
+  const [comments, setComments] = useFetch(articleId);
+  const handleWriteComment = useWriteComment({
+    articleId,
+    setCommentCount,
+    setComments,
+  });
   const { about, handleClickReply } = useAbout();
+  const addComments = React.useCallback(
+    (comment: CommentType) => {
+      if ('about' in comment) {
+        const aboutCommentIndex = comments.findIndex(
+          (comment) => comment.id === about,
+        );
+        comments[aboutCommentIndex].replies!.push(comment);
+        setComments([...comments]);
+      } else {
+        setComments([...comments, comment]);
+      }
+    },
+    [about, comments, setComments],
+  );
+  const updateComments = React.useCallback(() => {
+    console.log('updateComments', comments);
+  }, [comments]);
+  const removeComments = React.useCallback(() => {
+    console.log('removeComments', comments);
+  }, [comments]);
 
   return (
     <CommentContext.Provider
       value={{
         comments,
-        fetchRefresh,
         handleWriteComment,
         handleClickReply,
+        setCommentCount,
+        addComments,
+        updateComments,
+        removeComments,
         about,
       }}
     >
@@ -41,18 +69,19 @@ const CommentArea: React.FC<{
               thumbnail={comment.author.thumbnail}
             >
               <ReplyList>
-                {comment.replies.map((reply) => (
-                  <Comment
-                    key={reply.id}
-                    id={comment.id}
-                    authorId={reply.author.id}
-                    name={reply.author.name}
-                    group={reply.author.group}
-                    createAt={reply.createAt}
-                    content={reply.content}
-                    thumbnail={reply.author.thumbnail}
-                  />
-                ))}
+                {comment.replies &&
+                  comment.replies.map((reply) => (
+                    <Comment
+                      key={reply.id}
+                      id={comment.id}
+                      authorId={reply.author.id}
+                      name={reply.author.name}
+                      group={reply.author.group}
+                      createAt={reply.createAt}
+                      content={reply.content}
+                      thumbnail={reply.author.thumbnail}
+                    />
+                  ))}
               </ReplyList>
             </Comment>
           ))}

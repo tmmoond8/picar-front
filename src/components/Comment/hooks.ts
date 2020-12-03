@@ -3,9 +3,8 @@ import Comment from '../../types/Comment';
 import API from '../../apis';
 import { Callback } from '../../types';
 
-export const useFetch = (articleId: number) => {
+export const useFetch = (articleId: number): [Comment[], (comments: Comment[]) => void] => {
   const [comments, setComments] = React.useState<Comment[]>([]);
-  const [refreshId, setRefreshId] = React.useState(0);
   React.useEffect(() => {
     (async () => {
       const { data: { comments, ok } } = await API.comment.list(articleId);
@@ -13,32 +12,35 @@ export const useFetch = (articleId: number) => {
         setComments(comments);
       }
     })();
-  }, [articleId, refreshId])
+  }, [articleId])
 
-  return {
+  return [
     comments,
-    fetchRefresh: () => setRefreshId(refreshId + 1),
-  };
+    setComments,
+  ]
 }
 
-export const useWriteComment = (articleId: number, refreshFetch: () => void) => {
+export const useWriteComment = (params: {
+  articleId: number; 
+  setCommentCount: (count: number) => void; 
+  setComments: (comemnts: Comment[]) => void;
+}) => {
   const handleWriteComment = React.useCallback(async (content: string, callback: Callback<Comment>, about?: string) => {
     try {
       const { data: { ok, comment } } = await API.comment.write({
-        articleId,
+        articleId: params.articleId,
         content,
         about,
       });
         if (ok) {
-          refreshFetch();
-          callback(comment as Comment);
+          callback(comment);
         } else {
           callback(null, 'server error');
         }
     } catch(error) {
       callback(null, 'network error');
     }
-  },[articleId, refreshFetch]);
+  },[params]);
   return handleWriteComment;
 }
 

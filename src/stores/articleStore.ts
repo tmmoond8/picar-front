@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
 import { NAVIGATIONS, LOUNGE, LOUNGES } from '../types/constants';
@@ -9,6 +9,9 @@ export interface ArticleStoreInterface {
   selectedGroup: string;
   groupIndex: number;
   selectedLounge: string;
+  bookmarks: Set<number>;
+  addBookmark: (articleId?: number) => void;
+  removeBookmark: (articleId?: number) => void;
 }
 
 class ArticleStore implements ArticleStoreInterface {
@@ -16,21 +19,36 @@ class ArticleStore implements ArticleStoreInterface {
   @observable articles: Article[];
   @observable selectedGroup: string;
   @observable selectedLounge: string;
+  @observable bookmarks: Set<number>;
 
   constructor() {
     this.bestArticles = [];
     this.articles = [];
     this.selectedGroup = LOUNGE;
     this.selectedLounge = LOUNGES[0].name;
-    this.fetch();
+    this.bookmarks = new Set();
+    this.fetchList();
+    this.fetchBookmark();
   }
 
-  async fetch() {
+  async fetchList() {
     try {
       const {
         data: { articles },
       } = await APIS.article.list();
       this.articles = articles;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async fetchBookmark() {
+    try {
+      const {
+        data: { bookmarks },
+      } = await APIS.bookmark.list();
+
+      this.bookmarks = new Set(bookmarks);
     } catch (error) {
       console.error(error);
     }
@@ -46,6 +64,29 @@ class ArticleStore implements ArticleStoreInterface {
 
   set groupIndex(index: number) {
     this.selectedGroup = NAVIGATIONS[index].name;
+  }
+
+  @action
+  async addBookmark(articleId?: number) {
+    if (!articleId) return;
+    try {
+      await APIS.bookmark.add(articleId);
+      this.bookmarks = new Set(this.bookmarks).add(articleId);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  @action
+  async removeBookmark(articleId?: number) {
+    if (!articleId) return;
+    try {
+      await APIS.bookmark.remove(articleId);
+      const newBookmarks = new Set(this.bookmarks);
+      newBookmarks.delete(articleId);
+      this.bookmarks = newBookmarks;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 

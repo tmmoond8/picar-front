@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import Article from '../../types/Article';
 import ArticleCard from './ArticleCard';
@@ -8,18 +9,26 @@ import { colors } from '../../styles';
 
 interface ArticleListProps {
   articles: Article[];
+  bookmarks: Set<number>;
 }
 
-export default function ArticleList(props: ArticleListProps): JSX.Element {
-  const { articles } = props;
+export default React.memo(function ArticleList(
+  props: ArticleListProps,
+): JSX.Element {
+  const { articles, bookmarks } = props;
+
   return (
     <Self>
       {articles.map((article) => (
-        <ArticleCard key={article.id} {...article} />
+        <ArticleCard
+          key={article.id}
+          {...article}
+          bookmark={!!article.id && bookmarks.has(article.id)}
+        />
       ))}
     </Self>
   );
-}
+});
 
 const Self = styled.ol`
   width: 100%;

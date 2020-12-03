@@ -1,12 +1,9 @@
 export default interface Comment {
+  about?: string;
   id: string;
   content: string;
-  replies: Reply[];
+  replies?: Comment[];
   author: Profile;
   createAt: string;
   updateAt: string;
-}
-
-export interface Reply extends Omit<Comment, 'replies'> {
-  about: string;
 }

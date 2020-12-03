@@ -15,7 +15,7 @@ const CommentEditor = () => {
     },
     [],
   );
-  const { handleWriteComment, about } = useCommentContext();
+  const { handleWriteComment, about, addComments } = useCommentContext();
   const placeholder = React.useMemo(
     () => `${about === null ? '댓글' : '답글'}을 입력하세요`,
     [about],
@@ -34,11 +34,16 @@ const CommentEditor = () => {
         onClick={() =>
           handleWriteComment(
             content,
-            (_, error) => {
+            (result, error) => {
+              console.log('result', result);
+              console.log('error', error);
               if (error) {
                 console.error('error');
               } else {
                 setContent('');
+                if (result) {
+                  addComments(result);
+                }
               }
             },
             about ?? undefined,

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -9,14 +9,16 @@ import Profile from '../Profile';
 import { Profile as IProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
-import CommentCounter from '../Comment/CommentCounter';
+import { useStore, observer } from '../../stores';
 
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
 
-type ArticleCardProps = Article;
+type ArticleCardProps = Article & { bookmark: boolean };
 
-export default function ArticleCard(props: ArticleCardProps): JSX.Element {
+export default observer(function ArticleCard(
+  props: ArticleCardProps,
+): JSX.Element {
   const {
     title,
     content,
@@ -26,12 +28,18 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
     photos,
     commentCount,
     emotionCount,
+    bookmark,
   } = props;
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
+  const { article } = useStore();
   const handleClickBookmark = React.useCallback(() => {
-    console.log(title);
-  }, [title]);
+    if (bookmark) {
+      article.removeBookmark(id);
+    } else {
+      article.addBookmark(id);
+    }
+  }, [article, bookmark, id]);
 
   const handleClickArticle = React.useCallback(() => {
     history.push(`/article/${id}`);
@@ -62,7 +70,8 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
           <Counter className="Counter">{commentCount}</Counter>
         </Button>
         <div className="right">
-          <Button
+          <BookmarkButton
+            marked={bookmark}
             onClick={handleClickBookmark}
             icon={<Icon icon="bookmark" size="18px" />}
           />
@@ -70,7 +79,7 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
       </Bottom>
     </Card>
   );
-}
+});
 
 const Card = styled.li`
   padding: 16px 18px;
@@ -158,4 +167,21 @@ const Counter = styled.span<{ color?: string }>`
     margin-left: 0;
     ${(p) => p.color && `color: ${p.color};`}
   }
+`;
+
+const BookmarkButton = styled(Button)<{ marked: boolean }>`
+  width: 41px;
+  height: 28px;
+  svg {
+    margin: 0 auto;
+  }
+  ${(p) =>
+    p.marked &&
+    css`
+      background-color: ${colors.primaryE};
+      border: none;
+      svg {
+        color: ${colors.primary3};
+      }
+    `}
 `;
