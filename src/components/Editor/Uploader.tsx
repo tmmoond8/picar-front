@@ -50,7 +50,7 @@ export default function Uploader(props: UploaderProps) {
     <React.Fragment>
       <UploadButton
         onClick={() => {
-          console.log('click');
+          console.log('UploadButton click');
         }}
         icon={<Icon icon="image" size="24px" />}
       />

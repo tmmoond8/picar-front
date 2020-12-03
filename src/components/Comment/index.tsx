@@ -23,7 +23,7 @@ const CommentArea: React.FC<{
   const { about, handleClickReply } = useAbout();
   const addComments = React.useCallback(
     (comment: CommentType) => {
-      if ('about' in comment) {
+      if (comment.about) {
         const aboutCommentIndex = comments.findIndex(
           (comment) => comment.id === about,
         );

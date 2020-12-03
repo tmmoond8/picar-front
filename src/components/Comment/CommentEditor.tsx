@@ -35,8 +35,6 @@ const CommentEditor = () => {
           handleWriteComment(
             content,
             (result, error) => {
-              console.log('result', result);
-              console.log('error', error);
               if (error) {
                 console.error('error');
               } else {

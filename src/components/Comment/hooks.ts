@@ -38,6 +38,7 @@ export const useWriteComment = (params: {
           callback(null, 'server error');
         }
     } catch(error) {
+      console.error(error);
       callback(null, 'network error');
     }
   },[params]);
