@@ -9,7 +9,6 @@ import Profile from '../Profile';
 import { Profile as IProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
-import Emotion from '../Emotion';
 import CommentCounter from '../Comment/CommentCounter';
 
 import { getDateGoodLook } from '../../modules/string';
@@ -53,8 +52,15 @@ export default function ArticleCard(props: ArticleCardProps): JSX.Element {
         {photos && <Thumbnail src={photos} />}
       </Body>
       <Bottom>
-        {id && <Emotion.Counter articleId={id} emotionCount={emotionCount} />}
-        {id && <CommentCounter articleId={id} commentCount={commentCount} />}
+        <Button
+          icon={<Icon icon="emojiSmile" size="18px" />}
+          onClick={() => {}}
+        >
+          <Counter className="Counter">{emotionCount}</Counter>
+        </Button>
+        <Button icon={<Icon icon="chat" size="18px" />} onClick={() => {}}>
+          <Counter className="Counter">{commentCount}</Counter>
+        </Button>
         <div className="right">
           <Button
             onClick={handleClickBookmark}
@@ -132,6 +138,10 @@ const Thumbnail = styled.img`
 const Bottom = styled.div`
   display: flex;
   height: 32px;
+
+  & > button {
+    border: none;
+  }
   * + * {
     margin-left: 8px;
   }
@@ -140,5 +150,12 @@ const Bottom = styled.div`
     display: flex;
     flex-direction: row-reverse;
     flex: 1;
+  }
+`;
+
+const Counter = styled.span<{ color?: string }>`
+  &.Counter {
+    margin-left: 0;
+    ${(p) => p.color && `color: ${p.color};`}
   }
 `;
