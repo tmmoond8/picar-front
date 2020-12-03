@@ -114,6 +114,10 @@ const ReplyList = styled.ol`
   margin-top: 20px;
   & > li {
     background-color: white;
-    box-shadow: -100px 0 white, 150px 0 white;
+    box-shadow: -100px 0 white, 150px 0 white, 250px 0 white, 350px 0 white,
+      450px 0 white, 550px 0 white, 650px 0 white, 750px 0 white, 850px 0 white,
+      950px 0 white, 1050px 0 white, 950px 0 white, 1250px 0 white,
+      1150px 0 white, 1450px 0 white, 1350px 0 white, 1650px 0 white,
+      1550px 0 white;
   }
 `;
