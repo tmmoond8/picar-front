@@ -8,6 +8,7 @@ export default interface Article {
   author: Profile;
   emotionCount: number;
   commentCount: number;
+  isDelete: boolean;
   photos: string | null;
   createAt: string;
   updateAt: string;

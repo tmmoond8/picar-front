@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
+import styled from '@emotion/styled';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { observer, useStore } from '../stores';
@@ -87,6 +88,7 @@ export default observer(function ArticlePage(): JSX.Element {
         <CommentArea
           articleId={article.id}
           setCommentCount={setCommentCount}
+          userCode={user.profile.code}
           profilePhoto={user.profile.thumbnail}
         />
       )}

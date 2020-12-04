@@ -57,6 +57,40 @@ export const useWriteComment = (params: {
   return handleWriteComment;
 }
 
+export const useRemoveComment = (params: {
+  comments: Comment[];
+  setCommentCount: (count: number) => void; 
+  setComments: (comemnts: Comment[]) => void;
+}) => {
+  const handleRemoveComment = React.useCallback(async (commentId: string) => {
+    const { comments, setComments, setCommentCount } = params;
+    try {
+      const { data: { ok } } = await API.comment.remove(commentId);
+        if (ok) {
+          const commentss = [...comments];
+          commentss.forEach(comment => {
+            if(comment.id === commentId) {
+              comment.isDelete = true;
+              comment.content = '';
+            } else if(comment.replies) {
+              comment.replies.forEach((reply) => {
+                if (reply.id === commentId) {
+                  reply.isDelete = true;
+                  reply.content = '';
+                }
+              })
+            }
+          })
+          setComments([...comments]);
+          setCommentCount(comments.length - 1);
+        }
+    } catch(error) {
+      console.error(error);
+    }
+  },[params]);
+  return handleRemoveComment;
+}
+
 export const useAbout = () => {
   const [about, setAbout] = React.useState<null | string>(null);
   const handleClickReply = (commentId: string) => {
@@ -66,5 +100,6 @@ export const useAbout = () => {
   return {
     about,
     handleClickReply,
+    clearAbout: () => setAbout(null),
   }
 }

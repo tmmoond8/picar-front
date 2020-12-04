@@ -4,6 +4,7 @@ export default interface Comment {
   content: string;
   replies?: Comment[];
   author: Profile;
+  isDelete: boolean;
   createAt: string;
   updateAt: string;
 }

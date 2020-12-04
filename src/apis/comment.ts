@@ -8,3 +8,4 @@ export const write = (data: {
   articleId: number;
   about?: string;
 }): Promise<AxiosResponse<{ ok: boolean; message: string; comment: Comment}>> => api.post('/comment/write', data);
+export const remove = (commentId: string): Promise<AxiosResponse<{ ok: boolean; message: string}>> => api.delete(`/comment/remove/${commentId}`);

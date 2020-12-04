@@ -7,13 +7,14 @@ import Comment from './Comment';
 import CommentEditor from './CommentEditor';
 
 import CommentContext from './context';
-import { useFetch, useWriteComment, useAbout } from './hooks';
+import { useFetch, useWriteComment, useAbout, useRemoveComment } from './hooks';
 
 const CommentArea: React.FC<{
   articleId: number;
   setCommentCount: (count: number) => void;
+  userCode: string;
   profilePhoto: string;
-}> = ({ articleId, setCommentCount, profilePhoto }) => {
+}> = ({ articleId, setCommentCount, profilePhoto, userCode }) => {
   const [comments, setComments] = useFetch(articleId);
   const handleWriteComment = useWriteComment({
     articleId,
@@ -21,7 +22,12 @@ const CommentArea: React.FC<{
     setCommentCount,
     setComments,
   });
-  const { about, handleClickReply } = useAbout();
+  const handleRemoveComment = useRemoveComment({
+    comments,
+    setCommentCount,
+    setComments,
+  });
+  const { about, handleClickReply, clearAbout } = useAbout();
   const updateComments = React.useCallback(() => {
     console.log('updateComments', comments);
   }, [comments]);
@@ -35,7 +41,9 @@ const CommentArea: React.FC<{
         profilePhoto,
         comments,
         handleWriteComment,
+        handleRemoveComment,
         handleClickReply,
+        clearAbout,
         updateComments,
         removeComments,
         about,
@@ -53,19 +61,21 @@ const CommentArea: React.FC<{
               createAt={comment.createAt}
               content={comment.content}
               thumbnail={comment.author.thumbnail}
+              isDelete={comment.isDelete}
             >
               <ReplyList>
                 {comment.replies &&
                   comment.replies.map((reply) => (
                     <Comment
                       key={reply.id}
-                      id={comment.id}
+                      id={reply.id}
                       authorId={reply.author.id}
                       name={reply.author.name}
                       group={reply.author.group}
                       createAt={reply.createAt}
                       content={reply.content}
                       thumbnail={reply.author.thumbnail}
+                      isDelete={reply.isDelete}
                     />
                   ))}
               </ReplyList>
@@ -94,10 +104,11 @@ const Area = styled.div`
 
 const CommentList = styled.ol`
   overflow: hidden;
+  label: CommentList;
 `;
 
 const ReplyList = styled.ol`
-  margin-top: 20px;
+  padding: 0 0 0 44px;
   & > li {
     background-color: white;
     box-shadow: -100px 0 white, 150px 0 white, 250px 0 white, 350px 0 white,
@@ -106,4 +117,5 @@ const ReplyList = styled.ol`
       1150px 0 white, 1450px 0 white, 1350px 0 white, 1650px 0 white,
       1550px 0 white;
   }
+  label: ReplyList;
 `;

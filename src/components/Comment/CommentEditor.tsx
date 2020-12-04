@@ -16,7 +16,12 @@ const CommentEditor = () => {
     },
     [],
   );
-  const { handleWriteComment, about, profilePhoto } = useCommentContext();
+  const {
+    handleWriteComment,
+    clearAbout,
+    about,
+    profilePhoto,
+  } = useCommentContext();
   const placeholder = React.useMemo(
     () => `${about === null ? '댓글' : '답글'}을 입력하세요`,
     [about],
@@ -30,11 +35,12 @@ const CommentEditor = () => {
           console.error('error');
         } else {
           setContent('');
+          clearAbout();
         }
       },
       about ?? undefined,
     );
-  }, [about, content, handleWriteComment]);
+  }, [about, clearAbout, content, handleWriteComment]);
 
   const disabled = React.useMemo(() => content.trim().length === 0, [content]);
 
@@ -68,6 +74,8 @@ const Editor = styled.div`
   align-items: flex-start;
   padding: 18px;
   background: ${colors.white};
+  border-top: 1px solid ${colors.blackF5F6F7};
+  /* box-shadow: 0 0px 20px 0px ${colors.blackCC}; */
 
   button {
     color: ${colors.primary4};
