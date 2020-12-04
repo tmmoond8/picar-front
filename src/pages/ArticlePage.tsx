@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import styled from '@emotion/styled';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
 import APIS from '../apis';
-import { useInitBefore } from '../hooks';
+import { useInitBefore, useCheckLogin } from '../hooks';
 
 import CommentArea from '../components/Comment';
+import BottomSheet from '../components/BottomSheet';
 import Icon from '../components/Icon';
 import { colors } from '../styles';
 import ArticleType from '../types/Article';
@@ -21,6 +21,7 @@ export default observer(function ArticlePage(): JSX.Element {
 
   const history = useHistory();
   const [article, setArticle] = React.useState<ArticleType | null>(null);
+  const bottomSheet = BottomSheet.useBottomSheet();
 
   const [commentCount, setCommentCount] = React.useState(0);
   const [emotionCount, setEmotionCount] = React.useState(0);
@@ -47,17 +48,26 @@ export default observer(function ArticlePage(): JSX.Element {
   }, [history]);
 
   useInitBefore(fetch);
+  const needLogin = useCheckLogin(
+    user.profile.code,
+    (profile: any) => (user.profile = profile),
+    bottomSheet,
+  );
 
   const bookmark = React.useMemo(() => {
     return articleId && articleStore.bookmarks.has(parseInt(articleId));
   }, [articleId, articleStore.bookmarks]);
 
   const handleClickBookmark = React.useCallback(() => {
+    if (needLogin()) {
+      return;
+    }
     if (bookmark) {
       articleStore.removeBookmark(parseInt(articleId));
     } else {
       articleStore.addBookmark(parseInt(articleId));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookmark, articleStore, articleId]);
   React.useEffect(() => {
     if (ui) {

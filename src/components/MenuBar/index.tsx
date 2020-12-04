@@ -50,7 +50,7 @@ export default observer(function MenuBar(): JSX.Element {
   const handleClickCommunity = useCallback(() => moveTo('/'), [moveTo]);
   const handleClickSearch = useCallback(() => moveTo('/search'), [moveTo]);
   const handleClickWrite = useCallback(() => {
-    if (profile.code !== 'test') {
+    if (profile.code !== 'guest') {
       const appendArticle = (newArticle: Article) => {
         article.articles = [newArticle, ...article.articles];
       };
@@ -68,7 +68,7 @@ export default observer(function MenuBar(): JSX.Element {
   }, [article.articles, bottomSheet, profile.code, requireLogin]);
   const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
   const handleClickProfile = useCallback(() => {
-    if (profile.code !== 'test') {
+    if (profile.code !== 'guest') {
       moveTo('/profile');
     } else {
       requireLogin();
