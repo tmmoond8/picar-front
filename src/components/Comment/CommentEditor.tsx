@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx, css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -10,22 +10,18 @@ import { useCommentContext, observer } from './context';
 
 const CommentEditor = () => {
   const [content, setContent] = React.useState('');
-  const handleChangeContent = React.useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setContent(e.target.value);
-    },
-    [],
-  );
+  const textEditableRef = React.useRef<HTMLDivElement>();
+  const handleChangeContent = React.useCallback(() => {
+    if (textEditableRef.current) {
+      setContent((textEditableRef.current as any).textContent);
+    }
+  }, []);
   const {
     handleWriteComment,
     clearAbout,
     about,
     profilePhoto,
   } = useCommentContext();
-  const placeholder = React.useMemo(
-    () => `${about === null ? '댓글' : '답글'}을 입력하세요`,
-    [about],
-  );
 
   const handleClickSend = React.useCallback(() => {
     handleWriteComment(
@@ -35,6 +31,9 @@ const CommentEditor = () => {
           console.error('error');
         } else {
           setContent('');
+          if (textEditableRef.current) {
+            (textEditableRef.current as any).textContent = '';
+          }
           clearAbout();
         }
       },
@@ -42,17 +41,22 @@ const CommentEditor = () => {
     );
   }, [about, clearAbout, content, handleWriteComment]);
 
+  const placeholder = React.useMemo(() => {
+    if (content.length > 0) return undefined;
+    return `${about === null ? '댓글' : '답글'}을 입력하세요`;
+  }, [about, content.length]);
   const disabled = React.useMemo(() => content.trim().length === 0, [content]);
 
   return (
-    <Editor>
-      <Profile.Photo src={profilePhoto} />
+    <Editor onTyping={!placeholder}>
       <Context
-        value={content}
-        onChange={handleChangeContent}
+        className="CommentEditor"
+        ref={textEditableRef as React.RefObject<HTMLDivElement>}
+        contentEditable
         placeholder={placeholder}
-        rows={3}
+        onInput={handleChangeContent}
       />
+      <UserPhoto src={profilePhoto} />
       <SendIconButton
         disabled={disabled}
         icon="send"
@@ -65,7 +69,7 @@ const CommentEditor = () => {
 
 export default observer(CommentEditor);
 
-const Editor = styled.div`
+const Editor = styled.div<{ onTyping: boolean }>`
   display: flex;
   position: fixed;
   left: 0;
@@ -83,25 +87,69 @@ const Editor = styled.div`
     font-size: 15px;
     cursor: pointer;
   }
+
+  .CommentEditor:focus + div {
+    display: block;
+  }
+
+  ${(p) =>
+    p.onTyping &&
+    css`
+      div[src] {
+        display: block;
+      }
+    `}
 `;
-const Context = styled.textarea`
+const Context = styled.div<{ placeholder?: string }>`
   position: relative;
   flex: 1;
   height: auto;
-  max-height: 64px;
+  min-height: 32px;
+  max-height: 70px;
   margin: 0 16px;
+  order: 1;
   font-size: 16px;
   font-weight: normal;
   line-height: 1.4;
-  /* resize: none; */
-  &::placeholder {
-    color: ${colors.black99};
-  }
+  overflow-y: scroll;
+
   outline: none;
   border: none;
+  transition: all 0.3s ease-in-out;
+
+  &:after {
+    content: ${(p) => (p.placeholder ? `'${p.placeholder}'` : 'none')};
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: ${colors.black99};
+    pointer-events: none;
+  }
+
+  &:focus {
+    &:after {
+      content: none;
+    }
+  }
+`;
+
+const pop = keyframes`
+  from {
+    transform: scale(0.2);
+  }
+  to {
+    transform: scale(1);
+  }
+`;
+
+const UserPhoto = styled(Profile.Photo)`
+  display: none;
+  order: 0;
+  animation: ${pop} 0.3s ease-in-out;
 `;
 
 const SendIconButton = styled(Icon)<{ disabled: boolean }>`
+  order: 2;
   transform: color 0.3s ease-in-out;
   pointer-events: none;
   ${(p) =>
