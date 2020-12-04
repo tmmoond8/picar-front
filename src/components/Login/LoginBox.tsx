@@ -50,7 +50,7 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
   );
 
   const handleSetUserProfile = React.useCallback(
-    (profile: any) => {
+    (profile: Profile) => {
       onClose();
       onSetUserProfile(profile);
     },

@@ -40,7 +40,6 @@ export default function Article(props: ArticleProps): JSX.Element {
             viewCount={1004}
             commentCount={commentCount}
             emotionCount={emotionCount}
-            emotions={{ LOVE: 123 }}
           />
           <HR />
         </Self>

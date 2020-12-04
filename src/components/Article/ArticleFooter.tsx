@@ -9,11 +9,10 @@ interface ArticleFooterProps {
   viewCount: number;
   commentCount: number;
   emotionCount: number;
-  emotions: any;
 }
 
 export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
-  const { viewCount, commentCount, emotions, emotionCount } = props;
+  const { viewCount, commentCount, emotionCount } = props;
   return (
     <StyledArticleFooter>
       <InteractionCounter>
