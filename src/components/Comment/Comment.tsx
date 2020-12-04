@@ -5,13 +5,14 @@ import React from 'react';
 import cx from 'classnames';
 
 import Profile from '../Profile';
+import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
 import { getDateGoodLook } from '../../modules/string';
 
 interface CommentProps {
   id: string;
-  authorId: string;
+  authorCode: string;
   thumbnail?: string;
   name: string;
   content: string;
@@ -23,6 +24,7 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = (props) => {
   const {
+    authorCode,
     thumbnail,
     content,
     name,
@@ -32,16 +34,34 @@ const Comment: React.FC<CommentProps> = (props) => {
     id,
     isDelete,
   } = props;
-  const { handleClickReply, handleRemoveComment, about } = useCommentContext();
+  const {
+    handleClickReply,
+    handleRemoveComment,
+    about,
+    userCode,
+  } = useCommentContext();
   const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
+  const isArticleAuthor = React.useMemo(() => userCode === authorCode, [
+    authorCode,
+    userCode,
+  ]);
 
   return (
     <React.Fragment>
       <StyledComment isFocus={isFocus}>
         <ProfilePhoto src={thumbnail} />
         <ContentBox>
-          <Profile.Who name={name} group={group} />
+          <Profile.Who
+            name={name}
+            group={group}
+            nameColor={isArticleAuthor ? colors.primary : undefined}
+            right={
+              isArticleAuthor ? (
+                <EditorBadge icon="editRound" size="16px" />
+              ) : undefined
+            }
+          />
           <Content>{content}</Content>
           <span className="date">{getDateGoodLook(createAt)}</span>
           {!isReply && (
@@ -52,7 +72,7 @@ const Comment: React.FC<CommentProps> = (props) => {
               답글 달기
             </span>
           )}
-          {true && (
+          {isArticleAuthor && (
             <span
               className={cx('delete-btn')}
               onClick={() => {
@@ -64,7 +84,7 @@ const Comment: React.FC<CommentProps> = (props) => {
           )}
         </ContentBox>
         {isDelete && (
-          <DeletedComment isReply={isReply}>
+          <DeletedComment>
             삭제된 {isReply ? '답' : '댓'}글입니다.
           </DeletedComment>
         )}
@@ -135,7 +155,7 @@ const Content = styled.div`
   font-size: 15px;
 `;
 
-const DeletedComment = styled.li<{ isReply: boolean }>`
+const DeletedComment = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -148,4 +168,8 @@ const DeletedComment = styled.li<{ isReply: boolean }>`
   background-color: ${colors.blackF5F6F7};
   color: ${colors.black99};
   font-size: 15px;
+`;
+
+const EditorBadge = styled(Icon)`
+  margin-left: 8px;
 `;

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { colors } from '../../styles';
 
@@ -7,25 +7,33 @@ interface WhoProps {
   className?: string;
   name: string;
   group?: string;
+  nameColor?: string;
+  right?: React.ReactNode;
 }
 
 export default function ProfileWho(props: WhoProps): JSX.Element {
-  const { name, group, className } = props;
+  const { name, group, className, nameColor, right } = props;
   return (
-    <Who className={className}>
+    <Who className={className} nameColor={nameColor}>
       <p className="user-name">{name}</p>
       {group && <p className="user-group">{group}</p>}
+      {right && right}
     </Who>
   );
 }
 
-const Who = styled.div`
+const Who = styled.div<{ nameColor?: string }>`
   display: flex;
   font-weight: 500;
 
   .user-name {
     font-size: 13px;
     color: ${colors.black50};
+    ${(p) =>
+      p.nameColor &&
+      css`
+        color: ${colors.primary};
+      `}
   }
   .user-group {
     position: relative;

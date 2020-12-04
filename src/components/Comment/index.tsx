@@ -46,6 +46,7 @@ const CommentArea: React.FC<{
         clearAbout,
         updateComments,
         removeComments,
+        userCode,
         about,
       }}
     >
@@ -55,7 +56,7 @@ const CommentArea: React.FC<{
             <Comment
               key={comment.id}
               id={comment.id}
-              authorId={comment.author.id}
+              authorCode={comment.author.code}
               name={comment.author.name}
               group={comment.author.group}
               createAt={comment.createAt}
@@ -69,7 +70,7 @@ const CommentArea: React.FC<{
                     <Comment
                       key={reply.id}
                       id={reply.id}
-                      authorId={reply.author.id}
+                      authorCode={reply.author.code}
                       name={reply.author.name}
                       group={reply.author.group}
                       createAt={reply.createAt}

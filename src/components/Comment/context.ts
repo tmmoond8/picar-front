@@ -14,6 +14,7 @@ const CommentContext = React.createContext<{
   removeComments: (comments: Comment) => void;
   updateComments: (comments: Comment) => void;
   about: string | null;
+  userCode: string;
   profilePhoto: string;
 }>({
   comments: [],
@@ -24,6 +25,7 @@ const CommentContext = React.createContext<{
   removeComments: () => console.log('not initialized'),
   updateComments: () => console.log('not initialized'),
   about: null,
+  userCode: 'guest',
   profilePhoto: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592041365/noticon/miarefknyt8tmn9neo3p.png',
 });
 

@@ -73,12 +73,7 @@ export const useRemoveComment = (params: {
               comment.isDelete = true;
               comment.content = '';
             } else if(comment.replies) {
-              comment.replies.forEach((reply) => {
-                if (reply.id === commentId) {
-                  reply.isDelete = true;
-                  reply.content = '';
-                }
-              })
+              comment.replies = comment.replies.filter((reply) => reply.id !== commentId)
             }
           })
           setComments([...comments]);
