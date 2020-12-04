@@ -13,7 +13,6 @@ import BottomSheet from '../components/BottomSheet';
 import Icon from '../components/Icon';
 import { colors } from '../styles';
 import ArticleType from '../types/Article';
-import { Profile } from '../types/User';
 
 export default observer(function ArticlePage(): JSX.Element {
   const { ui, article: articleStore, user } = useStore();
@@ -51,7 +50,7 @@ export default observer(function ArticlePage(): JSX.Element {
   useInitBefore(fetch);
   const needLogin = useCheckLogin(
     user.profile.code,
-    (profile: Profile) => (user.profile = profile),
+    user.setProfile,
     bottomSheet,
   );
 

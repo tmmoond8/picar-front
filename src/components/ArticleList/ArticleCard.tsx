@@ -39,7 +39,7 @@ export default observer(function ArticleCard(
 
   const needLogin = useCheckLogin(
     user.profile.code,
-    (profile: IProfile) => (user.profile = profile),
+    user.setProfile,
     bottomSheet,
   );
 

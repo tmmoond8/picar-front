@@ -15,6 +15,7 @@ const initalProfile = {
 
 export interface UserStoreInterface {
   profile: Profile;
+  setProfile: (profile: Profile) => void;
 }
 
 class UserStore implements UserStoreInterface {
@@ -39,7 +40,9 @@ class UserStore implements UserStoreInterface {
       console.error(error);
     }
   }
-
+  setProfile(profile: Profile) {
+    this.profile = profile;
+  }
 }
 
 export default UserStore;
