@@ -11,8 +11,10 @@ import Button from '../Button';
 import Icon from '../Icon';
 import { useStore, observer } from '../../stores';
 
+import BottomSheet from '../BottomSheet';
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
+import { useCheckLogin } from '../../hooks';
 
 type ArticleCardProps = Article & { bookmark: boolean };
 
@@ -32,13 +34,25 @@ export default observer(function ArticleCard(
   } = props;
   const { thumbnail, name, group } = author as IProfile;
   const history = useHistory();
-  const { article } = useStore();
+  const bottomSheet = BottomSheet.useBottomSheet();
+  const { article, user } = useStore();
+
+  const needLogin = useCheckLogin(
+    user.profile.code,
+    (profile: IProfile) => (user.profile = profile),
+    bottomSheet,
+  );
+
   const handleClickBookmark = React.useCallback(() => {
+    if (needLogin()) {
+      return;
+    }
     if (bookmark) {
       article.removeBookmark(id);
     } else {
       article.addBookmark(id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article, bookmark, id]);
 
   const handleClickArticle = React.useCallback(() => {
