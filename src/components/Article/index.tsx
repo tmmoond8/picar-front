@@ -7,25 +7,18 @@ import ArticleHead from './ArticleHead';
 import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 
-import CommentArea from '../Comment';
 import IArticle from '../../types/Article';
 import { colors } from '../../styles';
 
 interface ArticleProps {
   article: IArticle;
+  emotionCount: number;
+  commentCount: number;
 }
 
 export default function Article(props: ArticleProps): JSX.Element {
-  const { article } = props;
-  const {
-    author,
-    title,
-    content,
-    commentCount: _commentCount,
-    emotionCount: _emotionCount,
-  } = article;
-  const [commentCount, setCommentCount] = React.useState(_commentCount);
-  const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
+  const { article, emotionCount, commentCount } = props;
+  const { author, title, content } = article;
 
   return (
     <React.Fragment>
@@ -50,12 +43,6 @@ export default function Article(props: ArticleProps): JSX.Element {
             emotions={{ LOVE: 123 }}
           />
           <HR />
-          {article.id && (
-            <CommentArea
-              articleId={article.id}
-              setCommentCount={setCommentCount}
-            />
-          )}
         </Self>
       )}
     </React.Fragment>

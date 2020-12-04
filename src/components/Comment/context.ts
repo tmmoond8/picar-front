@@ -9,20 +9,18 @@ const CommentContext = React.createContext<{
   comments: Comment[];
   handleWriteComment: (content: string, callback: Callback<Comment>, about?: string) => void;
   handleClickReply: (commentId: string) => void;
-  setCommentCount: (count: number) => void;
-  addComments: (comments: Comment) => void;
   removeComments: (comments: Comment) => void;
   updateComments: (comments: Comment) => void;
   about: string | null;
+  profilePhoto: string;
 }>({
   comments: [],
   handleWriteComment: () => console.log('not initialized'),
   handleClickReply: () => console.log('not initialized'),
-  setCommentCount: () => console.log('not initialized'),
-  addComments: () => console.log('not initialized'),
   removeComments: () => console.log('not initialized'),
   updateComments: () => console.log('not initialized'),
   about: null,
+  profilePhoto: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592041365/noticon/miarefknyt8tmn9neo3p.png',
 });
 
 CommentContext.displayName = 'CommentContext';

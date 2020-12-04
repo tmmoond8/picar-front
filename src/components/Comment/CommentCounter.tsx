@@ -18,10 +18,15 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
 
   const handleClickComment = React.useCallback(() => {
     if (articleId) {
+      // TODO userCode, profilePhoto 넣어줘야 함
       bottomSheet.open({
         title: `댓글 ${commentCount}`,
         contents: (
-          <Comment articleId={articleId} setCommentCount={setCommentCount} />
+          <Comment
+            articleId={articleId}
+            setCommentCount={setCommentCount}
+            profilePhoto="url"
+          />
         ),
       });
     }

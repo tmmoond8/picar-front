@@ -1,7 +1,7 @@
 export interface Profile {
-  code?: string;
+  code: string;
   name: string;
-  thumbnail?: string;
+  thumbnail: string;
   profileImage?: string;
   email: string;
   description?: string;

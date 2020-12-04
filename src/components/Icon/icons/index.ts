@@ -31,3 +31,4 @@ export { ReactComponent as loungeShop } from './lounge-shop.svg';
 export { ReactComponent as loungeStartup } from './lounge-startup.svg';
 export { ReactComponent as customerCenter } from './customer-center.svg';
 export { ReactComponent as share } from './share.svg';
+export { ReactComponent as send } from './send.svg';

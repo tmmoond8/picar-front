@@ -8,16 +8,29 @@ import Article from '../components/Article';
 import APIS from '../apis';
 import { useInitBefore } from '../hooks';
 
+import CommentArea from '../components/Comment';
 import Icon from '../components/Icon';
 import { colors } from '../styles';
+import ArticleType from '../types/Article';
 
 export default observer(function ArticlePage(): JSX.Element {
-  const { ui, article: articleStore } = useStore();
+  const { ui, article: articleStore, user } = useStore();
   const { pathname } = useLocation();
   const [_, __, articleId] = pathname.split('/');
 
   const history = useHistory();
-  const [article, setArticle] = React.useState(null);
+  const [article, setArticle] = React.useState<ArticleType | null>(null);
+
+  const [commentCount, setCommentCount] = React.useState(0);
+  const [emotionCount, setEmotionCount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (article) {
+      setCommentCount(article.commentCount);
+      setEmotionCount(article.emotionCount);
+    }
+  }, [article]);
+
   const fetch = React.useCallback(async () => {
     try {
       const {
@@ -62,7 +75,21 @@ export default observer(function ArticlePage(): JSX.Element {
 
   return (
     <React.Fragment>
-      {article && <Article article={article as any} />}
+      {article && (
+        <Article
+          article={article as ArticleType}
+          commentCount={commentCount}
+          emotionCount={emotionCount}
+        />
+      )}
+
+      {article?.id && (
+        <CommentArea
+          articleId={article.id}
+          setCommentCount={setCommentCount}
+          profilePhoto={user.profile.thumbnail}
+        />
+      )}
     </React.Fragment>
   );
 });

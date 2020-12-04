@@ -8,33 +8,20 @@ import CommentEditor from './CommentEditor';
 
 import CommentContext from './context';
 import { useFetch, useWriteComment, useAbout } from './hooks';
-import CommentType from '../../types/Comment';
 
 const CommentArea: React.FC<{
   articleId: number;
   setCommentCount: (count: number) => void;
-}> = ({ articleId, setCommentCount }) => {
+  profilePhoto: string;
+}> = ({ articleId, setCommentCount, profilePhoto }) => {
   const [comments, setComments] = useFetch(articleId);
   const handleWriteComment = useWriteComment({
     articleId,
+    comments,
     setCommentCount,
     setComments,
   });
   const { about, handleClickReply } = useAbout();
-  const addComments = React.useCallback(
-    (comment: CommentType) => {
-      if (comment.about) {
-        const aboutCommentIndex = comments.findIndex(
-          (comment) => comment.id === about,
-        );
-        comments[aboutCommentIndex].replies!.push(comment);
-        setComments([...comments]);
-      } else {
-        setComments([...comments, comment]);
-      }
-    },
-    [about, comments, setComments],
-  );
   const updateComments = React.useCallback(() => {
     console.log('updateComments', comments);
   }, [comments]);
@@ -45,11 +32,10 @@ const CommentArea: React.FC<{
   return (
     <CommentContext.Provider
       value={{
+        profilePhoto,
         comments,
         handleWriteComment,
         handleClickReply,
-        setCommentCount,
-        addComments,
         updateComments,
         removeComments,
         about,

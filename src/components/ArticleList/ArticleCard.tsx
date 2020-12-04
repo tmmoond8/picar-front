@@ -149,6 +149,7 @@ const Bottom = styled.div`
   height: 32px;
 
   & > button {
+    cursor: auto;
     border: none;
   }
   * + * {
@@ -172,8 +173,10 @@ const Counter = styled.span<{ color?: string }>`
 const BookmarkButton = styled(Button)<{ marked: boolean }>`
   width: 41px;
   height: 28px;
+  transition: background-color 0.3s ease-in-out;
   svg {
     margin: 0 auto;
+    cursor: pointer;
   }
   ${(p) =>
     p.marked &&

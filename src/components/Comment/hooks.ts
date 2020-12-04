@@ -22,17 +22,29 @@ export const useFetch = (articleId: number): [Comment[], (comments: Comment[]) =
 
 export const useWriteComment = (params: {
   articleId: number; 
+  comments: Comment[];
   setCommentCount: (count: number) => void; 
   setComments: (comemnts: Comment[]) => void;
 }) => {
   const handleWriteComment = React.useCallback(async (content: string, callback: Callback<Comment>, about?: string) => {
+    const { articleId, comments, setComments, setCommentCount } = params;
     try {
       const { data: { ok, comment } } = await API.comment.write({
-        articleId: params.articleId,
+        articleId,
         content,
         about,
       });
         if (ok) {
+          if (comment.about) {
+            const aboutCommentIndex = comments.findIndex(
+              (comment) => comment.id === about,
+            );
+            comments[aboutCommentIndex].replies!.push(comment);
+            setComments([...comments]);
+          } else {
+            setComments([...comments, comment]);
+            setCommentCount(comments.length + 1);
+          }
           callback(comment);
         } else {
           callback(null, 'server error');

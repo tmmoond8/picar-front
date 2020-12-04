@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import Profile from '../Profile';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
@@ -15,41 +16,43 @@ const CommentEditor = () => {
     },
     [],
   );
-  const { handleWriteComment, about, addComments } = useCommentContext();
+  const { handleWriteComment, about, profilePhoto } = useCommentContext();
   const placeholder = React.useMemo(
     () => `${about === null ? '댓글' : '답글'}을 입력하세요`,
     [about],
   );
 
+  const handleClickSend = React.useCallback(() => {
+    handleWriteComment(
+      content,
+      (result, error) => {
+        if (error) {
+          console.error('error');
+        } else {
+          setContent('');
+        }
+      },
+      about ?? undefined,
+    );
+  }, [about, content, handleWriteComment]);
+
+  const disabled = React.useMemo(() => content.trim().length === 0, [content]);
+
   return (
     <Editor>
-      <Icon icon="emojiSmile" size="24px" />
+      <Profile.Photo src={profilePhoto} />
       <Context
         value={content}
         onChange={handleChangeContent}
         placeholder={placeholder}
         rows={3}
       />
-      <button
-        onClick={() =>
-          handleWriteComment(
-            content,
-            (result, error) => {
-              if (error) {
-                console.error('error');
-              } else {
-                setContent('');
-                if (result) {
-                  addComments(result);
-                }
-              }
-            },
-            about ?? undefined,
-          )
-        }
-      >
-        게시
-      </button>
+      <SendIconButton
+        disabled={disabled}
+        icon="send"
+        size="24px"
+        onClick={handleClickSend}
+      />
     </Editor>
   );
 };
@@ -88,4 +91,15 @@ const Context = styled.textarea`
   }
   outline: none;
   border: none;
+`;
+
+const SendIconButton = styled(Icon)<{ disabled: boolean }>`
+  transform: color 0.3s ease-in-out;
+  pointer-events: none;
+  ${(p) =>
+    !p.disabled &&
+    css`
+      color: ${colors.primary};
+      pointer-events: all;
+    `}
 `;

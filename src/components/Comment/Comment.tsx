@@ -53,6 +53,7 @@ const StyledComment = styled.li<{ isFocus: boolean }>`
   display: flex;
   min-height: 107px;
   padding: 14px 19px 0;
+  transition: background-color 0.3s;
   ${(p) =>
     p.isFocus &&
     css`
