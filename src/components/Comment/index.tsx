@@ -10,8 +10,15 @@ const CommentArea: React.FC<{
   articleId: number;
   setCommentCount: (count: number) => void;
   userCode: string;
+  articleAuthorCode: string;
   profilePhoto: string;
-}> = ({ articleId, setCommentCount, profilePhoto, userCode }) => {
+}> = ({
+  articleId,
+  setCommentCount,
+  profilePhoto,
+  userCode,
+  articleAuthorCode,
+}) => {
   const [comments, setComments] = useFetch(articleId);
   const handleWriteComment = useWriteComment({
     articleId,
@@ -43,11 +50,12 @@ const CommentArea: React.FC<{
         clearAbout,
         updateComments,
         removeComments,
+        articleAuthorCode,
         userCode,
         about,
       }}
     >
-      <CommentViewer comments={comments} />
+      <CommentViewer />
     </CommentContext.Provider>
   );
 };

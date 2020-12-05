@@ -12,7 +12,7 @@ import { getDateGoodLook } from '../../modules/string';
 
 interface CommentProps {
   id: string;
-  authorCode: string;
+  articleAuthorCode: string;
   thumbnail?: string;
   name: string;
   content: string;
@@ -24,7 +24,7 @@ interface CommentProps {
 
 const Comment: React.FC<CommentProps> = (props) => {
   const {
-    authorCode,
+    articleAuthorCode,
     thumbnail,
     content,
     name,
@@ -42,8 +42,8 @@ const Comment: React.FC<CommentProps> = (props) => {
   } = useCommentContext();
   const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
-  const isArticleAuthor = React.useMemo(() => userCode === authorCode, [
-    authorCode,
+  const isArticleAuthor = React.useMemo(() => userCode === articleAuthorCode, [
+    articleAuthorCode,
     userCode,
   ]);
 

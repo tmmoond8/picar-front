@@ -99,6 +99,7 @@ export default observer(function ArticlePage(): JSX.Element {
           articleId={article.id}
           setCommentCount={setCommentCount}
           userCode={user.profile.code}
+          articleAuthorCode={article.author.code}
           profilePhoto={user.profile.thumbnail}
         />
       )}

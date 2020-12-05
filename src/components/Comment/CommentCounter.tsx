@@ -26,6 +26,7 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
             articleId={articleId}
             setCommentCount={setCommentCount}
             profilePhoto="url"
+            articleAuthorCode="tmpUser"
             userCode="tmp"
           />
         ),

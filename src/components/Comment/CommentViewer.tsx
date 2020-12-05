@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
 
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from './Comment';
-import CommentType from '../../types/Comment';
 import CommentEditor from './CommentEditor';
+import { useCommentContext, observer } from './context';
 
-const CommentViewer: React.FC<{ comments: CommentType[] }> = ({ comments }) => {
+const CommentViewer = () => {
+  const { comments, articleAuthorCode } = useCommentContext();
   return (
     <StyledComments>
       <CommentList>
@@ -17,7 +17,7 @@ const CommentViewer: React.FC<{ comments: CommentType[] }> = ({ comments }) => {
           <Comment
             key={comment.id}
             id={comment.id}
-            authorCode={comment.author.code}
+            articleAuthorCode={articleAuthorCode}
             name={comment.author.name}
             group={comment.author.group}
             createAt={comment.createAt}
@@ -31,7 +31,7 @@ const CommentViewer: React.FC<{ comments: CommentType[] }> = ({ comments }) => {
                   <Comment
                     key={reply.id}
                     id={reply.id}
-                    authorCode={reply.author.code}
+                    articleAuthorCode={articleAuthorCode}
                     name={reply.author.name}
                     group={reply.author.group}
                     createAt={reply.createAt}
@@ -55,7 +55,7 @@ const CommentViewer: React.FC<{ comments: CommentType[] }> = ({ comments }) => {
   );
 };
 
-export default React.memo(CommentViewer);
+export default observer(CommentViewer);
 
 const StyledComments = styled.div`
   padding: 0 0 92px;
