@@ -3,24 +3,23 @@
 import { jsx } from '@emotion/core';
 
 import React from 'react';
-import ReactKakaoLogin from 'react-kakao-login';
 import APIS from '../../apis';
 
-import KakaoLoginIcon from './login-kakao.svg';
+import NaverLoginIcon from './login-naver.svg';
 import { SignUpUser, Profile } from '../../types/User';
 
-interface KakaoLoginProps {
+interface NaverLoginProps {
   onSignUp: (user: SignUpUser) => void;
   onSetUserProfile: (userProfile: Profile) => void;
 }
 
-export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
+export default function NaverLogin(props: NaverLoginProps): JSX.Element {
   const { onSignUp, onSetUserProfile } = props;
   const handleLogin = React.useCallback(
     async (result) => {
       const {
         id,
-        kakao_account: {
+        naver_account: {
           email,
           profile: { nickname, profile_image_url, thumbnail_image_url },
         },
@@ -28,7 +27,7 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
       try {
         const {
           data: { data },
-        } = await APIS.auth.check(id, 'kakao');
+        } = await APIS.auth.check(id, 'naver');
         if (data) {
           onSetUserProfile(data);
           return;
@@ -43,20 +42,11 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
         name: nickname,
         thumbnail: thumbnail_image_url,
         profileImage: profile_image_url,
-        provider: 'kakao',
+        provider: 'naver',
       };
       onSignUp(user);
     },
     [onSetUserProfile, onSignUp],
   );
-  return (
-    <ReactKakaoLogin
-      token={process.env.REACT_APP_KAKAO_LOGIN_KEY || ''}
-      onSuccess={(result) => handleLogin(result)}
-      onFail={(result: any) => console.log(result)}
-      render={(props: any) => (
-        <img src={KakaoLoginIcon} onClick={props.onClick} />
-      )}
-    />
-  );
+  return <img src={NaverLoginIcon} />;
 }

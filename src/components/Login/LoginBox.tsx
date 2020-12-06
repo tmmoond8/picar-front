@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import KakaoLogin from './KakaoLogin';
+import NaverLogin from './NaverLogin';
 import { SignUpUser, Profile } from '../../types/User';
 import BottomSheet from '../BottomSheet';
 import SignUp from '../SignUp';
@@ -70,7 +71,10 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
           />
         </li>
         <li className="naver-login">
-          <img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1567608967/noticon/rk2ah7fnvmg1dufjmm6c.jpg" />
+          <NaverLogin
+            onSignUp={handleSignUp}
+            onSetUserProfile={handleSetUserProfile}
+          />
         </li>
       </LoginButtons>
     </Box>
@@ -83,7 +87,7 @@ const Box = styled.div`
 
 const LoginButtons = styled.ol`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   padding: 40px 0 30px;
   li {
     width: 60px;
@@ -96,6 +100,7 @@ const LoginButtons = styled.ol`
     }
   }
   .naver-login {
+    margin-left: 24px;
     filter: opacity(0.5);
   }
 `;
