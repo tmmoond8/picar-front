@@ -74,14 +74,14 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
   ]);
 
   const signUpSteps = [
-    // {
-    //   Form: NicknameForm,
-    //   bottomCTA: <NicknameForm.BottomCTA onClick={handleNext} />,
-    // },
-    // {
-    //   Form: EmailForm,
-    //   bottomCTA: <EmailForm.BottomCTA onClick={handleNext} />,
-    // },
+    {
+      Form: NicknameForm,
+      bottomCTA: <NicknameForm.BottomCTA onClick={handleNext} />,
+    },
+    {
+      Form: EmailForm,
+      bottomCTA: <EmailForm.BottomCTA onClick={handleNext} />,
+    },
     {
       Form: AreYouOwnerForm,
       bottomCTA: null,

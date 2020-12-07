@@ -14,7 +14,16 @@ export default function Label(props: LabelProps): JSX.Element {
   return (
     <StyledLabel>
       <h3>{label}</h3>
-      {subLabel && <p>{subLabel}</p>}
+      {subLabel && (
+        <p>
+          {subLabel.split('\n').map((line) => (
+            <span>
+              {line}
+              <br />
+            </span>
+          ))}
+        </p>
+      )}
     </StyledLabel>
   );
 }

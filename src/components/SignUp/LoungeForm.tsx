@@ -6,6 +6,7 @@ import React from 'react';
 import { useSignUpContext, observer } from './context';
 import BottomCTA from './BottomCTA';
 import Content from '../Content';
+import Input from '../Input';
 import LoungeGrid from '../LoungeGrid';
 import { colors } from '../../styles';
 
@@ -31,13 +32,12 @@ function LoungeForm(): JSX.Element {
 
   return (
     <Form>
-      <Content.Spacing size={8} />
-      <h2>종사업종을 알려주세요</h2>
-      <Content.Spacing size={12} />
-      <p>
-        종사업종 선택시 기본 라운지로 설정이 됩니다. 설정은 변경 가능하며 다른
-        라운지도 얼마든지 이동 할 수 있어요.
-      </p>
+      <Input.Label
+        label="종사업종을 알려주세요"
+        subLabel={
+          '업종선택시 대표라운지로 설정됩니다.\n 예비오너님들은 대표 관심업종을 선택해주세요'
+        }
+      />
       <Content.Spacing size={30} />
       <LoungeGrid
         selectedLounge={lounge}
