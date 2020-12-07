@@ -59,7 +59,7 @@ export default function NaverLogin(props: NaverLoginProps): JSX.Element {
   return (
     <ReactNaverLogin
       clientId={process.env.REACT_APP_NAVER_CLIENT_ID || ''}
-      callbackUrl="http://127.0.0.1:3000/login"
+      callbackUrl={process.env.REACT_APP_NAVER_LOGIN_CALLBACK_URL || ''}
       render={(props) => (
         <img src={NaverLoginIcon} onClick={() => props.onClick()} />
       )}
