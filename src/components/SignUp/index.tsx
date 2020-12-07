@@ -7,6 +7,8 @@ import Carousel from '../Carousel';
 import SignupContext from './context';
 import { ownerTypes } from './constants';
 import NicknameForm from './NicknameForm';
+import EmailForm from './EmailForm';
+import AreYouOwnerForm from './AreYouOwnerForm';
 import LoungeForm from './LoungeForm';
 import SignUpHeader from './SignUpHeader';
 
@@ -75,6 +77,14 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
     {
       Form: NicknameForm,
       bottomCTA: <NicknameForm.BottomCTA onClick={handleNext} />,
+    },
+    {
+      Form: EmailForm,
+      bottomCTA: <EmailForm.BottomCTA onClick={handleNext} />,
+    },
+    {
+      Form: AreYouOwnerForm,
+      bottomCTA: null,
     },
     {
       Form: LoungeForm,

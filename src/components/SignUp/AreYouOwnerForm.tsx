@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { ownerTypes } from './constants';
 import { useSignUpContext, observer } from './context';
 import BottomCTA from './BottomCTA';
 import Input from '../Input';
@@ -13,32 +14,29 @@ const Form = styled.form`
   padding: 16px;
 `;
 
-const TextField = styled(Input.TextField)``;
+const Switch = styled(Input.Switch)`
+  margin-top: 10px;
+`;
 
-function NicknameForm(): JSX.Element {
-  const { nicknameField } = useSignUpContext();
-
-  const [nickname, onChangeNickname, onClearNickname] = nicknameField;
+function AreYouOwner(): JSX.Element {
+  const { ownerType, setOwnerType } = useSignUpContext();
 
   return (
     <Form>
       <Input.Label
-        label="어떤 닉네임으로 활동하시겠어요?"
-        subLabel="9자이내 특수문자를 제외하고 작성가능해요"
+        label="오너(사장님)이신가요? "
+        subLabel="예비오너는 관심업종을 선택해주세요"
       />
-      <TextField
-        id="signup-nickname"
-        onChange={onChangeNickname}
-        value={nickname}
-        placeholder="닉네임을 입력해주세요"
-        onClear={onClearNickname}
-        autocomplete={false}
+      <Switch
+        values={ownerTypes}
+        currentValue={ownerType}
+        setCurrentValue={setOwnerType}
       />
     </Form>
   );
 }
 
-NicknameForm.BottomCTA = observer((props: { onClick: () => void }) => {
+AreYouOwner.BottomCTA = observer((props: { onClick: () => void }) => {
   const { onClick } = props;
   const {
     nicknameField: [nickname],
@@ -52,4 +50,4 @@ NicknameForm.BottomCTA = observer((props: { onClick: () => void }) => {
   );
 });
 
-export default observer(NicknameForm);
+export default observer(AreYouOwner);
