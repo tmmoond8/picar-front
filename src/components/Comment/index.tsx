@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 
+import { observer } from '../../stores';
 import CommentContext from './context';
 import CommentViewer from './CommentViewer';
 import { useFetch, useWriteComment, useAbout, useRemoveComment } from './hooks';
@@ -60,4 +61,4 @@ const CommentArea: React.FC<{
   );
 };
 
-export default CommentArea;
+export default observer(CommentArea);

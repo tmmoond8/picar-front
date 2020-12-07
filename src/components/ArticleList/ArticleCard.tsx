@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import Article from '../../types/Article';
 import Profile from '../Profile';
-import { Profile as IProfile } from '../../types/User';
+import { Profile as UserProfile } from '../../types/User';
 import Button from '../Button';
 import Icon from '../Icon';
 import { useStore, observer } from '../../stores';
@@ -32,19 +32,18 @@ export default observer(function ArticleCard(
     emotionCount,
     bookmark,
   } = props;
-  const { thumbnail, name, group } = author as IProfile;
+  const { thumbnail, name, group } = author as UserProfile;
   const history = useHistory();
   const bottomSheet = BottomSheet.useBottomSheet();
   const { article, user } = useStore();
 
   const needLogin = useCheckLogin(
-    user.profile.code,
-    user.setProfile,
+    (profile: UserProfile) => (user.profile = profile),
     bottomSheet,
   );
 
   const handleClickBookmark = React.useCallback(() => {
-    if (needLogin()) {
+    if (needLogin(user.profile.code)) {
       return;
     }
     if (bookmark) {

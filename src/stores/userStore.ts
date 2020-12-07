@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import APIS from '../apis';
 import { Profile } from '../types/User';
 
@@ -15,14 +15,13 @@ const initalProfile = {
 
 export interface UserStoreInterface {
   profile: Profile;
-  setProfile: (profile: Profile) => void;
 }
 
 class UserStore implements UserStoreInterface {
-  @observable profile: Profile;
+  @observable _profile: Profile;
 
   constructor() {
-    this.profile = initalProfile;
+    this._profile = initalProfile;
     this.fetch();
   }
 
@@ -40,8 +39,14 @@ class UserStore implements UserStoreInterface {
       console.error(error);
     }
   }
-  setProfile(profile: Profile) {
-    this.profile = profile;
+
+  @computed
+  get profile() {
+    return this._profile;
+  }
+
+  set profile(profile: Profile) {
+    this._profile = profile;
   }
 }
 

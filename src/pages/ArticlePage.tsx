@@ -13,6 +13,7 @@ import BottomSheet from '../components/BottomSheet';
 import Icon from '../components/Icon';
 import { colors } from '../styles';
 import ArticleType from '../types/Article';
+import { Profile as UserProfile } from '../types/User';
 
 export default observer(function ArticlePage(): JSX.Element {
   const { ui, article: articleStore, user } = useStore();
@@ -49,8 +50,7 @@ export default observer(function ArticlePage(): JSX.Element {
 
   useInitBefore(fetch);
   const needLogin = useCheckLogin(
-    user.profile.code,
-    user.setProfile,
+    (profile: UserProfile) => (user.profile = profile),
     bottomSheet,
   );
 
@@ -58,8 +58,8 @@ export default observer(function ArticlePage(): JSX.Element {
     return articleId && articleStore.bookmarks.has(parseInt(articleId));
   }, [articleId, articleStore.bookmarks]);
 
-  const handleClickBookmark = React.useCallback(() => {
-    if (needLogin()) {
+  const handleClickBookmark = React.useCallback(async () => {
+    if (needLogin(user.profile.code)) {
       return;
     }
     if (bookmark) {

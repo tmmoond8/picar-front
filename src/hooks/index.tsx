@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 
-import { Profile } from '../types/User';
+import { Profile as UserProfile } from '../types/User';
 import LoginBox from '../components/Login/LoginBox';
 import * as inputHooks from './input';
 import { BottomSheet } from '../components/BottomSheet';
@@ -21,23 +21,25 @@ export const useInitBefore = (callback: () => void) => {
 };
 
 export const useCheckLogin = (
-  code: string,
-  handleSetUserProfile: (profile: Profile) => void,
+  handleSetUserProfile: (profile: UserProfile) => void,
   bottomSheet: BottomSheet,
 ) => {
-  return React.useCallback(() => {
-    if (code === 'guest') {
-      bottomSheet.open({
-        title: '',
-        contents: (
-          <LoginBox
-            onClose={bottomSheet.close}
-            onSetUserProfile={handleSetUserProfile}
-          />
-        ),
-      });
-      return true;
-    }
-    return false;
-  }, [bottomSheet, code, handleSetUserProfile]);
+  return React.useCallback(
+    (code: string) => {
+      if (code === 'guest') {
+        bottomSheet.open({
+          title: '',
+          contents: (
+            <LoginBox
+              onClose={bottomSheet.close}
+              onSetUserProfile={handleSetUserProfile}
+            />
+          ),
+        });
+        return true;
+      }
+      return false;
+    },
+    [bottomSheet, handleSetUserProfile],
+  );
 };
