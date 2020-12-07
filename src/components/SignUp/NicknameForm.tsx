@@ -7,14 +7,6 @@ import { useSignUpContext, observer } from './context';
 import BottomCTA from './BottomCTA';
 import Input from '../Input';
 
-const Form = styled.form`
-  width: 100%;
-  height: 100%;
-  padding: 16px;
-`;
-
-const TextField = styled(Input.TextField)``;
-
 function NicknameForm(): JSX.Element {
   const { nicknameField } = useSignUpContext();
 
@@ -26,7 +18,7 @@ function NicknameForm(): JSX.Element {
         label="어떤 닉네임으로 활동하시겠어요?"
         subLabel="9자이내 특수문자를 제외하고 작성가능해요"
       />
-      <TextField
+      <Input.TextField
         id="signup-nickname"
         onChange={onChangeNickname}
         value={nickname}
@@ -53,3 +45,9 @@ NicknameForm.BottomCTA = observer((props: { onClick: () => void }) => {
 });
 
 export default observer(NicknameForm);
+
+const Form = styled.form`
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+`;

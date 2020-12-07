@@ -10,7 +10,7 @@ const SignUpContext = React.createContext<{
   nicknameField: TextFieldHandler;
   emailField: TextFieldHandler;
   ownerType: string;
-  setOwnerType: (v: string) => void;
+  setOwnerType: (v: 'owner' | 'preOwner') => void;
   onClose: () => void;
   lounge: string;
   setLounge: (v: string) => void;

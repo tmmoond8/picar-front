@@ -8,12 +8,6 @@ import { useSignUpContext, observer } from './context';
 import BottomCTA from './BottomCTA';
 import Input from '../Input';
 
-const Form = styled.form`
-  width: 100%;
-  height: 100%;
-  padding: 16px;
-`;
-
 function EmailForm(): JSX.Element {
   const { emailField } = useSignUpContext();
 
@@ -52,3 +46,9 @@ EmailForm.BottomCTA = observer((props: { onClick: () => void }) => {
 });
 
 export default observer(EmailForm);
+
+const Form = styled.form`
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+`;

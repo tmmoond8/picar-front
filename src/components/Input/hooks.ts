@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import { OwnerTypes } from '../SignUp/constants';
 
 export type TextFieldHandler = [string, (e: ChangeEvent<HTMLInputElement>) => void, () => void];
 
@@ -13,7 +14,7 @@ export const useTextField = (initialValue: string): TextFieldHandler => {
   ]
 }
 
-export const useSwitch = (values: { value: string; displayName: string}[]): [string, (v: string) => void] => {
-  const [ value, setValue ] = React.useState(values[0].value);
+export const useSwitch = (values: OwnerTypes): ['owner' | 'preOwner', (v: 'owner' | 'preOwner') => void] => {
+  const [ value, setValue ] = React.useState<'owner' | 'preOwner'>(values[0].value);
   return [ value, setValue ];
 }

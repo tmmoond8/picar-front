@@ -7,19 +7,17 @@ import { ownerTypes } from './constants';
 import { useSignUpContext, observer } from './context';
 import BottomCTA from './BottomCTA';
 import Input from '../Input';
+import Button from '../Button';
+import { colors } from '../../styles';
 
-const Form = styled.form`
-  width: 100%;
-  height: 100%;
-  padding: 16px;
-`;
-
-const Switch = styled(Input.Switch)`
-  margin-top: 10px;
-`;
-
-function AreYouOwner(): JSX.Element {
-  const { ownerType, setOwnerType } = useSignUpContext();
+const AreYouOwner: React.FC<{ handleNext: () => void }> = ({ handleNext }) => {
+  const { ownerType: selectedOwnerType, setOwnerType } = useSignUpContext();
+  const handleClickSelectButton = React.useCallback(
+    (ownerType: 'owner' | 'preOwner') => {
+      setOwnerType(ownerType);
+    },
+    [setOwnerType],
+  );
 
   return (
     <Form>
@@ -27,27 +25,42 @@ function AreYouOwner(): JSX.Element {
         label="오너(사장님)이신가요? "
         subLabel="예비오너는 관심업종을 선택해주세요"
       />
-      <Switch
-        values={ownerTypes}
-        currentValue={ownerType}
-        setCurrentValue={setOwnerType}
-      />
+      {ownerTypes.map((ownerType) => (
+        <SelectButton
+          key={ownerType.value}
+          selected={ownerType.value === selectedOwnerType}
+          onClick={() => {
+            handleClickSelectButton(ownerType.value);
+            handleNext();
+          }}
+        >
+          {ownerType.displayName}
+        </SelectButton>
+      ))}
     </Form>
   );
-}
-
-AreYouOwner.BottomCTA = observer((props: { onClick: () => void }) => {
-  const { onClick } = props;
-  const {
-    nicknameField: [nickname],
-  } = useSignUpContext();
-
-  const disabled = React.useMemo(() => nickname.length < 2, [nickname.length]);
-  return (
-    <BottomCTA onClick={onClick} disabled={disabled}>
-      다음
-    </BottomCTA>
-  );
-});
+};
 
 export default observer(AreYouOwner);
+
+const Form = styled.form`
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+`;
+
+const SelectButton = styled(Button.Full)<{ selected: boolean }>`
+  justify-content: left;
+  padding: 16px 20px;
+  background-color: ${(p) =>
+    p.selected ? `${colors.blackCC}` : `${colors.blackF5F6F7}`};
+  color: ${colors.black22};
+
+  &:first-of-type {
+    margin-top: 48px;
+  }
+
+  &:nth-of-type(2) {
+    margin-top: 8px;
+  }
+`;

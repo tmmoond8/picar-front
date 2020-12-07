@@ -74,14 +74,14 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
   ]);
 
   const signUpSteps = [
-    {
-      Form: NicknameForm,
-      bottomCTA: <NicknameForm.BottomCTA onClick={handleNext} />,
-    },
-    {
-      Form: EmailForm,
-      bottomCTA: <EmailForm.BottomCTA onClick={handleNext} />,
-    },
+    // {
+    //   Form: NicknameForm,
+    //   bottomCTA: <NicknameForm.BottomCTA onClick={handleNext} />,
+    // },
+    // {
+    //   Form: EmailForm,
+    //   bottomCTA: <EmailForm.BottomCTA onClick={handleNext} />,
+    // },
     {
       Form: AreYouOwnerForm,
       bottomCTA: null,
@@ -114,7 +114,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         gesture={false}
       >
         {signUpSteps.map(({ Form }) => (
-          <Form key={Form.name} />
+          <Form key={Form.name} handleNext={handleNext} />
         ))}
       </SignUpCarousel>
       {signUpSteps[step].bottomCTA}

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
 import SignUp from '../components/SignUp';
 
 export default (function TestPage(): JSX.Element {
