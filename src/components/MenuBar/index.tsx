@@ -6,20 +6,17 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
 import BottomSheet from '../BottomSheet';
-import LoginBox from '../Login/LoginBox';
 import Icon from '../Icon';
 import Editor from '../Editor';
 
-import { observer, user, useStore } from '../../stores';
+import { observer, useStore } from '../../stores';
 import { colors } from '../../styles';
 import Article from '../../types/Article';
-import { Profile } from '../../types/User';
+import { Profile as UserProfile } from '../../types/User';
+import { useCheckLogin } from '../../hooks';
 
 export default observer(function MenuBar(): JSX.Element {
-  const {
-    article,
-    user: { profile },
-  } = useStore();
+  const { article, user } = useStore();
   const location = useLocation();
   const { pathname } = location;
   const bottomSheet = BottomSheet.useBottomSheet();
@@ -34,46 +31,36 @@ export default observer(function MenuBar(): JSX.Element {
     [history, pathname],
   );
 
-  const handleSetUserProfile = (profile: Profile) => (user.profile = profile);
-  const requireLogin = useCallback(() => {
-    bottomSheet.open({
-      title: '',
-      contents: (
-        <LoginBox
-          onClose={bottomSheet.close}
-          onSetUserProfile={handleSetUserProfile}
-        />
-      ),
-    });
-  }, [bottomSheet]);
+  const needLogin = useCheckLogin(
+    (profile: UserProfile) => (user.profile = profile),
+    bottomSheet,
+  );
 
   const handleClickCommunity = useCallback(() => moveTo('/'), [moveTo]);
   const handleClickSearch = useCallback(() => moveTo('/search'), [moveTo]);
   const handleClickWrite = useCallback(() => {
-    if (profile.code !== 'guest') {
-      const appendArticle = (newArticle: Article) => {
-        article.articles = [newArticle, ...article.articles];
-      };
-      bottomSheet.open({
-        title: ' 글 쓰기',
-        headerType: 'close',
-        isFull: true,
-        contents: (
-          <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
-        ),
-      });
-    } else {
-      requireLogin();
+    if (needLogin(user.profile.code)) {
+      return;
     }
-  }, [article.articles, bottomSheet, profile.code, requireLogin]);
+    const appendArticle = (newArticle: Article) => {
+      article.articles = [newArticle, ...article.articles];
+    };
+    bottomSheet.open({
+      title: ' 글 쓰기',
+      headerType: 'close',
+      isFull: true,
+      contents: (
+        <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
+      ),
+    });
+  }, [article.articles, bottomSheet, needLogin, user.profile.code]);
   const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
   const handleClickProfile = useCallback(() => {
-    if (profile.code !== 'guest') {
-      moveTo('/profile');
-    } else {
-      requireLogin();
+    if (needLogin(user.profile.code)) {
+      return;
     }
-  }, [moveTo, profile.code, requireLogin]);
+    moveTo('/profile');
+  }, [moveTo, needLogin, user.profile.code]);
 
   return (
     <MenuBarContainer>

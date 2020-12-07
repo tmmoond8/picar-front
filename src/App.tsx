@@ -25,6 +25,9 @@ function App() {
             <Route path="/test">
               <Pages.TestPage />
             </Route>
+            <Route path="/login">
+              <Pages.LoginPage />
+            </Route>
             <Route path="/article/:articleId">
               <Pages.ArticlePage />
             </Route>
