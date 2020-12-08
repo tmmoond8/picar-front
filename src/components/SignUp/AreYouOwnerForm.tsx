@@ -5,7 +5,6 @@ import React from 'react';
 
 import { ownerTypes } from './constants';
 import { useSignUpContext, observer } from './context';
-import BottomCTA from './BottomCTA';
 import Input from '../Input';
 import Button from '../Button';
 import { colors } from '../../styles';

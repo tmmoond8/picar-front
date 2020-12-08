@@ -5,6 +5,7 @@ import React from 'react';
 import cx from 'classnames';
 import { colors } from '../../styles';
 import Icon from '../Icon';
+import { useStore, observer } from '../../stores';
 
 interface TextFieldProps {
   className?: string;
@@ -18,6 +19,93 @@ interface TextFieldProps {
   onBlur?: () => void;
   autocomplete?: boolean;
 }
+
+const TextField: React.FC<TextFieldProps> = (props) => {
+  const {
+    label,
+    id,
+    placeholder = '',
+    value = '',
+    onChange,
+    errorMessage,
+    className,
+    onBlur = () => {},
+    onClear = () => {},
+    autocomplete = true,
+  } = props;
+  const { ui } = useStore();
+  const [isFocus, setFocus] = React.useState(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (inputRef?.current) {
+      const focusEvent = (): void => setFocus(true);
+      const blurEvent = (): void => setFocus(false);
+
+      const inputElement = inputRef.current;
+      inputElement.addEventListener('focus', focusEvent);
+      inputElement.addEventListener('blur', blurEvent);
+      return (): void => {
+        inputElement.removeEventListener('focus', focusEvent);
+        inputElement.removeEventListener('blur', blurEvent);
+      };
+    }
+    return (): void => {};
+  }, [inputRef]);
+
+  const handleClear = React.useCallback(
+    (e) => {
+      e.preventDefault();
+      onClear();
+      const inputElement = inputRef.current;
+      if (inputElement) {
+        inputElement.focus();
+      }
+    },
+    [onClear],
+  );
+
+  const handleFocus = React.useCallback(() => {
+    console.log('focus');
+    ui.setKeyboardMargin(40);
+  }, [ui]);
+
+  const handleBlur = React.useCallback(() => {
+    onBlur();
+    console.log('blur');
+    ui.setKeyboardMargin(0);
+  }, [onBlur, ui]);
+
+  return (
+    <Wrapper className={cx('TextField', className)}>
+      {label && (
+        <label className="Label" htmlFor={id}>
+          {label}
+        </label>
+      )}
+      <Field className="Field" error={!!errorMessage} focus={isFocus}>
+        <input
+          ref={inputRef}
+          type="text"
+          id={id}
+          value={value}
+          placeholder={placeholder}
+          onFocus={handleFocus}
+          onChange={onChange}
+          onBlur={handleBlur}
+          autoComplete={autocomplete ? 'on' : 'off'}
+        />
+        {value.length > 0 && (
+          <ClearButton onClick={handleClear}>
+            <Icon icon="inputClear" size="20px" />
+          </ClearButton>
+        )}
+      </Field>
+    </Wrapper>
+  );
+};
+
+export default observer(TextField);
 
 const Wrapper = styled.div`
   padding: 12px 0;
@@ -61,75 +149,3 @@ const ClearButton = styled.button`
   padding: 0;
   cursor: pointer;
 `;
-
-export default function TextField(props: TextFieldProps): JSX.Element {
-  const {
-    label,
-    id,
-    placeholder = '',
-    value = '',
-    onChange,
-    errorMessage,
-    className,
-    onBlur = () => {},
-    onClear = () => {},
-    autocomplete = true,
-  } = props;
-  const [isFocus, setFocus] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(() => {
-    if (inputRef?.current) {
-      const focusEvent = (): void => setFocus(true);
-      const blurEvent = (): void => setFocus(false);
-
-      const inputElement = inputRef.current;
-      inputElement.addEventListener('focus', focusEvent);
-      inputElement.addEventListener('blur', blurEvent);
-      return (): void => {
-        inputElement.removeEventListener('focus', focusEvent);
-        inputElement.removeEventListener('blur', blurEvent);
-      };
-    }
-    return (): void => {};
-  }, [inputRef]);
-
-  const handleClear = React.useCallback(
-    (e) => {
-      e.preventDefault();
-      onClear();
-      const inputElement = inputRef.current;
-      if (inputElement) {
-        inputElement.focus();
-      }
-    },
-    [onClear],
-  );
-
-  return (
-    <Wrapper className={cx('TextField', className)}>
-      {label && (
-        <label className="Label" htmlFor={id}>
-          {label}
-        </label>
-      )}
-      <Field className="Field" error={!!errorMessage} focus={isFocus}>
-        <input
-          ref={inputRef}
-          type="text"
-          id={id}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-          onBlur={onBlur}
-          autoComplete={autocomplete ? 'on' : 'off'}
-        />
-        {value.length > 0 && (
-          <ClearButton onClick={handleClear}>
-            <Icon icon="inputClear" size="20px" />
-          </ClearButton>
-        )}
-      </Field>
-    </Wrapper>
-  );
-}

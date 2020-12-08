@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { useSignUpContext, observer } from './context';
-import BottomCTA from './BottomCTA';
+import Button from '../Button';
 import Content from '../Content';
 import Input from '../Input';
 import LoungeGrid from '../LoungeGrid';
@@ -54,9 +54,9 @@ LoungeForm.BottomCTA = observer((props: { onClick: () => void }) => {
   const { lounge } = useSignUpContext();
   const disabled = React.useMemo(() => lounge === '', [lounge]);
   return (
-    <BottomCTA onClick={onClick} disabled={disabled}>
+    <Button.BottomCTA onClick={onClick} disabled={disabled}>
       가입하기
-    </BottomCTA>
+    </Button.BottomCTA>
   );
 });
 

@@ -5,7 +5,7 @@ import React from 'react';
 import validator from 'validator';
 
 import { useSignUpContext, observer } from './context';
-import BottomCTA from './BottomCTA';
+import Button from '../Button';
 import Input from '../Input';
 
 function EmailForm(): JSX.Element {
@@ -39,9 +39,9 @@ EmailForm.BottomCTA = observer((props: { onClick: () => void }) => {
 
   const disabled = React.useMemo(() => !validator.isEmail(email), [email]);
   return (
-    <BottomCTA onClick={onClick} disabled={disabled}>
+    <Button.BottomCTA onClick={onClick} disabled={disabled}>
       다음
-    </BottomCTA>
+    </Button.BottomCTA>
   );
 });
 

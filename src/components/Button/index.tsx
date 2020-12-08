@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
 import FullButton from './FullButton';
+import BottomCTA from './BottomCTA';
 
 interface ButtonProps {
   icon?: React.ReactNode;
@@ -46,5 +47,6 @@ const StyledButton = styled.button`
 `;
 
 Button.Full = FullButton;
+Button.BottomCTA = BottomCTA;
 
 export default Button;
