@@ -17,6 +17,8 @@ const CommentContext = React.createContext<{
   userCode: string;
   articleAuthorCode: string;
   profilePhoto: string;
+  editorRef: any;
+  setEditorRef: (ref: any) => void;
 }>({
   comments: [],
   handleWriteComment: () => console.log('not initialized'),
@@ -29,6 +31,8 @@ const CommentContext = React.createContext<{
   articleAuthorCode: 'author',
   userCode: 'guest',
   profilePhoto: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592041365/noticon/miarefknyt8tmn9neo3p.png',
+  editorRef: null,
+  setEditorRef: () => console.log('not initialized'),
 });
 
 CommentContext.displayName = 'CommentContext';

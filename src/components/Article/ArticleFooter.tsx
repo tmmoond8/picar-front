@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import { colors } from '../../styles';
 import Icon from '../Icon';
+import Content from '../Content';
 
 interface ArticleFooterProps {
   viewCount: number;
@@ -13,8 +15,17 @@ interface ArticleFooterProps {
 
 export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
   const { viewCount, commentCount, emotionCount } = props;
+  const handleClickComment = React.useCallback(() => {
+    // selector로 가져오는 것이 항상 나쁠까?
+    const commentEditor = document.querySelector<HTMLDivElement>(
+      '.CommentEditor',
+    );
+    if (commentEditor) {
+      commentEditor.focus();
+    }
+  }, []);
   return (
-    <StyledArticleFooter>
+    <React.Fragment>
       <InteractionCounter>
         <ul>
           <li>{`조회 ${viewCount}회`}</li>
@@ -24,24 +35,21 @@ export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
         <Icon icon="emojiLove" size="18px" />
         <span>{12}</span>
       </InteractionCounter>
+      <Content.HR size={1} color="" />
       <InteractionPanel>
-        <ul>
-          <li>
-            <Icon icon="emojiSmileOutline" size="20px" /> 공감표현
-          </li>
-          <li>
-            <Icon icon="chatOutline" size="20px" /> 댓글쓰기
-          </li>
-          <li>
-            <Icon icon="share" size="20px" /> 공유하기
-          </li>
-        </ul>
+        <li>
+          <Icon icon="emojiSmileOutline" size="20px" /> 공감표현
+        </li>
+        <li onClick={handleClickComment}>
+          <Icon icon="chatOutline" size="20px" /> 댓글쓰기
+        </li>
+        <li>
+          <Icon icon="share" size="20px" /> 공유하기
+        </li>
       </InteractionPanel>
-    </StyledArticleFooter>
+    </React.Fragment>
   );
 }
-
-const StyledArticleFooter = styled.div``;
 
 const InteractionCounter = styled.div`
   display: flex;
@@ -69,26 +77,23 @@ const InteractionCounter = styled.div`
     margin-left: 5px;
   }
 `;
-const InteractionPanel = styled.div`
+const InteractionPanel = styled.ul`
+  display: flex;
+  justify-content: space-between;
   height: 54px;
+  width: 100%;
+  max-width: 307px;
+  margin: 0 auto;
   color: ${colors.black66};
-  box-shadow: inset 0 0.5px 0 0 ${colors.blackEB};
 
-  ul {
+  font-size: 14px;
+  li {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 307px;
-    height: 100%;
-    margin: 0 auto;
-    font-size: 14px;
-    li {
-      display: flex;
-      align-items: center;
+    align-items: center;
+    cursor: pointer;
 
-      svg {
-        margin-right: 6px;
-      }
+    svg {
+      margin-right: 6px;
     }
   }
 `;

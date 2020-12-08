@@ -32,6 +32,7 @@ const CommentArea: React.FC<{
     setCommentCount,
     setComments,
   });
+  const [editorRef, setEditorRef] = React.useState(null);
   const { about, handleClickReply, clearAbout } = useAbout();
   const updateComments = React.useCallback(() => {
     console.log('updateComments', comments);
@@ -54,6 +55,8 @@ const CommentArea: React.FC<{
         articleAuthorCode,
         userCode,
         about,
+        editorRef,
+        setEditorRef,
       }}
     >
       <CommentViewer />

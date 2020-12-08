@@ -39,6 +39,7 @@ const Comment: React.FC<CommentProps> = (props) => {
     handleRemoveComment,
     about,
     userCode,
+    editorRef,
   } = useCommentContext();
   const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
@@ -67,7 +68,12 @@ const Comment: React.FC<CommentProps> = (props) => {
           {!isReply && (
             <span
               className={cx('reply-btn')}
-              onClick={() => handleClickReply(id)}
+              onClick={() => {
+                handleClickReply(id);
+                if (editorRef.current) {
+                  editorRef.current.focus();
+                }
+              }}
             >
               답글 달기
             </span>

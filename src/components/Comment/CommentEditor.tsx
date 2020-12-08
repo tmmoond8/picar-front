@@ -21,7 +21,12 @@ const CommentEditor = () => {
     clearAbout,
     about,
     profilePhoto,
+    setEditorRef,
   } = useCommentContext();
+
+  React.useEffect(() => {
+    setEditorRef(textEditableRef);
+  }, [setEditorRef, textEditableRef]);
 
   const handleClickSend = React.useCallback(() => {
     handleWriteComment(
