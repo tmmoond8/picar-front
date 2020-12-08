@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import { useStore, observer } from '../../stores';
+import { getVirtualKeyboardHeight } from '../../modules/virtualKeyboardHeight';
 
 interface TextFieldProps {
   className?: string;
@@ -37,22 +38,6 @@ const TextField: React.FC<TextFieldProps> = (props) => {
   const [isFocus, setFocus] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
-    if (inputRef?.current) {
-      const focusEvent = (): void => setFocus(true);
-      const blurEvent = (): void => setFocus(false);
-
-      const inputElement = inputRef.current;
-      inputElement.addEventListener('focus', focusEvent);
-      inputElement.addEventListener('blur', blurEvent);
-      return (): void => {
-        inputElement.removeEventListener('focus', focusEvent);
-        inputElement.removeEventListener('blur', blurEvent);
-      };
-    }
-    return (): void => {};
-  }, [inputRef]);
-
   const handleClear = React.useCallback(
     (e) => {
       e.preventDefault();
@@ -67,12 +52,14 @@ const TextField: React.FC<TextFieldProps> = (props) => {
 
   const handleFocus = React.useCallback(() => {
     console.log('focus');
-    ui.setKeyboardMargin(40);
+    setFocus(true);
+    ui.setKeyboardMargin(getVirtualKeyboardHeight());
   }, [ui]);
 
   const handleBlur = React.useCallback(() => {
     onBlur();
     console.log('blur');
+    setFocus(false);
     ui.setKeyboardMargin(0);
   }, [onBlur, ui]);
 
