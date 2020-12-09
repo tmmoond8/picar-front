@@ -6,6 +6,7 @@ import React from 'react';
 import Button from '../Button';
 import Icon from '../Icon';
 import Emotion from '../Emotion';
+import CommentCounter from '../Comment/CommentCounter';
 import { colors } from '../../styles';
 
 interface ArticleCardBottomProps {
@@ -27,9 +28,7 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = (props) => {
   return (
     <Bottom>
       <Emotion.Counter articleId={articleId} emotionCount={emotionCount} />
-      <Button icon={<Icon icon="chat" size="18px" />} onClick={() => {}}>
-        <Counter className="Counter">{commentCount}</Counter>
-      </Button>
+      <CommentCounter articleId={articleId} commentCount={commentCount} />
       <div className="right">
         <BookmarkButton
           marked={bookmark}

@@ -36,16 +36,27 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
   const color = React.useMemo(() => (false ? colors.primary : undefined), []);
 
   return (
-    <Button
+    <CommentCounterButton
       icon={<Icon icon="chat" size="18px" color={color} />}
       onClick={handleClickComment}
     >
       <Counter className="Counter" color={color}>
         {commentCount}
       </Counter>
-    </Button>
+    </CommentCounterButton>
   );
 };
+
+const CommentCounterButton = styled(Button)`
+  && {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    cursor: pointer;
+    svg {
+      cursor: pointer;
+    }
+  }
+`;
 
 export default React.memo(CommentCounter);
 
