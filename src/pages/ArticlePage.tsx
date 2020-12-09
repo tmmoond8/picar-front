@@ -1,18 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
-import APIS from '../apis';
-import { useInitBefore, useCheckLogin } from '../hooks';
+import { useCheckLogin } from '../hooks';
+import { useFetch as useFetchArticle } from '../components/Article/hooks';
 
 import CommentArea from '../components/Comment';
 import BottomSheet from '../components/BottomSheet';
 import Icon from '../components/Icon';
 import { colors } from '../styles';
-import ArticleType from '../types/Article';
 import { Profile as UserProfile } from '../types/User';
 
 export default observer(function ArticlePage(): JSX.Element {
@@ -20,8 +19,9 @@ export default observer(function ArticlePage(): JSX.Element {
   const { pathname } = useLocation();
   const [_, __, articleId] = pathname.split('/');
 
-  const history = useHistory();
-  const [article, setArticle] = React.useState<ArticleType | null>(null);
+  const [article, setArticle] = useFetchArticle(
+    window.location.pathname.split('/').pop() as string,
+  );
   const bottomSheet = BottomSheet.useBottomSheet();
 
   const [commentCount, setCommentCount] = React.useState(0);
@@ -34,21 +34,6 @@ export default observer(function ArticlePage(): JSX.Element {
     }
   }, [article]);
 
-  const fetch = React.useCallback(async () => {
-    try {
-      const {
-        data: { data },
-      } = await APIS.article.get(
-        window.location.pathname.split('/').pop() as string,
-      );
-      if (!data) {
-        history.goBack();
-      }
-      setArticle(data);
-    } catch (error) {}
-  }, [history]);
-
-  useInitBefore(fetch);
   const needLogin = useCheckLogin(
     (profile: UserProfile) => (user.profile = profile),
     bottomSheet,
@@ -88,7 +73,7 @@ export default observer(function ArticlePage(): JSX.Element {
     <React.Fragment>
       {article && (
         <Article
-          article={article as ArticleType}
+          article={article}
           commentCount={commentCount}
           emotionCount={emotionCount}
         />
