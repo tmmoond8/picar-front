@@ -1,6 +1,6 @@
 import React from 'react';
 import API from '../../apis';
-import { Emotion, EMOTION_TYPE, EMOTION_ICON, EmotionType, UpdateStatus } from '../../types/Emotion';
+import Emotion, { EMOTION_TYPE, EMOTION_ICON, EmotionType, UpdateStatus } from '../../types/Emotion';
 
 
 const defaultEmotions: Emotion[] = [
@@ -27,7 +27,7 @@ const defaultEmotions: Emotion[] = [
 ];
 
 
-export const useFetch = (articleId: number) => {
+export const useFetch = (articleId: number | string) => {
   const [emotions, setEmotions] = React.useState<Emotion[]>(defaultEmotions);
   const [_yourEmotion, setYourEmotion] = React.useState<EmotionType | null>(null);
   React.useEffect(() => {

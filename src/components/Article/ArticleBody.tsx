@@ -3,27 +3,24 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
 import { colors } from '../../styles';
+import { useArticleContext, observer } from './context';
 
-interface ArticleBodyProps {
-  title: string;
-  content: string;
-  photos: string | null;
-}
+const ArticleBody = () => {
+  const { article } = useArticleContext();
 
-export default function ArticleBody(props: ArticleBodyProps): JSX.Element {
-  const { title, content, photos } = props;
   return (
     <Self>
-      <Title>{title}</Title>
-      <Content>{content}</Content>
-      {photos && (
+      <Title>{article!.title}</Title>
+      <Content>{article!.content}</Content>
+      {article!.photos && (
         <ImageWrapper>
-          <Image src={photos} />
+          <Image src={article!.photos} />
         </ImageWrapper>
       )}
     </Self>
   );
-}
+};
+export default observer(ArticleBody);
 
 const Self = styled.div`
   padding: 10px 18px;

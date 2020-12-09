@@ -18,7 +18,7 @@ export const EMOTION_ICON = {
 
 export type EmotionIcon = typeof EMOTION_ICON[keyof typeof EMOTION_ICON];
 
-export interface Emotion {
+export default interface Emotion {
   type: EmotionType;
   icon: EmotionIcon;
   count: number;

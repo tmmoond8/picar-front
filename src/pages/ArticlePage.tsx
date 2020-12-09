@@ -7,6 +7,7 @@ import { observer, useStore } from '../stores';
 import Article from '../components/Article';
 import { useCheckLogin } from '../hooks';
 import { useFetch as useFetchArticle } from '../components/Article/hooks';
+import { useFetch as useFetchEmotion } from '../components/Emotion/hooks';
 
 import CommentArea from '../components/Comment';
 import BottomSheet from '../components/BottomSheet';
@@ -18,19 +19,22 @@ export default observer(function ArticlePage(): JSX.Element {
   const { ui, article: articleStore, user } = useStore();
   const { pathname } = useLocation();
   const [_, __, articleId] = pathname.split('/');
-
   const [article, setArticle] = useFetchArticle(
     window.location.pathname.split('/').pop() as string,
   );
+  const {
+    emotions,
+    setEmotions,
+    yourEmotion: _yourEmotion,
+    setYourEmotion,
+  } = useFetchEmotion(articleId);
   const bottomSheet = BottomSheet.useBottomSheet();
 
   const [commentCount, setCommentCount] = React.useState(0);
-  const [emotionCount, setEmotionCount] = React.useState(0);
 
   React.useEffect(() => {
     if (article) {
       setCommentCount(article.commentCount);
-      setEmotionCount(article.emotionCount);
     }
   }, [article]);
 
@@ -75,7 +79,8 @@ export default observer(function ArticlePage(): JSX.Element {
         <Article
           article={article}
           commentCount={commentCount}
-          emotionCount={emotionCount}
+          emotions={emotions}
+          setEmotions={setEmotions}
         />
       )}
 

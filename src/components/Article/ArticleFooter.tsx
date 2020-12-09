@@ -6,15 +6,10 @@ import React from 'react';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Content from '../Content';
+import { useArticleContext, observer } from './context';
 
-interface ArticleFooterProps {
-  viewCount: number;
-  commentCount: number;
-  emotionCount: number;
-}
-
-export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
-  const { viewCount, commentCount, emotionCount } = props;
+const ArticleFooter = () => {
+  const { viewCount, commentCount, emotions } = useArticleContext();
   const handleClickComment = React.useCallback(() => {
     // selector로 가져오는 것이 항상 나쁠까?
     const commentEditor = document.querySelector<HTMLDivElement>(
@@ -24,6 +19,9 @@ export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
       commentEditor.focus();
     }
   }, []);
+
+  const emotionCount = emotions.reduce((accum, { count }) => accum + count, 0);
+
   return (
     <React.Fragment>
       <InteractionCounter>
@@ -49,7 +47,9 @@ export default function ArticleFooter(props: ArticleFooterProps): JSX.Element {
       </InteractionPanel>
     </React.Fragment>
   );
-}
+};
+
+export default observer(ArticleFooter);
 
 const InteractionCounter = styled.div`
   display: flex;

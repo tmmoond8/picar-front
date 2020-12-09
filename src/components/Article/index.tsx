@@ -8,47 +8,42 @@ import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 
 import IArticle from '../../types/Article';
+import Emotion from '../../types/Emotion';
 import { colors } from '../../styles';
+import ArticleContext from './context';
 
 interface ArticleProps {
   article: IArticle;
-  emotionCount: number;
+  emotions: Emotion[];
+  setEmotions: (emotions: Emotion[]) => void;
   commentCount: number;
 }
 
 export default function Article(props: ArticleProps): JSX.Element {
-  const { article, emotionCount, commentCount } = props;
-  const { author, title, content } = article;
+  const { article, emotions, setEmotions, commentCount } = props;
 
   return (
-    <React.Fragment>
+    <ArticleContext.Provider
+      value={{
+        article,
+        emotions,
+        setEmotions,
+        commentCount,
+        viewCount: 1244,
+      }}
+    >
       {article && (
-        <Self>
-          <ArticleHead
-            thumbnail={author.thumbnail}
-            authorId={author.id}
-            name={author.name}
-            group={author.group}
-            createdDate={article.createAt}
-          />
-          <ArticleBody
-            title={title}
-            content={content}
-            photos={article.photos}
-          />
-          <ArticleFooter
-            viewCount={1004}
-            commentCount={commentCount}
-            emotionCount={emotionCount}
-          />
+        <React.Fragment>
+          <ArticleHead />
+          <ArticleBody />
+          <ArticleFooter />
           <HR />
-        </Self>
+        </React.Fragment>
       )}
-    </React.Fragment>
+    </ArticleContext.Provider>
   );
 }
 
-const Self = styled.div``;
 const HR = styled.hr`
   margin: 0;
   border: 0;

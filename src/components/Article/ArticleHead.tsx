@@ -6,27 +6,22 @@ import { colors } from '../../styles';
 import Profile from '../Profile';
 
 import { getDateGoodLook } from '../../modules/string';
+import { useArticleContext, observer } from './context';
 
-interface ArticleHeadProps {
-  thumbnail?: string;
-  authorId: string;
-  name: string;
-  group?: string;
-  createdDate: string;
-}
-
-export default function ArticleHead(props: ArticleHeadProps): JSX.Element {
-  const { authorId, name, group, createdDate, thumbnail } = props;
+const ArticleHead = () => {
+  const { article } = useArticleContext();
+  const { thumbnail, id, name, group } = article!.author;
   return (
     <Self>
-      <Profile.Photo src={thumbnail} onClick={() => console.log(authorId)} />
+      <Profile.Photo src={thumbnail} onClick={() => console.log(id)} />
       <Content>
         <Profile.Who name={name} group={group} />
-        <p className="date">{getDateGoodLook(createdDate)}</p>
+        <p className="date">{getDateGoodLook(article!.createAt)}</p>
       </Content>
     </Self>
   );
-}
+};
+export default observer(ArticleHead);
 
 const Self = styled.div`
   display: flex;

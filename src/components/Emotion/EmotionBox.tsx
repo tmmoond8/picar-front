@@ -6,7 +6,7 @@ import React from 'react';
 import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
 import { useCUD } from './hooks';
-import { Emotion, EmotionType, UpdateStatus } from '../../types/Emotion';
+import Emotion, { EmotionType, UpdateStatus } from '../../types/Emotion';
 
 interface EmotionBoxProp {
   articleId: number;

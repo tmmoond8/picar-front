@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import api from './config';
 import { UpdateStatus, EmotionType } from '../types/Emotion';
 
-export const list = (articleId: number): Promise<AxiosResponse<{ ok: boolean; message: string; emotionCount: { [key: string]: number }; yourEmotion: string}>> => api.get(`/emotion/list/${articleId}`);
+export const list = (articleId: number | string): Promise<AxiosResponse<{ ok: boolean; message: string; emotionCount: { [key: string]: number }; yourEmotion: string}>> => api.get(`/emotion/list/${articleId}`);
 export const cud = (data: {
   type: string;
   articleId: number;
