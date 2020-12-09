@@ -1,7 +1,7 @@
 import { Profile } from './Article';
 
 export default interface Article {
-  id?: number;
+  id: number;
   title: string;
   content: string;
   group: string;

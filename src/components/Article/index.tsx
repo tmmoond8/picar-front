@@ -8,7 +8,7 @@ import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 
 import IArticle from '../../types/Article';
-import Emotion from '../../types/Emotion';
+import Emotion, { EmotionType } from '../../types/Emotion';
 import { colors } from '../../styles';
 import ArticleContext from './context';
 
@@ -17,10 +17,19 @@ interface ArticleProps {
   emotions: Emotion[];
   setEmotions: (emotions: Emotion[]) => void;
   commentCount: number;
+  yourEmotion: EmotionType | null;
+  setYourEmotion: (emotion: EmotionType) => void;
 }
 
 export default function Article(props: ArticleProps): JSX.Element {
-  const { article, emotions, setEmotions, commentCount } = props;
+  const {
+    article,
+    emotions,
+    setEmotions,
+    commentCount,
+    yourEmotion,
+    setYourEmotion,
+  } = props;
 
   return (
     <ArticleContext.Provider
@@ -30,6 +39,8 @@ export default function Article(props: ArticleProps): JSX.Element {
         setEmotions,
         commentCount,
         viewCount: 1244,
+        yourEmotion,
+        setYourEmotion,
       }}
     >
       {article && (

@@ -25,7 +25,7 @@ export default observer(function ArticlePage(): JSX.Element {
   const {
     emotions,
     setEmotions,
-    yourEmotion: _yourEmotion,
+    yourEmotion,
     setYourEmotion,
   } = useFetchEmotion(articleId);
   const bottomSheet = BottomSheet.useBottomSheet();
@@ -81,6 +81,8 @@ export default observer(function ArticlePage(): JSX.Element {
           commentCount={commentCount}
           emotions={emotions}
           setEmotions={setEmotions}
+          yourEmotion={yourEmotion}
+          setYourEmotion={setYourEmotion}
         />
       )}
 

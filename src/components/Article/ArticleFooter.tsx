@@ -6,10 +6,48 @@ import React from 'react';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Content from '../Content';
+import Emotion from '../Emotion';
+import BottomSheet from '../BottomSheet';
 import { useArticleContext, observer } from './context';
 
 const ArticleFooter = () => {
-  const { viewCount, commentCount, emotions } = useArticleContext();
+  const {
+    article,
+    viewCount,
+    commentCount,
+    emotions,
+    setEmotions,
+    yourEmotion,
+    setYourEmotion,
+  } = useArticleContext();
+  const bottomSheet = BottomSheet.useBottomSheet();
+
+  const emotionCount = emotions.reduce((accum, { count }) => accum + count, 0);
+
+  const handleClickEmotion = React.useCallback(() => {
+    bottomSheet.open({
+      title: `공감 ${emotionCount}`,
+      contents: (
+        <Emotion.Box
+          articleId={article!.id}
+          emotions={emotions}
+          yourEmotion={yourEmotion}
+          handleClickEmotion={({ updateStatus, emotionCount, yourEmotion }) => {
+            setYourEmotion(yourEmotion);
+            setEmotions(
+              emotions.map((emotion) => ({
+                ...emotion,
+                count: emotionCount[emotion.type],
+              })),
+            );
+            bottomSheet.close();
+          }}
+        />
+      ),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article, bottomSheet, emotionCount, emotions, yourEmotion]);
+
   const handleClickComment = React.useCallback(() => {
     // selector로 가져오는 것이 항상 나쁠까?
     const commentEditor = document.querySelector<HTMLDivElement>(
@@ -19,8 +57,6 @@ const ArticleFooter = () => {
       commentEditor.focus();
     }
   }, []);
-
-  const emotionCount = emotions.reduce((accum, { count }) => accum + count, 0);
 
   return (
     <React.Fragment>
@@ -35,7 +71,7 @@ const ArticleFooter = () => {
       </InteractionCounter>
       <Content.HR size={1} color="" />
       <InteractionPanel>
-        <li>
+        <li onClick={handleClickEmotion}>
           <Icon icon="emojiSmileOutline" size="20px" /> 공감표현
         </li>
         <li onClick={handleClickComment}>
