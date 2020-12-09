@@ -58,18 +58,29 @@ const EmotionCounter: React.FC<{ articleId: number; emotionCount: number }> = ({
   );
 
   return (
-    <Button
+    <EmotionCounterButton
       icon={<Icon icon="emojiSmile" size="18px" color={color} />}
       onClick={handleClickEmotion}
     >
       <Counter className="Counter" color={color}>
         {emotionCount}
       </Counter>
-    </Button>
+    </EmotionCounterButton>
   );
 };
 
 export default React.memo(EmotionCounter);
+
+const EmotionCounterButton = styled(Button)`
+  && {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    cursor: pointer;
+    svg {
+      cursor: pointer;
+    }
+  }
+`;
 
 const Counter = styled.span<{ color?: string }>`
   &.Counter {

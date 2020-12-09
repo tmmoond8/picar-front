@@ -74,6 +74,7 @@ export default observer(function ArticleCard(
         photos={photos}
       />
       <ArticleCardBottom
+        articleId={id}
         emotionCount={emotionCount}
         commentCount={commentCount}
         bookmark={bookmark}
