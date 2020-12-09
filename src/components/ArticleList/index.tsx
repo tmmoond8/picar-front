@@ -18,7 +18,7 @@ export default React.memo(function ArticleList(
   const { articles, bookmarks } = props;
 
   return (
-    <Self>
+    <StyledArticleList>
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
@@ -26,11 +26,11 @@ export default React.memo(function ArticleList(
           bookmark={!!article.id && bookmarks.has(article.id)}
         />
       ))}
-    </Self>
+    </StyledArticleList>
   );
 });
 
-const Self = styled.ol`
+const StyledArticleList = styled.ol`
   width: 100%;
   height: 100%;
   background: ${colors.blackF5F6F7};
