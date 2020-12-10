@@ -8,39 +8,23 @@ import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 
 import IArticle from '../../types/Article';
-import Emotion, { EmotionType } from '../../types/Emotion';
 import { colors } from '../../styles';
 import ArticleContext from './context';
 
 interface ArticleProps {
   article: IArticle;
-  emotions: Emotion[];
-  setEmotions: (emotions: Emotion[]) => void;
   commentCount: number;
-  yourEmotion: EmotionType | null;
-  setYourEmotion: (emotion: EmotionType | null) => void;
 }
 
 export default function Article(props: ArticleProps): JSX.Element {
-  const {
-    article,
-    emotions,
-    setEmotions,
-    commentCount,
-    yourEmotion,
-    setYourEmotion,
-  } = props;
+  const { article, commentCount } = props;
 
   return (
     <ArticleContext.Provider
       value={{
         article,
-        emotions,
-        setEmotions,
         commentCount,
         viewCount: 1244,
-        yourEmotion,
-        setYourEmotion,
       }}
     >
       {article && (

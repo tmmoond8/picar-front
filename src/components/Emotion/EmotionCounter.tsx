@@ -9,22 +9,13 @@ import Icon from '../Icon';
 
 import EmotionBox from './EmotionBox';
 import Button from '../Button';
-import { useFetch } from './hooks';
 
-const EmotionCounter: React.FC<{ articleId: number; emotionCount: number }> = ({
-  articleId,
-  emotionCount: _emotionCount,
-}) => {
+const EmotionCounter: React.FC<{
+  articleId: number;
+  emotionCount: number;
+}> = ({ articleId, emotionCount: _emotionCount }) => {
+  const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
   const bottomSheet = BottomSheet.useBottomSheet();
-  const { emotions, setEmotions, yourEmotion, setYourEmotion } = useFetch(
-    articleId,
-  );
-
-  const emotionCount = React.useMemo(() => {
-    return emotions.length === 0
-      ? _emotionCount
-      : emotions.reduce((accum, emotion) => accum + emotion.count, 0);
-  }, [_emotionCount, emotions]);
 
   const handleClickEmotion = () => {
     bottomSheet.open({
@@ -33,19 +24,17 @@ const EmotionCounter: React.FC<{ articleId: number; emotionCount: number }> = ({
         <EmotionBox
           articleId={articleId}
           handleClose={() => bottomSheet.close()}
-          emotions={emotions}
-          setEmotions={setEmotions}
-          yourEmotion={yourEmotion}
-          setYourEmotion={setYourEmotion}
+          setEmotionCount={setEmotionCount}
         />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
-  const color = React.useMemo(
-    () => (yourEmotion ? colors.primary : undefined),
-    [yourEmotion],
-  );
+  const color = undefined;
+  // const color = React.useMemo(
+  //   () => (yourEmotion ? colors.primary : undefined),
+  //   [yourEmotion],
+  // );
   return (
     <EmotionCounterButton
       icon={<Icon icon="emojiSmile" size="18px" color={color} />}

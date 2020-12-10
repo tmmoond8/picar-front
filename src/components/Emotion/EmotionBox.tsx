@@ -6,15 +6,13 @@ import React from 'react';
 import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
 import { useCUD } from './hooks';
-import Emotion, { EmotionType, UpdateStatus } from '../../types/Emotion';
+import { EmotionType, UpdateStatus } from '../../types/Emotion';
+import { useFetch } from './hooks';
 
 interface EmotionBoxProp {
   articleId: number;
   handleClose: () => void;
-  emotions: Emotion[];
-  setEmotions: (emotions: Emotion[]) => void;
-  yourEmotion: EmotionType | null;
-  setYourEmotion: (emotion: EmotionType | null) => void;
+  setEmotionCount: (count: number) => void;
 }
 
 interface EmotionResponse {
@@ -26,15 +24,18 @@ interface EmotionResponse {
 const EmotionBox: React.FC<EmotionBoxProp> = ({
   articleId,
   handleClose,
-  emotions,
-  setEmotions,
-  yourEmotion,
-  setYourEmotion,
+  setEmotionCount,
 }) => {
+  const { emotions, setEmotions, yourEmotion, setYourEmotion } = useFetch(
+    articleId,
+  );
   const handleClickEmotion = (result: EmotionResponse) => {
     const { emotionCount, yourEmotion: nextYourEmotion } = result;
     handleClose();
     setYourEmotion(nextYourEmotion);
+    setEmotionCount(
+      Object.values(emotionCount).reduce((accum, count) => accum + count, 0),
+    );
     setEmotions(
       emotions.map((emotion) => ({
         ...emotion,

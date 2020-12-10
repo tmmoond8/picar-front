@@ -7,7 +7,6 @@ import { observer, useStore } from '../stores';
 import Article from '../components/Article';
 import { useCheckLogin } from '../hooks';
 import { useFetch as useFetchArticle } from '../components/Article/hooks';
-import { useFetch as useFetchEmotion } from '../components/Emotion/hooks';
 
 import CommentArea from '../components/Comment';
 import BottomSheet from '../components/BottomSheet';
@@ -22,12 +21,7 @@ export default observer(function ArticlePage(): JSX.Element {
   const [article, setArticle] = useFetchArticle(
     window.location.pathname.split('/').pop() as string,
   );
-  const {
-    emotions,
-    setEmotions,
-    yourEmotion,
-    setYourEmotion,
-  } = useFetchEmotion(articleId);
+
   const bottomSheet = BottomSheet.useBottomSheet();
 
   const [commentCount, setCommentCount] = React.useState(0);
@@ -75,16 +69,7 @@ export default observer(function ArticlePage(): JSX.Element {
 
   return (
     <React.Fragment>
-      {article && (
-        <Article
-          article={article}
-          commentCount={commentCount}
-          emotions={emotions}
-          setEmotions={setEmotions}
-          yourEmotion={yourEmotion}
-          setYourEmotion={setYourEmotion}
-        />
-      )}
+      {article && <Article article={article} commentCount={commentCount} />}
 
       {article?.id && (
         <CommentArea

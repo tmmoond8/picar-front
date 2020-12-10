@@ -11,18 +11,12 @@ import BottomSheet from '../BottomSheet';
 import { useArticleContext, observer } from './context';
 
 const ArticleFooter = () => {
-  const {
-    article,
-    viewCount,
-    commentCount,
-    setEmotions,
-    emotions,
-    yourEmotion,
-    setYourEmotion,
-  } = useArticleContext();
+  const { article, viewCount, commentCount } = useArticleContext();
   const bottomSheet = BottomSheet.useBottomSheet();
 
-  const emotionCount = emotions.reduce((accum, { count }) => accum + count, 0);
+  const [emotionCount, setEmotionCount] = React.useState(
+    article?.emotionCount ?? 0,
+  );
 
   const handleClickEmotion = React.useCallback(() => {
     bottomSheet.open({
@@ -31,15 +25,12 @@ const ArticleFooter = () => {
         <Emotion.Box
           articleId={article!.id}
           handleClose={() => bottomSheet.close()}
-          emotions={emotions}
-          setEmotions={setEmotions}
-          yourEmotion={yourEmotion}
-          setYourEmotion={setYourEmotion as any}
+          setEmotionCount={setEmotionCount}
         />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [article, bottomSheet, emotionCount, yourEmotion]);
+  }, [article, bottomSheet, emotionCount]);
 
   const handleClickComment = React.useCallback(() => {
     // selector로 가져오는 것이 항상 나쁠까?
