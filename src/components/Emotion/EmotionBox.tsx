@@ -10,21 +10,39 @@ import Emotion, { EmotionType, UpdateStatus } from '../../types/Emotion';
 
 interface EmotionBoxProp {
   articleId: number;
+  handleClose: () => void;
   emotions: Emotion[];
+  setEmotions: (emotions: Emotion[]) => void;
   yourEmotion: EmotionType | null;
-  handleClickEmotion: (result: {
-    updateStatus: UpdateStatus;
-    emotionCount: Record<EmotionType, number>;
-    yourEmotion: EmotionType;
-  }) => void;
+  setYourEmotion: (emotion: EmotionType | null) => void;
+}
+
+interface EmotionResponse {
+  updateStatus: UpdateStatus;
+  emotionCount: Record<EmotionType, number>;
+  yourEmotion: EmotionType | null;
 }
 
 const EmotionBox: React.FC<EmotionBoxProp> = ({
   articleId,
+  handleClose,
   emotions,
+  setEmotions,
   yourEmotion,
-  handleClickEmotion,
+  setYourEmotion,
 }) => {
+  const handleClickEmotion = (result: EmotionResponse) => {
+    const { emotionCount, yourEmotion: nextYourEmotion } = result;
+    handleClose();
+    setYourEmotion(nextYourEmotion);
+    setEmotions(
+      emotions.map((emotion) => ({
+        ...emotion,
+        count: emotionCount[emotion.type],
+      })),
+    );
+  };
+
   const handleCUD = useCUD(articleId, handleClickEmotion);
 
   return (

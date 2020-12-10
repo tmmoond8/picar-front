@@ -18,7 +18,7 @@ interface ArticleProps {
   setEmotions: (emotions: Emotion[]) => void;
   commentCount: number;
   yourEmotion: EmotionType | null;
-  setYourEmotion: (emotion: EmotionType) => void;
+  setYourEmotion: (emotion: EmotionType | null) => void;
 }
 
 export default function Article(props: ArticleProps): JSX.Element {

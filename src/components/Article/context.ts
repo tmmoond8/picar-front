@@ -12,7 +12,7 @@ const ArticleContext = React.createContext<{
   commentCount: number;
   viewCount: number;
   yourEmotion: EmotionType | null;
-  setYourEmotion: (emotion: EmotionType) => void;
+  setYourEmotion: (emotion: EmotionType | null) => void;
 }>({
   article: null,
   emotions: [],

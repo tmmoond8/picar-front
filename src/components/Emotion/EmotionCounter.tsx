@@ -6,7 +6,7 @@ import React from 'react';
 import BottomSheet from '../BottomSheet';
 import { colors } from '../../styles';
 import Icon from '../Icon';
-import { useFetch } from './hooks';
+
 import EmotionBox from './EmotionBox';
 import Button from '../Button';
 import { UpdateStatus, UpdateStatusKey } from '../../types/Emotion';
@@ -16,47 +16,30 @@ const EmotionCounter: React.FC<{ articleId: number; emotionCount: number }> = ({
   emotionCount: _emotionCount,
 }) => {
   const bottomSheet = BottomSheet.useBottomSheet();
-  const { emotions, yourEmotion, setEmotions, setYourEmotion } = useFetch(
-    articleId,
-  );
-  const [status, setStatus] = React.useState<UpdateStatusKey>(
-    UpdateStatus.updated,
-  );
-  const emotionCount = React.useMemo(() => {
-    return emotions.reduce((accum, emotion) => {
-      return accum + emotion.count;
-    }, 0);
-  }, [emotions]);
+
+  const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
+  // const [status, setStatus] = React.useState<UpdateStatusKey>(
+  //   UpdateStatus.updated,
+  // );
 
   const handleClickEmotion = React.useCallback(() => {
     bottomSheet.open({
       title: `공감 ${emotionCount}`,
       contents: (
-        <EmotionBox
-          articleId={articleId}
-          emotions={emotions}
-          yourEmotion={yourEmotion}
-          handleClickEmotion={({ updateStatus, emotionCount, yourEmotion }) => {
-            bottomSheet.close();
-            setStatus(updateStatus);
-            setYourEmotion(yourEmotion);
-            setEmotions(
-              emotions.map((emotion) => ({
-                ...emotion,
-                count: emotionCount[emotion.type],
-              })),
-            );
-          }}
-        />
+        <p></p>
+        // <EmotionBox
+        //   articleId={articleId}
+        //   handleClose={() => bottomSheet.close()}
+        // />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleId, bottomSheet, emotionCount, emotions, yourEmotion]);
-  const color = React.useMemo(
-    () => (yourEmotion ? colors.primary : undefined),
-    [yourEmotion],
-  );
-
+  }, [articleId, bottomSheet, emotionCount]);
+  // const color = React.useMemo(
+  //   () => (yourEmotion ? colors.primary : undefined),
+  //   [yourEmotion],
+  // );
+  const color = undefined;
   return (
     <EmotionCounterButton
       icon={<Icon icon="emojiSmile" size="18px" color={color} />}
