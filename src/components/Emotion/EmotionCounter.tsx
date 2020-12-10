@@ -9,37 +9,43 @@ import Icon from '../Icon';
 
 import EmotionBox from './EmotionBox';
 import Button from '../Button';
-import { UpdateStatus, UpdateStatusKey } from '../../types/Emotion';
+import { useFetch } from './hooks';
 
 const EmotionCounter: React.FC<{ articleId: number; emotionCount: number }> = ({
   articleId,
   emotionCount: _emotionCount,
 }) => {
   const bottomSheet = BottomSheet.useBottomSheet();
+  const { emotions, setEmotions, yourEmotion, setYourEmotion } = useFetch(
+    articleId,
+  );
 
-  const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
-  // const [status, setStatus] = React.useState<UpdateStatusKey>(
-  //   UpdateStatus.updated,
-  // );
+  const emotionCount = React.useMemo(() => {
+    return emotions.length === 0
+      ? _emotionCount
+      : emotions.reduce((accum, emotion) => accum + emotion.count, 0);
+  }, [_emotionCount, emotions]);
 
-  const handleClickEmotion = React.useCallback(() => {
+  const handleClickEmotion = () => {
     bottomSheet.open({
       title: `공감 ${emotionCount}`,
       contents: (
-        <p></p>
-        // <EmotionBox
-        //   articleId={articleId}
-        //   handleClose={() => bottomSheet.close()}
-        // />
+        <EmotionBox
+          articleId={articleId}
+          handleClose={() => bottomSheet.close()}
+          emotions={emotions}
+          setEmotions={setEmotions}
+          yourEmotion={yourEmotion}
+          setYourEmotion={setYourEmotion}
+        />
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleId, bottomSheet, emotionCount]);
-  // const color = React.useMemo(
-  //   () => (yourEmotion ? colors.primary : undefined),
-  //   [yourEmotion],
-  // );
-  const color = undefined;
+  };
+  const color = React.useMemo(
+    () => (yourEmotion ? colors.primary : undefined),
+    [yourEmotion],
+  );
   return (
     <EmotionCounterButton
       icon={<Icon icon="emojiSmile" size="18px" color={color} />}

@@ -84,6 +84,11 @@ const EmotionItem = styled.li<{ selected: boolean }>`
     background-color: ${colors.blackF5F6F7};
   }
   user-select: none;
+  cursor: pointer;
+
+  svg {
+    cursor: pointer;
+  }
 
   ${(p) =>
     p.selected
