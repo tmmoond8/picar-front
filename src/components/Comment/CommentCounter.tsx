@@ -8,11 +8,13 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from '.';
 import Button from '../Button';
+import { useStore } from '../../stores';
 
 const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
   articleId,
   commentCount: _commentCount,
 }) => {
+  const { user } = useStore();
   const [commentCount, setCommentCount] = React.useState(_commentCount);
   const bottomSheet = BottomSheet.useBottomSheet();
 
@@ -25,14 +27,16 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
           <Comment
             articleId={articleId}
             setCommentCount={setCommentCount}
-            profilePhoto={''}
+            profilePhoto={user.profile.profileImage ?? ''}
             articleAuthorCode="tmpUser"
-            userCode="tmp"
+            userCode={user.profile.code}
+            needLogin={user.needLogin}
+            handleClose={bottomSheet.close}
           />
         ),
       });
     }
-  }, [bottomSheet, articleId, commentCount]);
+  }, [articleId, bottomSheet, commentCount, user]);
   const color = React.useMemo(() => (false ? colors.primary : undefined), []);
 
   return (

@@ -50,11 +50,12 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   const handleClickEmotion = React.useCallback(
     (emotionType: EmotionType) => {
       if (needLogin()) {
+        handleClose();
         return;
       }
       handleCUD(emotionType);
     },
-    [handleCUD, needLogin],
+    [handleCUD, handleClose, needLogin],
   );
   return (
     <StyledEmotionBox>

@@ -13,12 +13,16 @@ const CommentArea: React.FC<{
   userCode: string;
   articleAuthorCode: string;
   profilePhoto: string;
+  needLogin: () => boolean;
+  handleClose?: () => void;
 }> = ({
   articleId,
   setCommentCount,
   profilePhoto,
   userCode,
   articleAuthorCode,
+  needLogin,
+  handleClose,
 }) => {
   const [comments, setComments] = useFetch(articleId);
   const handleWriteComment = useWriteComment({
@@ -57,6 +61,8 @@ const CommentArea: React.FC<{
         about,
         editorRef,
         setEditorRef,
+        needLogin,
+        handleClose,
       }}
     >
       <CommentViewer />

@@ -22,6 +22,8 @@ const CommentEditor = () => {
     about,
     profilePhoto,
     setEditorRef,
+    needLogin,
+    handleClose,
   } = useCommentContext();
 
   React.useEffect(() => {
@@ -29,6 +31,10 @@ const CommentEditor = () => {
   }, [setEditorRef, textEditableRef]);
 
   const handleClickSend = React.useCallback(() => {
+    if (needLogin()) {
+      typeof handleClose === 'function' && handleClose();
+      return;
+    }
     handleWriteComment(
       content,
       (result, error) => {
@@ -44,7 +50,7 @@ const CommentEditor = () => {
       },
       about ?? undefined,
     );
-  }, [about, clearAbout, content, handleWriteComment]);
+  }, [about, clearAbout, content, handleClose, handleWriteComment, needLogin]);
 
   const placeholder = React.useMemo(() => {
     if (content.length > 0) return undefined;

@@ -19,6 +19,8 @@ const CommentContext = React.createContext<{
   profilePhoto: string;
   editorRef: any;
   setEditorRef: (ref: any) => void;
+  needLogin: () => boolean;
+  handleClose?: () => void;
 }>({
   comments: [],
   handleWriteComment: () => console.log('not initialized'),
@@ -33,6 +35,8 @@ const CommentContext = React.createContext<{
   profilePhoto: '',
   editorRef: null,
   setEditorRef: () => console.log('not initialized'),
+  needLogin: () => (console.log('not initialized'), false),
+  handleClose: () => console.log('not initialized'),
 });
 
 CommentContext.displayName = 'CommentContext';

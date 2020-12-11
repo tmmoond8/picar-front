@@ -68,6 +68,7 @@ export default observer(function ArticlePage(): JSX.Element {
           userCode={user.profile.code}
           articleAuthorCode={article.author.code}
           profilePhoto={user.profile.thumbnail}
+          needLogin={user.needLogin}
         />
       )}
     </React.Fragment>
