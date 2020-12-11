@@ -5,12 +5,23 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
 import Header from './components/Header';
+import { Profile as UserProfile } from './types/User';
 import { useStore, observer } from './stores';
+import BottomSheet from './components/BottomSheet';
+import { useCheckLogin } from './hooks';
 
 function App() {
   const {
     ui: { header },
+    user,
   } = useStore();
+
+  const bottomSheet = BottomSheet.useBottomSheet();
+  const needLogin = useCheckLogin(
+    (profile: UserProfile) => user.setProfile(profile),
+    bottomSheet,
+  );
+  user.needLogin = () => needLogin(user.profile.code);
 
   return (
     <React.Fragment>

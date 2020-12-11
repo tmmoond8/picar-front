@@ -21,17 +21,20 @@ export interface UserStoreInterface {
   bookmarks: Set<number>;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
+  needLogin: () => boolean;
 }
 
 class UserStore implements UserStoreInterface {
   @observable profile: Profile;
   @observable bookmarks: Set<number>;
+  @observable needLogin: () => boolean;
   
   constructor() {
     this.profile = initalProfile;
     this.bookmarks = new Set();
     this.fetch();
     this.fetchBookmark();
+    this.needLogin = () => (console.log('need initialized'), false);
   }
 
   async fetch() {

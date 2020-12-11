@@ -10,12 +10,10 @@ import { Profile as UserProfile } from '../../types/User';
 
 import { useStore, observer } from '../../stores';
 
-import BottomSheet from '../BottomSheet';
 import ArticleCardHead from './ArticleCardHead';
 import ArticleCardBody from './ArticleCardBody';
 import ArticleCardBottom from './ArticleCardBottom';
 import { colors } from '../../styles';
-import { useCheckLogin } from '../../hooks';
 
 type ArticleCardProps = Article & { bookmark: boolean };
 
@@ -35,16 +33,10 @@ export default observer(function ArticleCard(
   } = props;
   const { thumbnail, name, group } = author as UserProfile;
   const history = useHistory();
-  const bottomSheet = BottomSheet.useBottomSheet();
   const { article, user } = useStore();
 
-  const needLogin = useCheckLogin(
-    (profile: UserProfile) => user.setProfile(profile),
-    bottomSheet,
-  );
-
   const handleClickBookmark = React.useCallback(() => {
-    if (needLogin(user.profile.code)) {
+    if (user.needLogin()) {
       return;
     }
     if (bookmark) {

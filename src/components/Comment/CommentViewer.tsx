@@ -58,6 +58,7 @@ const CommentViewer = () => {
 export default observer(CommentViewer);
 
 const StyledComments = styled.div`
+  max-height: 70vh;
   padding: 0 0 92px;
 `;
 
@@ -65,6 +66,7 @@ const CommentList = styled.ul`
   min-height: 240px;
   overflow: hidden;
   label: CommentList;
+  padding: 0 0 70px;
 `;
 
 const ReplyList = styled.ol`

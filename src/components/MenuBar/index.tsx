@@ -12,8 +12,6 @@ import Editor from '../Editor';
 import { observer, useStore } from '../../stores';
 import { colors } from '../../styles';
 import Article from '../../types/Article';
-import { Profile as UserProfile } from '../../types/User';
-import { useCheckLogin } from '../../hooks';
 
 export default observer(function MenuBar(): JSX.Element {
   const { article, user } = useStore();
@@ -31,15 +29,10 @@ export default observer(function MenuBar(): JSX.Element {
     [history, pathname],
   );
 
-  const needLogin = useCheckLogin(
-    (profile: UserProfile) => user.setProfile(profile),
-    bottomSheet,
-  );
-
   const handleClickCommunity = useCallback(() => moveTo('/'), [moveTo]);
   const handleClickSearch = useCallback(() => moveTo('/search'), [moveTo]);
   const handleClickWrite = useCallback(() => {
-    if (needLogin(user.profile.code)) {
+    if (user.needLogin()) {
       return;
     }
     const appendArticle = (newArticle: Article) => {
@@ -53,14 +46,14 @@ export default observer(function MenuBar(): JSX.Element {
         <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
       ),
     });
-  }, [article.articles, bottomSheet, needLogin, user.profile.code]);
+  }, [article.articles, bottomSheet, user]);
   const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
   const handleClickProfile = useCallback(() => {
-    if (needLogin(user.profile.code)) {
+    if (user.needLogin()) {
       return;
     }
     moveTo('/profile');
-  }, [moveTo, needLogin, user.profile.code]);
+  }, [moveTo, user]);
 
   return (
     <MenuBarContainer>
