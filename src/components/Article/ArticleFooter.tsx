@@ -8,10 +8,12 @@ import Icon from '../Icon';
 import Content from '../Content';
 import Emotion from '../Emotion';
 import BottomSheet from '../BottomSheet';
+import { useStore } from '../../stores';
 import { useArticleContext, observer } from './context';
 
 const ArticleFooter = () => {
   const { article, viewCount, commentCount } = useArticleContext();
+  const { user } = useStore();
   const bottomSheet = BottomSheet.useBottomSheet();
 
   const [emotionCount, setEmotionCount] = React.useState(
@@ -26,6 +28,7 @@ const ArticleFooter = () => {
           articleId={article!.id}
           handleClose={() => bottomSheet.close()}
           setEmotionCount={setEmotionCount}
+          needLogin={user.needLogin}
         />
       ),
     });
