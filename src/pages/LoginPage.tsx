@@ -20,7 +20,8 @@ export default observer(function ProfilePage(): JSX.Element {
   ui.setHeaderNone();
   const bottomSheet = BottomSheet.useBottomSheet();
   const handleSetUserProfile = (profile: UserProfile) => {
-    user.profile = profile;
+    // user.profile = profile;
+    user.setProfile(profile);
   };
 
   return (

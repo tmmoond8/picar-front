@@ -10,7 +10,7 @@ import MenuBar from '../components/MenuBar';
 import { CAROUSEL } from '../types/constants';
 
 export default observer(function HomePage(): JSX.Element {
-  const { article, ui } = useStore();
+  const { article, ui, user } = useStore();
   ui.setHeaderNavigation();
   const { articles, groupIndex } = article;
 
@@ -46,12 +46,12 @@ export default observer(function HomePage(): JSX.Element {
         index={groupIndex}
         onChangeIndex={handleChangeIndex}
       >
-        <ArticleList articles={loungeArticles} bookmarks={article.bookmarks} />
-        <ArticleList articles={freeArticles} bookmarks={article.bookmarks} />
-        <ArticleList articles={humorArticles} bookmarks={article.bookmarks} />
+        <ArticleList articles={loungeArticles} bookmarks={user.bookmarks} />
+        <ArticleList articles={freeArticles} bookmarks={user.bookmarks} />
+        <ArticleList articles={humorArticles} bookmarks={user.bookmarks} />
         <ArticleList
           articles={govermentSupportArticles}
-          bookmarks={article.bookmarks}
+          bookmarks={user.bookmarks}
         />
       </Carousel>
       <MenuBar />

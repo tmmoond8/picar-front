@@ -161,7 +161,7 @@ const Content = styled.div`
   font-size: 15px;
 `;
 
-const DeletedComment = styled.li`
+const DeletedComment = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

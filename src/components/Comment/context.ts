@@ -30,7 +30,7 @@ const CommentContext = React.createContext<{
   about: null,
   articleAuthorCode: 'author',
   userCode: 'guest',
-  profilePhoto: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1592041365/noticon/miarefknyt8tmn9neo3p.png',
+  profilePhoto: '',
   editorRef: null,
   setEditorRef: () => console.log('not initialized'),
 });

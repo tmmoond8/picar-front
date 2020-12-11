@@ -6,7 +6,7 @@ import React from 'react';
 import BottomSheet from '../BottomSheet';
 import { colors } from '../../styles';
 import Icon from '../Icon';
-import Comment from '../Comment';
+import Comment from '.';
 import Button from '../Button';
 
 const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
@@ -25,7 +25,7 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
           <Comment
             articleId={articleId}
             setCommentCount={setCommentCount}
-            profilePhoto="url"
+            profilePhoto={''}
             articleAuthorCode="tmpUser"
             userCode="tmp"
           />

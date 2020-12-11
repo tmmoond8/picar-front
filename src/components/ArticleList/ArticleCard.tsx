@@ -39,7 +39,7 @@ export default observer(function ArticleCard(
   const { article, user } = useStore();
 
   const needLogin = useCheckLogin(
-    (profile: UserProfile) => (user.profile = profile),
+    (profile: UserProfile) => user.setProfile(profile),
     bottomSheet,
   );
 
@@ -48,9 +48,9 @@ export default observer(function ArticleCard(
       return;
     }
     if (bookmark) {
-      article.removeBookmark(id);
+      user.removeBookmark(id);
     } else {
-      article.addBookmark(id);
+      user.addBookmark(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article, bookmark, id]);

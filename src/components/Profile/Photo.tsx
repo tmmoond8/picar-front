@@ -30,7 +30,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps): JSX.Element {
   );
 }
 
-const Photo = styled.div<{ src: string; size: number }>`
+const Photo = styled.img<{ src: string; size: number }>`
   width: ${(p) => p.size}px;
   min-width: ${(p) => p.size}px;
   height: ${(p) => p.size}px;

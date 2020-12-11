@@ -33,22 +33,22 @@ export default observer(function ArticlePage(): JSX.Element {
   }, [article]);
 
   const needLogin = useCheckLogin(
-    (profile: UserProfile) => (user.profile = profile),
+    (profile: UserProfile) => user.setProfile(profile),
     bottomSheet,
   );
 
   const bookmark = React.useMemo(() => {
-    return articleId && articleStore.bookmarks.has(parseInt(articleId));
-  }, [articleId, articleStore.bookmarks]);
+    return articleId && user.bookmarks.has(parseInt(articleId));
+  }, [articleId, user.bookmarks]);
 
   const handleClickBookmark = React.useCallback(async () => {
     if (needLogin(user.profile.code)) {
       return;
     }
     if (bookmark) {
-      articleStore.removeBookmark(parseInt(articleId));
+      user.removeBookmark(parseInt(articleId));
     } else {
-      articleStore.addBookmark(parseInt(articleId));
+      user.addBookmark(parseInt(articleId));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookmark, articleStore, articleId]);

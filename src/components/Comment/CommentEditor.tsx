@@ -10,7 +10,7 @@ import { useCommentContext, observer } from './context';
 
 const CommentEditor = () => {
   const [content, setContent] = React.useState('');
-  const textEditableRef = React.useRef<HTMLDivElement>();
+  const textEditableRef = React.useRef<HTMLDivElement>(null);
   const handleChangeContent = React.useCallback(() => {
     if (textEditableRef.current) {
       setContent((textEditableRef.current as any).textContent);
@@ -53,7 +53,7 @@ const CommentEditor = () => {
   const disabled = React.useMemo(() => content.trim().length === 0, [content]);
 
   return (
-    <Editor onTyping={!placeholder}>
+    <Editor hasContent={content.length > 0}>
       <Context
         className="CommentEditor"
         ref={textEditableRef as React.RefObject<HTMLDivElement>}
@@ -74,7 +74,7 @@ const CommentEditor = () => {
 
 export default observer(CommentEditor);
 
-const Editor = styled.div<{ onTyping: boolean }>`
+const Editor = styled.div<{ hasContent: boolean }>`
   display: flex;
   position: fixed;
   left: 0;
@@ -93,14 +93,14 @@ const Editor = styled.div<{ onTyping: boolean }>`
     cursor: pointer;
   }
 
-  .CommentEditor:focus + div {
+  .CommentEditor:focus + img[src] {
     display: block;
   }
 
   ${(p) =>
-    p.onTyping &&
+    p.hasContent &&
     css`
-      div[src] {
+      img[src] {
         display: block;
       }
     `}

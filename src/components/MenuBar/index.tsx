@@ -32,7 +32,7 @@ export default observer(function MenuBar(): JSX.Element {
   );
 
   const needLogin = useCheckLogin(
-    (profile: UserProfile) => (user.profile = profile),
+    (profile: UserProfile) => user.setProfile(profile),
     bottomSheet,
   );
 

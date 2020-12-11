@@ -61,7 +61,7 @@ const StyledComments = styled.div`
   padding: 0 0 92px;
 `;
 
-const CommentList = styled.ol`
+const CommentList = styled.ul`
   min-height: 240px;
   overflow: hidden;
   label: CommentList;

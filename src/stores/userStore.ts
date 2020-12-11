@@ -1,6 +1,8 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
+import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
+
 
 const initalProfile = {
   code: 'guest',
@@ -15,14 +17,21 @@ const initalProfile = {
 
 export interface UserStoreInterface {
   profile: Profile;
+  setProfile: (profile: Profile) => void;
+  bookmarks: Set<number>;
+  addBookmark: (articleId?: number) => void;
+  removeBookmark: (articleId?: number) => void;
 }
 
 class UserStore implements UserStoreInterface {
-  @observable _profile: Profile;
-
+  @observable profile: Profile;
+  @observable bookmarks: Set<number>;
+  
   constructor() {
-    this._profile = initalProfile;
+    this.profile = initalProfile;
+    this.bookmarks = new Set();
     this.fetch();
+    this.fetchBookmark();
   }
 
   async fetch() {
@@ -40,13 +49,49 @@ class UserStore implements UserStoreInterface {
     }
   }
 
-  @computed
-  get profile() {
-    return this._profile;
+  @action
+  setProfile(profile: Profile) {
+    this.profile = profile;
+    this.fetchBookmark();
   }
 
-  set profile(profile: Profile) {
-    this._profile = profile;
+  async fetchBookmark() {
+    if(!Cookies.get('access_token')) {
+      return;
+    }
+    
+    try {
+      const {
+        data: { bookmarks },
+      } = await APIS.bookmark.list();
+
+      this.bookmarks = new Set(bookmarks);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  @action
+  async addBookmark(articleId?: number) {
+    if (!articleId) return;
+    try {
+      await APIS.bookmark.add(articleId);
+      this.bookmarks = new Set(this.bookmarks).add(articleId);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  @action
+  async removeBookmark(articleId?: number) {
+    if (!articleId) return;
+    try {
+      await APIS.bookmark.remove(articleId);
+      const newBookmarks = new Set(this.bookmarks);
+      newBookmarks.delete(articleId);
+      this.bookmarks = newBookmarks;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 
