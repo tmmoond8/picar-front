@@ -71,6 +71,7 @@ export default observer(function ArticleCard(
         commentCount={commentCount}
         bookmark={bookmark}
         handleClickBookmark={handleClickBookmark}
+        hasEmotion={id in user.emotions}
       />
     </Card>
   );

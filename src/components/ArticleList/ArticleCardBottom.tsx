@@ -14,6 +14,7 @@ interface ArticleCardBottomProps {
   emotionCount: number;
   commentCount: number;
   bookmark: boolean;
+  hasEmotion: boolean;
   handleClickBookmark: () => void;
 }
 
@@ -23,11 +24,16 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = (props) => {
     emotionCount,
     commentCount,
     bookmark,
+    hasEmotion,
     handleClickBookmark,
   } = props;
   return (
     <Bottom>
-      <Emotion.Counter articleId={articleId} emotionCount={emotionCount} />
+      <Emotion.Counter
+        articleId={articleId}
+        emotionCount={emotionCount}
+        hasEmotion={hasEmotion}
+      />
       <CommentCounter articleId={articleId} commentCount={commentCount} />
       <div className="right">
         <BookmarkButton

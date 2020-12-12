@@ -14,7 +14,8 @@ import { useStore, observer } from '../../stores';
 const EmotionCounter: React.FC<{
   articleId: number;
   emotionCount: number;
-}> = ({ articleId, emotionCount: _emotionCount }) => {
+  hasEmotion: boolean;
+}> = ({ articleId, emotionCount: _emotionCount, hasEmotion }) => {
   const { user } = useStore();
   const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
   const bottomSheet = BottomSheet.useBottomSheet();
@@ -33,11 +34,9 @@ const EmotionCounter: React.FC<{
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
-  const color = undefined;
-  // const color = React.useMemo(
-  //   () => (yourEmotion ? colors.primary : undefined),
-  //   [yourEmotion],
-  // );
+  const color = React.useMemo(() => (hasEmotion ? colors.primary : undefined), [
+    hasEmotion,
+  ]);
   return (
     <EmotionCounterButton
       icon={<Icon icon="emojiSmile" size="18px" color={color} />}

@@ -28,9 +28,12 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   setEmotionCount,
   needLogin,
 }) => {
-  const { emotions, setEmotions, yourEmotion, setYourEmotion } = useFetch(
-    articleId,
-  );
+  const {
+    emotionCounts,
+    setEmotionCounts,
+    yourEmotion,
+    setYourEmotion,
+  } = useFetch(articleId);
   const callbackEmotion = (result: EmotionResponse) => {
     const { emotionCount, yourEmotion: nextYourEmotion } = result;
     handleClose();
@@ -38,10 +41,10 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
     setEmotionCount(
       Object.values(emotionCount).reduce((accum, count) => accum + count, 0),
     );
-    setEmotions(
-      emotions.map((emotion) => ({
-        ...emotion,
-        count: emotionCount[emotion.type],
+    setEmotionCounts(
+      emotionCounts.map((_emotionCount) => ({
+        ..._emotionCount,
+        count: emotionCount[_emotionCount.type],
       })),
     );
   };
@@ -59,14 +62,14 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   );
   return (
     <StyledEmotionBox>
-      {emotions.map((emotion) => (
+      {emotionCounts.map((emotionCount) => (
         <EmotionItem
-          key={emotion.type}
-          selected={yourEmotion === emotion.type}
-          onClick={() => handleClickEmotion(emotion.type)}
+          key={emotionCount.type}
+          selected={yourEmotion === emotionCount.type}
+          onClick={() => handleClickEmotion(emotionCount.type)}
         >
-          <Icon icon={emotion.icon as IconKey} size="48px" />
-          <p>{emotion.count}</p>
+          <Icon icon={emotionCount.icon as IconKey} size="48px" />
+          <p>{emotionCount.count}</p>
         </EmotionItem>
       ))}
     </StyledEmotionBox>

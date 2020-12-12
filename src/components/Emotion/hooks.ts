@@ -1,9 +1,9 @@
 import React from 'react';
 import API from '../../apis';
-import Emotion, { EMOTION_TYPE, EMOTION_ICON, EmotionType, UpdateStatus } from '../../types/Emotion';
+import { EmotionCount, EMOTION_TYPE, EMOTION_ICON, EmotionType, UpdateStatus } from '../../types/Emotion';
 
 
-const defaultEmotions: Emotion[] = [
+const defaultEmotions: EmotionCount[] = [
   {
     type: EMOTION_TYPE.LOVE,
     icon: EMOTION_ICON.LOVE,
@@ -26,15 +26,14 @@ const defaultEmotions: Emotion[] = [
   },
 ];
 
-
 export const useFetch = (articleId: number | string) => {
-  const [emotions, setEmotions] = React.useState<Emotion[]>(defaultEmotions);
+  const [emotionCounts, setEmotionCounts] = React.useState<EmotionCount[]>(defaultEmotions);
   const [_yourEmotion, setYourEmotion] = React.useState<EmotionType | null>(null);
   React.useEffect(() => {
     (async () => {
-      const { data: { emotionCount, yourEmotion, ok } } = await API.emotion.list(articleId);
+      const { data: { emotionCount, yourEmotion, ok } } = await API.emotion.get(articleId);
       if (ok) {
-        setEmotions(emotions.map(emotion => ({
+        setEmotionCounts(emotionCounts.map(emotion => ({
           ...emotion,
           count: emotionCount[emotion.type]
         })));
@@ -45,8 +44,8 @@ export const useFetch = (articleId: number | string) => {
   }, [articleId])
 
   return {
-    emotions,
-    setEmotions,
+    emotionCounts,
+    setEmotionCounts,
     yourEmotion: _yourEmotion,
     setYourEmotion,
   };

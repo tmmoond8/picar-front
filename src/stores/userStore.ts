@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
+import { EmotionType } from '../types/Emotion';
 
 
 const initalProfile = {
@@ -17,8 +18,9 @@ const initalProfile = {
 
 export interface UserStoreInterface {
   profile: Profile;
-  setProfile: (profile: Profile) => void;
   bookmarks: Set<number>;
+  emotions: Record<number, EmotionType>;
+  setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
   needLogin: () => boolean;
@@ -27,14 +29,19 @@ export interface UserStoreInterface {
 class UserStore implements UserStoreInterface {
   @observable profile: Profile;
   @observable bookmarks: Set<number>;
+  @observable emotions: Record<number, EmotionType>;
   @observable needLogin: () => boolean;
   
   constructor() {
     this.profile = initalProfile;
     this.bookmarks = new Set();
+    this.emotions = {};
     this.fetch();
-    this.fetchBookmark();
     this.needLogin = () => (console.log('need initialized'), false);
+    if(Cookies.get('access_token')) {
+      this.fetchBookmark();
+      this.fetchEmotion();
+    }
   }
 
   async fetch() {
@@ -59,16 +66,29 @@ class UserStore implements UserStoreInterface {
   }
 
   async fetchBookmark() {
-    if(!Cookies.get('access_token')) {
-      return;
-    }
-    
     try {
       const {
-        data: { bookmarks },
+        data: { ok, bookmarks },
       } = await APIS.bookmark.list();
+      if (ok) {
+        this.bookmarks = new Set(bookmarks);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-      this.bookmarks = new Set(bookmarks);
+  async fetchEmotion() {
+    try {
+      const {
+        data: { ok, emotions },
+      } = await APIS.emotion.list();
+      if (ok) {
+        this.emotions = emotions.reduce((accum, emotion) => {
+          accum[emotion.articleId] = emotion.type;
+          return accum; 
+        }, {} as Record<number, EmotionType>)
+      }
     } catch (error) {
       console.error(error);
     }

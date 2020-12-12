@@ -18,10 +18,17 @@ export const EMOTION_ICON = {
 
 export type EmotionIcon = typeof EMOTION_ICON[keyof typeof EMOTION_ICON];
 
-export default interface Emotion {
+export interface EmotionCount {
   type: EmotionType;
   icon: EmotionIcon;
   count: number;
+}
+
+export default interface Emotion {
+  id: string;
+  articleId: number;
+  type: EmotionType;
+  userCode: string;
 }
 
 export enum UpdateStatus {
