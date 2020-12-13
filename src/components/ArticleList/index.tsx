@@ -21,7 +21,7 @@ export default observer(function ArticleList(
   const { user } = useStore();
 
   const handleClickBookmark = React.useCallback(
-    (articleId: number) => {
+    (articleId: number) => () => {
       if (user.needLogin()) {
         return;
       }
@@ -35,7 +35,7 @@ export default observer(function ArticleList(
     [bookmarks, user],
   );
   const handleEmotionUpdate = (articleId: number) => (
-    emotionType: EmotionType | null,
+    emotionType: EmotionType,
   ) => {
     user.setEmotion(articleId, emotionType);
   };
@@ -46,11 +46,11 @@ export default observer(function ArticleList(
         <ArticleCard
           key={article.id}
           {...article}
-          handleClickBookmark={() => handleClickBookmark(article.id)}
-          handleEmotionUpdate={() => handleEmotionUpdate(article.id)}
+          handleClickBookmark={handleClickBookmark(article.id)}
+          handleEmotionUpdate={handleEmotionUpdate(article.id)}
           hasBookmark={bookmarks.has(article.id)}
           hasComment={false}
-          hasEmotion={article.id in user.emotions}
+          myEmotion={user.emotions[article.id]}
         />
       ))}
     </StyledArticleList>

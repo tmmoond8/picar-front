@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
 import { EmotionType } from '../types/Emotion';
+import { article } from '.';
 
 
 const initalProfile = {
@@ -19,18 +20,18 @@ const initalProfile = {
 export interface UserStoreInterface {
   profile: Profile;
   bookmarks: Set<number>;
-  emotions: Record<number, EmotionType | null>;
+  emotions: Record<number, EmotionType>;
   setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
   needLogin: () => boolean;
-  setEmotion: (articleId: number, emotionType: EmotionType | null) => void;
+  setEmotion: (articleId: number, emotionType: EmotionType) => void;
 }
 
 class UserStore implements UserStoreInterface {
   @observable profile: Profile;
   @observable bookmarks: Set<number>;
-  @observable emotions: Record<number, EmotionType | null>;
+  @observable emotions: Record<number, EmotionType>;
   @observable needLogin: () => boolean;
   
   constructor() {
@@ -97,10 +98,16 @@ class UserStore implements UserStoreInterface {
   }
 
   @action
-  async setEmotion(articleId: number, emotionType: EmotionType | null) {
-    this.emotions = {
-      ...this.emotions,
-      [articleId]: emotionType,
+  async setEmotion(articleId: number, emotionType: EmotionType) {
+    if (this.emotions[articleId] === emotionType) {
+      const nextEmotion = {...this.emotions};
+      delete nextEmotion[articleId];
+      this.emotions = nextEmotion;
+    } else {
+      this.emotions = {
+        ...this.emotions,
+        [articleId]: emotionType,
+      }
     }
   }
 

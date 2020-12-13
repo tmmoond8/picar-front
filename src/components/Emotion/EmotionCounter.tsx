@@ -15,12 +15,12 @@ import { useStore, observer } from '../../stores';
 const EmotionCounter: React.FC<{
   articleId: number;
   emotionCount: number;
-  hasEmotion: boolean;
-  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
+  myEmotion?: EmotionType;
+  handleEmotionUpdate: (emotionType: EmotionType) => void;
 }> = ({
   articleId,
   emotionCount: _emotionCount,
-  hasEmotion,
+  myEmotion,
   handleEmotionUpdate,
 }) => {
   const { user } = useStore();
@@ -33,6 +33,7 @@ const EmotionCounter: React.FC<{
       contents: (
         <EmotionBox
           articleId={articleId}
+          myEmotion={myEmotion}
           handleClose={() => bottomSheet.close()}
           setEmotionCount={setEmotionCount}
           needLogin={user.needLogin}
@@ -42,8 +43,8 @@ const EmotionCounter: React.FC<{
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
-  const color = React.useMemo(() => (hasEmotion ? colors.primary : undefined), [
-    hasEmotion,
+  const color = React.useMemo(() => (myEmotion ? colors.primary : undefined), [
+    myEmotion,
   ]);
   return (
     <EmotionCounterButton

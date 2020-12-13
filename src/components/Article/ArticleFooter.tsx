@@ -30,7 +30,7 @@ const ArticleFooter = () => {
           handleClose={() => bottomSheet.close()}
           setEmotionCount={setEmotionCount}
           needLogin={user.needLogin}
-          handleEmotionUpdate={(emotionType: EmotionType | null) =>
+          handleEmotionUpdate={(emotionType: EmotionType) =>
             user.setEmotion(article!.id, emotionType)
           }
         />

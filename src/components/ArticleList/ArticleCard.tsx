@@ -17,9 +17,9 @@ import { colors } from '../../styles';
 type ArticleCardProps = Article & {
   hasBookmark: boolean;
   hasComment: boolean;
-  hasEmotion: boolean;
+  myEmotion?: EmotionType;
   handleClickBookmark: () => void;
-  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
+  handleEmotionUpdate: (emotionType: EmotionType) => void;
 };
 
 const ArticleCard: React.FC<ArticleCardProps> = ({
@@ -33,7 +33,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   emotionCount,
   hasComment,
   hasBookmark,
-  hasEmotion,
+  myEmotion,
   handleClickBookmark,
   handleEmotionUpdate,
 }) => {
@@ -65,7 +65,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         handleClickBookmark={handleClickBookmark}
         handleEmotionUpdate={handleEmotionUpdate}
         hasBookmark={hasBookmark}
-        hasEmotion={hasEmotion}
+        myEmotion={myEmotion}
         hasComment={hasComment}
       />
     </Card>

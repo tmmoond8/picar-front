@@ -14,18 +14,18 @@ interface ArticleCardBottomProps {
   articleId: number;
   emotionCount: number;
   commentCount: number;
-  hasEmotion: boolean;
+  myEmotion?: EmotionType;
   hasBookmark: boolean;
   hasComment: boolean;
   handleClickBookmark: () => void;
-  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
+  handleEmotionUpdate: (emotionType: EmotionType) => void;
 }
 
 const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
   articleId,
   emotionCount,
   commentCount,
-  hasEmotion,
+  myEmotion,
   hasBookmark,
   handleClickBookmark,
   handleEmotionUpdate,
@@ -35,7 +35,7 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
       <Emotion.Counter
         articleId={articleId}
         emotionCount={emotionCount}
-        hasEmotion={hasEmotion}
+        myEmotion={myEmotion}
         handleEmotionUpdate={handleEmotionUpdate}
       />
       <CommentCounter articleId={articleId} commentCount={commentCount} />

@@ -28,16 +28,14 @@ const defaultEmotions: EmotionCount[] = [
 
 export const useFetch = (articleId: number | string) => {
   const [emotionCounts, setEmotionCounts] = React.useState<EmotionCount[]>(defaultEmotions);
-  const [_yourEmotion, setYourEmotion] = React.useState<EmotionType | null>(null);
   React.useEffect(() => {
     (async () => {
-      const { data: { emotionCount, yourEmotion, ok } } = await API.emotion.get(articleId);
+      const { data: { emotionCount, ok } } = await API.emotion.get(articleId);
       if (ok) {
         setEmotionCounts(emotionCounts.map(emotion => ({
           ...emotion,
           count: emotionCount[emotion.type]
         })));
-        setYourEmotion(yourEmotion as EmotionType);
       }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,8 +44,6 @@ export const useFetch = (articleId: number | string) => {
   return {
     emotionCounts,
     setEmotionCounts,
-    yourEmotion: _yourEmotion,
-    setYourEmotion,
   };
 }
 

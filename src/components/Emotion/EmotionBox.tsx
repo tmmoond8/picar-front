@@ -11,39 +11,32 @@ import { useFetch } from './hooks';
 
 interface EmotionBoxProp {
   articleId: number;
+  myEmotion?: EmotionType;
   handleClose: () => void;
   setEmotionCount: (count: number) => void;
   needLogin: () => boolean;
-  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
+  handleEmotionUpdate: (emotionType: EmotionType) => void;
 }
 
 interface EmotionResponse {
-  updateStatus: UpdateStatus;
   emotionCount: Record<EmotionType, number>;
-  yourEmotion: EmotionType | null;
 }
 
 const EmotionBox: React.FC<EmotionBoxProp> = ({
   articleId,
+  myEmotion,
   handleClose,
   setEmotionCount,
   needLogin,
   handleEmotionUpdate,
 }) => {
-  const { emotionCounts, setEmotionCounts, setYourEmotion } = useFetch(
-    articleId,
-  );
+  console.log(myEmotion);
+  const { emotionCounts } = useFetch(articleId);
   const callbackEmotion = (result: EmotionResponse) => {
-    const { emotionCount, yourEmotion: nextYourEmotion } = result;
+    const { emotionCount } = result;
     handleClose();
     setEmotionCount(
       Object.values(emotionCount).reduce((accum, count) => accum + count, 0),
-    );
-    setEmotionCounts(
-      emotionCounts.map((_emotionCount) => ({
-        ..._emotionCount,
-        count: emotionCount[_emotionCount.type],
-      })),
     );
   };
 
@@ -64,7 +57,7 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
       {emotionCounts.map((emotionCount) => (
         <EmotionItem
           key={emotionCount.type}
-          selected={null === emotionCount.type}
+          selected={myEmotion === emotionCount.type}
           onClick={() => handleClickEmotion(emotionCount.type)}
         >
           <Icon icon={emotionCount.icon as IconKey} size="48px" />
