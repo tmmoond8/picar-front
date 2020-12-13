@@ -14,8 +14,12 @@ interface ArticleCardHeadProps {
   createAt: string;
 }
 
-const ArticleCardHead: React.FC<ArticleCardHeadProps> = (props) => {
-  const { thumbnail, name, group, createAt } = props;
+const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
+  thumbnail,
+  name,
+  group,
+  createAt,
+}) => {
   return (
     <Head>
       <ProfilePhoto src={thumbnail} size={24} />

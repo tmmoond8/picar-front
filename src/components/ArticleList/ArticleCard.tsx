@@ -7,45 +7,38 @@ import { useHistory } from 'react-router-dom';
 import Article from '../../types/Article';
 
 import { Profile as UserProfile } from '../../types/User';
-
-import { useStore, observer } from '../../stores';
+import { EmotionType } from '../../types/Emotion';
 
 import ArticleCardHead from './ArticleCardHead';
 import ArticleCardBody from './ArticleCardBody';
 import ArticleCardBottom from './ArticleCardBottom';
 import { colors } from '../../styles';
 
-type ArticleCardProps = Article & { bookmark: boolean };
+type ArticleCardProps = Article & {
+  hasBookmark: boolean;
+  hasComment: boolean;
+  hasEmotion: boolean;
+  handleClickBookmark: () => void;
+  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
+};
 
-export default observer(function ArticleCard(
-  props: ArticleCardProps,
-): JSX.Element {
-  const {
-    title,
-    content,
-    author,
-    createAt,
-    id,
-    photos,
-    commentCount,
-    emotionCount,
-    bookmark,
-  } = props;
+const ArticleCard: React.FC<ArticleCardProps> = ({
+  title,
+  content,
+  author,
+  createAt,
+  id,
+  photos,
+  commentCount,
+  emotionCount,
+  hasComment,
+  hasBookmark,
+  hasEmotion,
+  handleClickBookmark,
+  handleEmotionUpdate,
+}) => {
   const { thumbnail, name, group } = author as UserProfile;
   const history = useHistory();
-  const { article, user } = useStore();
-
-  const handleClickBookmark = React.useCallback(() => {
-    if (user.needLogin()) {
-      return;
-    }
-    if (bookmark) {
-      user.removeBookmark(id);
-    } else {
-      user.addBookmark(id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [article, bookmark, id]);
 
   const handleClickArticle = React.useCallback(() => {
     history.push(`/article/${id}`);
@@ -69,13 +62,17 @@ export default observer(function ArticleCard(
         articleId={id}
         emotionCount={emotionCount}
         commentCount={commentCount}
-        bookmark={bookmark}
         handleClickBookmark={handleClickBookmark}
-        hasEmotion={id in user.emotions}
+        handleEmotionUpdate={handleEmotionUpdate}
+        hasBookmark={hasBookmark}
+        hasEmotion={hasEmotion}
+        hasComment={hasComment}
       />
     </Card>
   );
-});
+};
+
+export default React.memo(ArticleCard);
 
 const Card = styled.li`
   padding: 16px 18px;

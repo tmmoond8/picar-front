@@ -19,17 +19,18 @@ const initalProfile = {
 export interface UserStoreInterface {
   profile: Profile;
   bookmarks: Set<number>;
-  emotions: Record<number, EmotionType>;
+  emotions: Record<number, EmotionType | null>;
   setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
   needLogin: () => boolean;
+  setEmotion: (articleId: number, emotionType: EmotionType | null) => void;
 }
 
 class UserStore implements UserStoreInterface {
   @observable profile: Profile;
   @observable bookmarks: Set<number>;
-  @observable emotions: Record<number, EmotionType>;
+  @observable emotions: Record<number, EmotionType | null>;
   @observable needLogin: () => boolean;
   
   constructor() {
@@ -63,6 +64,7 @@ class UserStore implements UserStoreInterface {
   setProfile(profile: Profile) {
     this.profile = profile;
     this.fetchBookmark();
+    this.fetchEmotion();
   }
 
   async fetchBookmark() {
@@ -91,6 +93,14 @@ class UserStore implements UserStoreInterface {
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  @action
+  async setEmotion(articleId: number, emotionType: EmotionType | null) {
+    this.emotions = {
+      ...this.emotions,
+      [articleId]: emotionType,
     }
   }
 

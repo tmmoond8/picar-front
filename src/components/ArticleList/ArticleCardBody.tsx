@@ -12,8 +12,12 @@ interface ArticleCardBodyProps {
   photos: string | null;
 }
 
-const ArticleCardBody: React.FC<ArticleCardBodyProps> = (props) => {
-  const { handleClickArticle, title, content, photos } = props;
+const ArticleCardBody: React.FC<ArticleCardBodyProps> = ({
+  handleClickArticle,
+  title,
+  content,
+  photos,
+}) => {
   return (
     <Body onClick={handleClickArticle}>
       <div className="article-content-wrapper">
@@ -25,7 +29,7 @@ const ArticleCardBody: React.FC<ArticleCardBodyProps> = (props) => {
   );
 };
 
-export default ArticleCardBody;
+export default React.memo(ArticleCardBody);
 
 const Body = styled.div`
   display: flex;

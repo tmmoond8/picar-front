@@ -8,6 +8,7 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 
 import EmotionBox from './EmotionBox';
+import { EmotionType } from '../../types/Emotion';
 import Button from '../Button';
 import { useStore, observer } from '../../stores';
 
@@ -15,7 +16,13 @@ const EmotionCounter: React.FC<{
   articleId: number;
   emotionCount: number;
   hasEmotion: boolean;
-}> = ({ articleId, emotionCount: _emotionCount, hasEmotion }) => {
+  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
+}> = ({
+  articleId,
+  emotionCount: _emotionCount,
+  hasEmotion,
+  handleEmotionUpdate,
+}) => {
   const { user } = useStore();
   const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
   const bottomSheet = BottomSheet.useBottomSheet();
@@ -29,6 +36,7 @@ const EmotionCounter: React.FC<{
           handleClose={() => bottomSheet.close()}
           setEmotionCount={setEmotionCount}
           needLogin={user.needLogin}
+          handleEmotionUpdate={handleEmotionUpdate}
         />
       ),
     });

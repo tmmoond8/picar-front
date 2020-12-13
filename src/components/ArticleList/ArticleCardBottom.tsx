@@ -7,37 +7,41 @@ import Button from '../Button';
 import Icon from '../Icon';
 import Emotion from '../Emotion';
 import CommentCounter from '../Comment/CommentCounter';
+import { EmotionType } from '../../types/Emotion';
 import { colors } from '../../styles';
 
 interface ArticleCardBottomProps {
   articleId: number;
   emotionCount: number;
   commentCount: number;
-  bookmark: boolean;
   hasEmotion: boolean;
+  hasBookmark: boolean;
+  hasComment: boolean;
   handleClickBookmark: () => void;
+  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
 }
 
-const ArticleCardHead: React.FC<ArticleCardBottomProps> = (props) => {
-  const {
-    articleId,
-    emotionCount,
-    commentCount,
-    bookmark,
-    hasEmotion,
-    handleClickBookmark,
-  } = props;
+const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
+  articleId,
+  emotionCount,
+  commentCount,
+  hasEmotion,
+  hasBookmark,
+  handleClickBookmark,
+  handleEmotionUpdate,
+}) => {
   return (
     <Bottom>
       <Emotion.Counter
         articleId={articleId}
         emotionCount={emotionCount}
         hasEmotion={hasEmotion}
+        handleEmotionUpdate={handleEmotionUpdate}
       />
       <CommentCounter articleId={articleId} commentCount={commentCount} />
       <div className="right">
         <BookmarkButton
-          marked={bookmark}
+          marked={hasBookmark}
           onClick={handleClickBookmark}
           icon={<Icon icon="bookmark" size="18px" />}
         />
@@ -46,7 +50,7 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = (props) => {
   );
 };
 
-export default ArticleCardHead;
+export default React.memo(ArticleCardHead);
 
 const Bottom = styled.div`
   display: flex;
@@ -64,13 +68,6 @@ const Bottom = styled.div`
     display: flex;
     flex-direction: row-reverse;
     flex: 1;
-  }
-`;
-
-const Counter = styled.span<{ color?: string }>`
-  &.Counter {
-    margin-left: 0;
-    ${(p) => p.color && `color: ${p.color};`}
   }
 `;
 

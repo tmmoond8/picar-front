@@ -14,6 +14,7 @@ interface EmotionBoxProp {
   handleClose: () => void;
   setEmotionCount: (count: number) => void;
   needLogin: () => boolean;
+  handleEmotionUpdate: (emotionType: EmotionType | null) => void;
 }
 
 interface EmotionResponse {
@@ -27,17 +28,14 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   handleClose,
   setEmotionCount,
   needLogin,
+  handleEmotionUpdate,
 }) => {
-  const {
-    emotionCounts,
-    setEmotionCounts,
-    yourEmotion,
-    setYourEmotion,
-  } = useFetch(articleId);
+  const { emotionCounts, setEmotionCounts, setYourEmotion } = useFetch(
+    articleId,
+  );
   const callbackEmotion = (result: EmotionResponse) => {
     const { emotionCount, yourEmotion: nextYourEmotion } = result;
     handleClose();
-    setYourEmotion(nextYourEmotion);
     setEmotionCount(
       Object.values(emotionCount).reduce((accum, count) => accum + count, 0),
     );
@@ -56,16 +54,17 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
         handleClose();
         return;
       }
+      handleEmotionUpdate(emotionType);
       handleCUD(emotionType);
     },
-    [handleCUD, handleClose, needLogin],
+    [needLogin, handleEmotionUpdate, handleCUD, handleClose],
   );
   return (
     <StyledEmotionBox>
       {emotionCounts.map((emotionCount) => (
         <EmotionItem
           key={emotionCount.type}
-          selected={yourEmotion === emotionCount.type}
+          selected={null === emotionCount.type}
           onClick={() => handleClickEmotion(emotionCount.type)}
         >
           <Icon icon={emotionCount.icon as IconKey} size="48px" />

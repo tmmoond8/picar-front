@@ -10,6 +10,7 @@ import Emotion from '../Emotion';
 import BottomSheet from '../BottomSheet';
 import { useStore } from '../../stores';
 import { useArticleContext, observer } from './context';
+import { EmotionType } from '../../types/Emotion';
 
 const ArticleFooter = () => {
   const { article, viewCount, commentCount } = useArticleContext();
@@ -29,6 +30,9 @@ const ArticleFooter = () => {
           handleClose={() => bottomSheet.close()}
           setEmotionCount={setEmotionCount}
           needLogin={user.needLogin}
+          handleEmotionUpdate={(emotionType: EmotionType | null) =>
+            user.setEmotion(article!.id, emotionType)
+          }
         />
       ),
     });
