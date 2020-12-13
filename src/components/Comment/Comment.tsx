@@ -45,10 +45,10 @@ const Comment: React.FC<CommentProps> = (props) => {
   } = useCommentContext();
   const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
-  const isArticleAuthor = React.useMemo(() => userCode === articleAuthorCode, [
-    articleAuthorCode,
-    userCode,
-  ]);
+  const isArticleAuthorsComment = React.useMemo(
+    () => commentAuthorCode === articleAuthorCode,
+    [articleAuthorCode, commentAuthorCode],
+  );
   const isCommentAuthor = React.useMemo(() => userCode === commentAuthorCode, [
     commentAuthorCode,
     userCode,
@@ -62,9 +62,9 @@ const Comment: React.FC<CommentProps> = (props) => {
           <Profile.Who
             name={name}
             group={group}
-            nameColor={isArticleAuthor ? colors.primary : undefined}
+            nameColor={isArticleAuthorsComment ? colors.primary : undefined}
             right={
-              isArticleAuthor ? (
+              isArticleAuthorsComment ? (
                 <EditorBadge icon="editRound" size="16px" />
               ) : undefined
             }
