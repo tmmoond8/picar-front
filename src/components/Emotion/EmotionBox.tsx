@@ -30,7 +30,6 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   needLogin,
   handleEmotionUpdate,
 }) => {
-  console.log(myEmotion);
   const { emotionCounts } = useFetch(articleId);
   const callbackEmotion = (result: EmotionResponse) => {
     const { emotionCount } = result;

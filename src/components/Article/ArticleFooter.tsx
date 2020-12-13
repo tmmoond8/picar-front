@@ -27,6 +27,7 @@ const ArticleFooter = () => {
       contents: (
         <Emotion.Box
           articleId={article!.id}
+          myEmotion={user.emotions[article!.id]}
           handleClose={() => bottomSheet.close()}
           setEmotionCount={setEmotionCount}
           needLogin={user.needLogin}

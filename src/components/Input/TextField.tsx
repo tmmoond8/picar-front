@@ -51,14 +51,12 @@ const TextField: React.FC<TextFieldProps> = (props) => {
   );
 
   const handleFocus = React.useCallback(() => {
-    console.log('focus');
     setFocus(true);
     ui.setKeyboardMargin(getVirtualKeyboardHeight());
   }, [ui]);
 
   const handleBlur = React.useCallback(() => {
     onBlur();
-    console.log('blur');
     setFocus(false);
     ui.setKeyboardMargin(0);
   }, [onBlur, ui]);

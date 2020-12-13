@@ -42,17 +42,13 @@ const initLoginButton = (props: ReactNaverLoginProps) => {
   naverLogin.init();
 
   if (!window.opener) {
-    console.log('!poopenerpup');
     naver.successCallback = (data: NaverUser) => onSuccess(data);
     naver.failureCallback = onFailure;
   } else {
-    console.log('opener');
     naverLogin.getLoginStatus((status: any) => {
       if (status) {
-        console.log('opener', status);
         window.opener.naver.successCallback(naverLogin.user);
       } else {
-        console.log('opener else', status);
         window.opener.failureCallback();
       }
       window.close();
