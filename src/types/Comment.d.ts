@@ -3,6 +3,7 @@ export default interface Comment {
   id: string;
   content: string;
   replies?: Comment[];
+  articleId: number;
   author: Profile;
   isDelete: boolean;
   createAt: string;

@@ -10,10 +10,11 @@ import Comment from '.';
 import Button from '../Button';
 import { useStore } from '../../stores';
 
-const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
-  articleId,
-  commentCount: _commentCount,
-}) => {
+const CommentCounter: React.FC<{
+  articleId: number;
+  commentCount: number;
+  hasComment: boolean;
+}> = ({ articleId, commentCount: _commentCount, hasComment }) => {
   const { user } = useStore();
   const [commentCount, setCommentCount] = React.useState(_commentCount);
   const bottomSheet = BottomSheet.useBottomSheet();
@@ -37,7 +38,9 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
       });
     }
   }, [articleId, bottomSheet, commentCount, user]);
-  const color = React.useMemo(() => (false ? colors.primary : undefined), []);
+  const color = React.useMemo(() => (hasComment ? colors.primary : undefined), [
+    hasComment,
+  ]);
 
   return (
     <CommentCounterButton
@@ -51,6 +54,8 @@ const CommentCounter: React.FC<{ articleId: number; commentCount: number }> = ({
   );
 };
 
+export default React.memo(CommentCounter);
+
 const CommentCounterButton = styled(Button)`
   && {
     border-radius: 4px;
@@ -61,8 +66,6 @@ const CommentCounterButton = styled(Button)`
     }
   }
 `;
-
-export default React.memo(CommentCounter);
 
 const Counter = styled.span<{ color?: string }>`
   &.Counter {

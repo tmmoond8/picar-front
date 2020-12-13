@@ -49,7 +49,7 @@ export default observer(function ArticleList(
           handleClickBookmark={handleClickBookmark(article.id)}
           handleEmotionUpdate={handleEmotionUpdate(article.id)}
           hasBookmark={bookmarks.has(article.id)}
-          hasComment={false}
+          hasComment={article.id in user.comments}
           myEmotion={user.emotions[article.id]}
         />
       ))}

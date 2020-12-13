@@ -2,9 +2,8 @@ import { observable, action } from 'mobx';
 import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
+import Comment from '../types/Comment';
 import { EmotionType } from '../types/Emotion';
-import { article } from '.';
-
 
 const initalProfile = {
   code: 'guest',
@@ -21,6 +20,7 @@ export interface UserStoreInterface {
   profile: Profile;
   bookmarks: Set<number>;
   emotions: Record<number, EmotionType>;
+  comments: Record<number, Comment[]>;
   setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
@@ -32,18 +32,25 @@ class UserStore implements UserStoreInterface {
   @observable profile: Profile;
   @observable bookmarks: Set<number>;
   @observable emotions: Record<number, EmotionType>;
+  @observable comments: Record<number, Comment[]>;
   @observable needLogin: () => boolean;
   
   constructor() {
     this.profile = initalProfile;
     this.bookmarks = new Set();
     this.emotions = {};
+    this.comments = {};
     this.fetch();
     this.needLogin = () => (console.log('need initialized'), false);
     if(Cookies.get('access_token')) {
-      this.fetchBookmark();
-      this.fetchEmotion();
+      this.fetchUserData();
     }
+  }
+
+  fetchUserData() {
+    this.fetchBookmark();
+    this.fetchEmotion();
+    this.fetchComment();
   }
 
   async fetch() {
@@ -64,17 +71,22 @@ class UserStore implements UserStoreInterface {
   @action
   setProfile(profile: Profile) {
     this.profile = profile;
-    this.fetchBookmark();
-    this.fetchEmotion();
+    this.fetchUserData();
   }
 
-  async fetchBookmark() {
+  async fetchComment() {
     try {
       const {
-        data: { ok, bookmarks },
-      } = await APIS.bookmark.list();
+        data: { ok, userComments },
+      } = await APIS.comment.getUserComments();
       if (ok) {
-        this.bookmarks = new Set(bookmarks);
+        this.comments = userComments.reduce((accum, comment) => {
+          if (!accum[comment.articleId]) {
+            accum[comment.articleId] = [];
+          }
+          accum[comment.articleId].push(comment);
+          return accum; 
+        }, {} as Record<number, Comment[]>)
       }
     } catch (error) {
       console.error(error);
@@ -108,6 +120,19 @@ class UserStore implements UserStoreInterface {
         ...this.emotions,
         [articleId]: emotionType,
       }
+    }
+  }
+
+  async fetchBookmark() {
+    try {
+      const {
+        data: { ok, bookmarks },
+      } = await APIS.bookmark.list();
+      if (ok) {
+        this.bookmarks = new Set(bookmarks);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 

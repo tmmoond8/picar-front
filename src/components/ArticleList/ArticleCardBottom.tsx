@@ -27,6 +27,7 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
   commentCount,
   myEmotion,
   hasBookmark,
+  hasComment,
   handleClickBookmark,
   handleEmotionUpdate,
 }) => {
@@ -38,7 +39,11 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
         myEmotion={myEmotion}
         handleEmotionUpdate={handleEmotionUpdate}
       />
-      <CommentCounter articleId={articleId} commentCount={commentCount} />
+      <CommentCounter
+        articleId={articleId}
+        commentCount={commentCount}
+        hasComment={hasComment}
+      />
       <div className="right">
         <BookmarkButton
           marked={hasBookmark}
