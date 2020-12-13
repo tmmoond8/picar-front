@@ -12,6 +12,7 @@ import { colors } from '../../styles';
 
 interface ArticleCardBottomProps {
   articleId: number;
+  articleAuthorCode: string;
   emotionCount: number;
   commentCount: number;
   myEmotion?: EmotionType;
@@ -23,6 +24,7 @@ interface ArticleCardBottomProps {
 
 const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
   articleId,
+  articleAuthorCode,
   emotionCount,
   commentCount,
   myEmotion,
@@ -41,6 +43,7 @@ const ArticleCardHead: React.FC<ArticleCardBottomProps> = ({
       />
       <CommentCounter
         articleId={articleId}
+        articleAuthorCode={articleAuthorCode}
         commentCount={commentCount}
         hasComment={hasComment}
       />

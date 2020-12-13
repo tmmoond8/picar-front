@@ -37,7 +37,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   handleClickBookmark,
   handleEmotionUpdate,
 }) => {
-  const { thumbnail, name, group } = author as UserProfile;
+  const { thumbnail, name, group, code } = author as UserProfile;
   const history = useHistory();
 
   const handleClickArticle = React.useCallback(() => {
@@ -60,6 +60,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
       />
       <ArticleCardBottom
         articleId={id}
+        articleAuthorCode={code}
         emotionCount={emotionCount}
         commentCount={commentCount}
         handleClickBookmark={handleClickBookmark}

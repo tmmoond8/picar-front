@@ -12,9 +12,15 @@ import { useStore } from '../../stores';
 
 const CommentCounter: React.FC<{
   articleId: number;
+  articleAuthorCode: string;
   commentCount: number;
   hasComment: boolean;
-}> = ({ articleId, commentCount: _commentCount, hasComment }) => {
+}> = ({
+  articleId,
+  articleAuthorCode,
+  commentCount: _commentCount,
+  hasComment,
+}) => {
   const { user } = useStore();
   const [commentCount, setCommentCount] = React.useState(_commentCount);
   const bottomSheet = BottomSheet.useBottomSheet();
@@ -29,7 +35,7 @@ const CommentCounter: React.FC<{
             articleId={articleId}
             setCommentCount={setCommentCount}
             profilePhoto={user.profile.profileImage ?? ''}
-            articleAuthorCode="tmpUser"
+            articleAuthorCode={articleAuthorCode}
             userCode={user.profile.code}
             needLogin={user.needLogin}
             handleClose={bottomSheet.close}
@@ -37,7 +43,15 @@ const CommentCounter: React.FC<{
         ),
       });
     }
-  }, [articleId, bottomSheet, commentCount, user]);
+  }, [
+    articleAuthorCode,
+    articleId,
+    bottomSheet,
+    commentCount,
+    user.needLogin,
+    user.profile.code,
+    user.profile.profileImage,
+  ]);
   const color = React.useMemo(() => (hasComment ? colors.primary : undefined), [
     hasComment,
   ]);

@@ -18,6 +18,7 @@ const CommentViewer = () => {
             key={comment.id}
             id={comment.id}
             articleAuthorCode={articleAuthorCode}
+            commentAuthorCode={comment.author.code}
             name={comment.author.name}
             group={comment.author.group}
             createAt={comment.createAt}
@@ -32,6 +33,7 @@ const CommentViewer = () => {
                     key={reply.id}
                     id={reply.id}
                     articleAuthorCode={articleAuthorCode}
+                    commentAuthorCode={reply.author.code}
                     name={reply.author.name}
                     group={reply.author.group}
                     createAt={reply.createAt}

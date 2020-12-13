@@ -13,6 +13,7 @@ import { getDateGoodLook } from '../../modules/string';
 interface CommentProps {
   id: string;
   articleAuthorCode: string;
+  commentAuthorCode: string;
   thumbnail?: string;
   name: string;
   content: string;
@@ -25,6 +26,7 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = (props) => {
   const {
     articleAuthorCode,
+    commentAuthorCode,
     thumbnail,
     content,
     name,
@@ -45,6 +47,10 @@ const Comment: React.FC<CommentProps> = (props) => {
   const isReply = React.useMemo(() => children === undefined, [children]);
   const isArticleAuthor = React.useMemo(() => userCode === articleAuthorCode, [
     articleAuthorCode,
+    userCode,
+  ]);
+  const isCommentAuthor = React.useMemo(() => userCode === commentAuthorCode, [
+    commentAuthorCode,
     userCode,
   ]);
 
@@ -78,7 +84,7 @@ const Comment: React.FC<CommentProps> = (props) => {
               답글 달기
             </span>
           )}
-          {isArticleAuthor && (
+          {isCommentAuthor && (
             <span
               className={cx('delete-btn')}
               onClick={() => {
