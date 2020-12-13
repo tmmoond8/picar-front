@@ -11,6 +11,8 @@ import IArticle from '../../types/Article';
 import { colors } from '../../styles';
 import ArticleContext from './context';
 
+import { useFetch as useFetchEmotion } from '../Emotion/hooks';
+
 interface ArticleProps {
   article: IArticle;
   commentCount: number;
@@ -18,6 +20,7 @@ interface ArticleProps {
 
 export default function Article(props: ArticleProps): JSX.Element {
   const { article, commentCount } = props;
+  const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
 
   return (
     <ArticleContext.Provider
@@ -25,6 +28,7 @@ export default function Article(props: ArticleProps): JSX.Element {
         article,
         commentCount,
         viewCount: 1244,
+        emotionCounts,
       }}
     >
       {article && (

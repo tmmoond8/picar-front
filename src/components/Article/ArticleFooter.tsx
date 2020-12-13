@@ -13,7 +13,12 @@ import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
 
 const ArticleFooter = () => {
-  const { article, viewCount, commentCount } = useArticleContext();
+  const {
+    article,
+    viewCount,
+    commentCount,
+    emotionCounts,
+  } = useArticleContext();
   const { user } = useStore();
   const bottomSheet = BottomSheet.useBottomSheet();
 
@@ -58,8 +63,7 @@ const ArticleFooter = () => {
           <li>{`댓글 ${commentCount}`}</li>
           <li>{`공감 ${emotionCount}`}</li>
         </ul>
-        <Icon icon="emojiLove" size="18px" />
-        <span>{12}</span>
+        <Emotion.Band emotionCounts={emotionCounts} />
       </InteractionCounter>
       <Content.HR size={1} color="" />
       <InteractionPanel>
@@ -81,28 +85,27 @@ export default observer(ArticleFooter);
 
 const InteractionCounter = styled.div`
   display: flex;
-  padding: 4px 18px 15px 18px;
+  align-items: center;
+  position: relative;
+  height: 48px;
   ul {
     display: flex;
     flex: 1;
+    padding: 0 18px;
     color: ${colors.black99};
     font-size: 13px;
-  }
-  li + li {
-    position: relative;
-    margin-left: 12px;
-    &::before {
-      content: '·';
-      position: absolute;
-      left: -10px;
-      top: 0;
-      font-weight: 600;
+
+    li + li {
+      position: relative;
+      margin-left: 12px;
+      &::before {
+        content: '·';
+        position: absolute;
+        left: -10px;
+        top: 0;
+        font-weight: 600;
+      }
     }
-  }
-  span {
-    font-size: 15px;
-    color: ${colors.black66};
-    margin-left: 5px;
   }
 `;
 const InteractionPanel = styled.ul`

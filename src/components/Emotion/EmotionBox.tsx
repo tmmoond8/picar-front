@@ -6,7 +6,7 @@ import React from 'react';
 import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
 import { useCUD } from './hooks';
-import { EmotionType, UpdateStatus } from '../../types/Emotion';
+import { EmotionType } from '../../types/Emotion';
 import { useFetch } from './hooks';
 
 interface EmotionBoxProp {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Article from '../../types/Article';
+import { EmotionCount } from '../../types/Emotion';
 
 export { observer } from 'mobx-react';
 
@@ -8,10 +9,12 @@ const ArticleContext = React.createContext<{
   article: Article | null;
   viewCount: number;
   commentCount: number;
+  emotionCounts: EmotionCount[];
 }>({
   article: null,
   viewCount: 0,
   commentCount: 0,
+  emotionCounts: [],
 });
 
 ArticleContext.displayName = 'ArticleContext';
