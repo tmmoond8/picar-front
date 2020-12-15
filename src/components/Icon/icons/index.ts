@@ -30,6 +30,7 @@ export { ReactComponent as loungePet } from './lounge-pet.svg';
 export { ReactComponent as loungeRetail } from './lounge-retail.svg';
 export { ReactComponent as loungeShop } from './lounge-shop.svg';
 export { ReactComponent as loungeStartup } from './lounge-startup.svg';
+export { ReactComponent as leftTriangle } from './left-triangle.svg';
 export { ReactComponent as customerCenter } from './customer-center.svg';
 export { ReactComponent as share } from './share.svg';
 export { ReactComponent as send } from './send.svg';
