@@ -4,15 +4,24 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { colors } from '../../styles';
-import { EmotionCount, EmotionIcon } from '../../types/Emotion';
+import { EmotionCount } from '../../types/Emotion';
 import Icon, { IconKey } from '../Icon';
 
 const EmotionBand: React.FC<{ emotionCounts: EmotionCount[] }> = ({
   emotionCounts,
 }) => {
-  console.log(emotionCounts);
+  const [isFold, setIsFold] = React.useState(false);
+  const handleToggleFold = React.useCallback(() => {
+    setIsFold(!isFold);
+  }, [isFold]);
   return (
     <Band>
+      <CloseButton
+        icon="close"
+        size="16px"
+        color={colors.blackBF}
+        onClick={handleToggleFold}
+      />
       <Emotions>
         {emotionCounts.map((emotionCount) => (
           <Emotion key={emotionCount.type}>
@@ -38,6 +47,7 @@ const Emotions = styled.ol`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 `;
 
 const Emotion = styled.li`
@@ -51,4 +61,13 @@ const Emotion = styled.li`
     color: ${colors.black66};
     margin-left: 5px;
   }
+`;
+
+const CloseButton = styled(Icon)`
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%);
+  padding: 10px;
+  box-sizing: content-box;
 `;
