@@ -60,7 +60,7 @@ const Band = styled.div<{ isFold: boolean; rollingHeight: string }>`
     p.isFold &&
     css`
       width: 108px;
-      transition: width 0.1s ease-in-out;
+      transition: width 0.15s ease-in-out;
 
       .Emotions {
         flex-direction: column;
@@ -74,6 +74,7 @@ const Band = styled.div<{ isFold: boolean; rollingHeight: string }>`
         transform: translateY(${p.rollingHeight});
         li {
           margin-left: 0;
+          align-items: center;
         }
       }
     `}
@@ -88,6 +89,7 @@ const Emotions = styled.ol`
 
 const Emotion = styled.li`
   display: flex;
+  align-items: center;
 
   & + & {
     margin-left: 20px;
