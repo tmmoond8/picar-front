@@ -17,6 +17,11 @@ const EmotionBand: React.FC<{ emotionCounts: EmotionCount[] }> = ({
   const handleToggleFold = React.useCallback(() => {
     setIsFold(!isFold);
   }, [isFold]);
+  const toggleWrapper = React.useCallback(() => {
+    if (isFold) {
+      handleToggleFold();
+    }
+  }, [handleToggleFold, isFold]);
   React.useEffect(() => {
     let count = 0;
     const timer = setInterval(() => {
@@ -26,7 +31,7 @@ const EmotionBand: React.FC<{ emotionCounts: EmotionCount[] }> = ({
     return () => clearTimeout(timer);
   }, []);
   return (
-    <Band isFold={isFold} rollingHeight={rollingHeight}>
+    <Band isFold={isFold} rollingHeight={rollingHeight} onClick={toggleWrapper}>
       <FoldingButton
         icon={isFold ? 'leftTriangle' : 'close'}
         size="16px"
@@ -69,12 +74,16 @@ const Band = styled.div<{ isFold: boolean; rollingHeight: string }>`
         width: 78px;
         height: 160px;
         justify-content: space-between;
+        cursor: pointer;
 
         transition: all 0.5s ease-in-out;
         transform: translateY(${p.rollingHeight});
         li {
           margin-left: 0;
           align-items: center;
+        }
+        svg {
+          cursor: pointer;
         }
       }
     `}
