@@ -13,10 +13,21 @@ const EmotionBand: React.FC<{ emotionCounts: EmotionCount[] }> = ({
   emotionCounts,
 }) => {
   const [isFold, setIsFold] = React.useState(true);
+  const ref = React.useRef<HTMLDivElement>(null);
   const [rollingHeight, setRollingHeight] = React.useState(HEIGHT_MAP[0]);
   const handleToggleFold = React.useCallback(() => {
-    setIsFold(!isFold);
-  }, [isFold]);
+    const EmotionBandElement = ref.current!;
+    if (isFold) {
+      EmotionBandElement.style.width = '100%';
+      setIsFold(!isFold);
+    } else {
+      EmotionBandElement.style.width = '170px';
+      setTimeout(() => {
+        EmotionBandElement.style.width = '108px';
+        setIsFold(!isFold);
+      }, 200);
+    }
+  }, [isFold, ref]);
   const toggleWrapper = React.useCallback(() => {
     if (isFold) {
       handleToggleFold();
@@ -29,9 +40,14 @@ const EmotionBand: React.FC<{ emotionCounts: EmotionCount[] }> = ({
       setRollingHeight(HEIGHT_MAP[count % 4]);
     }, 3000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isFold]);
   return (
-    <Band isFold={isFold} rollingHeight={rollingHeight} onClick={toggleWrapper}>
+    <Band
+      ref={ref}
+      isFold={isFold}
+      rollingHeight={rollingHeight}
+      onClick={toggleWrapper}
+    >
       <FoldingButton
         icon={isFold ? 'leftTriangle' : 'close'}
         size="16px"
@@ -58,14 +74,13 @@ const Band = styled.div<{ isFold: boolean; rollingHeight: string }>`
   width: 100%;
   height: 100%;
   background-color: ${colors.white};
-  transition: width 0.5s ease-in-out;
+  transition: width 0.5s ease-out;
   overflow: hidden;
 
   ${(p) =>
     p.isFold &&
     css`
       width: 108px;
-      transition: width 0.15s ease-in-out;
 
       .Emotions {
         flex-direction: column;
@@ -76,7 +91,7 @@ const Band = styled.div<{ isFold: boolean; rollingHeight: string }>`
         justify-content: space-between;
         cursor: pointer;
 
-        transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-out;
         transform: translateY(${p.rollingHeight});
         li {
           margin-left: 0;
