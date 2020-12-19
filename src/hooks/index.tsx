@@ -25,17 +25,23 @@ export const useCheckLogin = (
   bottomSheet: BottomSheet,
 ) => {
   return React.useCallback(
-    (code: string) => {
+    (code: string, hasBottomSheet: boolean) => {
       if (code === 'guest') {
-        bottomSheet.open({
-          title: '',
-          contents: (
-            <LoginBox
-              onClose={bottomSheet.close}
-              onSetUserProfile={handleSetUserProfile}
-            />
-          ),
-        });
+        setTimeout(
+          () => {
+            bottomSheet.open({
+              title: '',
+              contents: (
+                <LoginBox
+                  onClose={bottomSheet.close}
+                  onSetUserProfile={handleSetUserProfile}
+                />
+              ),
+            });
+          },
+          hasBottomSheet ? 310 : 0,
+        );
+
         return true;
       }
       return false;

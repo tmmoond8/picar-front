@@ -10,7 +10,6 @@ import Icon from '../Icon';
 import EmotionBox from './EmotionBox';
 import { EmotionType } from '../../types/Emotion';
 import Button from '../Button';
-import { useStore, observer } from '../../stores';
 
 const EmotionCounter: React.FC<{
   articleId: number;
@@ -23,7 +22,6 @@ const EmotionCounter: React.FC<{
   myEmotion,
   handleEmotionUpdate,
 }) => {
-  const { user } = useStore();
   const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
   const bottomSheet = BottomSheet.useBottomSheet();
 
@@ -36,7 +34,6 @@ const EmotionCounter: React.FC<{
           myEmotion={myEmotion}
           handleClose={bottomSheet.close}
           setEmotionCount={setEmotionCount}
-          needLogin={user.needLogin}
           handleEmotionUpdate={handleEmotionUpdate}
         />
       ),
@@ -58,7 +55,7 @@ const EmotionCounter: React.FC<{
   );
 };
 
-export default observer(EmotionCounter);
+export default EmotionCounter;
 
 const EmotionCounterButton = styled(Button)`
   && {

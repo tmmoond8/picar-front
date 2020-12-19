@@ -24,7 +24,7 @@ export interface UserStoreInterface {
   setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
-  needLogin: () => boolean;
+  needLogin: (hasBottomSheet?: boolean) => boolean;
   setEmotion: (articleId: number, emotionType: EmotionType) => void;
 }
 

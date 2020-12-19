@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { colors } from '../../styles';
+import { useStore, observer } from '../../stores';
 import Icon, { IconKey } from '../Icon';
 import { useCUD } from './hooks';
 import { EmotionType } from '../../types/Emotion';
@@ -14,7 +15,6 @@ interface EmotionBoxProp {
   myEmotion?: EmotionType;
   handleClose: () => void;
   setEmotionCount: (count: number) => void;
-  needLogin: () => boolean;
   handleEmotionUpdate: (emotionType: EmotionType) => void;
 }
 
@@ -27,9 +27,9 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   myEmotion,
   handleClose,
   setEmotionCount,
-  needLogin,
   handleEmotionUpdate,
 }) => {
+  const { user } = useStore();
   const { emotionCounts } = useFetch(articleId);
   const callbackEmotion = (result: EmotionResponse) => {
     const { emotionCount } = result;
@@ -42,14 +42,14 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   const handleCUD = useCUD(articleId, callbackEmotion);
   const handleClickEmotion = React.useCallback(
     (emotionType: EmotionType) => {
-      if (needLogin()) {
+      if (user.needLogin(true)) {
         handleClose();
         return;
       }
       handleEmotionUpdate(emotionType);
       handleCUD(emotionType);
     },
-    [needLogin, handleEmotionUpdate, handleCUD, handleClose],
+    [user, handleEmotionUpdate, handleCUD, handleClose],
   );
   return (
     <StyledEmotionBox>
@@ -67,7 +67,7 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   );
 };
 
-export default EmotionBox;
+export default observer(EmotionBox);
 
 const StyledEmotionBox = styled.ol`
   display: flex;
