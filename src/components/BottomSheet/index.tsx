@@ -3,6 +3,9 @@ import BottomSheetContext from './context';
 import { useBottomSheet } from './hooks';
 import BottomSheetViewer, { BottomSheetData } from './BottomSheetViewer';
 import global from '../../types/global';
+import { Profile as UserProfile } from '../../types/User';
+import { useStore } from '../../stores';
+import { useCheckLogin } from '../../hooks';
 
 export { default as BottomSheetViewer } from './BottomSheetViewer';
 
@@ -16,6 +19,14 @@ export const BoottomSheetProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [bottomSheets, setBottomSheets] = useState<BottomSheetData[]>([]);
+  const { user } = useStore();
+  const bottomSheet = useBottomSheet();
+  const needLogin = useCheckLogin(
+    (profile: UserProfile) => user.setProfile(profile),
+    bottomSheet,
+  );
+  user.needLogin = (hasBottomSheet?: boolean) =>
+    needLogin(user.profile.code, hasBottomSheet || false);
 
   React.useEffect(() => {
     global.__OWNER__.openBottomSheet = (bottomSheet: BottomSheetData) => {
