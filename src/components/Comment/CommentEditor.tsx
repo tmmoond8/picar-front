@@ -3,12 +3,14 @@ import { jsx, css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { useStore } from '../../stores';
 import Profile from '../Profile';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
 
 const CommentEditor = () => {
+  const { user } = useStore();
   const [content, setContent] = React.useState('');
   const textEditableRef = React.useRef<HTMLDivElement>(null);
   const handleChangeContent = React.useCallback(() => {
@@ -22,7 +24,6 @@ const CommentEditor = () => {
     about,
     profilePhoto,
     setEditorRef,
-    needLogin,
     handleClose,
   } = useCommentContext();
 
@@ -31,7 +32,7 @@ const CommentEditor = () => {
   }, [setEditorRef, textEditableRef]);
 
   const handleClickSend = React.useCallback(() => {
-    if (needLogin()) {
+    if (user.needLogin()) {
       typeof handleClose === 'function' && handleClose();
       return;
     }
@@ -50,7 +51,7 @@ const CommentEditor = () => {
       },
       about ?? undefined,
     );
-  }, [about, clearAbout, content, handleClose, handleWriteComment, needLogin]);
+  }, [about, clearAbout, content, handleClose, handleWriteComment, user]);
 
   const placeholder = React.useMemo(() => {
     if (content.length > 0) return undefined;

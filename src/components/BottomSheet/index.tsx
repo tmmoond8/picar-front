@@ -25,8 +25,7 @@ export const BoottomSheetProvider: React.FC<{
     (profile: UserProfile) => user.setProfile(profile),
     bottomSheet,
   );
-  user.needLogin = (hasBottomSheet?: boolean) =>
-    needLogin(user.profile.code, hasBottomSheet || false);
+  user.needLogin = () => needLogin(user.profile.code);
 
   React.useEffect(() => {
     global.__OWNER__.openBottomSheet = (bottomSheet: BottomSheetData) => {

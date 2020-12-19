@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 
-import { observer } from '../../stores';
+import { useStore, observer } from '../../stores';
 import CommentContext from './context';
 import CommentViewer from './CommentViewer';
 import { useFetch, useWriteComment, useAbout, useRemoveComment } from './hooks';
@@ -13,7 +13,6 @@ const CommentArea: React.FC<{
   userCode: string;
   articleAuthorCode: string;
   profilePhoto: string;
-  needLogin: () => boolean;
   handleClose?: () => void;
 }> = ({
   articleId,
@@ -21,7 +20,6 @@ const CommentArea: React.FC<{
   profilePhoto,
   userCode,
   articleAuthorCode,
-  needLogin,
   handleClose,
 }) => {
   const [comments, setComments] = useFetch(articleId);
@@ -61,7 +59,6 @@ const CommentArea: React.FC<{
         about,
         editorRef,
         setEditorRef,
-        needLogin,
         handleClose,
       }}
     >

@@ -37,7 +37,6 @@ const CommentCounter: React.FC<{
             profilePhoto={user.profile.profileImage ?? ''}
             articleAuthorCode={articleAuthorCode}
             userCode={user.profile.code}
-            needLogin={user.needLogin}
             handleClose={bottomSheet.close}
           />
         ),
@@ -48,7 +47,6 @@ const CommentCounter: React.FC<{
     articleId,
     bottomSheet,
     commentCount,
-    user.needLogin,
     user.profile.code,
     user.profile.profileImage,
   ]);

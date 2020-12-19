@@ -42,7 +42,7 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
   const handleCUD = useCUD(articleId, callbackEmotion);
   const handleClickEmotion = React.useCallback(
     (emotionType: EmotionType) => {
-      if (user.needLogin(true)) {
+      if (user.needLogin()) {
         handleClose();
         return;
       }
