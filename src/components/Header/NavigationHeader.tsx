@@ -14,10 +14,7 @@ import { NAVIGATIONS, LOUNGE } from '../../types/constants';
 import LoungeGrid from '../LoungeGrid';
 
 const NavigationHeader = (): JSX.Element => {
-  const {
-    article,
-    ui: { header },
-  } = useStore();
+  const { article } = useStore();
 
   const bottomSheet = BottomSheet.useBottomSheet();
   const handleOpenBottomSheet = React.useCallback(() => {
@@ -25,10 +22,13 @@ const NavigationHeader = (): JSX.Element => {
       title: '업종 라운지를 선택해 주세요',
       contents: (
         <LoungeGrid
+          selectedLounge={article.selectedLounge}
           onClick={(group: string) => {
             article.selectedLounge = group;
             article.selectedGroup = LOUNGE;
-            bottomSheet.close();
+            setTimeout(() => {
+              bottomSheet.close();
+            }, 300);
           }}
         />
       ),

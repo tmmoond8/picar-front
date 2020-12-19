@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import Icon from '../Icon';
 import { colors, desktop } from '../../styles';
@@ -12,17 +13,21 @@ interface LoungeGridProps {
 }
 
 export default function LoungeGrid(props: LoungeGridProps): JSX.Element {
-  const { onClick, selectedLounge = '' } = props;
+  const { onClick, selectedLounge: _selectedLounge = '' } = props;
+  const [selectedLounge, setselectedLounge] = React.useState(_selectedLounge);
   return (
     <Grid>
       <ul>
         {LOUNGES.map(({ name, icon }) => (
           <Lounge
-            onClick={() => onClick(name)}
+            onClick={() => {
+              setselectedLounge(name);
+              onClick(name);
+            }}
             key={name}
             selected={selectedLounge === name}
           >
-            <Icon icon={icon} size="40%" />
+            <Icon icon={icon} size="36px" />
             <span>{name}</span>
           </Lounge>
         ))}
@@ -32,16 +37,22 @@ export default function LoungeGrid(props: LoungeGridProps): JSX.Element {
 }
 
 const Grid = styled.div`
+  max-width: 375px;
+  max-height: 352px;
+  margin: 0 auto;
+  padding: 20px;
   ul {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 11px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 8px;
   }
 `;
 
 const Lounge = styled.li<{ selected: boolean }>`
-  position: relative;
-  height: calc((100vw - 36px - 2 * 10px) / 3);
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 10px 12px;
   border-radius: 8px;
   background-color: ${colors.blackF5F6F7};
   outline: none;
@@ -53,27 +64,24 @@ const Lounge = styled.li<{ selected: boolean }>`
   )}
 
   svg {
-    position: absolute;
     width: 40%;
     height: auto;
-    left: 50%;
-    top: 34%;
-    transform: translate(-50%, -50%);
   }
 
   span {
-    position: absolute;
-    left: 0;
-    bottom: 20%;
     width: 100%;
-    font-size: 13px;
-    text-align: center;
+    margin-left: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: ${colors.black22};
   }
 
   ${(p) =>
     p.selected &&
     css`
-      background-color: ${colors.white};
-      border: 1px solid ${colors.black33};
+      background-color: ${colors.primaryE};
+      span {
+        color: ${colors.primary};
+      }
     `}
 `;
