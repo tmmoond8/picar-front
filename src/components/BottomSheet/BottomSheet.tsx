@@ -16,6 +16,7 @@ import cx from 'classnames';
 import BottomSheetHeader from '../Header/BottomSheetHeader';
 import CloseHeader from '../Header/CloseHeader';
 import { colors, desktop } from '../../styles';
+import { useStore, observer } from '../../stores';
 
 export const HEADER_TYPE = {
   default: 'default',
@@ -27,6 +28,7 @@ export type HeaderType = keyof typeof HEADER_TYPE;
 
 export interface BottomSheetProps {
   className?: string;
+  id: string;
   title?: string;
   headerType?: HeaderType;
   contents: ReactNode;
@@ -38,12 +40,15 @@ const BottomSheet = forwardRef(
   (props: BottomSheetProps, ref): JSX.Element => {
     const {
       className,
+      id,
       title = '',
       contents,
       handleClose,
       headerType = HEADER_TYPE.default,
       isFull = false,
     } = props;
+    const stores = useStore();
+    console.log(stores);
     const [open, setOpen] = useState<boolean>(false);
     const handleClickWrapper = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
@@ -78,6 +83,7 @@ const BottomSheet = forwardRef(
         open={open}
       >
         <BottomSheetBox
+          id={id}
           open={open}
           ref={ref as RefObject<HTMLDivElement>}
           isFull={isFull}
@@ -90,7 +96,7 @@ const BottomSheet = forwardRef(
   },
 );
 
-export default BottomSheet;
+export default observer(BottomSheet);
 
 const Wrapper = styled.div<{ open: boolean }>`
   position: fixed;

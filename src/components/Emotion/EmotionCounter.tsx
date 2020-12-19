@@ -34,7 +34,7 @@ const EmotionCounter: React.FC<{
         <EmotionBox
           articleId={articleId}
           myEmotion={myEmotion}
-          handleClose={() => bottomSheet.close()}
+          handleClose={bottomSheet.close}
           setEmotionCount={setEmotionCount}
           needLogin={user.needLogin}
           handleEmotionUpdate={handleEmotionUpdate}
