@@ -26,7 +26,7 @@ export const HEADER_TYPE = {
 
 export type HeaderType = keyof typeof HEADER_TYPE;
 
-export interface BottomSheetProps {
+interface BottomSheetViewerProps {
   className?: string;
   id: string;
   title?: string;
@@ -36,8 +36,10 @@ export interface BottomSheetProps {
   isFull?: boolean;
 }
 
-const BottomSheet = forwardRef(
-  (props: BottomSheetProps, ref): JSX.Element => {
+export type BottomSheetData = BottomSheetViewerProps;
+
+const BottomSheetViewer = forwardRef(
+  (props: BottomSheetViewerProps, ref): JSX.Element => {
     const {
       className,
       id,
@@ -47,8 +49,6 @@ const BottomSheet = forwardRef(
       headerType = HEADER_TYPE.default,
       isFull = false,
     } = props;
-    const stores = useStore();
-    console.log(stores);
     const [open, setOpen] = useState<boolean>(false);
     const handleClickWrapper = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
@@ -96,7 +96,7 @@ const BottomSheet = forwardRef(
   },
 );
 
-export default observer(BottomSheet);
+export default observer(BottomSheetViewer);
 
 const Wrapper = styled.div<{ open: boolean }>`
   position: fixed;

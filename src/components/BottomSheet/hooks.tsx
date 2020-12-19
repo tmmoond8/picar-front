@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
-import { BottomSheetProps } from './BottomSheet';
+import { BottomSheetData } from './BottomSheetViewer';
 import global from '../../types/global';
 
 export const useBottomSheet = () => {
@@ -16,7 +14,7 @@ export const useBottomSheet = () => {
     }, 300);
   };
 
-  const open = (bottomSheet: Omit<BottomSheetProps, 'id' | 'handleClose'>) => {
+  const open = (bottomSheet: Omit<BottomSheetData, 'id' | 'handleClose'>) => {
     global.__OWNER__.openBottomSheet({
       ...bottomSheet,
       id,

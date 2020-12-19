@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { MobxProvider } from './stores';
 import * as serviceWorker from './serviceWorker';
+import { BoottomSheetProvider } from './components/BottomSheet';
 
 ReactDOM.render(
   <React.StrictMode>
     <MobxProvider>
-      <App />
+      <BoottomSheetProvider>
+        <App />
+      </BoottomSheetProvider>
     </MobxProvider>
   </React.StrictMode>,
   document.getElementById('root'),

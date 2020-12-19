@@ -1,17 +1,9 @@
 import { action, observable } from 'mobx';
-import { BottomSheetData } from '../components/BottomSheet';
 import { initalHeader, HeaderProps, headerType } from '../components/Header';
-
-type BottomSheetQueueItem = BottomSheetData & {
-  id: string;
-}
 
 export interface UiStoreInterface {
   header: HeaderProps;
   keyboardMargin: number;
-  bottomSheetQueue: BottomSheetQueueItem[];
-  removeBottomSheet: (id: string) => void;
-  addBottomSheet: (bottomSheet: BottomSheetQueueItem) => void;
   setHeaderNavigation: () => void;
   setHeaderNone: () => void;
   setHeaderBack: (options: Record<string, any>) => void;
@@ -22,12 +14,10 @@ export interface UiStoreInterface {
 class UiStore implements UiStoreInterface {
   @observable header: HeaderProps;
   @observable keyboardMargin: number;
-  @observable bottomSheetQueue: BottomSheetQueueItem[];
 
   constructor() {
     this.header = initalHeader;
     this.keyboardMargin = 0;
-    this.bottomSheetQueue = [];
   }
 
   @action
@@ -71,17 +61,6 @@ class UiStore implements UiStoreInterface {
   setKeyboardMargin(height: number) {
     this.keyboardMargin = height;
   }
-
-  @action
-  addBottomSheet(bototmSheet: BottomSheetQueueItem) {
-    this.bottomSheetQueue = [ ...this.bottomSheetQueue, bototmSheet ]
-  }
-
-  @action
-  removeBottomSheet(id: string) {
-    this.bottomSheetQueue = this.bottomSheetQueue.filter(qItem => qItem.id !== id)
-  }
-  
 }
 
 export default UiStore;

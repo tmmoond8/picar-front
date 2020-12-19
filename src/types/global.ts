@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { BottomSheetData } from '../components/BottomSheet';
+import { BottomSheetData } from '../components/BottomSheet/BottomSheetViewer';
 
 type OwnerGlobal = typeof globalThis & {
   __OWNER__: {

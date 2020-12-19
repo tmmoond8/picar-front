@@ -7,12 +7,8 @@ import * as Pages from './pages';
 import Header from './components/Header';
 import { Profile as UserProfile } from './types/User';
 import { useStore, observer } from './stores';
-import BottomSheet, {
-  BottomSheetViewer,
-  BottomSheetData,
-} from './components/BottomSheet';
+import BottomSheet from './components/BottomSheet';
 import { useCheckLogin } from './hooks';
-import global from './types/global';
 
 function App() {
   const { ui, user } = useStore();
@@ -23,19 +19,11 @@ function App() {
     bottomSheet,
   );
   user.needLogin = () => needLogin(user.profile.code);
-  global.__OWNER__.openBottomSheet = (bottomSheet: BottomSheetData) => {
-    ui.addBottomSheet(bottomSheet);
-  };
-  global.__OWNER__.closeBottomSheet = (id: string) => {
-    ui.removeBottomSheet(id);
-  };
 
   return (
     <React.Fragment>
       <GlobalStyles />
-      {ui.bottomSheetQueue.map((bottomSheet) => (
-        <BottomSheetViewer key={bottomSheet.id} {...bottomSheet} />
-      ))}
+
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
