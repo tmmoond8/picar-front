@@ -1,4 +1,5 @@
 export { ReactComponent as article } from './article.svg';
+export { ReactComponent as arrowRight } from './arrow-right.svg';
 export { ReactComponent as bookmark } from './bookmark.svg';
 export { ReactComponent as bookmarkOutline } from './bookmark-outline.svg';
 export { ReactComponent as dropdown } from './dropdown.svg';

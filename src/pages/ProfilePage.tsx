@@ -48,7 +48,20 @@ export default observer(function ProfilePage(): JSX.Element {
         ))}
       </UserHistoryMenus>
       <HR height={1} color={colors.blackF5F6F7} />
-
+      <AppMenus>
+        <li>
+          공지사항
+          <Icon icon="arrowRight" size="16px" />
+        </li>
+        <li>
+          자주 묻는 질문
+          <Icon icon="arrowRight" size="16px" />
+        </li>
+        <li>
+          앱 설정
+          <Icon icon="arrowRight" size="16px" />
+        </li>
+      </AppMenus>
       <MenuBar />
     </Page>
   );
@@ -106,5 +119,20 @@ const UserHistoryMenu = styled.li`
   span {
     margin-top: 4px;
     font-size: 14px;
+  }
+`;
+
+const AppMenus = styled.ul`
+  margin: 28px 0 0 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 0;
+    cursor: pointer;
+    .icon {
+      cursor: pointer;
+    }
   }
 `;
