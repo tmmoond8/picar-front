@@ -66,8 +66,14 @@ const BottomSheetViewer = forwardRef(
       if (headerType === HEADER_TYPE.none) {
         return <React.Fragment />;
       }
-      return <BottomSheetHeader title={title} handleClose={handleClose} />;
-    }, [handleClose, headerType, title]);
+      return (
+        <BottomSheetHeader
+          title={title}
+          handleClose={handleClose}
+          noRadius={isFull}
+        />
+      );
+    }, [handleClose, headerType, isFull, title]);
 
     useEffect(() => {
       if (!open) {

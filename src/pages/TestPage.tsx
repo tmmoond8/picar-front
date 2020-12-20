@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import LoungeGrid from '../components/LoungeGrid';
+import Profile from '../components/Profile';
 
 export default (function TestPage(): JSX.Element {
-  return <LoungeGrid onClick={() => {}} />;
+  return <Profile.Form />;
 });

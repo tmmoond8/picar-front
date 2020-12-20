@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import Icon, { IconKey } from '../components/Icon';
 import HR from '../components/HR';
@@ -9,6 +10,7 @@ import { useStore, observer } from '../stores';
 import Profile from '../components/Profile';
 import Button from '../components/Button';
 import { colors } from '../styles';
+import BottomSheet from '../components/BottomSheet';
 
 const menus = [
   { menu: '게시글', path: '/', icon: 'article' },
@@ -21,9 +23,16 @@ export default observer(function ProfilePage(): JSX.Element {
     user: { profile },
     ui,
   } = useStore();
+  const bottomSheet = BottomSheet.useBottomSheet();
   ui.setHeaderNone();
   const { profileImage, name, group, description } = profile;
-  console.log(profile);
+  const handleModifyProfile = React.useCallback(() => {
+    bottomSheet.open({
+      title: '프로필 수정',
+      contents: <Profile.Form />,
+      isFull: true,
+    });
+  }, [bottomSheet]);
 
   return (
     <Page>
@@ -37,7 +46,9 @@ export default observer(function ProfilePage(): JSX.Element {
         profileImage={profileImage}
         description={description}
       />
-      <ProfileModifyButton onClick={() => {}}>프로필 수정</ProfileModifyButton>
+      <ProfileModifyButton onClick={handleModifyProfile}>
+        프로필 수정
+      </ProfileModifyButton>
       <HR height={1} color={colors.blackF5F6F7} marginTop={26} />
       <UserHistoryMenus>
         {menus.map(({ menu, icon }) => (

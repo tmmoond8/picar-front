@@ -4,6 +4,7 @@ export { ReactComponent as bookmark } from './bookmark.svg';
 export { ReactComponent as bookmarkOutline } from './bookmark-outline.svg';
 export { ReactComponent as dropdown } from './dropdown.svg';
 export { ReactComponent as like } from './like.svg';
+export { ReactComponent as camera } from './camera.svg';
 export { ReactComponent as chat } from './chat.svg';
 export { ReactComponent as emojiAngry } from './emoji-angry.svg';
 export { ReactComponent as emojiLove } from './emoji-love.svg';
