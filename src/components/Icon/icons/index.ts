@@ -1,3 +1,4 @@
+export { ReactComponent as article } from './article.svg';
 export { ReactComponent as bookmark } from './bookmark.svg';
 export { ReactComponent as bookmarkOutline } from './bookmark-outline.svg';
 export { ReactComponent as dropdown } from './dropdown.svg';
@@ -34,3 +35,4 @@ export { ReactComponent as leftTriangle } from './left-triangle.svg';
 export { ReactComponent as customerCenter } from './customer-center.svg';
 export { ReactComponent as share } from './share.svg';
 export { ReactComponent as send } from './send.svg';
+export { ReactComponent as more } from './more.svg';

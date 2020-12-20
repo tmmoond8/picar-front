@@ -1,65 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
 
 import Icon, { IconKey } from '../components/Icon';
-import Profile from '../components/Profile';
 import HR from '../components/HR';
 import MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
+import Profile from '../components/Profile';
+import Button from '../components/Button';
 import { colors } from '../styles';
 
-const Page = styled.div``;
-
-const UserProfile = styled.div`
-  height: 209px;
-  text-align: center;
-  .profilePhoto {
-    display: inline-block;
-    margin-top: 48px;
-  }
-  .name {
-    margin-top: 12px;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  .group {
-    margin-top: 2px;
-    font-size: 14px;
-  }
-`;
-
-const Menus = styled.ul`
-  display: grid;
-  height: 214px;
-  width: 232px;
-  grid-template-rows: 57px 57px;
-  grid-template-columns: repeat(3, minmax(max-content, 60px));
-  justify-content: space-between;
-  row-gap: 31px;
-  margin: 0 auto;
-  padding: 37px 0;
-`;
-
-const Menu = styled.li`
-  text-align: center;
-  svg {
-    margin: 0 auto;
-  }
-  span {
-    margin-top: 4px;
-    font-size: 14px;
-  }
-`;
-
 const menus = [
-  { menu: '게시글', path: '/', icon: 'customerCenter' },
-  { menu: '댓글', path: '/', icon: 'customerCenter' },
-  { menu: '북마크', path: '/', icon: 'customerCenter' },
-  { menu: '공지', path: '/', icon: 'customerCenter' },
-  { menu: '고객센터', path: '/', icon: 'customerCenter' },
-  { menu: '설정', path: '/', icon: 'customerCenter' },
+  { menu: '게시글', path: '/', icon: 'article' },
+  { menu: '댓글', path: '/', icon: 'chatOutline' },
+  { menu: '북마크', path: '/', icon: 'bookmarkOutline' },
 ];
 
 export default observer(function ProfilePage(): JSX.Element {
@@ -68,25 +22,89 @@ export default observer(function ProfilePage(): JSX.Element {
     ui,
   } = useStore();
   ui.setHeaderNone();
-  const { profileImage, name, group } = profile;
+  const { profileImage, name, group, description } = profile;
+  console.log(profile);
 
   return (
     <Page>
-      <UserProfile>
-        <Profile.Photo className="profilePhoto" src={profileImage} size={96} />
-        <h2 className="name">{name}</h2>
-        <h4 className="group">{group}</h4>
-      </UserProfile>
-      <Menus>
+      <Header>
+        <h2>dosannan.222</h2>
+        <Icon icon="more" size="24px" color={colors.black22} />
+      </Header>
+      <Profile.Profile
+        name={name}
+        group={group}
+        profileImage={profileImage}
+        description={description}
+      />
+      <ProfileModifyButton onClick={() => {}}>프로필 수정</ProfileModifyButton>
+      <HR height={1} color={colors.blackF5F6F7} marginTop={26} />
+      <UserHistoryMenus>
         {menus.map(({ menu, icon }) => (
-          <Menu>
-            <Icon icon={icon as IconKey} size="32px" />
+          <UserHistoryMenu>
+            <Icon icon={icon as IconKey} size="36px" />
             <span>{menu}</span>
-          </Menu>
+          </UserHistoryMenu>
         ))}
-      </Menus>
-      <HR height={6} color={colors.blackF5F6F7} />
+      </UserHistoryMenus>
+      <HR height={1} color={colors.blackF5F6F7} />
+
       <MenuBar />
     </Page>
   );
 });
+
+const Page = styled.div`
+  padding: 20px 18px;
+`;
+
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: ${colors.black22};
+  }
+
+  svg {
+    justify-self: flex-end;
+  }
+`;
+
+const ProfileModifyButton = styled(Button)`
+  width: 100%;
+  height: 48px;
+  margin: 26px 0 0 0;
+  background-color: ${colors.blackF5F6F7};
+  border-radius: 8px;
+  border: none;
+  span {
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 24px;
+    color: ${colors.black22};
+    font-weight: 600;
+  }
+`;
+
+const UserHistoryMenus = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 96px;
+`;
+
+const UserHistoryMenu = styled.li`
+  text-align: center;
+
+  svg {
+    color: ${colors.black66};
+    margin: 0 auto;
+  }
+  span {
+    margin-top: 4px;
+    font-size: 14px;
+  }
+`;
