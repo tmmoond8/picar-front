@@ -1,11 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import { OwnerTypes } from '../SignUp/constants';
 
-export type TextFieldHandler = [string, (e: ChangeEvent<HTMLInputElement>) => void, () => void];
+export type TextFieldHandler = [string, (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, () => void];
 
-export const useTextField = (initialValue: string): TextFieldHandler => {
+export const useTextField = (initialValue: string, skipCondition?: ((value: string) => boolean)): TextFieldHandler => {
   const [value, setValue ] = React.useState(initialValue);
-  const handler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value ?? '');
+  const handler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (skipCondition && skipCondition(e.target.value)) {
+      return;
+    }
+    setValue(e.target.value ?? '');
+  };
   const clear = () => setValue('');
   return [
     value,
