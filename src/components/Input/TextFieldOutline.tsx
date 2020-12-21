@@ -121,7 +121,7 @@ const Field = styled.textarea<{ error: boolean; focus: boolean }>`
   margin-top: 12px;
   padding: 13px 18px;
   color: ${colors.black22};
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
   border: 1px solid ${colors.blackEB};
   border-radius: 8px;
