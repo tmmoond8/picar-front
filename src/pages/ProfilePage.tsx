@@ -19,17 +19,15 @@ const menus = [
 ];
 
 export default observer(function ProfilePage(): JSX.Element {
-  const {
-    user: { profile },
-    ui,
-  } = useStore();
+  const { user, ui } = useStore();
+  console.log(user);
   const bottomSheet = BottomSheet.useBottomSheet();
   ui.setHeaderNone();
-  const { profileImage, name, group, description } = profile;
+  const { profileImage, name, group, description } = user.profile;
   const handleModifyProfile = React.useCallback(() => {
     bottomSheet.open({
       title: '프로필 수정',
-      contents: <Profile.Form />,
+      contents: <Profile.Form handleClose={bottomSheet.close} />,
       isFull: true,
     });
   }, [bottomSheet]);
@@ -52,7 +50,7 @@ export default observer(function ProfilePage(): JSX.Element {
       <HR height={1} color={colors.blackF5F6F7} marginTop={26} />
       <UserHistoryMenus>
         {menus.map(({ menu, icon }) => (
-          <UserHistoryMenu>
+          <UserHistoryMenu key={menu}>
             <Icon icon={icon as IconKey} size="36px" />
             <span>{menu}</span>
           </UserHistoryMenu>

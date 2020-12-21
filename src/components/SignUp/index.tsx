@@ -16,7 +16,7 @@ import Input from '../Input';
 import { SignUpUser, Profile } from '../../types/User';
 import { CAROUSEL } from '../../types/constants';
 import global from '../../types/global';
-import { useStore, observer } from '../../stores';
+import { observer } from '../../stores';
 
 import API from '../../apis';
 
@@ -33,7 +33,6 @@ const SignUpCarousel = styled(Carousel)`
 
 export default observer(function SignUp(props: SignUpProps): JSX.Element {
   const { name, email, onClose, onSetUserProfile } = props;
-  const { user } = useStore();
   const handleChangeStep = React.useCallback((step: number) => {}, []);
   const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');

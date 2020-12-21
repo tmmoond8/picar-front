@@ -4,6 +4,7 @@ import * as auth from './auth';
 import * as comment from './comment';
 import * as emotion from './emotion';
 import * as bookmark from './bookmark';
+import * as user from './user';
 
 export default {
   article,
@@ -12,4 +13,5 @@ export default {
   comment,
   emotion,
   bookmark,
+  user,
 };

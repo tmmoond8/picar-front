@@ -19,7 +19,7 @@ export default function BottomSheetHeader(props: BottomSheetHeaderProps) {
     <Head className={cx('BottomSheetHeader', className)} noRadius={noRadius}>
       <Title>{title}</Title>
       <CloseButton onClick={handleClose}>
-        <Icon icon="close" size="20px" color={colors.black33} />
+        <Icon icon="close" size="24px" color={colors.black33} />
       </CloseButton>
     </Head>
   );

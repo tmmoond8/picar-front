@@ -6,22 +6,51 @@ import { useStore, observer } from '../../stores';
 import Photo from './Photo';
 import Input from '../Input';
 import Icon from '../Icon';
+import APIS from '../../apis';
+import { colors } from '../../styles';
 
-const ModificationForm = ({}) => {
-  const {
-    user: { profile },
-  } = useStore();
+const ModificationForm: React.FC<{ handleClose: () => void }> = ({
+  handleClose,
+}) => {
+  const { user } = useStore();
   const handleUploadImage = React.useCallback(() => {}, []);
   const nicknameSkip = (value: string) => value.length > 10;
-  const [name, onChangeName] = Input.useTextField(profile.name, nicknameSkip);
-  const [lounge, onChangeLounge] = Input.useTextField(profile.group || '');
+  const [name, onChangeName] = Input.useTextField(
+    user.profile.name,
+    nicknameSkip,
+  );
+  const [group, onChangeGroup] = Input.useTextField(user.profile.group || '');
+  const [profileImage, setProfileImage] = Input.useTextField(
+    user.profile.profileImage || '',
+  );
   const descriptionSkip = (value: string) => value.length > 80;
   const [description, onChangeDescription] = Input.useTextField(
-    profile.description ||
+    user.profile.description ||
       `삼산텍을 창업하고 소프트웨어 엔지니어로
     일하고 있습니다. AI기술로 세상을 바꾸고 싶습니다`,
     descriptionSkip,
   );
+
+  const handleSubmit = React.useCallback(async () => {
+    try {
+      await APIS.user.update({
+        name,
+        group,
+        profileImage,
+        description,
+      });
+      user.profile = {
+        ...user.profile,
+        name,
+        group,
+        profileImage,
+        description,
+      };
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [description, group, handleClose, name, profileImage, user.profile]);
 
   return (
     <Form>
@@ -38,9 +67,9 @@ const ModificationForm = ({}) => {
         maxLength={10}
       />
       <InputBox
-        id="profile-lounge"
-        onChange={onChangeLounge}
-        value={lounge}
+        id="profile-group"
+        onChange={onChangeGroup}
+        value={group}
         label="업종"
       />
       <InputBox
@@ -50,6 +79,12 @@ const ModificationForm = ({}) => {
         label="소개"
         rows={3}
         maxLength={80}
+      />
+      <SubmitButton
+        icon="vCheck"
+        size="24px"
+        color={colors.black22}
+        onClick={handleSubmit}
       />
     </Form>
   );
@@ -83,4 +118,10 @@ const InputBox = styled(Input.TextFieldOutline)`
   & + & {
     margin: 0;
   }
+`;
+
+const SubmitButton = styled(Icon)`
+  position: absolute;
+  top: 18px;
+  right: 22px;
 `;

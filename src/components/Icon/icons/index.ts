@@ -22,6 +22,7 @@ export { ReactComponent as package } from './package.svg';
 export { ReactComponent as search } from './search.svg';
 export { ReactComponent as user } from './user.svg';
 export { ReactComponent as close } from './close.svg';
+export { ReactComponent as vCheck } from './v-check.svg';
 export { ReactComponent as loading } from './loading.svg';
 export { ReactComponent as inputClear } from './input-clear.svg';
 export { ReactComponent as loungeAlchol } from './lounge-alchol.svg';
