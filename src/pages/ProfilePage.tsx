@@ -20,7 +20,7 @@ const menus = [
 
 export default observer(function ProfilePage(): JSX.Element {
   const { user, ui } = useStore();
-  console.log(user);
+
   const bottomSheet = BottomSheet.useBottomSheet();
   ui.setHeaderNone();
   const { profileImage, name, group, description } = user.profile;

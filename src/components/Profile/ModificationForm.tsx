@@ -6,6 +6,7 @@ import { useStore, observer } from '../../stores';
 import Photo from './Photo';
 import Input from '../Input';
 import Icon from '../Icon';
+import PhotoUploader from '../PhotoUploader';
 import APIS from '../../apis';
 import { colors } from '../../styles';
 
@@ -13,16 +14,18 @@ const ModificationForm: React.FC<{ handleClose: () => void }> = ({
   handleClose,
 }) => {
   const { user } = useStore();
-  const handleUploadImage = React.useCallback(() => {}, []);
+  const {
+    uploadedUrl,
+    preUploadUrl,
+    setUploadedUrl,
+    setPreUploadUrl,
+  } = PhotoUploader.usePhotoUPloader(user.profile.profileImage);
   const nicknameSkip = (value: string) => value.length > 10;
   const [name, onChangeName] = Input.useTextField(
     user.profile.name,
     nicknameSkip,
   );
   const [group, onChangeGroup] = Input.useTextField(user.profile.group || '');
-  const [profileImage, setProfileImage] = Input.useTextField(
-    user.profile.profileImage || '',
-  );
   const descriptionSkip = (value: string) => value.length > 80;
   const [description, onChangeDescription] = Input.useTextField(
     user.profile.description ||
@@ -36,28 +39,33 @@ const ModificationForm: React.FC<{ handleClose: () => void }> = ({
       await APIS.user.update({
         name,
         group,
-        profileImage,
+        profileImage: uploadedUrl,
         description,
       });
       user.profile = {
         ...user.profile,
         name,
         group,
-        profileImage,
+        profileImage: uploadedUrl,
         description,
       };
       handleClose();
     } catch (error) {
       console.log(error);
     }
-  }, [description, group, handleClose, name, profileImage, user.profile]);
+  }, [description, group, handleClose, name, uploadedUrl, user.profile]);
 
   return (
     <Form>
-      <PhotoUploader onClick={handleUploadImage}>
-        <StyledPhoto size={72} />
-        <CameraIcon icon="camera" size="24px" />
-      </PhotoUploader>
+      <ImageUploader
+        setUploadedUrl={setUploadedUrl}
+        setPreUploadUrl={setPreUploadUrl}
+      >
+        <PHotoUploaderButton>
+          <StyledPhoto size={72} src={preUploadUrl} />
+          <CameraIcon icon="camera" size="24px" />
+        </PHotoUploaderButton>
+      </ImageUploader>
       <InputBox
         id="profile-nickname"
         onChange={onChangeName}
@@ -93,10 +101,12 @@ const ModificationForm: React.FC<{ handleClose: () => void }> = ({
 export default observer(ModificationForm);
 
 const Form = styled.form`
+  display: flex;
+  flex-direction: column;
   padding: 26px 18px;
 `;
 
-const PhotoUploader = styled.div`
+const PHotoUploaderButton = styled.div`
   position: relative;
   padding: 6px 0;
   text-align: center;
@@ -124,4 +134,9 @@ const SubmitButton = styled(Icon)`
   position: absolute;
   top: 18px;
   right: 22px;
+`;
+
+const ImageUploader = styled(PhotoUploader.Uploader)`
+  width: fit-content;
+  margin: 0 auto;
 `;
