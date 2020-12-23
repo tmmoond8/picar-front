@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import Uploader from './Uploader';
 import Image from './Image';
+import Button from '../Button';
 import { colors } from '../../styles';
 
 const SendButton = styled.button<{ disabled: boolean }>`
@@ -59,12 +59,14 @@ const Tools = styled.div`
   }
 `;
 
+const UploadButton = styled(Button)``;
+
 export default {
   SendButton,
   Page,
   Title,
   Content,
   Tools,
-  Uploader,
+  UploadButton,
   Image,
 };

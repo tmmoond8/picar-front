@@ -4,7 +4,8 @@ import React from 'react';
 
 import { useTextarea } from '../../hooks';
 import Selector, { useSelector } from '../Selector';
-
+import PhotoUploader from '../PhotoUploader';
+import Icon from '../Icon';
 import HR from '../HR';
 import Styled from './Styled';
 import API from '../../apis';
@@ -79,10 +80,17 @@ export default function Editor(props: EditorProps): JSX.Element {
       )}
       <HR full />
       <Styled.Tools>
-        <Styled.Uploader
+        <PhotoUploader.Uploader
           setUploadedUrl={setUploadedUrl}
           setPreUploadUrl={setPreUploadUrl}
-        />
+        >
+          <Styled.UploadButton
+            onClick={() => {
+              console.log('UploadButton click');
+            }}
+            icon={<Icon icon="image" size="24px" />}
+          />
+        </PhotoUploader.Uploader>
       </Styled.Tools>
       <Styled.SendButton disabled={disabledWrite} onClick={handleClickPost}>
         작성

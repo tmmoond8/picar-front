@@ -3,17 +3,13 @@
         <path id="35rru3vyka" d="M19 2c1.657 0 3 1.343 3 3v14c0 1.657-1.343 3-3 3H5l-.058-.002h-.001L5 22c-1.657 0-3-1.343-3-3V5c0-1.657 1.343-3 3-3h14zm-3 9.414L7.414 20H19c.552 0 1-.448 1-1v-3.585l-4-4zM19 4H5c-.552 0-1 .448-1 1v14c0 .429.27.795.65.937L15.292 9.293c.39-.39 1.024-.39 1.414 0L20 12.585V5c0-.552-.448-1-1-1zM8.5 6C9.88 6 11 7.12 11 8.5S9.88 11 8.5 11 6 9.88 6 8.5 7.12 6 8.5 6zm0 2c-.276 0-.5.224-.5.5s.224.5.5.5.5-.224.5-.5-.224-.5-.5-.5z"/>
     </defs>
     <g fill="none" fill-rule="evenodd">
-        <g>
-            <g>
-                <g transform="translate(-18 -738) translate(0 722) translate(18 16)">
-                    <mask id="qqbsupoyjb" fill="#fff">
-                        <use xlink:href="#35rru3vyka"/>
-                    </mask>
-                    <use fill="#000" fill-rule="nonzero" xlink:href="#35rru3vyka"/>
-                    <g fill="#000" mask="url(#qqbsupoyjb)">
-                        <path d="M0 0H24V24H0z"/>
-                    </g>
-                </g>
+        <g transform="translate(-18 -738) translate(0 722) translate(18 16)">
+            <mask id="qqbsupoyjb" fill="#fff">
+                <use xlink:href="#35rru3vyka"/>
+            </mask>
+            <use fill="#000" fill-rule="nonzero" xlink:href="#35rru3vyka"/>
+            <g fill="#000" mask="url(#qqbsupoyjb)">
+                <path d="M0 0H24V24H0z"/>
             </g>
         </g>
     </g>
