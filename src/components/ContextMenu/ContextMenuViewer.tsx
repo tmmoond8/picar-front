@@ -12,11 +12,18 @@ interface ContextMenu {
 const MARGIN = 18;
 const WIDTH = 147;
 
-const ContextMenus: React.FC<{
+export interface ContextMenuData {
   xPosition: number;
   yPosition: number;
   menus: ContextMenu[];
-}> = ({ xPosition, yPosition, menus }) => {
+  handleClose: () => void;
+}
+
+const ContextMenuViewer: React.FC<ContextMenuData> = ({
+  xPosition,
+  yPosition,
+  menus,
+}) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const { x, y } = usePosition(xPosition, yPosition);
   return (
@@ -30,7 +37,7 @@ const ContextMenus: React.FC<{
   );
 };
 
-export default React.memo(ContextMenus);
+export default React.memo(ContextMenuViewer);
 
 const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   position: fixed;

@@ -15,6 +15,7 @@ export default (function TestPage(): JSX.Element {
           { name: '수정하기', onClick: () => console.log('수정') },
           { name: '삭제하기', onClick: () => console.log('삭제') },
         ]}
+        handleClose={() => console.log('close')}
       />
     </React.Fragment>
   );

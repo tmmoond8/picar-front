@@ -1,5 +1,6 @@
 import { action, observable } from 'mobx';
 import { initalHeader, HeaderProps, headerType } from '../components/Header';
+import { ContextMenuData } from '../components/ContextMenu';
 
 export interface UiStoreInterface {
   header: HeaderProps;
@@ -9,15 +10,18 @@ export interface UiStoreInterface {
   setHeaderBack: (options: Record<string, any>) => void;
   setHeaderClose: (options: Record<string, any>) => void;
   setKeyboardMargin: (height: number) => void;
+  contextMenu: ContextMenuData | null;
 }
 
 class UiStore implements UiStoreInterface {
   @observable header: HeaderProps;
   @observable keyboardMargin: number;
+  @observable contextMenu: ContextMenuData | null;
 
   constructor() {
     this.header = initalHeader;
     this.keyboardMargin = 0;
+    this.contextMenu = null;
   }
 
   @action

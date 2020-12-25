@@ -1,3 +1,7 @@
-import ContextMenu from './Menus';
+import ContextMenuViewer, { ContextMenuData as _ContextMenuData } from './ContextMenuViewer';
 
-export default ContextMenu;
+export { useContextMenu } from './hooks';
+
+export default ContextMenuViewer;
+
+export type ContextMenuData = _ContextMenuData;
