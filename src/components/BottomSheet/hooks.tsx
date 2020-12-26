@@ -42,3 +42,5 @@ export const useBottomSheet = () => {
     open,
   };
 };
+
+export type BottomSheet = ReturnType<typeof useBottomSheet>;

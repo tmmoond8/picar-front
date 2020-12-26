@@ -6,7 +6,7 @@ import React from 'react';
 import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
 import { SignUpUser, Profile } from '../../types/User';
-import BottomSheet from '../BottomSheet';
+import { useBottomSheet } from '../BottomSheet';
 import SignUp from '../SignUp';
 
 interface LoginBoxProps {
@@ -27,7 +27,7 @@ const SignUpWithDelay = (props: LoginBoxProps & SignUpUser) => {
 
 export default function LoginBox(props: LoginBoxProps): JSX.Element {
   const { onClose, onSetUserProfile } = props;
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
 
   const handleSignUp = React.useCallback(
     (user: SignUpUser) => {

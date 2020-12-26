@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { Profile as UserProfile } from '../types/User';
 import LoginBox from '../components/Login/LoginBox';
-import BottomSheet from '../components/BottomSheet';
+import { useBottomSheet } from '../components/BottomSheet';
 import { useStore, observer } from '../stores';
 import OwwnersLogo from '../resources/images/owwners-logo.png';
 
@@ -18,7 +18,7 @@ const Page = styled.div`
 export default observer(function ProfilePage(): JSX.Element {
   const { user, ui } = useStore();
   ui.setHeaderNone();
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
   const handleSetUserProfile = (profile: UserProfile) => {
     // user.profile = profile;
     user.setProfile(profile);

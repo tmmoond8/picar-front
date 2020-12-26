@@ -5,7 +5,7 @@ import React from 'react';
 import { Profile as UserProfile } from '../types/User';
 import LoginBox from '../components/Login/LoginBox';
 import * as inputHooks from './input';
-import { BottomSheet } from '../components/BottomSheet';
+import { useBottomSheet } from '../components/BottomSheet';
 
 export const useTextInput = inputHooks.useTextInput;
 export const useTextarea = inputHooks.useTextarea;
@@ -22,7 +22,7 @@ export const useInitBefore = (callback: () => void) => {
 
 export const useCheckLogin = (
   handleSetUserProfile: (profile: UserProfile) => void,
-  bottomSheet: BottomSheet,
+  bottomSheet: ReturnType<typeof useBottomSheet>,
 ) => {
   return React.useCallback(
     (code: string) => {

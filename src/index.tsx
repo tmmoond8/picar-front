@@ -3,17 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { MobxProvider } from './stores';
 import * as serviceWorker from './serviceWorker';
-import { BoottomSheetProvider } from './components/BottomSheet';
 import UiProvider from './components/UiProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <MobxProvider>
-      <BoottomSheetProvider>
-        <UiProvider>
-          <App />
-        </UiProvider>
-      </BoottomSheetProvider>
+      <UiProvider>
+        <App />
+      </UiProvider>
     </MobxProvider>
   </React.StrictMode>,
   document.getElementById('root'),

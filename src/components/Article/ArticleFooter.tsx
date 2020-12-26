@@ -7,7 +7,7 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 import Content from '../Content';
 import Emotion from '../Emotion';
-import BottomSheet from '../BottomSheet';
+import { useBottomSheet } from '../BottomSheet';
 import { useStore } from '../../stores';
 import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
@@ -20,7 +20,7 @@ const ArticleFooter = () => {
     emotionCounts,
   } = useArticleContext();
   const { user } = useStore();
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
 
   const [emotionCount, setEmotionCount] = React.useState(
     article?.emotionCount ?? 0,

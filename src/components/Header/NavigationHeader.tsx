@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { useStore, observer } from '../../stores';
-import BottomSheet from '../BottomSheet';
+import { useBottomSheet } from '../BottomSheet';
 import Icon from '../Icon';
 
 import { colors } from '../../styles';
@@ -16,7 +16,7 @@ import LoungeGrid from '../LoungeGrid';
 const NavigationHeader = (): JSX.Element => {
   const { article } = useStore();
 
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
   const handleOpenBottomSheet = React.useCallback(() => {
     bottomSheet.open({
       title: '업종 라운지를 선택해 주세요',

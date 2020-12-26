@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
-import BottomSheet from '../BottomSheet';
+import { useBottomSheet } from '../BottomSheet';
 import Icon from '../Icon';
 import Editor from '../Editor';
 
@@ -17,7 +17,7 @@ export default observer(function MenuBar(): JSX.Element {
   const { article, user } = useStore();
   const location = useLocation();
   const { pathname } = location;
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
   const history = useHistory();
 
   const moveTo = useCallback(

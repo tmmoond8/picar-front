@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import BottomSheet from '../BottomSheet';
+import { useBottomSheet } from '../BottomSheet';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from '.';
@@ -23,7 +23,7 @@ const CommentCounter: React.FC<{
 }) => {
   const { user } = useStore();
   const [commentCount, setCommentCount] = React.useState(_commentCount);
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
 
   const handleClickComment = React.useCallback(() => {
     if (articleId) {

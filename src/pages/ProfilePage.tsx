@@ -10,7 +10,7 @@ import { useStore, observer } from '../stores';
 import Profile from '../components/Profile';
 import Button from '../components/Button';
 import { colors } from '../styles';
-import BottomSheet from '../components/BottomSheet';
+import { useBottomSheet } from '../components/BottomSheet';
 
 const menus = [
   { menu: '게시글', path: '/', icon: 'article' },
@@ -21,7 +21,7 @@ const menus = [
 export default observer(function ProfilePage(): JSX.Element {
   const { user, ui } = useStore();
 
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
   ui.setHeaderNone();
   const { profileImage, name, group, description } = user.profile;
   const handleModifyProfile = React.useCallback(() => {

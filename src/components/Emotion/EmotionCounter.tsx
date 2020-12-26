@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import BottomSheet from '../BottomSheet';
+import { useBottomSheet } from '../BottomSheet';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 
@@ -23,7 +23,7 @@ const EmotionCounter: React.FC<{
   handleEmotionUpdate,
 }) => {
   const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
-  const bottomSheet = BottomSheet.useBottomSheet();
+  const bottomSheet = useBottomSheet();
 
   const handleClickEmotion = () => {
     bottomSheet.open({
