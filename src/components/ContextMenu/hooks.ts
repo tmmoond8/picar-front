@@ -15,18 +15,18 @@ export const useContextMenu = () => {
     }, 300);
   };
 
-  const open = (contextMenus: Omit<ContextMenuData, 'id' | 'handleClose'>) => {
+  const open = (contextMenu: Omit<ContextMenuData, 'id' | 'handleClose'>) => {
     const contextMenuElement: HTMLElement | null = document.querySelector(`#${elementId}`);
     if (contextMenuElement) {
       global.__OWNER__.closeContextMenu(elementId);
       global.__OWNER__.openContextMenu({
-        ...contextMenus,
+        ...contextMenu,
         id: elementId,
         handleClose: close,
       });
     } else {
       global.__OWNER__.openContextMenu({
-        ...contextMenus,
+        ...contextMenu,
         id: elementId,
         handleClose: close,
       });
