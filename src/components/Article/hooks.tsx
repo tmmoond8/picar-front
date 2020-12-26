@@ -6,6 +6,7 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import UiStore from '../../stores/uiStore';
 import { UserStoreInterface } from '../../stores/userStore';
+import { useContextMenu } from '../ContextMenu';
 
 export const useFetch = (
   articleId: number | string,
@@ -85,3 +86,59 @@ export function useHeaderMenu(params: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isYourArticle, bookmark]);
 }
+
+const useArticleRemove = (handleClose: () => void) => {
+  return React.useCallback(
+    async (articleId?: number) => {
+      if (!articleId) {
+        return;
+      }
+      try {
+        const {
+          data: { ok },
+        } = await APIS.article.remove(articleId);
+        if (ok) {
+          window.location.reload(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      handleClose();
+      console.log('삭제');
+    },
+    [handleClose],
+  );
+};
+
+export const useMoreMenu = (articleId?: number) => {
+  const contextMenu = useContextMenu();
+  const handleClickRemove = useArticleRemove(contextMenu.close);
+  return React.useCallback(
+    (e: React.MouseEvent) => {
+      const {
+        x,
+        width,
+        y,
+        height,
+      } = (e.target as HTMLElement).getBoundingClientRect();
+      contextMenu.open({
+        xPosition: x + width / 2,
+        yPosition: y + height,
+        menus: [
+          {
+            name: '수정하기',
+            onClick: () => {
+              contextMenu.close();
+              console.log('수정');
+            },
+          },
+          {
+            name: '삭제하기',
+            onClick: () => handleClickRemove(articleId),
+          },
+        ],
+      });
+    },
+    [articleId, contextMenu, handleClickRemove],
+  );
+};

@@ -7,6 +7,7 @@ import Article from '../components/Article';
 import {
   useFetch as useFetchArticle,
   useHeaderMenu,
+  useMoreMenu,
 } from '../components/Article/hooks';
 
 import CommentArea from '../components/Comment';
@@ -17,7 +18,7 @@ export default observer(function ArticlePage(): JSX.Element {
   const [article, setArticle] = useFetchArticle(
     window.location.pathname.split('/').pop() as string,
   );
-  const contextMenu = useContextMenu();
+
   const [commentCount, setCommentCount] = React.useState(0);
 
   React.useEffect(() => {
@@ -26,37 +27,7 @@ export default observer(function ArticlePage(): JSX.Element {
     }
   }, [article]);
 
-  const handleClickMore = React.useCallback(
-    (e: React.MouseEvent) => {
-      const {
-        x,
-        width,
-        y,
-        height,
-      } = (e.target as HTMLElement).getBoundingClientRect();
-      contextMenu.open({
-        xPosition: x + width / 2,
-        yPosition: y + height,
-        menus: [
-          {
-            name: '수정하기',
-            onClick: () => {
-              contextMenu.close();
-              console.log('수정');
-            },
-          },
-          {
-            name: '삭제하기',
-            onClick: () => {
-              contextMenu.close();
-              console.log('삭제');
-            },
-          },
-        ],
-      });
-    },
-    [contextMenu],
-  );
+  const handleClickMore = useMoreMenu(article?.id);
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   useHeaderMenu({

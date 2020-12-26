@@ -9,3 +9,5 @@ export const write = (data: {
   group: string;
   photos: string;
 }) => api.post('/article/write', data);
+export const remove = (articleId: number | string) =>
+  api.delete(`/article/remove/${articleId}`);
