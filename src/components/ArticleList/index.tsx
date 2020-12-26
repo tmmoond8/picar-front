@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 import Article from '../../types/Article';
 import { EmotionType } from '../../types/Emotion';
@@ -26,8 +27,10 @@ export default observer(function ArticleList(
         return;
       }
       if (bookmarks.has(articleId)) {
+        toast('북마크에서 제거했습니다.');
         user.removeBookmark(articleId);
       } else {
+        toast('북마크에 추가했습니다.');
         user.addBookmark(articleId);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

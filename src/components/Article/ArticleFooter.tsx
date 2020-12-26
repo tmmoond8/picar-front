@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { toast } from 'react-toastify';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Content from '../Content';
@@ -72,7 +73,13 @@ const ArticleFooter = () => {
         <li onClick={handleClickComment}>
           <Icon icon="chatOutline" size="20px" /> 댓글쓰기
         </li>
-        <li>
+        <li
+          onClick={() => {
+            toast(
+              "'시작과끝' 활동 알림을 켭니다. 새 글을 작성하면 알림을 보내드려요",
+            );
+          }}
+        >
           <Icon icon="share" size="20px" /> 공유하기
         </li>
       </InteractionPanel>

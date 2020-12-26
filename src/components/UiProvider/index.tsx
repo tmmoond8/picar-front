@@ -1,10 +1,13 @@
 import React from 'react';
 import ContextMenuViewer, { ContextMenuData } from '../ContextMenu';
+import ToastContainer from '../ToastContainer';
+
 import BottomSheetViewer, {
   BottomSheetData,
   useBottomSheet,
 } from '../BottomSheet';
 import { useStore, observer } from '../../stores';
+import 'react-toastify/dist/ReactToastify.css';
 import global from '../../types/global';
 import { Profile as UserProfile } from '../../types/User';
 import { useCheckLogin } from '../../hooks';
@@ -37,6 +40,7 @@ const UiProvider: React.FC<{
       {ui.bottomSheets.map((bottomSheet) => (
         <BottomSheetViewer key={bottomSheet.id} {...bottomSheet} />
       ))}
+      <ToastContainer />
       {children}
     </React.Fragment>
   );

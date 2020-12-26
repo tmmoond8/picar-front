@@ -30,6 +30,7 @@
     "react-naver-login": "^0.1.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-toastify": "^6.2.0",
     "throttle-debounce": "^2.2.1",
     "typescript": "~3.7.2",
     "validator": "^13.1.17"
