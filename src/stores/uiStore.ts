@@ -10,18 +10,18 @@ export interface UiStoreInterface {
   setHeaderBack: (options: Record<string, any>) => void;
   setHeaderClose: (options: Record<string, any>) => void;
   setKeyboardMargin: (height: number) => void;
-  contextMenu: ContextMenuData | null;
+  contextMenu: ContextMenuData[];
 }
 
 class UiStore implements UiStoreInterface {
   @observable header: HeaderProps;
   @observable keyboardMargin: number;
-  @observable contextMenu: ContextMenuData | null;
+  @observable contextMenu: ContextMenuData[];
 
   constructor() {
     this.header = initalHeader;
     this.keyboardMargin = 0;
-    this.contextMenu = null;
+    this.contextMenu = [];
   }
 
   @action

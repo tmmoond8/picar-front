@@ -7,7 +7,7 @@ type OwnerGlobal = typeof globalThis & {
     openBottomSheet: (params: BottomSheetData) => void;
     closeBottomSheet: (id: string) => void;
     openContextMenu: (params: ContextMenuData) => void;
-    closeContextMenu: () => void;
+    closeContextMenu: (id: string) => void;
     homeFlickingMoveTo: (i: number) => void;
     signupFlickingMoveTo: (i: number) => void;
   };

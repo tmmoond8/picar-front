@@ -1,6 +1,6 @@
 import React from 'react';
 import ContextMenuViewer, { ContextMenuData } from '../ContextMenu';
-import { useStore } from '../../stores';
+import { useStore, observer } from '../../stores';
 import global from '../../types/global';
 
 const UiProvider: React.FC<{
@@ -10,20 +10,25 @@ const UiProvider: React.FC<{
 
   React.useEffect(() => {
     global.__OWNER__.openContextMenu = (data: ContextMenuData) => {
-      ui.contextMenu = data;
+      ui.contextMenu = [...ui.contextMenu, data];
     };
-    global.__OWNER__.closeBottomSheet = () => {
-      ui.contextMenu = null;
+    global.__OWNER__.closeContextMenu = (targetId: string) => {
+      ui.contextMenu = ui.contextMenu.filter(({ id }) => id !== targetId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <React.Fragment>
-      {ui.contextMenu && <ContextMenuViewer {...ui.contextMenu} />}
+      {ui.contextMenu.map((contextMenu) => (
+        <ContextMenuViewer
+          key={`${contextMenu.id}_${contextMenu.xPosition}_${contextMenu.yPosition}`}
+          {...contextMenu}
+        />
+      ))}
       {children}
     </React.Fragment>
   );
 };
 
-export default UiProvider;
+export default observer(UiProvider);

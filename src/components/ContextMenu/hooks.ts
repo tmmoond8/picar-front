@@ -2,37 +2,35 @@
 import { ContextMenuData } from './ContextMenuViewer';
 import global from '../../types/global';
 
-let isOpen = false;
-const elementId = 'ContextMenu';
 
 export const useContextMenu = () => {
+  const elementId = `contextMenu${Math.random().toString(32).split('.')[1]}`;
   const close = () => {
-    isOpen = false;
-    const bottomSheetEl: HTMLElement | null = document.querySelector(`#${elementId}`);
-    if (bottomSheetEl) {
-      bottomSheetEl.style!.transform = 'scale(0.8)';
+    const contextMenuElement: HTMLElement | null = document.querySelector(`#${elementId}`);
+    if (contextMenuElement) {
+      contextMenuElement.style!.transform = 'scale(0.8)';
     }
     setTimeout(() => {
-      global.__OWNER__.closeContextMenu();
+      global.__OWNER__.closeContextMenu(elementId);
     }, 300);
   };
 
-  const open = (contextMenus: Omit<ContextMenuData, 'handleClose'>) => {
-    if (isOpen) {
-      setTimeout(() => {
-        global.__OWNER__.openContextMenu({
-          ...contextMenus,
-          handleClose: close,
-        });
-      }, 310);
+  const open = (contextMenus: Omit<ContextMenuData, 'id' | 'handleClose'>) => {
+    const contextMenuElement: HTMLElement | null = document.querySelector(`#${elementId}`);
+    if (contextMenuElement) {
+      global.__OWNER__.closeContextMenu(elementId);
+      global.__OWNER__.openContextMenu({
+        ...contextMenus,
+        id: elementId,
+        handleClose: close,
+      });
     } else {
       global.__OWNER__.openContextMenu({
         ...contextMenus,
+        id: elementId,
         handleClose: close,
       });
     }
-
-    isOpen = true;
   };
 
   return {

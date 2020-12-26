@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
@@ -13,6 +13,7 @@ const MARGIN = 18;
 const WIDTH = 147;
 
 export interface ContextMenuData {
+  id: string;
   xPosition: number;
   yPosition: number;
   menus: ContextMenu[];
@@ -20,6 +21,7 @@ export interface ContextMenuData {
 }
 
 const ContextMenuViewer: React.FC<ContextMenuData> = ({
+  id,
   xPosition,
   yPosition,
   menus,
@@ -27,7 +29,7 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const { x, y } = usePosition(xPosition, yPosition);
   return (
-    <StyledContextMenus x={x} y={y}>
+    <StyledContextMenus id={id} x={x} y={y}>
       {menus.map(({ name, onClick }) => (
         <Menu key={name} onClick={onClick}>
           {name}
@@ -39,6 +41,15 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
 
 export default React.memo(ContextMenuViewer);
 
+const popup = keyframes`
+  from {
+    transform: scale(0.85);
+  } 
+  to {
+    transform: scale(1);
+  }
+`;
+
 const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   position: fixed;
   width: ${WIDTH}px;
@@ -49,6 +60,7 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   background-color: ${colors.white};
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
   z-index: 1000;
+  animation: ${popup} 0.3s ease-out;
 `;
 
 const Menu = styled.li`
@@ -64,7 +76,6 @@ function usePosition(xPosition: number, yPosition: number) {
   React.useEffect(() => {
     const { innerWidth } = window;
     if (xPosition + WIDTH / 2 + MARGIN > innerWidth) {
-      console.log('over');
       setX(`${innerWidth - MARGIN - WIDTH}px`);
     } else {
       setX(`${Math.max(xPosition - WIDTH / 2, 18)}px`);
