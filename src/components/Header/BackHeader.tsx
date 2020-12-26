@@ -7,7 +7,7 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 
 interface BackHeaderProps {
-  options?: Record<string, any>
+  options?: Record<string, any>;
 }
 
 export default function BackHeader(props: BackHeaderProps): JSX.Element {
@@ -15,7 +15,7 @@ export default function BackHeader(props: BackHeaderProps): JSX.Element {
   const history = useHistory();
 
   return (
-    <StyledBack >
+    <StyledBack>
       <h2 className="title">{options?.title || ''}</h2>
       <Icon
         icon="back"
@@ -50,6 +50,7 @@ const StyledBack = styled.nav`
   }
 
   .right {
+    display: flex;
     position: absolute;
     right: 18px;
     top: 18px;
