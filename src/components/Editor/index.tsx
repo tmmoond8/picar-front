@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 
+import { useStore } from '../../stores';
 import { useTextarea } from '../../hooks';
 import Selector, { useSelector } from '../Selector';
 import PhotoUploader from '../PhotoUploader';
@@ -24,6 +25,8 @@ const Editor: React.FC<{
   syncArticle: (article: Article) => void;
   onClose: () => void;
 }> = ({ article, syncArticle, onClose }) => {
+  const { util } = useStore();
+  const history = util.useHistory();
   const [selected, setSelected] = useSelector(
     selects,
     article?.group ?? '자유',
@@ -44,14 +47,13 @@ const Editor: React.FC<{
       });
       syncArticle(data.article);
       onClose();
-      // const redirect = () => history.replace(`/article/${data.article.id}`);
-      // setTimeout(() => {
-      //   redirect();
-      // }, 300);
+      setTimeout(() => {
+        history.replace(`/article/${data.article.id}`);
+      }, 300);
     } catch (error) {
       console.error(error);
     }
-  }, [title, content, selected, uploadedUrl, syncArticle, onClose]);
+  }, [title, content, selected, uploadedUrl, syncArticle, onClose, history]);
 
   const handleClickUpdate = React.useCallback(async () => {
     if (title.length === 0 || content.length === 0 || !article) return;

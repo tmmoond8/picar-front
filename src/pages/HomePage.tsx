@@ -2,7 +2,9 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import styled from '@emotion/styled';
+import { useHistory } from 'react-router-dom';
 
+import Page from './BasePage';
 import { observer, useStore } from '../stores';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
@@ -12,6 +14,7 @@ import { CAROUSEL } from '../types/constants';
 export default observer(function HomePage(): JSX.Element {
   const { article, ui, user } = useStore();
   ui.setHeaderNavigation();
+  const history = useHistory();
   const { articles, groupIndex } = article;
 
   const loungeArticles = React.useMemo(() => {
@@ -40,22 +43,24 @@ export default observer(function HomePage(): JSX.Element {
   );
 
   return (
-    <Wrapper>
-      <Carousel
-        id={CAROUSEL.HOME}
-        index={groupIndex}
-        onChangeIndex={handleChangeIndex}
-      >
-        <ArticleList articles={loungeArticles} bookmarks={user.bookmarks} />
-        <ArticleList articles={freeArticles} bookmarks={user.bookmarks} />
-        <ArticleList articles={humorArticles} bookmarks={user.bookmarks} />
-        <ArticleList
-          articles={govermentSupportArticles}
-          bookmarks={user.bookmarks}
-        />
-      </Carousel>
-      <MenuBar />
-    </Wrapper>
+    <Page>
+      <Wrapper>
+        <Carousel
+          id={CAROUSEL.HOME}
+          index={groupIndex}
+          onChangeIndex={handleChangeIndex}
+        >
+          <ArticleList articles={loungeArticles} bookmarks={user.bookmarks} />
+          <ArticleList articles={freeArticles} bookmarks={user.bookmarks} />
+          <ArticleList articles={humorArticles} bookmarks={user.bookmarks} />
+          <ArticleList
+            articles={govermentSupportArticles}
+            bookmarks={user.bookmarks}
+          />
+        </Carousel>
+        <MenuBar />
+      </Wrapper>
+    </Page>
   );
 });
 
