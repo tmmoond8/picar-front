@@ -17,7 +17,7 @@ export type IconProps = {
   color?: string;
   size?: string;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 };
 
 /**
@@ -37,8 +37,8 @@ function Icon(props: IconProps): JSX.Element {
     color,
     cursor: typeof onClick === 'function' ? 'pointer' : 'auto',
   });
-  const handleClick = () => {
-    if (typeof onClick === 'function') onClick();
+  const handleClick = (e: React.MouseEvent) => {
+    if (typeof onClick === 'function') onClick(e);
   };
 
   const SVGIcon = icons[icon];

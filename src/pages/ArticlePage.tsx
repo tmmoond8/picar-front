@@ -9,16 +9,20 @@ import { useFetch as useFetchArticle } from '../components/Article/hooks';
 
 import CommentArea from '../components/Comment';
 import Icon from '../components/Icon';
+import { useContextMenu } from '../components/ContextMenu';
+import ArticleType from '../types/Article';
+import { Profile as UserProfile } from '../types/User';
 import { colors } from '../styles';
+import UiStore from '../stores/uiStore';
+import { UserStoreInterface } from '../stores/userStore';
 
 export default observer(function ArticlePage(): JSX.Element {
-  const { ui, article: articleStore, user } = useStore();
+  const { ui, user } = useStore();
   const { pathname } = useLocation();
-  const [_, __, articleId] = pathname.split('/');
   const [article, setArticle] = useFetchArticle(
     window.location.pathname.split('/').pop() as string,
   );
-
+  const contextMenu = useContextMenu();
   const [commentCount, setCommentCount] = React.useState(0);
 
   React.useEffect(() => {
@@ -27,35 +31,27 @@ export default observer(function ArticlePage(): JSX.Element {
     }
   }, [article]);
 
-  const bookmark = React.useMemo(() => {
-    return articleId && user.bookmarks.has(parseInt(articleId));
-  }, [articleId, user.bookmarks]);
-
-  const handleClickBookmark = React.useCallback(async () => {
-    if (user.needLogin()) {
-      return;
-    }
-    if (bookmark) {
-      user.removeBookmark(parseInt(articleId));
-    } else {
-      user.addBookmark(parseInt(articleId));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookmark, articleStore, articleId]);
-  React.useEffect(() => {
-    if (ui) {
-      ui.setHeaderBack({
-        right: (
-          <Icon
-            color={bookmark ? colors.black33 : 'transparent'}
-            icon="bookmarkOutline"
-            size="24px"
-            onClick={handleClickBookmark}
-          />
-        ),
+  const handleClickMore = React.useCallback(
+    (e: React.MouseEvent) => {
+      contextMenu.open({
+        xPosition: 0,
+        yPosition: 0,
+        menus: [
+          { name: '수정하기', onClick: () => console.log('수정') },
+          { name: '삭제하기', onClick: () => console.log('삭제') },
+        ],
       });
-    }
-  }, [ui, bookmark, handleClickBookmark]);
+    },
+    [contextMenu],
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  useHeaderMenu({
+    ui,
+    user,
+    article,
+    handleClickMore,
+  });
 
   return (
     <React.Fragment>
@@ -73,3 +69,58 @@ export default observer(function ArticlePage(): JSX.Element {
     </React.Fragment>
   );
 });
+
+function useHeaderMenu(params: {
+  ui: UiStore;
+  article: ArticleType | null;
+  user: UserStoreInterface;
+  handleClickMore: any;
+}) {
+  const { ui, article, user, handleClickMore } = params;
+
+  const isYourArticle = React.useMemo(
+    () => article?.author.code === user.profile.code,
+    [article, user],
+  );
+  const bookmark = React.useMemo(() => {
+    return article?.id && user.bookmarks.has(article.id);
+  }, [article, user.bookmarks]);
+
+  const handleClickBookmark = React.useCallback(async () => {
+    if (user.needLogin() || article === null) {
+      return;
+    }
+    if (bookmark) {
+      user.removeBookmark(article.id);
+    } else {
+      user.addBookmark(article.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookmark, article]);
+
+  React.useEffect(() => {
+    if (ui) {
+      ui.setHeaderBack({
+        right: (
+          <React.Fragment>
+            <Icon
+              color={bookmark ? colors.black33 : 'transparent'}
+              icon="bookmarkOutline"
+              size="24px"
+              onClick={handleClickBookmark}
+            />
+            {isYourArticle && (
+              <Icon
+                icon="more"
+                color={colors.black33}
+                size="24px"
+                onClick={handleClickMore}
+              />
+            )}
+          </React.Fragment>
+        ),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isYourArticle, bookmark]);
+}
