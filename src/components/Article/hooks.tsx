@@ -56,27 +56,31 @@ export function useHeaderMenu(params: {
   }, [bookmark, article]);
 
   React.useEffect(() => {
-    if (ui) {
-      ui.setHeaderBack({
-        right: (
-          <React.Fragment>
-            <Icon
-              color={bookmark ? colors.black33 : 'transparent'}
-              icon="bookmarkOutline"
-              size="24px"
-              onClick={handleClickBookmark}
-            />
-            {isYourArticle && (
+    if (ui && article) {
+      if (article.isDelete) {
+        ui.setHeaderBack({});
+      } else {
+        ui.setHeaderBack({
+          right: (
+            <React.Fragment>
               <Icon
-                icon="more"
-                color={colors.black33}
+                color={bookmark ? colors.black33 : 'transparent'}
+                icon="bookmarkOutline"
                 size="24px"
-                onClick={handleClickMore}
+                onClick={handleClickBookmark}
               />
-            )}
-          </React.Fragment>
-        ),
-      });
+              {isYourArticle && (
+                <Icon
+                  icon="more"
+                  color={colors.black33}
+                  size="24px"
+                  onClick={handleClickMore}
+                />
+              )}
+            </React.Fragment>
+          ),
+        });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isYourArticle, bookmark]);

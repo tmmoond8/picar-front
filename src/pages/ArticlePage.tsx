@@ -68,16 +68,20 @@ export default observer(function ArticlePage(): JSX.Element {
 
   return (
     <React.Fragment>
-      {article && <Article article={article} commentCount={commentCount} />}
-
-      {article?.id && (
-        <CommentArea
-          articleId={article.id}
-          setCommentCount={setCommentCount}
-          userCode={user.profile.code}
-          articleAuthorCode={article.author.code}
-          profilePhoto={user.profile.thumbnail}
-        />
+      {article && article.isDelete && <Article.Empty />}
+      {article && !article.isDelete && (
+        <React.Fragment>
+          <Article article={article} commentCount={commentCount} />
+          {article?.id && (
+            <CommentArea
+              articleId={article.id}
+              setCommentCount={setCommentCount}
+              userCode={user.profile.code}
+              articleAuthorCode={article.author.code}
+              profilePhoto={user.profile.thumbnail}
+            />
+          )}
+        </React.Fragment>
       )}
     </React.Fragment>
   );

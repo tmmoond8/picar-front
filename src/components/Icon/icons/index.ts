@@ -20,6 +20,7 @@ export { ReactComponent as edit } from './edit.svg';
 export { ReactComponent as editRound } from './edit-round.svg';
 export { ReactComponent as package } from './package.svg';
 export { ReactComponent as search } from './search.svg';
+export { ReactComponent as stitchedRectangle } from './stitched-rectangle.svg';
 export { ReactComponent as user } from './user.svg';
 export { ReactComponent as close } from './close.svg';
 export { ReactComponent as vCheck } from './v-check.svg';

@@ -6,6 +6,7 @@ import React from 'react';
 import ArticleHead from './ArticleHead';
 import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
+import ArticleEmpty from './ArticleEmpty';
 
 import IArticle from '../../types/Article';
 import { colors } from '../../styles';
@@ -13,13 +14,10 @@ import ArticleContext from './context';
 
 import { useFetch as useFetchEmotion } from '../Emotion/hooks';
 
-interface ArticleProps {
+const Article: React.FC<{
   article: IArticle;
   commentCount: number;
-}
-
-export default function Article(props: ArticleProps): JSX.Element {
-  const { article, commentCount } = props;
+}> & { Empty: React.FC } = ({ article, commentCount }) => {
   const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
 
   return (
@@ -41,7 +39,10 @@ export default function Article(props: ArticleProps): JSX.Element {
       )}
     </ArticleContext.Provider>
   );
-}
+};
+
+Article.Empty = ArticleEmpty;
+export default Article;
 
 const HR = styled.hr`
   margin: 0;
