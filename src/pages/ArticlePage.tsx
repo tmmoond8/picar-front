@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 
+import Page from './BasePage';
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
 import {
@@ -46,22 +47,24 @@ export default observer(function ArticlePage(): JSX.Element {
   });
 
   return (
-    <React.Fragment>
-      {article && article.isDelete && <Article.Empty />}
-      {article && !article.isDelete && (
-        <React.Fragment>
-          <Article article={article} commentCount={commentCount} />
-          {article?.id && (
-            <CommentArea
-              articleId={article.id}
-              setCommentCount={setCommentCount}
-              userCode={user.profile.code}
-              articleAuthorCode={article.author.code}
-              profilePhoto={user.profile.thumbnail}
-            />
-          )}
-        </React.Fragment>
-      )}
-    </React.Fragment>
+    <Page>
+      <React.Fragment>
+        {article && article.isDelete && <Article.Empty />}
+        {article && !article.isDelete && (
+          <React.Fragment>
+            <Article article={article} commentCount={commentCount} />
+            {article?.id && (
+              <CommentArea
+                articleId={article.id}
+                setCommentCount={setCommentCount}
+                userCode={user.profile.code}
+                articleAuthorCode={article.author.code}
+                profilePhoto={user.profile.thumbnail}
+              />
+            )}
+          </React.Fragment>
+        )}
+      </React.Fragment>
+    </Page>
   );
 });

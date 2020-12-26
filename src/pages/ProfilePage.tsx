@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import Page from './BasePage';
 import Icon, { IconKey } from '../components/Icon';
 import HR from '../components/HR';
 import MenuBar from '../components/MenuBar';
@@ -33,7 +34,7 @@ export default observer(function ProfilePage(): JSX.Element {
   }, [bottomSheet]);
 
   return (
-    <Page>
+    <StyledPage>
       <Header>
         <h2>dosannan.222</h2>
         <Icon icon="more" size="24px" color={colors.black22} />
@@ -72,11 +73,11 @@ export default observer(function ProfilePage(): JSX.Element {
         </li>
       </AppMenus>
       <MenuBar />
-    </Page>
+    </StyledPage>
   );
 });
 
-const Page = styled.div`
+const StyledPage = styled(Page)`
   padding: 20px 18px;
 `;
 
