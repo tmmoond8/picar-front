@@ -54,5 +54,9 @@ const StyledBack = styled.nav`
     position: absolute;
     right: 18px;
     top: 18px;
+
+    svg + svg {
+      margin-left: 12px;
+    }
   }
 `;

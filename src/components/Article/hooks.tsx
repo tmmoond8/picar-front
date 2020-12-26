@@ -1,36 +1,43 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import ArticleType from '../../types/Article';
+import Article from '../../types/Article';
 import APIS from '../../apis';
 import Icon from '../Icon';
 
 import { colors } from '../../styles';
+import { useStore } from '../../stores';
 import UiStore from '../../stores/uiStore';
 import { UserStoreInterface } from '../../stores/userStore';
 import { useContextMenu } from '../ContextMenu';
+import { useBottomSheet } from '../BottomSheet';
+import Editor from '../Editor';
 
 export const useFetch = (
   articleId: number | string,
-): [ArticleType | null, Dispatch<SetStateAction<ArticleType | null>>] => {
-  const [articles, setArticles] = React.useState<ArticleType | null>(null);
+  existingArticle?: Article,
+): Article | undefined => {
+  const [article, setArticle] = React.useState<Article | undefined>(
+    existingArticle,
+  );
   React.useEffect(() => {
-    (async () => {
+    const fetch = async () => {
       try {
         const {
           data: { data },
-        } = await APIS.article.get(
-          window.location.pathname.split('/').pop() as string,
-        );
-        setArticles(data);
+        } = await APIS.article.get(articleId);
+        setArticle(data);
       } catch (error) {}
-    })();
-  }, [articleId]);
+    };
+    if (!existingArticle) {
+      fetch();
+    }
+  }, [articleId, existingArticle]);
 
-  return [articles, setArticles];
+  return article;
 };
 
 export function useHeaderMenu(params: {
   ui: UiStore;
-  article: ArticleType | null;
+  article?: Article;
   user: UserStoreInterface;
   handleClickMore: any;
 }) {
@@ -45,7 +52,7 @@ export function useHeaderMenu(params: {
   }, [article, user.bookmarks]);
 
   const handleClickBookmark = React.useCallback(async () => {
-    if (user.needLogin() || article === null) {
+    if (user.needLogin() || !article) {
       return;
     }
     if (bookmark) {
@@ -104,17 +111,48 @@ const useArticleRemove = (handleClose: () => void) => {
         console.log(error);
       }
       handleClose();
-      console.log('삭제');
     },
     [handleClose],
   );
 };
 
-export const useMoreMenu = (articleId?: number) => {
+export const useOpenArticleEditor = () => {
+  const { article } = useStore();
+  const bottomSheet = useBottomSheet();
+
+  const updateArticle = React.useCallback(
+    (newArticle: Article) => {
+      article.articles = article.articles.map((article) =>
+        article.id === newArticle.id ? newArticle : article,
+      );
+    },
+    [article.articles],
+  );
+  return (exitingArticle: Article) =>
+    bottomSheet.open({
+      title: ' 글 수정',
+      headerType: 'close',
+      isFull: true,
+      contents: (
+        <Editor
+          article={exitingArticle}
+          syncArticle={updateArticle}
+          onClose={bottomSheet.close}
+        />
+      ),
+    });
+};
+
+export const useMoreMenu = (article?: Article) => {
   const contextMenu = useContextMenu();
+  const openArticleEditor = useOpenArticleEditor();
+
   const handleClickRemove = useArticleRemove(contextMenu.close);
   return React.useCallback(
     (e: React.MouseEvent) => {
+      if (!article) {
+        return;
+      }
       const {
         x,
         width,
@@ -129,16 +167,16 @@ export const useMoreMenu = (articleId?: number) => {
             name: '수정하기',
             onClick: () => {
               contextMenu.close();
-              console.log('수정');
+              openArticleEditor(article);
             },
           },
           {
             name: '삭제하기',
-            onClick: () => handleClickRemove(articleId),
+            onClick: () => handleClickRemove(article.id),
           },
         ],
       });
     },
-    [articleId, contextMenu, handleClickRemove],
+    [article, contextMenu, handleClickRemove, openArticleEditor],
   );
 };

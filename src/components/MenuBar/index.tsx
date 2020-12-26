@@ -43,7 +43,7 @@ export default observer(function MenuBar(): JSX.Element {
       headerType: 'close',
       isFull: true,
       contents: (
-        <Editor appendArticle={appendArticle} onClose={bottomSheet.close} />
+        <Editor syncArticle={appendArticle} onClose={bottomSheet.close} />
       ),
     });
   }, [article.articles, bottomSheet, user]);

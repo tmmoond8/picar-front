@@ -20,17 +20,21 @@ const selects = [
 ];
 
 interface EditorProps {
-  appendArticle: (article: Article) => void;
+  article?: Article;
+  syncArticle: (article: Article) => void;
   onClose: () => void;
 }
 
 export default function Editor(props: EditorProps): JSX.Element {
-  const { appendArticle, onClose } = props;
-  const [selected, setSelected] = useSelector(selects, '자유');
-  const [title, setTitle] = useTextarea('');
-  const [content, setContent] = useTextarea('');
-  const [uploadedUrl, setUploadedUrl] = React.useState('');
-  const [preUploadUrl, setPreUploadUrl] = React.useState('');
+  const { article, syncArticle, onClose } = props;
+  const [selected, setSelected] = useSelector(
+    selects,
+    article?.group ?? '자유',
+  );
+  const [title, setTitle] = useTextarea(article?.title ?? '');
+  const [content, setContent] = useTextarea(article?.content ?? '');
+  const [uploadedUrl, setUploadedUrl] = React.useState(article?.photos ?? '');
+  const [preUploadUrl, setPreUploadUrl] = React.useState(article?.photos ?? '');
 
   const handleClickPost = React.useCallback(async () => {
     if (title.length === 0 || content.length === 0) return;
@@ -41,12 +45,28 @@ export default function Editor(props: EditorProps): JSX.Element {
         group: selected,
         photos: uploadedUrl,
       });
-      appendArticle(data.article);
+      syncArticle(data.article);
       onClose();
     } catch (error) {
       console.error(error);
     }
-  }, [title, content, selected, uploadedUrl, appendArticle, onClose]);
+  }, [title, content, selected, uploadedUrl, syncArticle, onClose]);
+
+  const handleClickUpdate = React.useCallback(async () => {
+    if (title.length === 0 || content.length === 0 || !article) return;
+    try {
+      const { data } = await API.article.update(article.id, {
+        title,
+        content,
+        group: selected,
+        photos: uploadedUrl,
+      });
+      syncArticle(data.article);
+      onClose();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [title, content, article, selected, uploadedUrl, syncArticle, onClose]);
 
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');
@@ -56,6 +76,10 @@ export default function Editor(props: EditorProps): JSX.Element {
   const disabledWrite = React.useMemo(() => {
     return title.length === 0 || content.length === 0;
   }, [content.length, title.length]);
+
+  const handleSubmit = React.useMemo(() => {
+    return article ? handleClickUpdate : handleClickPost;
+  }, [article, handleClickPost, handleClickUpdate]);
 
   return (
     <Styled.Page>
@@ -92,8 +116,8 @@ export default function Editor(props: EditorProps): JSX.Element {
           />
         </PhotoUploader.Uploader>
       </Styled.Tools>
-      <Styled.SendButton disabled={disabledWrite} onClick={handleClickPost}>
-        작성
+      <Styled.SendButton disabled={disabledWrite} onClick={handleSubmit}>
+        {article ? '수정' : '작성'}
       </Styled.SendButton>
     </Styled.Page>
   );

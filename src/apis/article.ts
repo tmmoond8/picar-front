@@ -11,3 +11,9 @@ export const write = (data: {
 }) => api.post('/article/write', data);
 export const remove = (articleId: number | string) =>
   api.delete(`/article/remove/${articleId}`);
+export const update = (articleId: number | string, data: {
+  title: string;
+  content: string;
+  group: string;
+  photos: string;
+}) => api.put(`/article/update/${articleId}`, data);
