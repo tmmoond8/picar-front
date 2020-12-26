@@ -25,11 +25,29 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
   xPosition,
   yPosition,
   menus,
+  handleClose,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const { x, y } = usePosition(xPosition, yPosition);
+  const ref = React.useRef<HTMLUListElement>(null);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (ref.current) {
+        ref.current.focus();
+      }
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [ref]);
+
   return (
-    <StyledContextMenus id={id} x={x} y={y}>
+    <StyledContextMenus
+      tabIndex={-1}
+      ref={ref}
+      id={id}
+      x={x}
+      y={y}
+      onBlur={handleClose}
+    >
       {menus.map(({ name, onClick }) => (
         <Menu key={name} onClick={onClick}>
           {name}
@@ -59,6 +77,7 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   border-radius: 4px;
   background-color: ${colors.white};
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+  outline: none;
   z-index: 1000;
   transition: transform 0.3s, opacity 0.2s;
   animation: ${popup} 0.3s ease-out;
