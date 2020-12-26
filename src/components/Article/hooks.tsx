@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import Article from '../../types/Article';
 import APIS from '../../apis';
 import Icon from '../Icon';
@@ -128,7 +128,13 @@ export const useOpenArticleEditor = () => {
     },
     [article.articles],
   );
-  return (exitingArticle: Article) =>
+  const appendArticle = React.useCallback(
+    (newArticle: Article) => {
+      article.articles = [newArticle, ...article.articles];
+    },
+    [article.articles],
+  );
+  return (exitingArticle?: Article) =>
     bottomSheet.open({
       title: ' 글 수정',
       headerType: 'close',
@@ -136,7 +142,7 @@ export const useOpenArticleEditor = () => {
       contents: (
         <Editor
           article={exitingArticle}
-          syncArticle={updateArticle}
+          syncArticle={exitingArticle ? updateArticle : appendArticle}
           onClose={bottomSheet.close}
         />
       ),

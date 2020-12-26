@@ -5,19 +5,17 @@ import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import MenuItem from './MenuItem';
-import { useBottomSheet } from '../BottomSheet';
 import Icon from '../Icon';
-import Editor from '../Editor';
+import { useOpenArticleEditor } from '../Article';
 
 import { observer, useStore } from '../../stores';
 import { colors } from '../../styles';
-import Article from '../../types/Article';
 
 export default observer(function MenuBar(): JSX.Element {
-  const { article, user } = useStore();
+  const { user } = useStore();
   const location = useLocation();
   const { pathname } = location;
-  const bottomSheet = useBottomSheet();
+  const openArticleEditor = useOpenArticleEditor();
   const history = useHistory();
 
   const moveTo = useCallback(
@@ -35,18 +33,8 @@ export default observer(function MenuBar(): JSX.Element {
     if (user.needLogin()) {
       return;
     }
-    const appendArticle = (newArticle: Article) => {
-      article.articles = [newArticle, ...article.articles];
-    };
-    bottomSheet.open({
-      title: ' 글 쓰기',
-      headerType: 'close',
-      isFull: true,
-      contents: (
-        <Editor syncArticle={appendArticle} onClose={bottomSheet.close} />
-      ),
-    });
-  }, [article.articles, bottomSheet, user]);
+    openArticleEditor();
+  }, [openArticleEditor, user]);
   const handleClickMarket = useCallback(() => moveTo('/test'), [moveTo]);
   const handleClickProfile = useCallback(() => {
     if (user.needLogin()) {

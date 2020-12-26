@@ -19,14 +19,11 @@ const selects = [
   ...LOUNGES.map((lounge) => lounge.name),
 ];
 
-interface EditorProps {
+const Editor: React.FC<{
   article?: Article;
   syncArticle: (article: Article) => void;
   onClose: () => void;
-}
-
-export default function Editor(props: EditorProps): JSX.Element {
-  const { article, syncArticle, onClose } = props;
+}> = ({ article, syncArticle, onClose }) => {
   const [selected, setSelected] = useSelector(
     selects,
     article?.group ?? '자유',
@@ -47,6 +44,10 @@ export default function Editor(props: EditorProps): JSX.Element {
       });
       syncArticle(data.article);
       onClose();
+      // const redirect = () => history.replace(`/article/${data.article.id}`);
+      // setTimeout(() => {
+      //   redirect();
+      // }, 300);
     } catch (error) {
       console.error(error);
     }
@@ -121,4 +122,6 @@ export default function Editor(props: EditorProps): JSX.Element {
       </Styled.SendButton>
     </Styled.Page>
   );
-}
+};
+
+export default Editor;
