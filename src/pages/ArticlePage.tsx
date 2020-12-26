@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
@@ -15,7 +14,6 @@ import { useContextMenu } from '../components/ContextMenu';
 
 export default observer(function ArticlePage(): JSX.Element {
   const { ui, user } = useStore();
-  const { pathname } = useLocation();
   const [article, setArticle] = useFetchArticle(
     window.location.pathname.split('/').pop() as string,
   );
@@ -30,12 +28,30 @@ export default observer(function ArticlePage(): JSX.Element {
 
   const handleClickMore = React.useCallback(
     (e: React.MouseEvent) => {
+      const {
+        x,
+        width,
+        y,
+        height,
+      } = (e.target as HTMLElement).getBoundingClientRect();
       contextMenu.open({
-        xPosition: 0,
-        yPosition: 0,
+        xPosition: x + width / 2,
+        yPosition: y + height,
         menus: [
-          { name: '수정하기', onClick: () => console.log('수정') },
-          { name: '삭제하기', onClick: () => console.log('삭제') },
+          {
+            name: '수정하기',
+            onClick: () => {
+              contextMenu.close();
+              console.log('수정');
+            },
+          },
+          {
+            name: '삭제하기',
+            onClick: () => {
+              contextMenu.close();
+              console.log('삭제');
+            },
+          },
         ],
       });
     },

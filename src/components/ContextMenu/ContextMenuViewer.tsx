@@ -60,6 +60,7 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   background-color: ${colors.white};
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
   z-index: 1000;
+  transition: transform 0.3s, opacity 0.2s;
   animation: ${popup} 0.3s ease-out;
 `;
 
@@ -67,6 +68,10 @@ const Menu = styled.li`
   height: 48px;
   line-height: 48px;
   text-align: center;
+  cursor: pointer;
+  :hover {
+    background-color: ${colors.blackEB};
+  }
 `;
 
 function usePosition(xPosition: number, yPosition: number) {
