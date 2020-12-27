@@ -48,7 +48,7 @@ const Editor: React.FC<{
       syncArticle(data.article);
       onClose();
       setTimeout(() => {
-        history.replace(`/article/${data.article.id}`);
+        history.push(`/article/${data.article.id}`);
       }, 300);
     } catch (error) {
       console.error(error);

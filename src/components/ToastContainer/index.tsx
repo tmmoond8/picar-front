@@ -23,7 +23,7 @@ const StyledToastContainer = styled(ToastContainer)`
     padding: 0 8px;
   }
   .Toastify__toast {
-    margin: 0;
+    margin: 16px 0 0 0;
     padding: 14px 18px;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
