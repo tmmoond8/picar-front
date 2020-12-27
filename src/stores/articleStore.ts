@@ -9,6 +9,10 @@ export interface ArticleStoreInterface {
   selectedGroup: string;
   groupIndex: number;
   selectedLounge: string;
+  loungeArticles: Article[];
+  freeArticles: Article[];
+  humorArticles: Article[];
+  govermentSupportArticles: Article[];
 }
 
 class ArticleStore implements ArticleStoreInterface {
@@ -45,6 +49,28 @@ class ArticleStore implements ArticleStoreInterface {
 
   set groupIndex(index: number) {
     this.selectedGroup = NAVIGATIONS[index].name;
+  }
+  
+  @computed
+  get loungeArticles() {
+    return this.articles.filter(
+      (_article) => _article.group === this.selectedLounge,
+    );
+  }
+
+  @computed
+  get freeArticles() {
+    return this.articles.filter((article) => article.group === '자유');
+  }
+
+  @computed
+  get humorArticles() {
+    return this.articles.filter((article) => article.group === '유머');
+  }
+
+  @computed
+  get govermentSupportArticles() {
+    return this.articles.filter((article) => article.group === '정부지원');
   }
 }
 

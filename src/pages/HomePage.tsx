@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
 
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
@@ -14,26 +13,6 @@ import { CAROUSEL } from '../types/constants';
 export default observer(function HomePage(): JSX.Element {
   const { article, ui, user } = useStore();
   ui.setHeaderNavigation();
-  const history = useHistory();
-  const { articles, groupIndex } = article;
-
-  const loungeArticles = React.useMemo(() => {
-    return articles.filter(
-      (_article) => _article.group === article.selectedLounge,
-    );
-  }, [article.selectedLounge, articles]);
-
-  const freeArticles = React.useMemo(() => {
-    return articles.filter((article) => article.group === '자유');
-  }, [articles]);
-
-  const humorArticles = React.useMemo(() => {
-    return articles.filter((article) => article.group === '유머');
-  }, [articles]);
-
-  const govermentSupportArticles = React.useMemo(() => {
-    return articles.filter((article) => article.group === '정부지원');
-  }, [articles]);
 
   const handleChangeIndex = React.useCallback(
     (index: number) => {
@@ -47,14 +26,23 @@ export default observer(function HomePage(): JSX.Element {
       <Wrapper>
         <Carousel
           id={CAROUSEL.HOME}
-          index={groupIndex}
+          index={article.groupIndex}
           onChangeIndex={handleChangeIndex}
         >
-          <ArticleList articles={loungeArticles} bookmarks={user.bookmarks} />
-          <ArticleList articles={freeArticles} bookmarks={user.bookmarks} />
-          <ArticleList articles={humorArticles} bookmarks={user.bookmarks} />
           <ArticleList
-            articles={govermentSupportArticles}
+            articles={article.loungeArticles}
+            bookmarks={user.bookmarks}
+          />
+          <ArticleList
+            articles={article.freeArticles}
+            bookmarks={user.bookmarks}
+          />
+          <ArticleList
+            articles={article.humorArticles}
+            bookmarks={user.bookmarks}
+          />
+          <ArticleList
+            articles={article.govermentSupportArticles}
             bookmarks={user.bookmarks}
           />
         </Carousel>
