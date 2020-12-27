@@ -7,6 +7,7 @@ import { Profile as UserProfile } from '../types/User';
 import LoginBox from '../components/Login/LoginBox';
 import * as inputHooks from './input';
 import { useStore } from '../stores';
+import { BreakPoints } from '../styles/mediaQuery';
 import { useBottomSheet } from '../components/BottomSheet';
 
 export const useTextInput = inputHooks.useTextInput;
@@ -52,3 +53,48 @@ export const useSetupHistory = () => {
   const history = useHistory();
   util.setHistory(history);
 };
+
+type BreakPointKyes = keyof typeof BreakPoints;
+export const useBreakpoint = () => {
+  const mobileValue = React.useRef<boolean>(false);
+  const desktopValue = React.useRef<boolean>(false);
+  const [queryMatch, setQueryMatch] = React.useState<
+    Record<BreakPointKyes, boolean>
+  >({
+    Mobile: false,
+    Tablet: false,
+    Desktop: false,
+  });
+  React.useEffect(() => {
+    const mobile = window.matchMedia(`(max-width: ${BreakPoints.Tablet}px)`);
+    mobile.addEventListener(
+      'change',
+      () =>
+        // setQueryMatch({ ...queryMatch, Mobile: mobile.matches }),
+        (mobileValue.current = mobile.matches),
+    );
+    const tablet = window.matchMedia(
+      `(min-width: ${BreakPoints.Tablet}px) and (max-width: ${BreakPoints.Desktop}px)`,
+    );
+    tablet.addEventListener('change', () => {
+      setTimeout(() => {
+        setQueryMatch({
+          Mobile: mobileValue.current,
+          Tablet: tablet.matches,
+          Desktop: desktopValue.current,
+        });
+      }, 50);
+    });
+    const desktop = window.matchMedia(`(min-width: ${BreakPoints.Desktop}px)`);
+    desktop.addEventListener(
+      'change',
+      () =>
+        // setQueryMatch({ ...queryMatch, Desktop: desktop.matches }),
+        (desktopValue.current = desktop.matches),
+    );
+  }, []);
+
+  return queryMatch;
+};
+
+export default useBreakpoint;
