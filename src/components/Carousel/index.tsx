@@ -60,6 +60,7 @@ export default function Craousel(props: CraouselProps): JSX.Element {
 
   useEffect(() => {
     const resizeEvent = throttle(32, false, () => {
+      if (!flickingRef.current) return;
       const containerElement = (flickingRef.current! as any).cameraElement;
       const { clientWidth, childNodes } = containerElement as HTMLUListElement;
       childNodes.forEach((children: any, index) => {

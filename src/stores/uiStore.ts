@@ -2,6 +2,9 @@ import { action, observable } from 'mobx';
 import { initalHeader, HeaderProps, headerType } from '../components/Header';
 import { ContextMenuData } from '../components/ContextMenu';
 import { BottomSheetData } from '../components/BottomSheet';
+import { BreakPoints } from '../styles/mediaQuery';
+
+type BreakPointKeys = keyof typeof BreakPoints;
 
 export interface UiStoreInterface {
   header: HeaderProps;
@@ -13,6 +16,7 @@ export interface UiStoreInterface {
   setKeyboardMargin: (height: number) => void;
   contextMenus: ContextMenuData[];
   bottomSheets: BottomSheetData[];
+  queryMatch: Record<BreakPointKeys, boolean>;
 }
 
 class UiStore implements UiStoreInterface {
@@ -20,12 +24,18 @@ class UiStore implements UiStoreInterface {
   @observable keyboardMargin: number;
   @observable contextMenus: ContextMenuData[];
   @observable bottomSheets: BottomSheetData[];
+  @observable queryMatch: Record<BreakPointKeys, boolean>;
 
   constructor() {
     this.header = initalHeader;
     this.keyboardMargin = 0;
     this.contextMenus = [];
     this.bottomSheets = [];
+    this.queryMatch = {
+      Mobile: false,
+      Tablet: false,
+      Desktop: false,
+    }
   }
 
   @action

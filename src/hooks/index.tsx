@@ -96,5 +96,3 @@ export const useBreakpoint = () => {
 
   return queryMatch;
 };
-
-export default useBreakpoint;

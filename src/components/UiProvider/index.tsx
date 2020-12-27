@@ -10,7 +10,7 @@ import { useStore, observer } from '../../stores';
 import 'react-toastify/dist/ReactToastify.css';
 import global from '../../types/global';
 import { Profile as UserProfile } from '../../types/User';
-import { useCheckLogin } from '../../hooks';
+import { useCheckLogin, useBreakpoint } from '../../hooks';
 import UiStore from '../../stores/uiStore';
 
 const UiProvider: React.FC<{
@@ -22,6 +22,12 @@ const UiProvider: React.FC<{
     (profile: UserProfile) => user.setProfile(profile),
     bottomSheet,
   );
+  const queryMatch = useBreakpoint();
+  React.useEffect(() => {
+    ui.queryMatch = queryMatch;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryMatch]);
+
   user.needLogin = () => needLogin(user.profile.code);
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define

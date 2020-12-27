@@ -12,8 +12,12 @@ import MenuBar from '../components/MenuBar';
 import { CAROUSEL } from '../types/constants';
 
 const HomePage = () => {
-  const mq = useBreakpoint();
-  const HomeComponent = mq.Desktop ? <DesktopHome /> : <MobileHome />;
+  const { ui } = useStore();
+  const HomeComponent = ui.queryMatch.Desktop ? (
+    <DesktopHome />
+  ) : (
+    <MobileHome />
+  );
 
   return <Page>{HomeComponent}</Page>;
 };
