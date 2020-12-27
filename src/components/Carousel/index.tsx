@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 import cx from 'classnames';
+import { throttle } from 'throttle-debounce';
 
 import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
@@ -40,6 +41,7 @@ export default function Craousel(props: CraouselProps): JSX.Element {
         );
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flickingRef.current, index]);
 
   useEffect(() => {
@@ -53,7 +55,24 @@ export default function Craousel(props: CraouselProps): JSX.Element {
       cameraElement.ontouchmove = blockEvent;
       cameraElement.onmousemove = blockEvent;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flickingRef.current, gesture]);
+
+  useEffect(() => {
+    const resizeEvent = throttle(32, false, () => {
+      const containerElement = (flickingRef.current! as any).cameraElement;
+      const { clientWidth, childNodes } = containerElement as HTMLUListElement;
+      childNodes.forEach((children: any, index) => {
+        children.style.left = `${index * clientWidth}px`;
+      });
+    });
+    if (flickingRef.current) {
+      window.addEventListener('resize', resizeEvent);
+    }
+    return () => {
+      window.removeEventListener('resize', resizeEvent);
+    };
+  }, []);
 
   return (
     <Self id={id} className={cx('carousel-container', className)}>
