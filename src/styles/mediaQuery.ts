@@ -2,8 +2,8 @@ import { css, SerializedStyles } from '@emotion/core';
 
 export const BreakPoints = {
   Mobile: 240,
-  Tablet: 768,
-  Desktop: 1024,
+  Tablet: 912,
+  Desktop: 1236,
 };
 
 export const mobile = (style: SerializedStyles): SerializedStyles => css`

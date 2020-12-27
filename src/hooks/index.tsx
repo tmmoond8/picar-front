@@ -93,6 +93,17 @@ export const useBreakpoint = () => {
         (desktopValue.current = desktop.matches),
     );
   }, []);
+  React.useEffect(() => {
+    setTimeout(() => {
+      const width = window.innerWidth;
+
+      setQueryMatch({
+        Mobile: width <= BreakPoints.Tablet,
+        Tablet: width > BreakPoints.Tablet && width <= BreakPoints.Desktop,
+        Desktop: width > BreakPoints.Desktop,
+      });
+    }, 50);
+  }, []);
 
   return queryMatch;
 };

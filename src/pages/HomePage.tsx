@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
-import { useBreakpoint } from '../hooks';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
 import MenuBar from '../components/MenuBar';
@@ -13,13 +12,13 @@ import { CAROUSEL } from '../types/constants';
 
 const HomePage = () => {
   const { ui } = useStore();
-  const HomeComponent = ui.queryMatch.Desktop ? (
-    <DesktopHome />
-  ) : (
-    <MobileHome />
-  );
 
-  return <Page>{HomeComponent}</Page>;
+  return (
+    <Page>
+      {ui.queryMatch.Mobile && <MobileHome />}
+      {ui.queryMatch.Tablet && <DesktopHome />}
+    </Page>
+  );
 };
 
 export default observer(HomePage);
