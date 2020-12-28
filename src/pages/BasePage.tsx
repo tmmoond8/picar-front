@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import cx from 'classnames';
 import { useStore, observer } from '../stores';
 import { useSetupHistory } from '../hooks';
+import Layout from '../components/Layout';
 
 const BasePage: React.FC<{
   className?: string;
@@ -23,7 +24,7 @@ const BasePage: React.FC<{
       )}
       {ui.queryMatch.Tablet && (
         <TabletPage className={cx(className, 'TabletPage')}>
-          {children}
+          <Layout.Tablet>{children}</Layout.Tablet>
         </TabletPage>
       )}
     </React.Fragment>

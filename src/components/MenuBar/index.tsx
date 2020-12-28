@@ -11,7 +11,7 @@ import { useOpenArticleEditor } from '../Article';
 import { observer, useStore } from '../../stores';
 import { colors } from '../../styles';
 
-export default observer(function MenuBar(): JSX.Element {
+const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
   const { user } = useStore();
   const location = useLocation();
   const { pathname } = location;
@@ -44,7 +44,7 @@ export default observer(function MenuBar(): JSX.Element {
   }, [moveTo, user]);
 
   return (
-    <MenuBarContainer>
+    <MenuBarContainer className={className}>
       <ul>
         <MenuItem
           icon={<Icon icon="chat" size="24px" color={colors.black33} />}
@@ -74,7 +74,9 @@ export default observer(function MenuBar(): JSX.Element {
       </ul>
     </MenuBarContainer>
   );
-});
+};
+
+export default observer(MenuBar);
 
 const MenuBarContainer = styled.div`
   position: fixed;
@@ -82,6 +84,7 @@ const MenuBarContainer = styled.div`
   left: 0;
   width: 100%;
   height: 56px;
+  background-color: ${colors.white};
   ul {
     display: flex;
     align-items: center;

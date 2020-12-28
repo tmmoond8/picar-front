@@ -44,7 +44,7 @@ export default observer(function ArticleList(
   };
 
   return (
-    <StyledArticleList>
+    <StyledArticleList className="ArticleList">
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
