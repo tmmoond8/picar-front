@@ -16,7 +16,8 @@ const HomePage = () => {
   return (
     <Page>
       {ui.queryMatch.Mobile && <MobileHome />}
-      {ui.queryMatch.Tablet && <DesktopHome />}
+      {ui.queryMatch.Tablet && <TabletHome />}
+      {ui.queryMatch.Desktop && <DesktopHome />}
     </Page>
   );
 };
@@ -79,6 +80,14 @@ const Wrapper = styled.main`
 `;
 
 const DesktopHome = observer(() => {
+  const { article, user } = useStore();
+
+  return (
+    <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} />
+  );
+});
+
+const TabletHome = observer(() => {
   const { article, user } = useStore();
 
   return (

@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { colors } from '../../styles';
 import LoungeSelector from './LoungeSelector';
 import MyActivity from './MyActivity';
+import PopularArticles from './PopularArticles';
 import MenuBar from '../MenuBar';
 
 const GAP = 24;
@@ -27,8 +28,30 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
+const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <TableLayout>
+      <StyledMenuBar />
+      <Body>
+        <Left>
+          <FixedBox>
+            <LoungeSelector />
+            <MyActivity />
+          </FixedBox>
+        </Left>
+        <Contents>{children}</Contents>
+        <Right>
+          <FixedBox>
+            <PopularArticles />
+          </FixedBox>
+        </Right>
+      </Body>
+    </TableLayout>
+  );
+};
 export default {
   Tablet,
+  Desktop,
 };
 
 const TableLayout = styled.div`
@@ -38,13 +61,20 @@ const TableLayout = styled.div`
 `;
 
 const Left = styled.aside`
-  left: ${GAP}px;
   width: 300px;
   height: 600px;
   margin: 0 ${GAP}px 0 0;
 
-  .LoungeSelector {
+  .MyActivity {
+    bottom: 0;
+    margin: 12px 0 0 0;
   }
+`;
+
+const Right = styled.div`
+  width: 300px;
+  height: 600px;
+  margin: 0 0 0 ${GAP}px;
 
   .MyActivity {
     bottom: 0;
@@ -65,11 +95,12 @@ const StyledMenuBar = styled(MenuBar)`
 const Body = styled.div`
   display: flex;
   justify-content: center;
-  .ArticleList {
-    flex: 1;
-    min-width: 320px;
-    max-width: 540px;
-  }
+`;
+
+const Contents = styled.div`
+  flex: 1;
+  min-width: 320px;
+  max-width: 540px;
 `;
 
 const FixedBox = styled.div`

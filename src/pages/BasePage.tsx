@@ -18,14 +18,18 @@ const BasePage: React.FC<{
   return (
     <React.Fragment>
       {ui.queryMatch.Mobile && (
-        <MobilePage className={cx(className, 'MobilePage')}>
-          {children}
-        </MobilePage>
+        <Page className={cx(className, 'MobilePage')}>{children}</Page>
       )}
       {ui.queryMatch.Tablet && (
-        <TabletPage className={cx(className, 'TabletPage')}>
+        <Page className={cx(className, 'TabletPage')}>
           <Layout.Tablet>{children}</Layout.Tablet>
-        </TabletPage>
+        </Page>
+      )}
+
+      {ui.queryMatch.Desktop && (
+        <Page className={cx(className, 'DesktopPage')}>
+          <Layout.Desktop>{children}</Layout.Desktop>
+        </Page>
       )}
     </React.Fragment>
   );
@@ -33,10 +37,6 @@ const BasePage: React.FC<{
 
 export default observer(BasePage);
 
-const MobilePage = styled.div`
-  height: 100%;
-`;
-
-const TabletPage = styled.div`
+const Page = styled.div`
   height: 100%;
 `;
