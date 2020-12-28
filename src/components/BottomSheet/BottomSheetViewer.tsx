@@ -115,7 +115,7 @@ const Wrapper = styled.div<{ open: boolean }>`
     'Segoe UI Emoji', 'Segoe UI Symbol';
   overflow: hidden;
   background-color: ${(p) => (p.open ? colors.dimmed : colors.notDimmed)};
-  z-index: 2000;
+  z-index: 2005;
   transition: background-color 0.2s ease 0s;
 `;
 

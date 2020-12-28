@@ -38,5 +38,6 @@ const BasePage: React.FC<{
 export default observer(BasePage);
 
 const Page = styled.div`
+  overflow-y: hidden;
   height: 100%;
 `;

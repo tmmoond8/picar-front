@@ -2,10 +2,9 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
 import React from 'react';
 
-import { useStore, observer } from '../../stores';
+import { useStore } from '../../stores';
 
 export const headerType = {
   Navigation: 'Navigation' as 'Navigation',
@@ -31,10 +30,6 @@ const getHeader = (
 ) => {
   const { height, options } = header;
   switch (type) {
-    case headerType.Navigation: {
-      const NavigationHeader = require('./NavigationHeader').default;
-      return <NavigationHeader height={height} options={options} />;
-    }
     case headerType.Back: {
       const BackHeader = require('./BackHeader').default;
       return <BackHeader height={height} options={options} />;
@@ -49,8 +44,7 @@ const getHeader = (
   }
 };
 
-export default (function Header(props: HeaderProps): JSX.Element {
-  const { type, height } = props;
+const Header: React.FC<HeaderProps> = ({ type }) => {
   const {
     ui: { header },
   } = useStore();
@@ -59,18 +53,7 @@ export default (function Header(props: HeaderProps): JSX.Element {
     return getHeader(type, header);
   }, [type, header]);
 
-  return (
-    <React.Fragment>
-      <Self headerHeight={height}>{CurrentHeader}</Self>
-    </React.Fragment>
-  );
-});
+  return <React.Fragment>{CurrentHeader}</React.Fragment>;
+};
 
-const Self = styled.header<{ headerHeight: number }>`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: ${(p) => p.headerHeight}px;
-  z-index: 100;
-`;
+export default Header;

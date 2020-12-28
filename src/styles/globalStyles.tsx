@@ -10,6 +10,7 @@ const customReset = css`
     width: 100%;
     height: 100%;
     font-family: 'Noto Sans KR', sans-serif;
+    overflow-y: hidden;
   }
   a {
     text-decoration: none;

@@ -13,7 +13,7 @@ import { CAROUSEL } from '../../types/constants';
 import { NAVIGATIONS, LOUNGE } from '../../types/constants';
 import LoungeGrid from '../LoungeGrid';
 
-const NavigationHeader = (): JSX.Element => {
+const NavigationHeader = () => {
   const { article } = useStore();
 
   const bottomSheet = useBottomSheet();

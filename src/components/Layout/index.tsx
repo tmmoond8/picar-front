@@ -22,7 +22,7 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <MyActivity />
           </FixedBox>
         </Left>
-        {children}
+        <Contents>{children}</Contents>
       </Body>
     </TableLayout>
   );
@@ -55,9 +55,11 @@ export default {
 };
 
 const TableLayout = styled.div`
+  height: 100%;
   margin: 0 auto;
   padding: ${60 + GAP}px ${GAP}px ${GAP}px ${GAP}px;
   background-color: ${colors.blackF5F6F7};
+  overflow-y: hidden;
 `;
 
 const Left = styled.aside`
@@ -95,12 +97,15 @@ const StyledMenuBar = styled(MenuBar)`
 const Body = styled.div`
   display: flex;
   justify-content: center;
+  height: 100%;
+  overflow-y: hidden;
 `;
 
 const Contents = styled.div`
   flex: 1;
   min-width: 320px;
   max-width: 540px;
+  background-color: ${colors.white};
 `;
 
 const FixedBox = styled.div`
