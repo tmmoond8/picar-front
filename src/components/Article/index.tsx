@@ -14,12 +14,7 @@ import ArticleContext from './context';
 
 import { useFetch as useFetchEmotion } from '../Emotion/hooks';
 
-export {
-  useOpenArticleEditor,
-  useMoreMenu,
-  useHeaderMenu,
-  useFetch,
-} from './hooks';
+export { useOpenArticleEditor, useMoreMenu, useFetch } from './hooks';
 
 const Article: React.FC<{
   article: IArticle;

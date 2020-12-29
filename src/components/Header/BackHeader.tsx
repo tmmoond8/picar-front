@@ -33,6 +33,7 @@ const HEIGHT = 56;
 const StyledBack = styled.nav`
   position: relative;
   height: ${HEIGHT}px;
+  min-height: ${HEIGHT}px;
   width: 100%;
   padding: 0 18px;
   background: ${colors.white};

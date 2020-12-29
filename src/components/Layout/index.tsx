@@ -13,7 +13,7 @@ const GAP = 24;
 
 const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <TableLayout>
+    <Layout>
       <StyledMenuBar />
       <Body>
         <Left>
@@ -24,13 +24,13 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </Left>
         <Contents>{children}</Contents>
       </Body>
-    </TableLayout>
+    </Layout>
   );
 };
 
 const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <TableLayout>
+    <Layout>
       <StyledMenuBar />
       <Body>
         <Left>
@@ -46,7 +46,7 @@ const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </FixedBox>
         </Right>
       </Body>
-    </TableLayout>
+    </Layout>
   );
 };
 export default {
@@ -54,7 +54,7 @@ export default {
   Desktop,
 };
 
-const TableLayout = styled.div`
+const Layout = styled.div`
   height: 100%;
   margin: 0 auto;
   padding: ${60 + GAP}px ${GAP}px ${GAP}px ${GAP}px;
@@ -97,11 +97,13 @@ const StyledMenuBar = styled(MenuBar)`
 const Body = styled.div`
   display: flex;
   justify-content: center;
-  height: 100%;
   overflow-y: hidden;
+  height: 100%;
 `;
 
 const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-width: 320px;
   max-width: 540px;

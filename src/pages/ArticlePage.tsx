@@ -1,20 +1,23 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import styled from '@emotion/styled';
 import React from 'react';
 
+import { colors } from '../styles';
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
+import Icon from '../components/Icon';
 import Article from '../components/Article';
+import BackHeader from '../components/Header/BackHeader';
 import {
   useFetch as useFetchArticle,
-  useHeaderMenu,
   useMoreMenu,
 } from '../components/Article/hooks';
 
 import CommentArea from '../components/Comment';
 
 export default observer(function ArticlePage(): JSX.Element {
-  const { article: articleStore, ui, user } = useStore();
+  const { article: articleStore, user } = useStore();
 
   const article = articleStore.articles.find(
     (article) =>
@@ -38,17 +41,52 @@ export default observer(function ArticlePage(): JSX.Element {
 
   const handleClickMore = useMoreMenu(article);
 
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  useHeaderMenu({
-    ui,
-    user,
-    article,
-    handleClickMore,
-  });
+  const bookmark = React.useMemo(() => {
+    return article?.id && user.bookmarks.has(article.id);
+  }, [article, user.bookmarks]);
+
+  const handleClickBookmark = React.useCallback(async () => {
+    if (user.needLogin() || !article) {
+      return;
+    }
+    if (bookmark) {
+      user.removeBookmark(article.id);
+    } else {
+      user.addBookmark(article.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bookmark, article]);
+
+  const isYourArticle = React.useMemo(
+    () => article?.author.code === user.profile.code,
+    [article, user],
+  );
+
+  const HeaderOption = {
+    right: (
+      <React.Fragment>
+        <Icon
+          color={bookmark ? colors.black33 : 'transparent'}
+          icon="bookmarkOutline"
+          size="24px"
+          onClick={handleClickBookmark}
+        />
+        {isYourArticle && (
+          <Icon
+            icon="more"
+            color={colors.black33}
+            size="24px"
+            onClick={handleClickMore}
+          />
+        )}
+      </React.Fragment>
+    ),
+  };
 
   return (
     <Page>
-      <React.Fragment>
+      <BackHeader options={HeaderOption} />
+      <ArticleContainer>
         {article && article.isDelete && <Article.Empty />}
         {article && !article.isDelete && (
           <React.Fragment>
@@ -64,7 +102,12 @@ export default observer(function ArticlePage(): JSX.Element {
             )}
           </React.Fragment>
         )}
-      </React.Fragment>
+      </ArticleContainer>
     </Page>
   );
 });
+
+const ArticleContainer = styled.div`
+  height: calc(100% - 56px);
+  overflow-y: scroll;
+`;

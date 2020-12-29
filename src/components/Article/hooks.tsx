@@ -35,65 +35,6 @@ export const useFetch = (
   return article;
 };
 
-export function useHeaderMenu(params: {
-  ui: UiStore;
-  article?: Article;
-  user: UserStoreInterface;
-  handleClickMore: any;
-}) {
-  const { ui, article, user, handleClickMore } = params;
-
-  const isYourArticle = React.useMemo(
-    () => article?.author.code === user.profile.code,
-    [article, user],
-  );
-  const bookmark = React.useMemo(() => {
-    return article?.id && user.bookmarks.has(article.id);
-  }, [article, user.bookmarks]);
-
-  const handleClickBookmark = React.useCallback(async () => {
-    if (user.needLogin() || !article) {
-      return;
-    }
-    if (bookmark) {
-      user.removeBookmark(article.id);
-    } else {
-      user.addBookmark(article.id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookmark, article]);
-
-  React.useEffect(() => {
-    if (ui && article) {
-      if (article.isDelete) {
-        ui.setHeaderBack({});
-      } else {
-        ui.setHeaderBack({
-          right: (
-            <React.Fragment>
-              <Icon
-                color={bookmark ? colors.black33 : 'transparent'}
-                icon="bookmarkOutline"
-                size="24px"
-                onClick={handleClickBookmark}
-              />
-              {isYourArticle && (
-                <Icon
-                  icon="more"
-                  color={colors.black33}
-                  size="24px"
-                  onClick={handleClickMore}
-                />
-              )}
-            </React.Fragment>
-          ),
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isYourArticle, bookmark]);
-}
-
 const useArticleRemove = (handleClose: () => void) => {
   return React.useCallback(
     async (articleId?: number) => {
