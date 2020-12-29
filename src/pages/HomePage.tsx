@@ -62,14 +62,14 @@ const MobileHome = observer(() => {
             bookmarks={user.bookmarks}
           />
         </Carousel>
-        <MenuBar />
       </Wrapper>
+      <MenuBar />
     </React.Fragment>
   );
 });
 
 const Wrapper = styled.main`
-  height: 100%;
+  height: calc(100% - 56px);
   padding-bottom: 56px;
 `;
 
