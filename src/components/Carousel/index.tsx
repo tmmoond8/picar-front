@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import cx from 'classnames';
 import { throttle } from 'throttle-debounce';
 
-import { FlickingEvent } from '@egjs/flicking';
+// import { ChangeEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
 import global from '../../types/global';
 import { CAROUSEL } from '../../types/constants';
@@ -82,7 +82,7 @@ export default function Craousel(props: CraouselProps): JSX.Element {
         tag="div"
         viewportTag="div"
         cameraTag="div"
-        onChange={(e: FlickingEvent) => {
+        onChange={e => {
           onChangeIndex(e.index);
         }}
         classPrefix="eg-flick"

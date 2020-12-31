@@ -5,7 +5,8 @@
   "proxy": "http://localhost:4040",
   "dependencies": {
     "@capacitor/core": "^2.4.5",
-    "@egjs/flicking": "^3.5.1",
+    "@capacitor/ios": "^2.4.5",
+    "@egjs/flicking": "^3.7.0",
     "@egjs/react-flicking": "^3.3.1",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",

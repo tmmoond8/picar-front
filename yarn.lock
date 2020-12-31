@@ -1108,6 +1108,11 @@
   dependencies:
     tslib "^1.9.0"
 
+"@capacitor/ios@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-2.4.5.tgz#c5a6f8aabb18104feaab342ea689bbf19dba65e8"
+  integrity sha512-x4NRTvEB1Tjohhglm9tUgZLcH5rKfMvZBbR0CAScKu2UweWO4dAtfD2OlS75UZMXBU86SyUMcbcJKEl4bkdx6A==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -1152,6 +1157,11 @@
   resolved "https://registry.yarnpkg.com/@egjs/component/-/component-2.1.2.tgz#c466a0a6fc6ba2d479814dcbe6ee4643c25a2e5b"
   integrity sha512-7tnPiqxbSZ0porzlm0+/O3qZdanMj0zOq0sb17wQXuaRG49XKKKJaO+SacGnZDqf308N5hzJ0m9fZ4+j+VBvXA==
 
+"@egjs/component@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@egjs/component/-/component-2.2.2.tgz#b8208ea4ca05f6562a51d58f1e6f9979aad8a9d9"
+  integrity sha512-2m6nu6/Mbs6VnoT4IHFGUBX6V82Zp01zDmlWpIJ3fMatHpe7BB1qUYFgMmSWGY0uOvOl4plvflwbCRUAGMfwWQ==
+
 "@egjs/flicking@^3.5.1":
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/@egjs/flicking/-/flicking-3.5.1.tgz#1b300bdb473b9bc17776904bc7a46f8cec95e3e0"
@@ -1161,12 +1171,29 @@
     "@egjs/component" "^2.1.2"
     "@egjs/list-differ" "^1.0.0"
 
+"@egjs/flicking@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@egjs/flicking/-/flicking-3.7.0.tgz#60d5b2a61bdad49ae12922269e9c3e3a1a91a125"
+  integrity sha512-NFrsnrSbkVrdiaJGhrbh0iE51v/5OMZD83e9qEPbObsZ/xn2AbCJRHbDnPRT0zDx8nb8Y8gC4+9j/DAMnVjG4g==
+  dependencies:
+    "@egjs/axes" "^2.7.0"
+    "@egjs/component" "^2.2.2"
+    "@egjs/imready" "^1.1.0"
+    "@egjs/list-differ" "^1.0.0"
+
 "@egjs/hammerjs@^2.0.15":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
   integrity sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==
   dependencies:
     "@types/hammerjs" "^2.0.36"
+
+"@egjs/imready@^1.1.0":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@egjs/imready/-/imready-1.1.2.tgz#91f727426fe67654e0a8ad347fc4688d9925d060"
+  integrity sha512-spvuv/hNoyWYdpgYCGt4JIDk0e+3Ce5XcXazSTcF4xBuYKLeKp9tqRRORsPYsaiAfvZR0FKYG8haq0Sx2k+cqQ==
+  dependencies:
+    "@egjs/component" "^2.2.2"
 
 "@egjs/list-differ@^1.0.0":
   version "1.0.0"
