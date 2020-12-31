@@ -109,7 +109,7 @@ const Wrapper = styled.div<{ open: boolean }>`
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   margin: auto;
   font-family: 'Inter', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
     'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -126,7 +126,7 @@ const BottomSheetBox = styled.div<{ open: boolean; isFull: boolean }>`
   top: ${({ isFull }) => (isFull ? '0' : 'auto')};
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   margin: auto;
   height: auto;
   width: 100%;

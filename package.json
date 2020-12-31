@@ -55,8 +55,10 @@
     "eslint-plugin-react-hooks": "^2.5.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "ionic serve",
+    "dev:ios": "ionic capacitor run ios -l --external",
     "build": "CI= react-scripts build",
+    "build:ios": "yarn build && ionic cap copy ios",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

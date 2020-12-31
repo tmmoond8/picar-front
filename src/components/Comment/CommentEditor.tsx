@@ -85,7 +85,7 @@ const Editor = styled.div<{ hasContent: boolean }>`
   display: flex;
   position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   width: 100%;
   align-items: flex-start;
   padding: 18px;
