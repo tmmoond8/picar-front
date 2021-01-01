@@ -3,15 +3,27 @@ import { jsx, Global, css } from '@emotion/core';
 import emotionReset from 'emotion-reset';
 
 const customReset = css`
+  html {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
   html,
   body,
   body > div,
   #root {
     width: 100%;
     height: 100%;
-    font-family: 'Noto Sans KR', sans-serif;
     overflow-y: hidden;
   }
+
+  #root {
+    padding: 
+      env(safe-area-inset-top)
+      env(safe-area-inset-right)
+      env(safe-area-inset-bottom)
+      env(safe-area-inset-left);
+  }
+
   a {
     text-decoration: none;
     color: unset;
@@ -33,7 +45,7 @@ const customReset = css`
   .OwnerBottomSheetWrapper {
     position: fixed;
     top: 0;
-    bottom: 0;
+    bottom: env(safe-area-inset-bottom);
     right: 0;
     left: 0;
     margin: auto;

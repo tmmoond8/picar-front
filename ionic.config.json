@@ -1,0 +1,7 @@
+{
+  "name": "owwners",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

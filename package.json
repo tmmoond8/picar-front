@@ -4,10 +4,15 @@
   "private": true,
   "proxy": "http://localhost:4040",
   "dependencies": {
-    "@egjs/flicking": "^3.5.1",
+    "@capacitor/android": "^2.4.5",
+    "@capacitor/core": "^2.4.5",
+    "@capacitor/ios": "^2.4.5",
+    "@egjs/flicking": "^3.7.0",
     "@egjs/react-flicking": "^3.3.1",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@ionic/react": "^5.5.2",
+    "@ionic/react-router": "^5.5.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -36,6 +41,7 @@
     "validator": "^13.1.17"
   },
   "devDependencies": {
+    "@capacitor/cli": "^2.4.5",
     "@types/classnames": "^2.2.10",
     "@types/js-cookie": "^2.2.6",
     "@types/throttle-debounce": "^2.1.0",
@@ -50,8 +56,10 @@
     "eslint-plugin-react-hooks": "^2.5.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "ionic serve",
+    "dev:ios": "ionic capacitor run ios -l --external",
     "build": "CI= react-scripts build",
+    "build:ios": "yarn build && ionic cap copy ios",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

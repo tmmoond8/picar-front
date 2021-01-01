@@ -43,7 +43,7 @@ const FullLoading = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   left: 0;
   right: 0;
   margin: auto;
