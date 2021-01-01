@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
@@ -70,6 +70,7 @@ class UserStore implements UserStoreInterface {
 
   @action
   setProfile(profile: Profile) {
+    console.log(profile);
     this.profile = profile;
     this.fetchUserData();
   }

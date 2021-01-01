@@ -50,7 +50,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
 
   const handleSignUp = React.useCallback(async () => {
     try {
-      const { data } = await API.auth.kakaoLogin({
+      const { data } = await API.auth.kakaoSignUp({
         ...props,
         name: nicknameField[0],
         email: emailField[0],
