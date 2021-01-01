@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:4040",
   "dependencies": {
+    "@capacitor/android": "^2.4.5",
     "@capacitor/core": "^2.4.5",
     "@capacitor/ios": "^2.4.5",
     "@egjs/flicking": "^3.7.0",
