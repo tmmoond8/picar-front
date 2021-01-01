@@ -68,6 +68,7 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
           <KakaoLogin
             onSignUp={handleSignUp}
             onSetUserProfile={handleSetUserProfile}
+            onClose={onClose}
           />
         </li>
         <li className="naver-login">

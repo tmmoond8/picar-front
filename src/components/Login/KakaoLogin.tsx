@@ -3,20 +3,26 @@
 import { jsx } from '@emotion/core';
 
 import React from 'react';
-import ReactKakaoLogin from 'react-kakao-login';
 import APIS from '../../apis';
+import env from '../../env';
 
+// import KakaoModule from './KakaoModule';
 import KakaoLoginIcon from './login-kakao.svg';
 import { SignUpUser, Profile } from '../../types/User';
+import { useBottomSheet } from '../BottomSheet';
+
 
 interface KakaoLoginProps {
   onSignUp: (user: SignUpUser) => void;
   onSetUserProfile: (userProfile: Profile) => void;
+  onClose: () => void;
 }
 
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
-  const { onSignUp, onSetUserProfile } = props;
-  const handleLogin = React.useCallback(
+  const { onSignUp, onSetUserProfile, onClose } = props;
+  const bottomSheet = useBottomSheet();
+
+  const handleSaveUser = React.useCallback(
     async (result) => {
       const {
         id,
@@ -49,14 +55,15 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
     },
     [onSetUserProfile, onSignUp],
   );
+
+  const handleKakaoLogin = React.useCallback(() => {
+    onClose();
+    setTimeout(() => {
+      window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}&response_type=code`
+    }, 200);
+  }, [bottomSheet])
+
   return (
-    <ReactKakaoLogin
-      token={process.env.REACT_APP_KAKAO_LOGIN_KEY || ''}
-      onSuccess={(result) => handleLogin(result)}
-      onFail={(result: any) => console.log(result)}
-      render={(props: any) => (
-        <img src={KakaoLoginIcon} onClick={props.onClick} />
-      )}
-    />
+    <img src={KakaoLoginIcon} onClick={handleKakaoLogin}/>
   );
 }

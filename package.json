@@ -29,6 +29,7 @@
     "js-cookie": "^2.2.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.5",
+    "query-string": "^6.13.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-kakao-login": "^2.0.0",
