@@ -1,10 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
+import env from '../env';
 
-const apiUrl = process.env.NODE_ENV ===  'development'
+const apiUrl = env.NODE_ENV ===  'development'
   ? `${window.location.origin}/api`.replace(':3000', ':4040')
-  : process.env.REACT_APP_API_URL 
+  : env.REACT_APP_API_URL 
 const api: AxiosInstance = axios.create({
   baseURL: apiUrl,
   withCredentials: true,

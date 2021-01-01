@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import dotenv from 'dotenv';
 import React from 'react';
 import ReactNaverLogin from 'react-naver-login';
 
+import env from '../../env';
 import APIS from '../../apis';
 import NaverLoginIcon from './login-naver.svg';
 import { SignUpUser, Profile } from '../../types/User';
 
-dotenv.config();
 
 interface NaverLoginProps {
   onSignUp: (user: SignUpUser) => void;
@@ -58,8 +57,8 @@ export default function NaverLogin(props: NaverLoginProps): JSX.Element {
   );
   return (
     <ReactNaverLogin
-      clientId={process.env.REACT_APP_NAVER_CLIENT_ID || ''}
-      callbackUrl={process.env.REACT_APP_NAVER_LOGIN_CALLBACK_URL || ''}
+      clientId={env.REACT_APP_NAVER_CLIENT_ID}
+      callbackUrl={env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}
       render={(props) => (
         <img src={NaverLoginIcon} onClick={() => props.onClick()} />
       )}

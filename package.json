@@ -46,6 +46,7 @@
     "@types/js-cookie": "^2.2.6",
     "@types/throttle-debounce": "^2.1.0",
     "@types/validator": "^13.1.0",
+    "dotenv-cli": "^4.0.0",
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-typescript": "^2.0.0",
@@ -59,7 +60,8 @@
     "dev": "ionic serve",
     "dev:ios": "ionic capacitor run ios -l --external",
     "build": "CI= react-scripts build",
-    "build:ios": "yarn build && ionic cap copy ios",
+    "build:production": "dotenv -e .env.production.env react-scripts build && capacitor copy ios && capacitor copy android",
+    "build:local": "react-scripts build && capacitor copy ios && capacitor copy android",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
