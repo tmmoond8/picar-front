@@ -4,12 +4,13 @@ import { jsx } from '@emotion/core';
 
 import React from 'react';
 import APIS from '../../apis';
-import env from '../../env';
+import { useStore } from '../../stores';
 
 // import KakaoModule from './KakaoModule';
 import KakaoLoginIcon from './login-kakao.svg';
 import { SignUpUser, Profile } from '../../types/User';
 import { useBottomSheet } from '../BottomSheet';
+import { Browser } from '@capacitor/core';
 
 
 interface KakaoLoginProps {
@@ -20,8 +21,9 @@ interface KakaoLoginProps {
 
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
   const { onSignUp, onSetUserProfile, onClose } = props;
+  const { util } = useStore();
   const bottomSheet = useBottomSheet();
-
+  
   const handleSaveUser = React.useCallback(
     async (result) => {
       const {
@@ -58,8 +60,10 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
 
   const handleKakaoLogin = React.useCallback(() => {
     onClose();
+    const uuid = Math.random().toString(32).split('.')[1];
+    localStorage.setItem('OWWNERS_UUID', uuid)
     setTimeout(() => {
-      window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}&response_type=code`
+      Browser.open({ url: `/login/kakao?uuid=${uuid}`});
     }, 200);
   }, [bottomSheet])
 
