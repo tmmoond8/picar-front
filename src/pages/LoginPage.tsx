@@ -2,12 +2,11 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { Plugins } from '@capacitor/core';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
 
-import { isHybrid } from '../modules/crossPlatform';
+import stroage from '../modules/localStorage';
 import APIS from '../apis';
 import env from '../env';
 import { Profile as UserProfile } from '../types/User';
@@ -15,6 +14,7 @@ import LoginBox from '../components/Login/LoginBox';
 import { useBottomSheet } from '../components/BottomSheet';
 import { useStore, observer } from '../stores';
 import OwwnersLogo from '../resources/images/owwners-logo.png';
+import storage from '../modules/localStorage';
 
 const Page = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ export default observer(function ProfilePage(): JSX.Element {
   const location = useLocation();
   const { code } = queryString.parse(location.search);
   const history  = util.useHistory();
-  const { Device } = Plugins;
+  const [message, setMessage ] = React.useState('');
 
   ui.setHeaderNone();
   const bottomSheet = useBottomSheet();
@@ -39,11 +39,12 @@ export default observer(function ProfilePage(): JSX.Element {
   
   React.useEffect(() => {
     (async () => {
-      if (code) {
-        const uuid = localStorage.getItem("OWWNERS_UUID") ?? '';
-        alert(uuid);
+      const uuid = stroage.getExWindowUUID();
+      if (code && uuid) {
         try {
-          const { data: { access_token, refresh_token } } = await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}&code=${code}`)
+          stroage.clearExWindowUUID();
+          const call = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}&code=${code}`;
+          const { data: { access_token, refresh_token } } = await axios.post(call)
           const { data } = await APIS.auth.kakaoLogin({
             accessToken: access_token,
             refreshToken: refresh_token,
@@ -54,16 +55,19 @@ export default observer(function ProfilePage(): JSX.Element {
             // TODO replace reaload 조합이 아니고 goBack 으로 하되 사용자 정보가 셋업되도록...
             history.replace('/');
             setTimeout(() => {
-              if (!isHybrid()) {
-                setTimeout(() => {
-                  window.location.reload();
-                }, 300)
+              const openerUUID = stroage.getOpenerUUID();
+              if (openerUUID) {
+                storage.clearOpenerUUID();
+                window.location.reload();
+              } else {
+                setMessage('Owwner 앱으로 이동하면 로그인이 완료됩니다.')
               }
             }, 50)
           } else {
             // TODO 로그인이 되어 있지 않으면 회원가입 하도록 처리
           }
         } catch (error) {
+          alert('kakao login error' + JSON.stringify(error));
           console.error('kakao login error', error);
         }
       }
@@ -78,6 +82,7 @@ export default observer(function ProfilePage(): JSX.Element {
       />
       <FullLoading>
         <img src={OwwnersLogo} />
+        <h3>{message}</h3>
       </FullLoading>
     </Page>
   );
@@ -85,6 +90,7 @@ export default observer(function ProfilePage(): JSX.Element {
 
 const FullLoading = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -97,5 +103,10 @@ const FullLoading = styled.div`
 
   img {
     width: 172px;
+  }
+
+  h3 {
+    margin-top: 8px
+    font-size: 16px;
   }
 `;

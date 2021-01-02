@@ -6,6 +6,7 @@ import { Plugins } from '@capacitor/core';
 
 import cx from 'classnames';
 import APIS from '../apis';
+import storage from '../modules/localStorage';
 import { useStore, observer } from '../stores';
 import { useSetupHistory } from '../hooks';
 import Layout from '../components/Layout';
@@ -20,8 +21,8 @@ const BasePage: React.FC<{
   React.useEffect(() => {
     (async () => {
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
-        if (isActive) {
-          const uuid = localStorage.getItem('OWWNERS_UUID') ?? '';
+        const uuid = storage.getOpenerUUID();
+        if (isActive && uuid) {
           try {
             const {
               data: { data },

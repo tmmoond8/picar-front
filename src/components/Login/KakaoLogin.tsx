@@ -5,8 +5,8 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import APIS from '../../apis';
 import { useStore } from '../../stores';
+import storage from '../../modules/localStorage';
 
-// import KakaoModule from './KakaoModule';
 import KakaoLoginIcon from './login-kakao.svg';
 import { SignUpUser, Profile } from '../../types/User';
 import { useBottomSheet } from '../BottomSheet';
@@ -61,7 +61,7 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
   const handleKakaoLogin = React.useCallback(() => {
     onClose();
     const uuid = Math.random().toString(32).split('.')[1];
-    localStorage.setItem('OWWNERS_UUID', uuid)
+    storage.setOpenerUUID(uuid);
     setTimeout(() => {
       Browser.open({ url: `/login/kakao?uuid=${uuid}`});
     }, 200);
