@@ -40,4 +40,12 @@ export default observer(BasePage);
 const Page = styled.div`
   overflow-y: hidden;
   height: 100%;
+
+  &.MobilePage {
+    padding: 
+      env(safe-area-inset-top)
+      env(safe-area-inset-right)
+      env(safe-area-inset-bottom)
+      env(safe-area-inset-left);
+  }
 `;
