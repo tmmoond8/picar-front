@@ -4,7 +4,7 @@ export interface Profile {
   thumbnail: string;
   profileImage?: string;
   email: string;
-  description?: string;
+  description: string | null;
   group?: string;
   isOwner?: boolean;
 }

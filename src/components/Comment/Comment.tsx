@@ -59,7 +59,7 @@ const Comment: React.FC<CommentProps> = (props) => {
       <StyledComment isFocus={isFocus}>
         <ProfilePhoto src={thumbnail} />
         <ContentBox>
-          <Profile.Who
+          <Profile.WhoDot
             name={name}
             group={group}
             nameColor={isArticleAuthorsComment ? colors.primary : undefined}

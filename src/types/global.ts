@@ -10,6 +10,7 @@ type OwnerGlobal = typeof globalThis & {
     closeContextMenu: (id: string) => void;
     homeFlickingMoveTo: (i: number) => void;
     signupFlickingMoveTo: (i: number) => void;
+    searchFlickingMoveTo: (i: number) => void;
   };
 };
 
@@ -23,6 +24,7 @@ if (global.__OWNER__ === undefined) {
     closeContextMenu: () => console.log('not initialzed'),
     homeFlickingMoveTo: () => console.log('not initialzed'),
     signupFlickingMoveTo: () => console.log('not initialzed'),
+    searchFlickingMoveTo: () => console.log('not initialzed'),
   };
 }
 

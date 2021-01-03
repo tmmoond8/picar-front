@@ -15,7 +15,7 @@ const ArticleHead = () => {
     <Self>
       <Profile.Photo src={thumbnail} onClick={() => console.log(id)} />
       <Content>
-        <Profile.Who name={name} group={group} />
+        <Profile.WhoDot name={name} group={group} />
         <p className="date">{getDateGoodLook(article!.createAt)}</p>
       </Content>
     </Self>

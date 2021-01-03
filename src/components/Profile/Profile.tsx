@@ -9,7 +9,7 @@ const Profile: React.FC<{
   name: string;
   group?: string;
   profileImage?: string;
-  description?: string;
+  description: string | null;
 }> = ({ name, group, description, profileImage }) => {
   return (
     <React.Fragment>

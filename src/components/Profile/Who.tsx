@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
+
+import cx from 'classnames';
 import { colors } from '../../styles';
 
 interface WhoProps {
@@ -11,18 +13,28 @@ interface WhoProps {
   right?: React.ReactNode;
 }
 
-export default function ProfileWho(props: WhoProps): JSX.Element {
+export const WhoDot: React.FC<WhoProps> = (props) => {
   const { name, group, className, nameColor, right } = props;
   return (
-    <Who className={className} nameColor={nameColor}>
+    <StyledWhotDot className={cx(className, 'Who')} nameColor={nameColor}>
       <p className="user-name">{name}</p>
       {group && <p className="user-group">{group}</p>}
       {right && right}
-    </Who>
+    </StyledWhotDot>
   );
 }
 
-const Who = styled.div<{ nameColor?: string }>`
+export const Who: React.FC<WhoProps> = (props) => {
+  const { name, group, className } = props;
+  return (
+    <StyledWho className={cx(className, 'Who')}>
+      <p className="user-name">{name}</p>
+      <p className="user-group">{group}</p>
+    </StyledWho>
+  );
+}
+
+const StyledWhotDot = styled.div<{ nameColor?: string }>`
   display: flex;
   font-weight: 500;
 
@@ -48,5 +60,25 @@ const Who = styled.div<{ nameColor?: string }>`
       left: -8px;
       top: 0px;
     }
+  }
+`;
+
+const StyledWho = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  .user-name {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
+    color: ${colors.black22};
+  }
+
+  .user-group {
+    position: relative;
+    font-size: 14px;
+    line-height: 14px;
+    color: ${colors.black77};
   }
 `;

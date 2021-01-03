@@ -28,7 +28,7 @@ const SearchPage: React.FC = () => {
         isOnSearch={isOnSearch}
         setIsOnSearch={setIsOnSearch}
       />
-      {isOnSearch && (
+      {isOnSearch && !search && (
         <React.Fragment>
           <Content.SpaceBetween>
             <SearchComponents.Title>검색어 추천</SearchComponents.Title>
@@ -41,6 +41,12 @@ const SearchPage: React.FC = () => {
         <React.Fragment>
           <SearchComponents.ShadowTitle>인기 글</SearchComponents.ShadowTitle>
           <SearchComponents.PopArticles />
+          <SearchComponents.MenuBar />
+        </React.Fragment>
+      )}
+      {isOnSearch && search && (
+        <React.Fragment>
+          <SearchComponents.SearchResults />
           <SearchComponents.MenuBar />
         </React.Fragment>
       )}

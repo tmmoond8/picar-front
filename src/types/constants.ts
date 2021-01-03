@@ -36,4 +36,5 @@ export const LOUNGES: Lounge[] = [
 export const CAROUSEL = {
   HOME: 'homeFlickingMoveTo',
   SIGNUP: 'signupFlickingMoveTo',
+  SEARCH: 'searchFlickingMoveTo',
 } as const;
