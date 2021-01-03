@@ -43,14 +43,17 @@ export default observer(function ProfilePage(): JSX.Element {
       if (code && uuid) {
         try {
           stroage.clearExWindowUUID();
-          const call = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}&code=${code}`;
+          const dd = stroage.getExWindowUUID();
+          const call = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`;
           const { data: { access_token, refresh_token } } = await axios.post(call)
+          console.log('access_token', access_token);
+          console.log('dd', dd);
           const { data } = await APIS.auth.kakaoLogin({
             accessToken: access_token,
             refreshToken: refresh_token,
             uuid,
           })
-          
+          console.log('data', data);
           if (data.code) {
             // TODO replace reaload 조합이 아니고 goBack 으로 하되 사용자 정보가 셋업되도록...
             history.replace('/');

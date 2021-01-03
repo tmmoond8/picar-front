@@ -14,7 +14,7 @@ const KakaoLoginBridge: React.FC = () => {
     React.useEffect(() => {
         storage.setExWindowUUID(uuid?.toString() ?? '');
         setTimeout(() => {
-            window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_NAVER_LOGIN_CALLBACK_URL}&response_type=code`
+            window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code`
         }, 150)
     }, [])
 

@@ -4,14 +4,14 @@ import { jsx } from '@emotion/core';
 
 import React from 'react';
 import APIS from '../../apis';
-import { useStore } from '../../stores';
+import { Browser } from '@capacitor/core';
 import storage from '../../modules/localStorage';
 
 import KakaoLoginIcon from './login-kakao.svg';
 import { SignUpUser, Profile } from '../../types/User';
 import { useBottomSheet } from '../BottomSheet';
-import { Browser } from '@capacitor/core';
-
+import env from '../../env';
+import { isHybrid } from '../../modules/crossPlatform';
 
 interface KakaoLoginProps {
   onSignUp: (user: SignUpUser) => void;
@@ -21,7 +21,6 @@ interface KakaoLoginProps {
 
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
   const { onSignUp, onSetUserProfile, onClose } = props;
-  const { util } = useStore();
   const bottomSheet = useBottomSheet();
   
   const handleSaveUser = React.useCallback(
@@ -63,7 +62,11 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
     const uuid = Math.random().toString(32).split('.')[1];
     storage.setOpenerUUID(uuid);
     setTimeout(() => {
-      Browser.open({ url: `/login/kakao?uuid=${uuid}`});
+      if (isHybrid()) {
+        Browser.open({ url: `/login/kakao?uuid=${uuid}`});
+      } else {
+        window.location.href = `${env.REACT_APP_LOGIN_URL}/kakao?uuid=${uuid}`;
+      }
     }, 200);
   }, [bottomSheet])
 
