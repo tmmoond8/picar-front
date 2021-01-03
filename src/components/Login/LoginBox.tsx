@@ -35,7 +35,6 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
       setTimeout(() => {
         bottomSheet.open({
           title: ' 회원가입',
-          headerType: 'none',
           isFull: true,
           contents: (
             <SignUpWithDelay

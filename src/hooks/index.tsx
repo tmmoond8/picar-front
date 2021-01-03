@@ -38,6 +38,7 @@ export const useCheckLogin = (
               onSetUserProfile={handleSetUserProfile}
             />
           ),
+          hasTitleLine: false,
         });
 
         return true;

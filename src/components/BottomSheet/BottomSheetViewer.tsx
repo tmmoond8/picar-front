@@ -13,10 +13,9 @@ import {
 } from 'react';
 import cx from 'classnames';
 
-import BottomSheetHeader from '../Header/BottomSheetHeader';
-import CloseHeader from '../Header/CloseHeader';
+import BottomSheetHeader from './BottomSheetHeader';
 import { colors, desktop } from '../../styles';
-import { useStore, observer } from '../../stores';
+import { observer } from '../../stores';
 
 export const HEADER_TYPE = {
   default: 'default',
@@ -30,10 +29,10 @@ interface BottomSheetViewerProps {
   className?: string;
   id: string;
   title?: string;
-  headerType?: HeaderType;
   contents: ReactNode;
   handleClose: () => void;
   isFull?: boolean;
+  hasTitleLine?: boolean;
 }
 
 export type BottomSheetData = BottomSheetViewerProps;
@@ -46,8 +45,8 @@ const BottomSheetViewer = forwardRef(
       title = '',
       contents,
       handleClose,
-      headerType = HEADER_TYPE.default,
       isFull = false,
+      hasTitleLine = true,
     } = props;
     const [open, setOpen] = useState<boolean>(false);
     const handleClickWrapper = useCallback(
@@ -58,22 +57,6 @@ const BottomSheetViewer = forwardRef(
       },
       [handleClose],
     );
-
-    const Header = React.useMemo(() => {
-      if (headerType === HEADER_TYPE.close) {
-        return <CloseHeader options={{ title }} onClose={handleClose} />;
-      }
-      if (headerType === HEADER_TYPE.none) {
-        return <React.Fragment />;
-      }
-      return (
-        <BottomSheetHeader
-          title={title}
-          handleClose={handleClose}
-          noRadius={isFull}
-        />
-      );
-    }, [handleClose, headerType, isFull, title]);
 
     useEffect(() => {
       if (!open) {
@@ -94,7 +77,12 @@ const BottomSheetViewer = forwardRef(
           ref={ref as RefObject<HTMLDivElement>}
           isFull={isFull}
         >
-          {Header}
+          <BottomSheetHeader
+            title={title}
+            handleClose={handleClose}
+            noRadius={isFull}
+            hasTitleLine={hasTitleLine}
+          />
           <BottomSheetBody>{contents}</BottomSheetBody>
         </BottomSheetBox>
       </Wrapper>

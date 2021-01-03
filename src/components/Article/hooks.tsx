@@ -78,7 +78,6 @@ export const useOpenArticleEditor = () => {
   return (exitingArticle?: Article) =>
     bottomSheet.open({
       title: ' 글 수정',
-      headerType: 'close',
       isFull: true,
       contents: (
         <Editor

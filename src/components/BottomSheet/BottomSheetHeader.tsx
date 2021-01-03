@@ -1,22 +1,24 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 import cx from 'classnames';
 import Button from '../Button';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 
-interface BottomSheetHeaderProps {
+
+const BottomSheetHeader: React.FC<{
   className?: string;
   title: string;
   handleClose: () => void;
   noRadius?: boolean;
-}
-
-export default function BottomSheetHeader(props: BottomSheetHeaderProps) {
-  const { className, title, handleClose, noRadius = false } = props;
+  hasTitleLine?: boolean;
+}> = ({
+  className, title, handleClose, noRadius = false, hasTitleLine = true
+}) => {
   return (
-    <Head className={cx('BottomSheetHeader', className)} noRadius={noRadius}>
+    <Head className={cx('BottomSheetHeader', className)} noRadius={noRadius} hasTitleLine={hasTitleLine}>
       <Title>{title}</Title>
       <CloseButton onClick={handleClose}>
         <Icon icon="close" size="24px" color={colors.black33} />
@@ -25,9 +27,11 @@ export default function BottomSheetHeader(props: BottomSheetHeaderProps) {
   );
 }
 
+export default React.memo(BottomSheetHeader);
+
 const HEIGHT = 60;
 
-const Head = styled.div<{ noRadius: boolean }>`
+const Head = styled.div<{ noRadius: boolean; hasTitleLine: boolean }>`
   display: flex;
   position: relative;
   height: ${HEIGHT}px;
@@ -35,7 +39,7 @@ const Head = styled.div<{ noRadius: boolean }>`
   align-items: center;
   border-radius: ${(p) => (p.noRadius ? 'none' : '12px 12px 0 0')};
   background-color: ${colors.white};
-  box-shadow: inset 0 -0.5px 0 0 ${colors.blackBF};
+  box-shadow: inset 0 -0.5px 0 0 ${p => p.hasTitleLine ? colors.blackBF : colors.transparent};
 `;
 
 const Title = styled.h2`
