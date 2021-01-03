@@ -31,7 +31,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     errorMessage,
     className,
     onBlur = () => {},
-    onClear = () => {},
+    onClear,
     autocomplete = true,
   } = props;
   const { ui } = useStore();
@@ -41,7 +41,9 @@ const TextField: React.FC<TextFieldProps> = (props) => {
   const handleClear = React.useCallback(
     (e) => {
       e.preventDefault();
-      onClear();
+      if (typeof onClear === 'function') {
+        onClear();
+      }
       const inputElement = inputRef.current;
       if (inputElement) {
         inputElement.focus();
@@ -80,7 +82,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
           onBlur={handleBlur}
           autoComplete={autocomplete ? 'on' : 'off'}
         />
-        {value.length > 0 && (
+        {value.length > 0 && onClear && (
           <ClearButton onClick={handleClear}>
             <Icon icon="inputClear" size="20px" />
           </ClearButton>

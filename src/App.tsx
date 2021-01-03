@@ -23,6 +23,7 @@ function App() {
             <Route exact path="/login" component={Pages.LoginPage}/>
             <Route exact path="/login/kakao" component={Pages.KakaoLoginBridge}/>
             <Route exact path="/article/:articleId" component={Pages.ArticlePage}/>
+            <Route exact path="/search" component={Pages.SearchPage}/>
             <Route exact path="/" component={Pages.HomePage}/>
           </IonRouterOutlet>
         </Page>

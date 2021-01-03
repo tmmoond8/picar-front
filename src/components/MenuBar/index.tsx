@@ -85,6 +85,7 @@ const MenuBarContainer = styled.div`
   width: 100%;
   height: 56px;
   background-color: ${colors.white};
+  box-shadow: inset 0 0.5px 0 0 #e6e6e6;
   ul {
     display: flex;
     align-items: center;
