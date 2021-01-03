@@ -10,11 +10,16 @@ import Input from '../Input';
 const SearchInput: React.FC<{ 
   search: string;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}> = ({ search, onChangeSearch }) => {
-  const [focus, setFocus] = React.useState(false);
+  onClear: () => void;
+  isOnSearch: boolean;
+  setIsOnSearch: (v: boolean) => void;
+}> = ({ search, onChangeSearch, setIsOnSearch, onClear, isOnSearch }) => {
+  
+
+  
   return (
     <Wrapper>
-      <Icon icon="back" size="24px" color={colors.black22}/>
+      {isOnSearch && <Icon icon="back" size="24px" color={colors.black22} onClick={() => setIsOnSearch(false)}/>}
       <InputBox>
         <Icon icon="search" size="20px" color={colors.blackCC}/>
         <TextField 
@@ -22,6 +27,7 @@ const SearchInput: React.FC<{
           placeholder="검색어를 입력하세요"
           value={search}
           onChange={onChangeSearch}
+          onFocus={() => setIsOnSearch(true)}
         />
       </InputBox>
     </Wrapper>

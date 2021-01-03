@@ -40,3 +40,4 @@ export { ReactComponent as customerCenter } from './customer-center.svg';
 export { ReactComponent as share } from './share.svg';
 export { ReactComponent as send } from './send.svg';
 export { ReactComponent as more } from './more.svg';
+export { ReactComponent as time } from './time.svg';

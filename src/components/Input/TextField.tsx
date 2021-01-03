@@ -18,6 +18,7 @@ interface TextFieldProps {
   onClear?: () => void;
   errorMessage?: string;
   onBlur?: () => void;
+  onFocus?: () => void;
   autocomplete?: boolean;
 }
 
@@ -31,6 +32,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     errorMessage,
     className,
     onBlur = () => {},
+    onFocus = () => {},
     onClear,
     autocomplete = true,
   } = props;
@@ -54,6 +56,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
 
   const handleFocus = React.useCallback(() => {
     setFocus(true);
+    onFocus();
     ui.setKeyboardMargin(getVirtualKeyboardHeight());
   }, [ui]);
 

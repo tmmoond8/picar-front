@@ -20,7 +20,7 @@ const PopularArticleList: React.FC = () => {
 }
 
 const List = styled.ol`
-  padding: 8px 18px;
+  padding: 0 18px;
   ol {
     overflow-y: scroll;
     padding: 8px 0;
