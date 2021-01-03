@@ -1,19 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IonApp } from '@ionic/react';
 import App from './App';
 import { MobxProvider } from './stores';
 import * as serviceWorker from './serviceWorker';
 import UiProvider from './components/UiProvider';
 
 ReactDOM.render(
-  <IonApp>
+  <React.StrictMode>
     <MobxProvider>
       <UiProvider>
         <App />
       </UiProvider>
     </MobxProvider>
-  </IonApp>,
+  </React.StrictMode>,
   document.getElementById('root'),
 );
 

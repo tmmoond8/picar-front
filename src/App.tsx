@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Switch, Route } from 'react-router-dom';
-import { IonRouterOutlet } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
@@ -14,20 +12,34 @@ function App() {
   return (
     <React.Fragment>
       <GlobalStyles />
-      <IonReactRouter>
+      <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
-          <IonRouterOutlet>
-            <Route exact path="/profile" component={Pages.ProfilePage}/>
-            <Route exact path="/test" component={Pages.TestPage}/>
-            <Route exact path="/login" component={Pages.LoginPage}/>
-            <Route exact path="/login/kakao" component={Pages.KakaoLoginBridge}/>
-            <Route exact path="/article/:articleId" component={Pages.ArticlePage}/>
-            <Route exact path="/search" component={Pages.SearchPage}/>
-            <Route exact path="/" component={Pages.HomePage}/>
-          </IonRouterOutlet>
+          <Switch>
+            <Route path="/profile">
+              <Pages.ProfilePage />
+            </Route>
+            <Route path="/test">
+              <Pages.TestPage />
+            </Route>
+            <Route path="/login/kakao">
+              <Pages.KakaoLoginBridge />
+            </Route>
+            <Route path="/login">
+              <Pages.LoginPage />
+            </Route>
+            <Route path="/article/:articleId">
+              <Pages.ArticlePage />
+            </Route>
+            <Route path="/search">
+              <Pages.SearchPage />
+            </Route>
+            <Route path="/">
+              <Pages.HomePage />
+            </Route>
+          </Switch>
         </Page>
-      </IonReactRouter>
+      </Router>
     </React.Fragment>
   );
 }
