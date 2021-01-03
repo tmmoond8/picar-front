@@ -17,7 +17,7 @@ var recommandations = [
 
 const SearchPage: React.FC = () => {
   const [ search, onChangeSearch, onClear ] = Input.useTextField('')
-  const [ isOnSearch, setIsOnSearch ] = React.useState(true);
+  const [ isOnSearch, setIsOnSearch ] = React.useState(false);
 
   return (
     <SearchComponents.Page>

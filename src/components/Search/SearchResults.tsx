@@ -17,7 +17,7 @@ const tabs = [
 ];
 
 const SearchResults: React.FC = () => {
-  const [tabIndex, setTabIndex] = React.useState(1);
+  const [tabIndex, setTabIndex] = React.useState(0);
   const { article, user } = useStore();
   const handleClickTab = React.useCallback((tab) => {
     const tabIndex = tabs.findIndex(({ id }) => id === tab.id);
