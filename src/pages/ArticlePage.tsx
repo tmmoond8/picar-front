@@ -59,7 +59,7 @@ export default observer(function ArticlePage(): JSX.Element {
 
   const isYourArticle = React.useMemo(
     () => article?.author.code === user.profile.code,
-    [article, user],
+    [article?.author, user.profile],
   );
 
   const HeaderOption = {
