@@ -10,6 +10,7 @@ import { colors } from '../../styles';
 import APIS from '../../apis';
 import { CAROUSEL } from '../../types/constants';
 import Article from '../../types/Article';
+import { Profile } from '../../types/User';
 import { useStore, observer} from '../../stores';
 
 const tabs = [ 
@@ -21,6 +22,7 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
   const { user } = useStore();
   const [tabIndex, setTabIndex] = React.useState(0);
   const [ articles, setArticles] = React.useState<Article[]>([]);
+  const [ users, setUsers] = React.useState<Profile[]>([]);
   const handleClickTab = React.useCallback((tab) => {
     const tabIndex = tabs.findIndex(({ id }) => id === tab.id);
     (window as any).__OWNER__[CAROUSEL.SEARCH](tabIndex);
@@ -29,9 +31,15 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
 
   React.useEffect(() => {
     const timer = setTimeout(async () => {
-      const { data } = await APIS.article.search(search);
-      if (data.ok) {
-        setArticles(data.articles)
+      const articlePomise = APIS.article.search(search);
+      const userPomise = APIS.user.search(search);
+      const { data: articleData } = await articlePomise
+      const { data: userData } = await userPomise
+      if (articleData.ok) {
+        setArticles(articleData.articles)
+      }
+      if (userData.ok) {
+        setUsers(userData.users)
       }
     }, 500)
     return () => clearTimeout(timer);
@@ -55,7 +63,7 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
           articles={articles}
           bookmarks={user.bookmarks}
         />
-        <UserList/>
+        <UserList users={users}/>
       </Carousel>
     </Wrapper>
   )

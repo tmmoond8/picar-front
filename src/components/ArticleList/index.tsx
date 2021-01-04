@@ -63,7 +63,7 @@ export default observer(function ArticleList(
 const StyledArticleList = styled.ol`
   width: 100%;
   height: 100%;
-  background: ${colors.blackF5F6F7};
+  background: ${colors.white};
   overflow-y: scroll;
   li + li {
     margin-top: 8px;

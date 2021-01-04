@@ -7,12 +7,10 @@ import { Profile as ProfileType } from '../../types/User';
 import { colors } from '../../styles';
 import Profile from '../Profile';
 
-const UserList: React.FC = () => {
-  const [users, setusers] = React.useState<ProfileType[]>([]);
-
+const UserList: React.FC<{ users: ProfileType[]}> = ({ users }) => {
   return (
     <List className="UserList">
-      {test.map(({ code, thumbnail, name, group }) => (
+      {users.map(({ code, thumbnail, name, group }) => (
         <User key={code}>
           <Profile.Photo src={thumbnail} size={48}/>
           <Profile.Who name={name} group={group}/>
