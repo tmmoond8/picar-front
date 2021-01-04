@@ -13,8 +13,8 @@ const Recommandations: React.FC<{
   return (
     <Wrapper>
       <RecommandationCards>
-        {recommandations.map(recommandation => (
-          <RecommandationCard>
+        {recommandations.map((recommandation, idx) => (
+          <RecommandationCard key={recommandation + idx}>
             <Icon icon="time" size="20px"/>
             {recommandation}
           </RecommandationCard>

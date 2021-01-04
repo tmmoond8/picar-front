@@ -46,7 +46,7 @@ const SearchPage: React.FC = () => {
       )}
       {isOnSearch && search && (
         <React.Fragment>
-          <SearchComponents.SearchResults />
+          <SearchComponents.SearchResults search={search}/>
           <SearchComponents.MenuBar />
         </React.Fragment>
       )}

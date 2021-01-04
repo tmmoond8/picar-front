@@ -12,8 +12,8 @@ const UserList: React.FC = () => {
 
   return (
     <List className="UserList">
-      {test.map(({ thumbnail, name, group }) => (
-        <User>
+      {test.map(({ code, thumbnail, name, group }) => (
+        <User key={code}>
           <Profile.Photo src={thumbnail} size={48}/>
           <Profile.Who name={name} group={group}/>
         </User>
