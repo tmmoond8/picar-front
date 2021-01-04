@@ -63,9 +63,7 @@ export const useOpenArticleEditor = () => {
 
   const updateArticle = React.useCallback(
     (newArticle: Article) => {
-      article.articles = article.articles.map((article) =>
-        article.id === newArticle.id ? newArticle : article,
-      );
+      article.articles = article.articles.map((article) => article.id === newArticle.id ? newArticle : article);
     },
     [article.articles],
   );
@@ -77,7 +75,7 @@ export const useOpenArticleEditor = () => {
   );
   return (exitingArticle?: Article) =>
     bottomSheet.open({
-      title: ' 글 수정',
+      title: exitingArticle ? ' 글 수정' : '글 작성',
       isFull: true,
       contents: (
         <Editor

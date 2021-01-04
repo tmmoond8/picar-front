@@ -64,7 +64,9 @@ const Editor: React.FC<{
         group: selected,
         photos: uploadedUrl,
       });
-      syncArticle(data.article);
+      if (data.ok) {
+        syncArticle(data.article);
+      }
       onClose();
     } catch (error) {
       console.error(error);
