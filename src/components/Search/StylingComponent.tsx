@@ -2,8 +2,9 @@ import styled from '@emotion/styled';
 import { colors } from '../../styles';
 import Button from '../Button';
 import MenuBarComponent from '../MenuBar';
+import BasePage from '../../pages/BasePage';
 
-export const Page = styled.div`
+export const Page = styled(BasePage)`
   display: flex;
   flex-direction: column;
   height: 100%;

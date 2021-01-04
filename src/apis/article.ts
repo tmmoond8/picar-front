@@ -1,6 +1,7 @@
 import api from './config';
 
 export const list = () => api.get('/article/list');
+export const listPop = () => api.get('/article/list/pop');
 export const get = (articleId: number | string) =>
   api.get(`/article/${articleId}`);
 export const write = (data: {

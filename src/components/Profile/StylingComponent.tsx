@@ -36,7 +36,6 @@ export const ProfileModifyButton = styled(Button)`
   }
 `;
 
-
 export const UserHistoryMenus = styled.ul`
   display: flex;
   align-items: center;

@@ -15,8 +15,6 @@ const SearchInput: React.FC<{
   setIsOnSearch: (v: boolean) => void;
 }> = ({ search, onChangeSearch, setIsOnSearch, onClear, isOnSearch }) => {
   
-
-  
   return (
     <Wrapper>
       {isOnSearch && <Icon icon="back" size="24px" color={colors.black22} onClick={() => setIsOnSearch(false)}/>}
@@ -39,6 +37,7 @@ export default SearchInput;
 const Wrapper = styled.div`
     display: flex;
     height: 60px;
+    min-height: 60px;
     padding: 10px 18px;
 
     .icon.back {
