@@ -72,7 +72,22 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
 export default observer(SearchResults);
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  overflow-y: hidden;
+
+  .ArticleList {
+    li + li {
+      margin-top: 1px;
+      box-shadow: 0 -1px ${colors.blackF5F6F7};
+    }
+  }
+
+  .carousel-container {
+    flex: 1;
+    overflow-y: hidden;
+  }
 `;
 
 const Tabs = styled.ol`

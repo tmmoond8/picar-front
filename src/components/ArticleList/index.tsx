@@ -67,5 +67,6 @@ const StyledArticleList = styled.ol`
   overflow-y: scroll;
   li + li {
     margin-top: 8px;
+    box-shadow: 0 -8px ${colors.blackF5F6F7};
   }
 `;
