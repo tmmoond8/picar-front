@@ -16,7 +16,7 @@ export const NAVIGATIONS = [
   },
 ];
 
-interface Lounge {
+export interface Lounge {
   name: string;
   icon: IconKey;
 }
@@ -30,7 +30,7 @@ export const LOUNGES: Lounge[] = [
   { name: '숙박업', icon: 'loungeMotel'},
   { name: '스타트업', icon: 'loungeStartup'},
   { name: '펫샵', icon: 'loungePet'},
-  { name: '기타라운지', icon: 'loungeAll'},
+  { name: '기타 라운지', icon: 'loungeAll'},
 ];
 
 export const CAROUSEL = {

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useStore } from '../../stores';
 import { useTextarea } from '../../hooks';
-import Selector, { useSelector } from '../Selector';
+import Selector, { useSelector } from '../LoungeSelector';
 import PhotoUploader from '../PhotoUploader';
 import Icon from '../Icon';
 import HR from '../HR';
@@ -12,13 +12,6 @@ import Styled from './Styled';
 import API from '../../apis';
 import { NAVIGATIONS, LOUNGES, LOUNGE } from '../../types/constants';
 import Article from '../../types/Article';
-
-const selects = [
-  ...NAVIGATIONS.filter((navigation) => navigation.name !== LOUNGE).map(
-    (navigation) => navigation.name,
-  ),
-  ...LOUNGES.map((lounge) => lounge.name),
-];
 
 const Editor: React.FC<{
   article?: Article;
@@ -29,7 +22,6 @@ const Editor: React.FC<{
   const { util } = useStore();
   const history = util.useHistory();
   const [selected, setSelected] = useSelector(
-    selects,
     article?.group ?? group,
   );
   const [title, setTitle] = useTextarea(article?.title ?? '');
@@ -89,7 +81,7 @@ const Editor: React.FC<{
 
   return (
     <Styled.Page>
-      <Selector selected={selected} items={selects} handleChange={setSelected} />
+      <Selector selected={selected} setSelected={setSelected} />
       <Styled.Title
         value={title}
         onChange={setTitle}

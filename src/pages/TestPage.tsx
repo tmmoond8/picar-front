@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import Article from '../components/Article';
+import { LoungeList } from '../components/LoungeSelector';
 
 export default (function TestPage(): JSX.Element {
-  return <Article.Empty />;
+  return <LoungeList handleSelect={() => console.log('selected')}/>;
 });

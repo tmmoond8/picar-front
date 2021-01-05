@@ -1,0 +1,17 @@
+<svg fill="red" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <defs color="red" fill="red">
+        <filter fill="red"  id="5ganj2qlxa">
+            <feColorMatrix fill="red"  in="SourceGraphic" values="0 0 0 0 0.466667 0 0 0 0 0.466667 0 0 0 0 0.466667 0 0 0 1.000000 0"/>
+        </filter>
+    </defs>
+    <g fill="none"  fill-rule="evenodd">
+        <g>
+            <g fill="none "  filter="url(#5ganj2qlxa)" transform="translate(-2383 -1055) translate(2295 1044)">
+                <g>
+                    <path d="M0 0H16V16H0z" transform="translate(88 11)"/>
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6L8 10 12 6" transform="translate(88 11)"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
