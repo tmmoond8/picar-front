@@ -33,12 +33,12 @@ export default observer(function ProfilePage(): JSX.Element {
   }, [bottomSheet]);
 
   return (
-    <Page>
-      <Wrapper>
-        <Profile.Header>
-          <h2>dosannan.222</h2>
-          <Icon icon="more" size="24px" color={colors.black22} />
-        </Profile.Header>
+    <StyledPage>
+      <Profile.Header>
+        <h2>dosannan.222</h2>
+        <Icon icon="more" size="24px" color={colors.black22} />
+      </Profile.Header>
+      <Body>
         <Profile.Profile
           name={name}
           group={group}
@@ -72,12 +72,23 @@ export default observer(function ProfilePage(): JSX.Element {
             <Icon icon="arrowRight" size="16px" />
           </li>
         </Profile.AppMenus>
-        <MenuBar />
-      </Wrapper>
-    </Page>
+      </Body>
+      <StyledMenuBar />
+    </StyledPage>
   );
 });
 
-const Wrapper = styled.div`
-  padding: 20px 18px;
+const StyledPage = styled(Page)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Body = styled.div`
+  flex: 1;
+  padding: 0 18px 20px;
+  overflow-y: scroll;
+`;
+
+const StyledMenuBar = styled(MenuBar)`
+  position: static;
 `;

@@ -9,6 +9,9 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 4px 0 0 0;
+  padding: 16px 18px;
+  
   h2 {
     font-size: 24px;
     font-weight: bold;

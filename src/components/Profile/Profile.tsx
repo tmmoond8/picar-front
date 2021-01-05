@@ -34,7 +34,6 @@ const UserProfile = styled.div`
   display: flex;
   align-items: center;
   height: 88px;
-  margin: 16px 0 0 0;
   text-align: center;
   .profilePhoto {
     display: inline-block;
