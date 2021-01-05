@@ -1,12 +1,8 @@
 import React from 'react';
 import Article from '../../types/Article';
 import APIS from '../../apis';
-import Icon from '../Icon';
 
-import { colors } from '../../styles';
 import { useStore } from '../../stores';
-import UiStore from '../../stores/uiStore';
-import { UserStoreInterface } from '../../stores/userStore';
 import { useContextMenu } from '../ContextMenu';
 import { useBottomSheet } from '../BottomSheet';
 import Editor from '../Editor';
@@ -73,6 +69,7 @@ export const useOpenArticleEditor = () => {
     },
     [article.articles],
   );
+
   return (exitingArticle?: Article) =>
     bottomSheet.open({
       title: exitingArticle ? ' 글 수정' : '글 작성',
@@ -80,6 +77,7 @@ export const useOpenArticleEditor = () => {
       contents: (
         <Editor
           article={exitingArticle}
+          group={article.selectedGroup === '라운지' ? article.selectedLounge : article.selectedGroup}
           syncArticle={exitingArticle ? updateArticle : appendArticle}
           onClose={bottomSheet.close}
         />

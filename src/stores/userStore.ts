@@ -70,7 +70,6 @@ class UserStore implements UserStoreInterface {
 
   @action
   setProfile(profile: Profile) {
-    console.log(profile);
     this.profile = profile;
     this.fetchUserData();
   }

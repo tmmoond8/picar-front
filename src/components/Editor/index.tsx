@@ -22,14 +22,15 @@ const selects = [
 
 const Editor: React.FC<{
   article?: Article;
+  group: string;
   syncArticle: (article: Article) => void;
   onClose: () => void;
-}> = ({ article, syncArticle, onClose }) => {
+}> = ({ article, group, syncArticle, onClose }) => {
   const { util } = useStore();
   const history = util.useHistory();
   const [selected, setSelected] = useSelector(
     selects,
-    article?.group ?? '자유',
+    article?.group ?? group,
   );
   const [title, setTitle] = useTextarea(article?.title ?? '');
   const [content, setContent] = useTextarea(article?.content ?? '');
@@ -88,7 +89,7 @@ const Editor: React.FC<{
 
   return (
     <Styled.Page>
-      <Selector items={selects} handleChange={setSelected} />
+      <Selector selected={selected} items={selects} handleChange={setSelected} />
       <Styled.Title
         value={title}
         onChange={setTitle}
