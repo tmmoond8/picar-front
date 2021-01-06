@@ -17,7 +17,7 @@ function App() {
           <Header {...ui.header} />
           <Switch>
             <Route path="/profile">
-              <Pages.ProfilePage />
+              <Pages.MyProfilePage />
             </Route>
             <Route path="/test">
               <Pages.TestPage />
