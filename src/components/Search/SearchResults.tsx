@@ -5,6 +5,7 @@ import React from 'react';
 import UserList from './UserList';
 import ArticleList from '../ArticleList';
 import Carousel from '../Carousel';
+import { Tabs, TabItem } from '../Tabs';
 
 import { colors } from '../../styles';
 import APIS from '../../apis';
@@ -49,9 +50,9 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
     <Wrapper>
       <Tabs>
         {tabs.map((tab, index) => (
-          <Tab key={tab.id} className="tab" onClick={() => handleClickTab(tab)} selected={index === tabIndex}>
+          <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
             {tab.display}
-          </Tab>)
+          </TabItem>)
         )}
       </Tabs>
       <Carousel
@@ -88,29 +89,4 @@ const Wrapper = styled.div`
     flex: 1;
     overflow-y: hidden;
   }
-`;
-
-const Tabs = styled.ol`
-  display: flex;
-  align-items: center;
-  height: 44px;
-  padding: 0 18px;
-  box-shadow: inset 0 -1px 0 0 ${colors.blackF5F6F7};
-  .tab + .tab {
-    margin: 0 0 0 18px;
-  }
-`;
-
-const Tab = styled.li<{selected: boolean}>`
-  flex: 1;
-  line-height: 44px;
-  font-size: 15px;
-  font-weight: 400;
-  text-align: center;
-  color: ${p => p.selected ? colors.black33 : colors.blackBF};
-  
-  cursor: pointer;
-  ${p => p.selected && css`
-    box-shadow: inset 0 -1px 0 0 ${colors.black33};
-  `}
 `;
