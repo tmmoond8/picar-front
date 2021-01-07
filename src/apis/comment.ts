@@ -12,7 +12,7 @@ export const getMyComments = (): Promise<AxiosResponse<{
   ok: boolean; 
   message: string; 
   userComments: Comment[];
-}>> => api.get("/comment/user}");
+}>> => api.get("/comment/user");
 
 export const list = (articleId: number): Promise<AxiosResponse<{ 
   ok: boolean; 
