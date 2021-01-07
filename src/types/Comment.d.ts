@@ -1,3 +1,5 @@
+import Article from '../types/Article';
+
 export default interface Comment {
   about?: string;
   id: string;
@@ -8,4 +10,5 @@ export default interface Comment {
   isDelete: boolean;
   createAt: string;
   updateAt: string;
+  article?: Article;
 }

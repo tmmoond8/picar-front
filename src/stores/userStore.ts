@@ -78,7 +78,7 @@ class UserStore implements UserStoreInterface {
     try {
       const {
         data: { ok, userComments },
-      } = await APIS.comment.getUserComments();
+      } = await APIS.comment.getMyComments();
       if (ok) {
         this.comments = userComments.reduce((accum, comment) => {
           if (!accum[comment.articleId]) {

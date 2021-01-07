@@ -5,6 +5,7 @@ import React from 'react';
 import Profile from './Profile';
 import APIS from '../../apis';
 import ArticleList from '../ArticleList';
+import CommentList from '../ProfileCommentList';
 import Article from '../../types/Article';
 import Comment from '../../types/Comment';
 import { Profile as ProfileType } from '../../types/User';
@@ -33,7 +34,8 @@ const ProfileContainer: React.FC<{ userCode: string}> = ({ userCode = "phupdv3yb
   React.useEffect(() => {
     (async () => {
       const userPromise = APIS.user.get(userCode);
-      const articlePromise = APIS.article.list({ code: userCode });
+      const articlePromise = APIS.article.getUserArticles(userCode);
+      const commentPromise = APIS.comment.getUserComments(userCode);
       const { data: userData } = await userPromise;
       if (userData.ok) {
         setTargetUser(userData.user);
@@ -42,44 +44,54 @@ const ProfileContainer: React.FC<{ userCode: string}> = ({ userCode = "phupdv3yb
       if (articleData.ok) {
         setArticles(articleData.articles);
       }
+      const { data: commentData } = await commentPromise;
+      if (commentData.ok) {
+        setComments(commentData.userComments);
+      }
     })();
   }, [userCode])
 
 
   return (
-    <Container>
-      {targetUser && <StyledProfile {...targetUser}/>}
-      <Tabs>
-        {tabs.map((tab, index) => (
-          <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
-            {tab.display}
-          </TabItem>)
-        )}
-      </Tabs>
-      <Carousel
-        id={CAROUSEL.PROFILE}
-        index={tabIndex}
-        onChangeIndex={setTabIndex}
-      >
-        <ArticleList
-          articles={articles}
-          bookmarks={user.bookmarks}
-        />
-        <ArticleList
-          articles={articles}
-          bookmarks={user.bookmarks}
-        />
-      </Carousel>
-    </Container>
+    <React.Fragment>
+      {targetUser && <Container>
+        <StyledProfile {...targetUser}/>
+        <Tabs>
+          {tabs.map((tab, index) => (
+            <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
+              {tab.display}
+            </TabItem>)
+          )}
+        </Tabs>
+        <StyledCarousel
+          id={CAROUSEL.PROFILE}
+          index={tabIndex}
+          onChangeIndex={setTabIndex}
+        >
+          <ArticleList
+            articles={articles}
+            bookmarks={user.bookmarks}
+          />
+          <CommentList comments={comments}/>
+        </StyledCarousel>
+      </Container>}
+    </React.Fragment>
   )
 }
 
 export default observer(ProfileContainer);
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100%;
 `;
 
 const StyledProfile = styled(Profile)`
+  height: fit-content;
   padding: 14px 18px;
+`;
+
+const StyledCarousel = styled(Carousel)`
+  flex: 1;
 `;

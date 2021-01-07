@@ -1,6 +1,7 @@
 import api from './config';
 
-export const list = (params?: { code?: string }) => api.get(`/article/list${params?.code ? `/${params.code}` : ''}`);
+export const list = () => api.get(`/article/list`);
+export const getUserArticles = (code: string) => api.get(`/article/list/${code}`);
 export const search = (search: string) => api.get(`/article/search?search=${search}`);
 export const listPop = () => api.get('/article/list/pop');
 export const get = (articleId: number | string) =>

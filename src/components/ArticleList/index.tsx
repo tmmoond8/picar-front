@@ -65,7 +65,7 @@ const StyledArticleList = styled.ol`
   height: 100%;
   background: ${colors.white};
   overflow-y: scroll;
-  li + li {
+  li {
     margin-top: 8px;
     box-shadow: 0 -8px ${colors.blackF5F6F7};
   }
