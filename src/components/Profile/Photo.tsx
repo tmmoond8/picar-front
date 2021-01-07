@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 
 interface ProfilePhotoProps {
   className?: string;
@@ -22,19 +23,21 @@ export default function ProfilePhoto(props: ProfilePhotoProps): JSX.Element {
   }, [onClick]);
   return (
     <Photo
-      className={className}
+      className={cx('UserProfilePhoto', className)}
       src={src || defaultImage}
       size={size}
       onClick={handleClick}
+      clickable={typeof onClick === 'function'}
     />
   );
 }
 
-const Photo = styled.img<{ src: string; size: number }>`
+const Photo = styled.img<{ src: string; size: number; clickable: boolean}>`
   width: ${(p) => p.size}px;
   min-width: ${(p) => p.size}px;
   height: ${(p) => p.size}px;
   min-height: ${(p) => p.size}px;
   object-fit: cover;
   border-radius: ${(p) => p.size / 3}px;
+  cursor: ${p => p.clickable ? 'pointer' : 'auto'};
 `;

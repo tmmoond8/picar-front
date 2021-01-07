@@ -6,12 +6,15 @@ import React from 'react';
 import Profile from '../Profile';
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
+import { useBottomSheet } from '../BottomSheet';
+import ProfileContainer from '../Profile/ProfileContainer';
 
 interface ArticleCardHeadProps {
   thumbnail: string;
   name: string;
   group: string;
   createAt: string;
+  userCode: string;
 }
 
 const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
@@ -19,10 +22,23 @@ const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
   name,
   group,
   createAt,
+  userCode,
 }) => {
+  const bottomSheet = useBottomSheet();
+
+  const handleOpenProfile = React.useCallback(() => {
+    bottomSheet.open({
+      title: '',
+      isFull: true,
+      contents: (
+        <ProfileContainer userCode={userCode}/>
+      ),
+    });
+  }, [bottomSheet])
+
   return (
     <Head>
-      <ProfilePhoto src={thumbnail} size={24} />
+      <ProfilePhoto src={thumbnail} size={24} onClick={handleOpenProfile}/>
       <Profile.WhoDot name={name} group={group} />
       <p className="article-time">{getDateGoodLook(createAt)}</p>
     </Head>
@@ -46,37 +62,4 @@ const Head = styled.div`
 
 const ProfilePhoto = styled(Profile.Photo)`
   margin-right: 8px;
-`;
-
-const Body = styled.div`
-  display: flex;
-  padding: 16px 0;
-  cursor: pointer;
-
-  .article-content-wrapper {
-    flex: 1;
-  }
-
-  .article-title {
-    font-size: 17px;
-    line-height: 24px;
-    color: ${colors.black100};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  .article-content {
-    margin-top: 8px;
-    font-size: 14px;
-    line-height: 20px;
-    color: ${colors.black99};
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
 `;

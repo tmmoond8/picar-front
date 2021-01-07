@@ -94,4 +94,8 @@ const StyledProfile = styled(Profile)`
 
 const StyledCarousel = styled(Carousel)`
   flex: 1;
+
+  .UserProfilePhoto {
+    pointer-events: none;
+  }
 `;

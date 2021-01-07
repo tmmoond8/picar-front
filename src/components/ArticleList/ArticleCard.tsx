@@ -51,6 +51,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         name={name}
         group={group || ''}
         createAt={createAt}
+        userCode={code}
       />
       <ArticleCardBody
         handleClickArticle={handleClickArticle}

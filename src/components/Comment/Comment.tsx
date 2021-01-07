@@ -9,6 +9,8 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
 import { getDateGoodLook } from '../../modules/string';
+import { useBottomSheet } from '../BottomSheet';
+import ProfileContainer from '../Profile/ProfileContainer';
 
 interface CommentProps {
   id: string;
@@ -53,11 +55,22 @@ const Comment: React.FC<CommentProps> = (props) => {
     commentAuthorCode,
     userCode,
   ]);
+  const bottomSheet = useBottomSheet();
+
+  const handleOpenProfile = React.useCallback(() => {
+    bottomSheet.open({
+      title: '',
+      isFull: true,
+      contents: (
+        <ProfileContainer userCode={userCode}/>
+      ),
+    });
+  }, [bottomSheet])
 
   return (
     <React.Fragment>
       <StyledComment isFocus={isFocus}>
-        <ProfilePhoto src={thumbnail} />
+        <ProfilePhoto src={thumbnail} onClick={handleOpenProfile}/>
         <ContentBox>
           <Profile.WhoDot
             name={name}
