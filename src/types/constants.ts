@@ -37,4 +37,5 @@ export const CAROUSEL = {
   HOME: 'homeFlickingMoveTo',
   SIGNUP: 'signupFlickingMoveTo',
   SEARCH: 'searchFlickingMoveTo',
+  PROFILE: 'profileFlickingMoveTo',
 } as const;

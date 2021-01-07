@@ -2,17 +2,19 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import Photo from './Photo';
 import { colors } from '../../styles';
 
 const Profile: React.FC<{
+  className?: string;
   name: string;
   group?: string;
   profileImage?: string;
   description: string | null;
-}> = ({ name, group, description, profileImage }) => {
+}> = ({ name, group, description, profileImage, className }) => {
   return (
-    <React.Fragment>
+    <Wrapper className={cx('Profile', className)}>
       <UserProfile>
         <Photo className="profilePhoto" src={profileImage} size={60} />
         <UserNameGroup>
@@ -24,11 +26,13 @@ const Profile: React.FC<{
         {description ??
           '삼산텍을 창업하고 소프트웨어 엔지니어로 일하고 있습니다. AI기술로 세상을 바꾸고 싶습니다.'}
       </Introduction>
-    </React.Fragment>
+    </Wrapper>
   );
 };
 
 export default React.memo(Profile);
+
+const Wrapper = styled.div``;
 
 const UserProfile = styled.div`
   display: flex;
