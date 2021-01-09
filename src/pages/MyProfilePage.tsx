@@ -8,6 +8,7 @@ import Icon, { IconKey } from '../components/Icon';
 import HR from '../components/HR';
 import MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
+import APIS from '../apis';
 import Profile from '../components/Profile';
 import { colors } from '../styles';
 import { useBottomSheet } from '../components/BottomSheet';
@@ -19,8 +20,9 @@ const menus = [
 ];
 
 export default observer(function ProfilePage(): JSX.Element {
-  const { user, ui } = useStore();
+  const { user, ui, util } = useStore();
 
+  const [ count, setCount ] = React.useState(0);
   const bottomSheet = useBottomSheet();
   ui.setHeaderNone();
   const { profileImage, name, group, description } = user.profile;
@@ -35,8 +37,20 @@ export default observer(function ProfilePage(): JSX.Element {
   return (
     <StyledPage>
       <Profile.Header>
-        <h2>dosannan.222</h2>
-        <Icon icon="more" size="24px" color={colors.black22} />
+        <h2 onClick={async () => {
+          setCount(count + 1);
+          if (count > 20) {
+            const { data } = await APIS.auth.deleteUser(user.profile.code);
+            if (data.ok) {
+              util.history.goBack();
+              setTimeout(() => {
+                window.location.reload();
+              }, 300)
+            }
+          }
+          
+        }}>dosannan.222</h2>
+        <Icon icon="more" size="24px" color={colors.black22}/>
       </Profile.Header>
       <Body>
         <Profile.Profile
