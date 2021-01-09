@@ -16,7 +16,7 @@ function App() {
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
           <Switch>
-            <Route path="/profile">
+            <Route path="/myProfile">
               <Pages.MyProfilePage />
             </Route>
             <Route path="/test">

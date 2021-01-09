@@ -1,8 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
     <g fill="none" fill-rule="evenodd">
-        <g>
-            <path d="M0 0H18V18H0z" transform="translate(-83 -313) translate(0 112) translate(0 192) translate(18 4) translate(57) translate(8 5)"/>
+        <g fill="currentColor">
+            <path d="M16 2c3.314 0 6 2.686 6 6v4c0 1.9-.882 3.592-2.26 4.692l-4.9 4.532c-.093.085-.214.133-.34.133-.245 0-.45-.177-.492-.41l-.008-.09V18H8c-3.314 0-6-2.686-6-6V8c0-3.314 2.686-6 6-6h8zm-4 7c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zM8 9c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1zm8 0c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" transform="translate(-25 -764) translate(0 758) translate(19 6) translate(6)"/>
         </g>
-        <path fill="currentColor" fill-rule="nonzero" d="M5 13c-1.657 0-3-1.343-3-3V4c0-1.657 1.343-3 3-3h8c1.657 0 3 1.343 3 3v6c0 .897-.394 1.702-1.018 2.252l-4.12 4.34c-.094.099-.225.155-.362.155-.276 0-.5-.224-.5-.5V13H5z" transform="translate(-83 -313) translate(0 112) translate(0 192) translate(18 4) translate(57) translate(8 5)"/>
     </g>
 </svg>

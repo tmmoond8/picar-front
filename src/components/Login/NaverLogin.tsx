@@ -3,12 +3,12 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import ReactNaverLogin from 'react-naver-login';
+import { toast } from 'react-toastify';
 
 import env from '../../env';
 import APIS from '../../apis';
 import NaverLoginIcon from './login-naver.svg';
 import { SignUpUser, Profile } from '../../types/User';
-
 
 interface NaverLoginProps {
   onSignUp: (user: SignUpUser) => void;
@@ -60,7 +60,7 @@ export default function NaverLogin(props: NaverLoginProps): JSX.Element {
       clientId={env.REACT_APP_NAVER_CLIENT_ID}
       callbackUrl={env.REACT_APP_LOGIN_URL}
       render={(props) => (
-        <img src={NaverLoginIcon} onClick={() => props.onClick()} />
+        <img src={NaverLoginIcon} onClick={() => toast.success('지원 준비중 입니다. ')} />
       )}
       onSuccess={(result) => {
         handleLogin(result);

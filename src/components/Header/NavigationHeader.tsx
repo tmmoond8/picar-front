@@ -15,7 +15,6 @@ import LoungeGrid from '../LoungeGrid';
 
 const NavigationHeader = () => {
   const { article } = useStore();
-
   const bottomSheet = useBottomSheet();
   const handleOpenBottomSheet = React.useCallback(() => {
     bottomSheet.open({
@@ -104,7 +103,6 @@ const Self = styled.nav`
   height: ${HEIGHT}px;
   width: 100%;
   background: ${colors.white};
-  box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6);
 `;
 
 const List = styled.ol`
@@ -120,13 +118,14 @@ const List = styled.ol`
 const Item = styled.li<{ selected: boolean }>`
   font-size: 20px;
   font-weight: 600;
-  color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};
+  color: ${(p) => (p.selected ? colors.black33 : colors.blackBF)};
   cursor: pointer;
 `;
 
-const RougeSelector = styled(Item)`
+const RougeSelector = styled(Item)<{ selected: boolean }>`
   display: flex;
   svg {
+    color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};
     margin-left: 4px;
   }
 `;

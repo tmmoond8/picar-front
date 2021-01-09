@@ -1,4 +1,5 @@
 export { ReactComponent as add } from './add.svg';
+export { ReactComponent as addRound } from './add-round.svg';
 export { ReactComponent as article } from './article.svg';
 export { ReactComponent as articleNew } from './article-new.svg';
 export { ReactComponent as arrowRight } from './arrow-right.svg';
@@ -27,6 +28,7 @@ export { ReactComponent as stitchedRectangle } from './stitched-rectangle.svg';
 export { ReactComponent as user } from './user.svg';
 export { ReactComponent as close } from './close.svg';
 export { ReactComponent as vCheck } from './v-check.svg';
+export { ReactComponent as notification } from './notification.svg';
 export { ReactComponent as loading } from './loading.svg';
 export { ReactComponent as inputClear } from './input-clear.svg';
 export { ReactComponent as loungeAlchol } from './lounge-alchol.svg';

@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 
 import { colors } from '../../styles';
 
@@ -9,12 +10,13 @@ interface MenuItemProps {
   icon: React.ReactNode;
   name: string;
   onClick: () => void;
+  className?: string;
 }
 
 export default function MenuItem(props: MenuItemProps): JSX.Element {
-  const { icon, name, onClick } = props;
+  const { icon, name, onClick, className } = props;
   return (
-    <Item onClick={onClick}>
+    <Item onClick={onClick} className={cx("MenuBarItem", className)}>
       {icon}
       <p>{name}</p>
     </Item>
@@ -29,6 +31,5 @@ const Item = styled.li`
   cursor: pointer;
   p {
     font-size: 10px;
-    color: ${colors.black50};
   }
 `;
