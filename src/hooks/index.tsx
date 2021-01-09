@@ -35,7 +35,6 @@ export const useCheckLogin = (
           contents: (
             <LoginBox
               onClose={bottomSheet.close}
-              onSetUserProfile={handleSetUserProfile}
             />
           ),
           hasTitleLine: false,

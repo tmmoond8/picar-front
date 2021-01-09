@@ -5,57 +5,9 @@ import React from 'react';
 
 import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
-import { SignUpUser, Profile } from '../../types/User';
-import { useBottomSheet } from '../BottomSheet';
-import SignUp from '../SignUp';
 
-interface LoginBoxProps {
-  onClose: () => void;
-  onSetUserProfile: (profile: Profile) => void;
-}
-
-const SignUpWithDelay = (props: LoginBoxProps & SignUpUser) => {
-  const [isShown, setIsShown] = React.useState(false);
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsShown(true);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, []);
-  return <React.Fragment>{isShown && <SignUp {...props} />}</React.Fragment>;
-};
-
-export default function LoginBox(props: LoginBoxProps): JSX.Element {
-  const { onClose, onSetUserProfile } = props;
-  const bottomSheet = useBottomSheet();
-
-  const handleSignUp = React.useCallback(
-    (user: SignUpUser) => {
-      onClose();
-      setTimeout(() => {
-        bottomSheet.open({
-          title: ' 회원가입',
-          isFull: true,
-          contents: (
-            <SignUpWithDelay
-              {...user}
-              onClose={bottomSheet.close}
-              onSetUserProfile={onSetUserProfile}
-            />
-          ),
-        });
-      }, 300);
-    },
-    [bottomSheet, onClose, onSetUserProfile],
-  );
-
-  const handleSetUserProfile = React.useCallback(
-    (profile: Profile) => {
-      onClose();
-      onSetUserProfile(profile);
-    },
-    [onClose, onSetUserProfile],
-  );
+const LoginBox: React.FC<{ onClose: () => void}> = ({ onClose }) => {
+  
 
   return (
     <Box>
@@ -65,21 +17,19 @@ export default function LoginBox(props: LoginBoxProps): JSX.Element {
       <LoginButtons>
         <li>
           <KakaoLogin
-            onSignUp={handleSignUp}
-            onSetUserProfile={handleSetUserProfile}
             onClose={onClose}
           />
         </li>
         <li className="naver-login">
           <NaverLogin
-            onSignUp={handleSignUp}
-            onSetUserProfile={handleSetUserProfile}
           />
         </li>
       </LoginButtons>
     </Box>
   );
 }
+
+export default LoginBox;
 
 const Box = styled.div`
   padding: 29px 42px;

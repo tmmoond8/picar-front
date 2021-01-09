@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 import Carousel from '../Carousel';
 import SignupContext from './context';
@@ -14,9 +15,10 @@ import SignUpHeader from './SignUpHeader';
 
 import Input from '../Input';
 import { SignUpUser, Profile } from '../../types/User';
+import stroage from '../../modules/localStorage';
 import { CAROUSEL } from '../../types/constants';
 import global from '../../types/global';
-import { observer } from '../../stores';
+import { observer, useStore } from '../../stores';
 
 import API from '../../apis';
 
@@ -32,7 +34,9 @@ const SignUpCarousel = styled(Carousel)`
 `;
 
 export default observer(function SignUp(props: SignUpProps): JSX.Element {
-  const { name, email, onClose, onSetUserProfile } = props;
+  const { name, email, onClose, onSetUserProfile, uuid } = props;
+  const { util } = useStore();
+  const history  = util.useHistory();
   const handleChangeStep = React.useCallback((step: number) => {}, []);
   const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');
@@ -57,7 +61,17 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         isOwner: ownerType === ownerTypes[0].value,
         group: lounge,
       });
+      const openerUUID = stroage.getOpenerUUID();
       onSetUserProfile(data);
+      history.replace('/');
+      setTimeout(() => {
+        if (openerUUID) {
+          stroage.clearOpenerUUID();
+          window.location.reload();
+        } else {
+          toast.success('Owwner 앱으로 이동하면 로그인이 완료됩니다.');
+        }
+      }, 50)
     } catch (error) {
     } finally {
       onClose();

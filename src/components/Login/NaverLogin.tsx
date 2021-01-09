@@ -6,14 +6,7 @@ import ReactNaverLogin from 'react-naver-login';
 import { toast } from 'react-toastify';
 
 import env from '../../env';
-import APIS from '../../apis';
 import NaverLoginIcon from './login-naver.svg';
-import { SignUpUser, Profile } from '../../types/User';
-
-interface NaverLoginProps {
-  onSignUp: (user: SignUpUser) => void;
-  onSetUserProfile: (userProfile: Profile) => void;
-}
 
 interface NaverProfile {
   age: string;
@@ -26,35 +19,8 @@ interface NaverProfile {
   profile_image: string;
 }
 
-export default function NaverLogin(props: NaverLoginProps): JSX.Element {
-  const { onSignUp, onSetUserProfile } = props;
-  const handleLogin = React.useCallback(
-    async (result: NaverProfile) => {
-      const { id, email, nickname, profile_image } = result;
-      try {
-        const {
-          data: { data },
-        } = await APIS.auth.check(id, 'naver');
-        if (data) {
-          onSetUserProfile(data);
-          return;
-        }
-      } catch (error) {
-        return;
-      }
-
-      const user: SignUpUser = {
-        email,
-        snsId: id,
-        name: nickname,
-        thumbnail: profile_image,
-        profileImage: profile_image,
-        provider: 'naver',
-      };
-      onSignUp(user);
-    },
-    [onSetUserProfile, onSignUp],
-  );
+export default function NaverLogin(): JSX.Element {
+  
   return (
     <ReactNaverLogin
       clientId={env.REACT_APP_NAVER_CLIENT_ID}
@@ -63,7 +29,7 @@ export default function NaverLogin(props: NaverLoginProps): JSX.Element {
         <img src={NaverLoginIcon} onClick={() => toast.success('지원 준비중 입니다. ')} />
       )}
       onSuccess={(result) => {
-        handleLogin(result);
+        
       }}
       onFailure={(err: unknown) => console.error(err)}
     />

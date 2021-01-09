@@ -23,4 +23,7 @@ export interface SignUpUser {
   email?: string;
   group?: string;
   isOwner?: boolean;
+  accessToken: string;
+  regreshToken: string;
+  uuid: string;
 }

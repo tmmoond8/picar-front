@@ -10,20 +10,30 @@ import stroage from '../modules/localStorage';
 import APIS from '../apis';
 import env from '../env';
 import { Profile as UserProfile } from '../types/User';
-import LoginBox from '../components/Login/LoginBox';
+import { SignUpUser, Profile } from '../types/User';
 import { useBottomSheet } from '../components/BottomSheet';
-import { useStore, observer } from '../stores';
+import { useStore } from '../stores';
 import OwwnersLogo from '../resources/images/owwners-logo.png';
 import storage from '../modules/localStorage';
+import SignUp from '../components/SignUp';
 
-const Page = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
+interface LoginBoxProps {
+  onClose: () => void;
+  onSetUserProfile: (profile: Profile) => void;
+}
 
-export default observer(function ProfilePage(): JSX.Element {
+const SignUpWithDelay = (props: LoginBoxProps & SignUpUser) => {
+  const [isShown, setIsShown] = React.useState(false);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsShown(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+  return <React.Fragment>{isShown && <SignUp {...props} />}</React.Fragment>;
+};
+
+const LoginPage = () => {
   const { user, ui, util } = useStore();
   const location = useLocation();
   const { code } = queryString.parse(location.search);
@@ -34,6 +44,55 @@ export default observer(function ProfilePage(): JSX.Element {
   const bottomSheet = useBottomSheet();
   const handleSetUserProfile = (profile: UserProfile) => {
     user.setProfile(profile);
+  };
+
+  const handleSignUp = React.useCallback(
+    (user: SignUpUser) => {
+      bottomSheet.open({
+        title: ' 회원가입',
+        isFull: true,
+        noHeader: true,
+        contents: (
+          <SignUpWithDelay
+            {...user}
+            onClose={bottomSheet.close}
+            onSetUserProfile={handleSetUserProfile}
+          />
+        ),
+      });
+    },
+    [bottomSheet],
+  );
+
+  async function handleSaveUser(result: any, tokenData: any) {
+    const {
+      id,
+      kakao_account: {
+        email,
+        profile: { nickname, profile_image_url, thumbnail_image_url },
+      },
+    } = result;
+    try {
+      const {
+        data: { data },
+      } = await APIS.auth.check(id, 'kakao');
+      if (data) {
+        handleSetUserProfile(data);
+        return;
+      }
+    } catch (error) {
+      return;
+    }
+
+    const user: Partial<SignUpUser> = {
+      email,
+      snsId: id.toString(),
+      name: nickname,
+      thumbnail: thumbnail_image_url,
+      profileImage: profile_image_url,
+      provider: 'kakao',
+    };
+    handleSignUp({...user, ...tokenData});
   };
   
   React.useEffect(() => {
@@ -49,11 +108,12 @@ export default observer(function ProfilePage(): JSX.Element {
             refreshToken: refresh_token,
             uuid,
           })
+          
+          const openerUUID = stroage.getOpenerUUID();
           if (data.code) {
             // TODO replace reaload 조합이 아니고 goBack 으로 하되 사용자 정보가 셋업되도록...
             history.replace('/');
             setTimeout(() => {
-              const openerUUID = stroage.getOpenerUUID();
               if (openerUUID) {
                 storage.clearOpenerUUID();
                 window.location.reload();
@@ -62,7 +122,11 @@ export default observer(function ProfilePage(): JSX.Element {
               }
             }, 50)
           } else {
-            // TODO 로그인이 되어 있지 않으면 회원가입 하도록 처리
+            handleSaveUser(data, {
+              accessToken: access_token,
+              refreshToken: refresh_token,
+              uuid: openerUUID,
+            });
           }
         } catch (error) {
           alert('kakao login error' + JSON.stringify(error));
@@ -74,17 +138,22 @@ export default observer(function ProfilePage(): JSX.Element {
 
   return (
     <Page>
-      <LoginBox
-        onClose={bottomSheet.close}
-        onSetUserProfile={handleSetUserProfile}
-      />
       <FullLoading>
         <img src={OwwnersLogo} />
         <h3>{message}</h3>
       </FullLoading>
     </Page>
   );
-});
+}
+
+export default LoginPage;
+
+const Page = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
 
 const FullLoading = styled.div`
   display: flex;
@@ -104,7 +173,7 @@ const FullLoading = styled.div`
   }
 
   h3 {
-    margin-top: 8px
+    margin-top: 8px;
     font-size: 16px;
   }
 `;

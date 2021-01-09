@@ -14,49 +14,13 @@ import env from '../../env';
 import { isHybrid } from '../../modules/crossPlatform';
 
 interface KakaoLoginProps {
-  onSignUp: (user: SignUpUser) => void;
-  onSetUserProfile: (userProfile: Profile) => void;
   onClose: () => void;
 }
 
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
-  const { onSignUp, onSetUserProfile, onClose } = props;
+  const { onClose } = props;
   const bottomSheet = useBottomSheet();
   
-  const handleSaveUser = React.useCallback(
-    async (result) => {
-      const {
-        id,
-        kakao_account: {
-          email,
-          profile: { nickname, profile_image_url, thumbnail_image_url },
-        },
-      } = result.profile;
-      try {
-        const {
-          data: { data },
-        } = await APIS.auth.check(id, 'kakao');
-        if (data) {
-          onSetUserProfile(data);
-          return;
-        }
-      } catch (error) {
-        return;
-      }
-
-      const user: SignUpUser = {
-        email,
-        snsId: id.toString(),
-        name: nickname,
-        thumbnail: thumbnail_image_url,
-        profileImage: profile_image_url,
-        provider: 'kakao',
-      };
-      onSignUp(user);
-    },
-    [onSetUserProfile, onSignUp],
-  );
-
   const handleKakaoLogin = React.useCallback(() => {
     onClose();
     const uuid = Math.random().toString(32).split('.')[1];

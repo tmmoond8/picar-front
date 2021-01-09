@@ -30,6 +30,7 @@ interface BottomSheetViewerProps {
   id: string;
   title?: string;
   contents: ReactNode;
+  noHeader?: boolean;
   handleClose: () => void;
   isFull?: boolean;
   hasTitleLine?: boolean;
@@ -43,6 +44,7 @@ const BottomSheetViewer = forwardRef(
       className,
       id,
       title = '',
+      noHeader = false,
       contents,
       handleClose,
       isFull = false,
@@ -77,12 +79,12 @@ const BottomSheetViewer = forwardRef(
           ref={ref as RefObject<HTMLDivElement>}
           isFull={isFull}
         >
-          <BottomSheetHeader
+          {!noHeader && <BottomSheetHeader
             title={title}
             handleClose={handleClose}
             noRadius={isFull}
             hasTitleLine={hasTitleLine}
-          />
+          />}
           <BottomSheetBody>{contents}</BottomSheetBody>
         </BottomSheetBox>
       </Wrapper>
