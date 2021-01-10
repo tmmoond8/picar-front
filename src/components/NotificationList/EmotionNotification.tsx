@@ -9,7 +9,7 @@ import { colors } from '../../styles';
 import Profile from '../Profile';
 import Icon from '../Icon';
 
-const EmotionNotification: React.FC<{ className?: string }> = ({ className }) => {
+const EmotionNotification: React.FC<any> = ({ className }) => {
   return (
     <NotificationItem>
       <Profile.Photo src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1610209798/noticon/v0hc8bqcrukvypt5iyyp.png" size={48}/>

@@ -2,25 +2,30 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 
+import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
 import Profile from '../Profile';
 import Icon from '../Icon';
+import { Notification } from '../../types/Notification';
 
-const CommentNotification: React.FC<{ className?: string }> = ({ className }) => {
+const CommentNotification: React.FC<Notification & { className?: string}> = ({ 
+  className,
+  targetContent,
+  user,
+  createAt,
+}) => {
+  console.log(targetContent);
   return (
     <NotificationItem>
-      <Profile.Photo src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1610209798/noticon/v0hc8bqcrukvypt5iyyp.png" size={48}/>
+      <Profile.Photo src={user.profileImage} size={48}/>
       <Contents>
-        <Title>두올아이 님이 댓글을 남겼습니다 : 유익한 정보 감사합니다.</Title>
-
+        <Title>{`${user.name}  님이 댓글을 남겼습니다.`}</Title>
         <ArticleTitle>
           <Icon icon="articleNew" size="16px"/>
-          중동 카페 인수하고 흑자전환했어요
+          {targetContent}
         </ArticleTitle>
-        <Date>3분 전</Date>
+        <Date>{getDateGoodLook(createAt)}</Date>
       </Contents>
     </NotificationItem>
   );

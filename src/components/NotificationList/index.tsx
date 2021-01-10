@@ -2,22 +2,21 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useStore, observer } from '../../stores';
+import { Notification } from '../../types/Notification';
 import CommentNotification from './CommentNotification';
 import EmotionNotification from './EmotionNotification';
 
-const NotificationList: React.FC<{ className?: string }> = ({ className }) => {
+const NotificationList: React.FC<{ className?: string; notifications: Notification[]
+ }> = ({ className, notifications }) => {
+
   return (
-    <List>
-      <CommentNotification />
-      <EmotionNotification />
+    <List className={className}>
+      {notifications.map((notification) => (notification.target === 'comment' ? <CommentNotification {...notification}/> : <EmotionNotification {...notification}/>))}
     </List>
   );
 };
 
-export default observer(NotificationList);
+export default NotificationList;
 
 const List = styled.ul`
   overflow-y: scroll;

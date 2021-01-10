@@ -5,6 +5,7 @@ import * as comment from './comment';
 import * as emotion from './emotion';
 import * as bookmark from './bookmark';
 import * as user from './user';
+import * as notification from './notification';
 import * as spreadSheet from './spreadSheet';
 
 export default {
@@ -15,5 +16,6 @@ export default {
   emotion,
   bookmark,
   user,
+  notification,
   spreadSheet,
 };

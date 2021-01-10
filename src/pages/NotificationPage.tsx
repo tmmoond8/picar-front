@@ -7,17 +7,19 @@ import Page from './BasePage'
 import CloseHeader from '../components/Header/CloseHeader';
 import MenuBar from '../components/MenuBar';
 import NotificationList from '../components/NotificationList';
+import { useStore, observer } from '../stores';
 
 const NotificationPage: React.FC = () => {
+  const { user } = useStore();
   return (
     <StyledPage>
       <Header onClose={() => console.log('close')} options={{ title: '알림'}}/>
-      <NotificationList />
+      <NotificationList notifications={user.notifications}/>
       <StyledMenu />
     </StyledPage>
   )
 }
-export default NotificationPage;
+export default observer(NotificationPage);
 
 const StyledPage = styled(Page)`
   display: flex;

@@ -2,6 +2,7 @@ import { observable, action, computed } from 'mobx';
 import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
+import { Notification } from '../types/Notification';
 import Comment from '../types/Comment';
 import { EmotionType } from '../types/Emotion';
 
@@ -21,6 +22,7 @@ export interface UserStoreInterface {
   bookmarks: Set<number>;
   emotions: Record<number, EmotionType>;
   comments: Record<number, Comment[]>;
+  notifications: Notification[];
   setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
@@ -33,6 +35,7 @@ class UserStore implements UserStoreInterface {
   @observable bookmarks: Set<number>;
   @observable emotions: Record<number, EmotionType>;
   @observable comments: Record<number, Comment[]>;
+  @observable notifications: Notification[];
   @observable needLogin: () => boolean;
   
   constructor() {
@@ -40,6 +43,7 @@ class UserStore implements UserStoreInterface {
     this.bookmarks = new Set();
     this.emotions = {};
     this.comments = {};
+    this.notifications = [];
     this.fetch();
     this.needLogin = () => (console.log('need initialized'), false);
     if(Cookies.get('access_token')) {
@@ -51,6 +55,7 @@ class UserStore implements UserStoreInterface {
     this.fetchBookmark();
     this.fetchEmotion();
     this.fetchComment();
+    this.fetchNotification();
   }
 
   async fetch() {
@@ -130,6 +135,19 @@ class UserStore implements UserStoreInterface {
       } = await APIS.bookmark.list();
       if (ok) {
         this.bookmarks = new Set(bookmarks);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async fetchNotification() {
+    try {
+      const {
+        data,
+      } = await APIS.notification.list();
+      if (data.ok) {
+        this.notifications = data.notifications;
       }
     } catch (error) {
       console.error(error);

@@ -10,7 +10,6 @@ export default (function TestPage(): JSX.Element {
   React.useEffect(() => {
     (async () => {
       const data = await APIS.spreadSheet.get();
-      console.log(data);
     })();
   }, [])
 
