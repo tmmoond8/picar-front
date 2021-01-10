@@ -23,7 +23,6 @@ const UserActivations: React.FC<{ userCode: string; tab: string}> = ({ userCode,
   const [ articles, setArticles] = React.useState<Article[]>([]);
   const [ comments, setComments] = React.useState<Comment[]>([]);
   const { user } = useStore();
-  console.log(tab);
   const [tabIndex, setTabIndex] = React.useState(tabs.findIndex(({id}) => id === tab));
   const handleClickTab = React.useCallback((tab) => {
     const tabIndex = tabs.findIndex(({ id }) => id === tab.id);

@@ -6,25 +6,26 @@ import { colors } from '../../styles';
 
 import Icon from '../Icon';
 
-const Recommandations: React.FC<{ 
-  recommandations: string[];
-}> = ({ recommandations }) => {
+const Recommendations: React.FC<{ 
+  recommendations: { keywords: string }[];
+  handleClickRecommendation: (keyword: string) => void;
+}> = ({ recommendations, handleClickRecommendation }) => {
   
   return (
     <Wrapper>
-      <RecommandationCards>
-        {recommandations.map((recommandation, idx) => (
-          <RecommandationCard key={recommandation + idx}>
-            <Icon icon="time" size="20px"/>
-            {recommandation}
-          </RecommandationCard>
+      <RecommendationCards>
+        {recommendations.map(({ keywords }, idx) => (
+          <RecommendationCard key={keywords + idx} onClick={() => handleClickRecommendation(keywords)}>
+            <Icon icon="trending" size="20px"/>
+            {keywords}
+          </RecommendationCard>
         ))}
-      </RecommandationCards>
+      </RecommendationCards>
     </Wrapper>
   )
 }
 
-export default Recommandations;
+export default Recommendations;
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,12 +33,12 @@ const Wrapper = styled.div`
   padding: 0 18px;
 `;
 
-const RecommandationCards = styled.ul`
+const RecommendationCards = styled.ul`
   width: 100%;
   margin: 16px 0 0 0;
 `;
 
-const RecommandationCard = styled.li`
+const RecommendationCard = styled.li`
   display: inline-flex;
   align-items: center;
   height: 42px;
@@ -49,8 +50,10 @@ const RecommandationCard = styled.li`
   color: ${colors.black33};
   border-radius: 4px;
   border: 1px solid ${colors.blackEB};
+  cursor: pointer;
 
   .icon {
     margin: 0 6px 0 0;
+    cursor: pointer;
   }
 `;

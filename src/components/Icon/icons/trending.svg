@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <g fill="none" fill-rule="evenodd">
+        <path stroke="currentColor" stroke-width="2" d="M4 16L15 5" transform="translate(-29 -350) translate(0 104) translate(18 16) translate(0 219) translate(11 11)"/>
+        <path fill="currentColor" d="M10 4L16 4 16 10z" transform="translate(-29 -350) translate(0 104) translate(18 16) translate(0 219) translate(11 11)"/>
+    </g>
+</svg>

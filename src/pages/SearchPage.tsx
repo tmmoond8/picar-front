@@ -5,36 +5,40 @@ import React from 'react';
 import SearchComponents from '../components/Search';
 import Input from '../components/Input';
 import Content from '../components/Content';
-
-
-var recommandations = [
-  '정부지원 보조금',
-  '알바생',
-  '일회용품',
-  '무료 세무사',
-  '무료 배달의 민족',
-]
+import APIS from '../apis';
 
 const SearchPage: React.FC = () => {
-  const [ search, onChangeSearch, onClear ] = Input.useTextField('')
+  const [ search, setSearch ] = React.useState('');
+  const [ recommendations, setrecommendations] = React.useState([]);
   const [ isOnSearch, setIsOnSearch ] = React.useState(false);
+  const handleClickRecommendation = React.useCallback((keyword: string) => {
+    setSearch(keyword);
+  }, [])
+
+  React.useEffect(() => {
+    if (recommendations.length === 0) {
+      (async () => {
+        const { data: {
+          data
+        } } = await APIS.spreadSheet.get();
+        setrecommendations(data);
+      })();
+    }
+  }, [recommendations])
 
   return (
     <SearchComponents.Page>
       <SearchComponents.Input 
         search={search} 
-        onChangeSearch={onChangeSearch} 
-        onClear={onClear} 
+        onChangeSearch={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSearch(e.target.value)} 
+        onClear={() => setSearch('')} 
         isOnSearch={isOnSearch}
         setIsOnSearch={setIsOnSearch}
       />
       {isOnSearch && !search && (
         <React.Fragment>
-          <Content.SpaceBetween>
-            <SearchComponents.Title>검색어 추천</SearchComponents.Title>
-            <SearchComponents.RemoveRecentSearchs onClick={() => console.log('aaa')}>최근검색어 삭제</SearchComponents.RemoveRecentSearchs>
-          </Content.SpaceBetween>
-          <SearchComponents.Recommandations recommandations={recommandations}/>
+          <SearchComponents.Title>검색어 추천</SearchComponents.Title>
+          <SearchComponents.Recommendations recommendations={recommendations} handleClickRecommendation={handleClickRecommendation}/>
         </React.Fragment>
       )}
       {!isOnSearch && (
@@ -47,7 +51,6 @@ const SearchPage: React.FC = () => {
       {isOnSearch && search && (
         <React.Fragment>
           <SearchComponents.SearchResults search={search}/>
-          <SearchComponents.MenuBar />
         </React.Fragment>
       )}
     </SearchComponents.Page>

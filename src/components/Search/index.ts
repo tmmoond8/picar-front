@@ -1,6 +1,6 @@
 import SearchInput from './SearchInput';
 import PopularArticleList from './PopularArticleList';
-import Recommandations from './Recommandations';
+import Recommendations from './Recommendations';
 import SearchResults from './SearchResults';
 import UserList from './UserList';
 import * as StylingComponents from './StylingComponent';
@@ -8,7 +8,7 @@ import * as StylingComponents from './StylingComponent';
 export default {
     Input: SearchInput,
     PopArticles: PopularArticleList,
-    Recommandations: Recommandations,
+    Recommendations: Recommendations,
     SearchResults: SearchResults,
     UserList: UserList,
     ...StylingComponents,

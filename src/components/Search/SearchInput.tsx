@@ -17,7 +17,10 @@ const SearchInput: React.FC<{
   
   return (
     <Wrapper>
-      {isOnSearch && <Icon icon="back" size="24px" color={colors.black22} onClick={() => setIsOnSearch(false)}/>}
+      {isOnSearch && <Icon icon="back" size="24px" color={colors.black22} onClick={() => {
+        setIsOnSearch(false);
+        onClear();
+      }}/>}
       <InputBox>
         <Icon icon="search" size="20px" color={colors.blackCC}/>
         <TextField 

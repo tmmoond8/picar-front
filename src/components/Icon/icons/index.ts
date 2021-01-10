@@ -46,3 +46,4 @@ export { ReactComponent as share } from './share.svg';
 export { ReactComponent as send } from './send.svg';
 export { ReactComponent as more } from './more.svg';
 export { ReactComponent as time } from './time.svg';
+export { ReactComponent as trending } from './trending.svg';

@@ -42,7 +42,7 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
       if (userData.ok) {
         setUsers(userData.users)
       }
-    }, 500)
+    }, 1000)
     return () => clearTimeout(timer);
   }, [search])
 
