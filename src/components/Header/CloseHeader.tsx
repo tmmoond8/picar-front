@@ -9,16 +9,17 @@ import Icon from '../Icon';
 interface CloseHeaderProps {
   options?: Record<string, any>
   onClose?: () => void;
+  className?: string;
 }
 
 export default function CloseHeader(props: CloseHeaderProps): JSX.Element {
-  const { options = {}, onClose } = props;
+  const { options = {}, onClose, className } = props;
   const handleClose = React.useCallback(() => {
     if (typeof onClose === 'function') onClose();
   }, [onClose])
 
   return (
-    <StyledClose>
+    <StyledClose className={className}>
       <Icon
         icon="close"
         size="24px"

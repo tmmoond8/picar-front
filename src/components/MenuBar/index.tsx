@@ -47,9 +47,8 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
     }
     openArticleEditor();
   }, [openArticleEditor, user]);
-  const handleClickMarket = useCallback(() => {
-    toast.success('지원 준비중 입니다. 잠시만 기다려주세요~')
-    // moveTo('/test')
+  const handleClickNotification = useCallback(() => {
+    moveTo('/notification')
   }, [moveTo]);
   const handleClickProfile = useCallback(() => {
     if (user.needLogin()) {
@@ -83,7 +82,7 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
           className="Notification"
           icon={<Icon icon="notification" size="24px" color={colors.black33} />}
           name="알림"
-          onClick={handleClickMarket}
+          onClick={handleClickNotification}
         />
         <MenuItem
           className="MyProfile"

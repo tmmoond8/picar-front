@@ -34,6 +34,9 @@ function App() {
             <Route path="/search">
               <Pages.SearchPage />
             </Route>
+            <Route path="/notification">
+              <Pages.NotificationPage />
+            </Route>
             <Route path="/">
               <Pages.HomePage />
             </Route>

@@ -30,7 +30,7 @@ export default observer(function ProfilePage(): JSX.Element {
     bottomSheet.open({
       title: '프로필 수정',
       contents: <Profile.Form handleClose={bottomSheet.close} />,
-      isFull: true,
+      isFull: true, 
     });
   }, [bottomSheet]);
 
