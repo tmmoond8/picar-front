@@ -57,4 +57,9 @@ const CloseButton = styled(Button)`
   margin: 0;
   padding: 0;
   border: 0;
+  cursor: pointer;
+
+  .icon.close {
+    cursor: pointer;
+  }
 `;

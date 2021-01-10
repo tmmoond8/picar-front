@@ -10,13 +10,14 @@ import MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
 import APIS from '../apis';
 import Profile from '../components/Profile';
+import UserActivations from '../components/Profile/ActivationsContainer';
 import { colors } from '../styles';
 import { useBottomSheet } from '../components/BottomSheet';
 
 const menus = [
-  { menu: '게시글', path: '/', icon: 'article' },
-  { menu: '댓글', path: '/', icon: 'chatOutline' },
-  { menu: '북마크', path: '/', icon: 'bookmarkOutline' },
+  { menu: '게시글', key: 'article', icon: 'article' },
+  { menu: '댓글', key: 'comment', icon: 'chatOutline' },
+  { menu: '북마크', key: 'bookmark', icon: 'bookmark' },
 ];
 
 export default observer(function ProfilePage(): JSX.Element {
@@ -25,12 +26,20 @@ export default observer(function ProfilePage(): JSX.Element {
   const [ count, setCount ] = React.useState(0);
   const bottomSheet = useBottomSheet();
   ui.setHeaderNone();
-  const { profileImage, name, group, description } = user.profile;
+  const { profileImage, name, group, description, code } = user.profile;
   const handleModifyProfile = React.useCallback(() => {
     bottomSheet.open({
       title: '프로필 수정',
       contents: <Profile.Form handleClose={bottomSheet.close} />,
       isFull: true,
+    });
+  }, [bottomSheet]);
+
+  const handleOpenUserActivations = React.useCallback((menu) => {
+    bottomSheet.open({
+      contents: <UserActivations userCode={code} tab={menu}/>,
+      isFull: true,
+      hasTitleLine: false,
     });
   }, [bottomSheet]);
 
@@ -40,7 +49,7 @@ export default observer(function ProfilePage(): JSX.Element {
         <h2 onClick={async () => {
           setCount(count + 1);
           if (count > 20) {
-            const { data } = await APIS.auth.deleteUser(user.profile.code);
+            const { data } = await APIS.auth.deleteUser(code);
             if (data.ok) {
               util.history.goBack();
               setTimeout(() => {
@@ -64,8 +73,8 @@ export default observer(function ProfilePage(): JSX.Element {
         </Profile.ProfileModifyButton>
         <HR height={1} color={colors.blackF5F6F7} marginTop={26} />
         <Profile.UserHistoryMenus>
-          {menus.map(({ menu, icon }) => (
-            <Profile.UserHistoryMenu key={menu}>
+          {menus.map(({ menu, icon, key }) => (
+            <Profile.UserHistoryMenu key={key} onClick={() => handleOpenUserActivations(key)}>
               <Icon icon={icon as IconKey} size="36px" />
               <span>{menu}</span>
             </Profile.UserHistoryMenu>

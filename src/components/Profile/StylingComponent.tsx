@@ -48,10 +48,15 @@ export const UserHistoryMenus = styled.ul`
 
 export const UserHistoryMenu = styled.li`
   text-align: center;
+  cursor: pointer;
 
   svg {
-    color: ${colors.black66};
     margin: 0 auto;
+    color: ${colors.black66};
+    cursor: pointer;
+  }
+  svg g {
+    fill: transparent;
   }
   span {
     margin-top: 4px;
