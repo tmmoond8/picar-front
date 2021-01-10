@@ -21,11 +21,10 @@ const menus = [
 ];
 
 export default observer(function ProfilePage(): JSX.Element {
-  const { user, ui, util } = useStore();
+  const { user, util } = useStore();
 
   const [ count, setCount ] = React.useState(0);
   const bottomSheet = useBottomSheet();
-  ui.setHeaderNone();
   const { profileImage, name, group, description, code } = user.profile;
   const handleModifyProfile = React.useCallback(() => {
     bottomSheet.open({
