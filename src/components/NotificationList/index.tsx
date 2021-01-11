@@ -8,10 +8,15 @@ import EmotionNotification from './EmotionNotification';
 
 const NotificationList: React.FC<{ className?: string; notifications: Notification[]
  }> = ({ className, notifications }) => {
-
+   
   return (
     <List className={className}>
-      {notifications.map((notification) => (notification.target === 'comment' ? <CommentNotification {...notification}/> : <EmotionNotification {...notification}/>))}
+      {notifications.map((notification) => (
+        <React.Fragment>
+          {notification.target === 'comment' && <CommentNotification {...notification}/>}
+          {notification.target === 'emotion' && <EmotionNotification {...notification}/>}
+        </React.Fragment>
+      ))}
     </List>
   );
 };

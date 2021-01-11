@@ -15,7 +15,6 @@ const CommentNotification: React.FC<Notification & { className?: string}> = ({
   user,
   createAt,
 }) => {
-  console.log(targetContent);
   return (
     <NotificationItem>
       <Profile.Photo src={user.profileImage} size={48}/>

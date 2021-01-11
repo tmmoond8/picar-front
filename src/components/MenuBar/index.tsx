@@ -48,6 +48,9 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
     openArticleEditor();
   }, [openArticleEditor, user]);
   const handleClickNotification = useCallback(() => {
+    if (user.needLogin()) {
+      return;
+    }
     moveTo('/notification')
   }, [moveTo]);
   const handleClickProfile = useCallback(() => {

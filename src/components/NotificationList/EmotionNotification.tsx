@@ -2,24 +2,38 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 
 import { colors } from '../../styles';
 import Profile from '../Profile';
 import Icon from '../Icon';
+import { getDateGoodLook } from '../../modules/string';
+import { EMOTION_TYPE } from '../../types/Emotion';
+import { Notification } from '../../types/Notification';
 
-const EmotionNotification: React.FC<any> = ({ className }) => {
+const emotionMap: Record<keyof typeof  EMOTION_TYPE, string> = {
+  [EMOTION_TYPE.LOVE]: '좋아요',
+  [EMOTION_TYPE.SAD]: '슬퍼요',
+  [EMOTION_TYPE.LAUGHING]: '재밌어요',
+  [EMOTION_TYPE.ANGRY]: '화나요',
+}
+
+const EmotionNotification: React.FC<Notification & { className?: string}> = ({ 
+  className, 
+  user,
+  targetContent,
+  createAt,
+  emotion,
+}) => {
   return (
-    <NotificationItem>
-      <Profile.Photo src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1610209798/noticon/v0hc8bqcrukvypt5iyyp.png" size={48}/>
+    <NotificationItem className={className}>
+      <Profile.Photo src={user.profileImage} size={48}/>
       <Contents>
-        <Title>두올아이 님이 당신의 댓글에 ‘좋아요’로 공감하였어요.</Title>
+        <Title>{`${user.name} 님이 당신의 댓글에 ‘${emotionMap[emotion as keyof typeof EMOTION_TYPE]}’로 공감하였어요.`}</Title>
         <ArticleTitle>
           <Icon icon="articleNew" size="16px"/>
-          중동 카페 인수하고 흑자전환했어요
+          {targetContent}
         </ArticleTitle>
-        <Date>45분 전</Date>
+        <Date>{getDateGoodLook(createAt)}</Date>
       </Contents>
     </NotificationItem>
   );
