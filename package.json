@@ -26,6 +26,7 @@
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "emotion-reset": "^2.0.7",
+    "firebase": "^8.2.2",
     "js-cookie": "^2.2.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.5",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@capacitor/cli": "^2.4.5",
     "@types/classnames": "^2.2.10",
+    "@types/firebase": "^3.2.1",
     "@types/js-cookie": "^2.2.6",
     "@types/throttle-debounce": "^2.1.0",
     "@types/validator": "^13.1.0",

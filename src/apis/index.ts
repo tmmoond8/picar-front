@@ -7,6 +7,7 @@ import * as bookmark from './bookmark';
 import * as user from './user';
 import * as notification from './notification';
 import * as spreadSheet from './spreadSheet';
+import firebase from './firebaseDB';
 
 export default {
   article,
@@ -18,4 +19,5 @@ export default {
   user,
   notification,
   spreadSheet,
+  firebase,
 };

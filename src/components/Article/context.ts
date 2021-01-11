@@ -7,12 +7,10 @@ export { observer } from 'mobx-react';
 
 const ArticleContext = React.createContext<{
   article: Article | null;
-  viewCount: number;
   commentCount: number;
   emotionCounts: EmotionCount[];
 }>({
   article: null,
-  viewCount: 0,
   commentCount: 0,
   emotionCounts: [],
 });

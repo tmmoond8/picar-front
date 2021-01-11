@@ -27,7 +27,6 @@ const Article: React.FC<{
       value={{
         article,
         commentCount,
-        viewCount: 1244,
         emotionCounts,
       }}
     >

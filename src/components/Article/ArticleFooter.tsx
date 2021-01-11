@@ -12,15 +12,15 @@ import { useBottomSheet } from '../BottomSheet';
 import { useStore } from '../../stores';
 import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
+import APIS from '../../apis';
 
 const ArticleFooter = () => {
   const {
     article,
-    viewCount,
     commentCount,
     emotionCounts,
   } = useArticleContext();
-  const { user } = useStore();
+  const { user, article: { views } } = useStore();
   const bottomSheet = useBottomSheet();
 
   const [emotionCount, setEmotionCount] = React.useState(
@@ -55,11 +55,21 @@ const ArticleFooter = () => {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (article?.id) {
+      (async () => {
+        APIS.firebase.increaseView(String(article?.id));
+      })();
+    }
+  }, [article?.id])
+
+  const view = React.useMemo(() => (views[article?.id ?? -1] ?? 0) + 1, [views, article?.id])
+
   return (
     <React.Fragment>
       <InteractionCounter>
         <ul>
-          <li>{`조회 ${viewCount}회`}</li>
+          <li>{`조회 ${view}회`}</li>
           <li>{`댓글 ${commentCount}`}</li>
           <li>{`공감 ${emotionCount}`}</li>
         </ul>

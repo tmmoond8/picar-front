@@ -13,6 +13,7 @@ export interface ArticleStoreInterface {
   freeArticles: Article[];
   humorArticles: Article[];
   govermentSupportArticles: Article[];
+  views: Record<number, number>;
 }
 
 class ArticleStore implements ArticleStoreInterface {
@@ -20,6 +21,7 @@ class ArticleStore implements ArticleStoreInterface {
   @observable articles: Article[];
   @observable selectedGroup: string;
   @observable selectedLounge: string;
+  @observable views: Record<number, number>;
 
   constructor() {
     this.bestArticles = [];
@@ -27,6 +29,8 @@ class ArticleStore implements ArticleStoreInterface {
     this.selectedGroup = LOUNGE;
     this.selectedLounge = LOUNGES[0].name;
     this.fetchList();
+    this.fetchViews();
+    this.views = {};
   }
 
   async fetchList() {
@@ -39,6 +43,16 @@ class ArticleStore implements ArticleStoreInterface {
       console.error(error);
     }
   }
+
+  async fetchViews() {
+    try {
+      const views = await APIS.firebase.getViews();
+      this.views = views;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   @computed
   get groupIndex() {
     return Math.max(
