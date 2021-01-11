@@ -3,6 +3,8 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import APIS from '../../apis';
+import { useStore, observer } from '../../stores';
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
 import Profile from '../Profile';
@@ -14,9 +16,29 @@ const CommentNotification: React.FC<Notification & { className?: string}> = ({
   targetContent,
   user,
   createAt,
+  isViewd,
+  id,
+  articleId
 }) => {
+  const { user: userStore, util } = useStore();
+  const history = util.useHistory();
+  const handleCheckView = React.useCallback(async () => {
+    if (!isViewd) {
+      try {
+        await APIS.notification.checkView(id);
+        userStore.checkNotifications([id]);
+        
+      } catch(error) {
+        console.error(error);
+      }
+    }
+    setTimeout(() => {
+      history.push(`/article/${articleId}`);
+    }, 50);
+  }, [history]);
+
   return (
-    <NotificationItem>
+    <NotificationItem isViewd={isViewd} className={className} onClick={handleCheckView}>
       <Profile.Photo src={user.profileImage} size={48}/>
       <Contents>
         <Title>{`${user.name}  님이 댓글을 남겼습니다.`}</Title>
@@ -30,11 +52,13 @@ const CommentNotification: React.FC<Notification & { className?: string}> = ({
   );
 };
 
-export default CommentNotification;
+export default observer(CommentNotification);
 
-const NotificationItem = styled.li`
+const NotificationItem = styled.li<{ isViewd: boolean }>`
   display: flex;
   padding: 10px 18px 12px 18px;
+  background-color: ${p => p.isViewd ? colors.transparent : colors.primaryF};
+  cursor: pointer;
   .UserProfilePhoto {
     margin: 0 12px 0 0;
   }

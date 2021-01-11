@@ -28,6 +28,7 @@ export interface UserStoreInterface {
   removeBookmark: (articleId?: number) => void;
   needLogin: () => boolean;
   setEmotion: (articleId: number, emotionType: EmotionType) => void;
+  checkNotifications: (notificationIds: string[]) => void;
 }
 
 class UserStore implements UserStoreInterface {
@@ -175,6 +176,16 @@ class UserStore implements UserStoreInterface {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  @action
+  async checkNotifications(notificationIds: string[]) {
+    this.notifications = this.notifications.map(noti => {
+      if (notificationIds.includes(noti.id)) {
+        noti.isViewd = true;
+      }
+      return noti;
+    })
   }
 }
 

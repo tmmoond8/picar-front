@@ -19,6 +19,7 @@ export default {
   primary3: '#3c6af2',
   primary4: '#4467f1',
   primaryE: '#ebf2fa',
+  primaryF: '#f5f6f7',
   greyA08: 'rgba(255, 255, 255, 0.8)',
   notDimmed: 'rgba(47, 52, 55, 0)',
   dimmed: 'rgba(15, 15, 15, 0.6)',
