@@ -47,9 +47,6 @@ class UserStore implements UserStoreInterface {
     this.notifications = [];
     this.fetch();
     this.needLogin = () => (console.log('need initialized'), false);
-    if(Cookies.get('access_token')) {
-      this.fetchUserData();
-    }
   }
 
   fetchUserData() {
@@ -67,7 +64,7 @@ class UserStore implements UserStoreInterface {
         },
       } = await APIS.auth.getUser();
       if (ok) {
-        this.profile = data;
+        this.setProfile(data);
       }
     } catch (error) {
       console.error(error);
