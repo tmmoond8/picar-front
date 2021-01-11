@@ -22,17 +22,11 @@ class Firebase {
   constructor() {
     this.firebase = firebase.database();
   }
-  async getViews(): Promise<Record<string, any>> {
-    return new Promise((resolve, reject) => {
-      this.firebase.ref('/').on('value', function (data) {
-        resolve(data.toJSON() ?? {});
-      });
-    });
-  }
-  async increaseView(id: string): Promise<void> {
+  async increaseView(id: string): Promise<number> {
     const target = this.firebase.ref(`/${id}`);
     const targetValue = await target.once('value');
     target.set(targetValue.val() + 1);
+    return targetValue.val() + 1;
   }
 }
 export default new Firebase();
