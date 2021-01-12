@@ -4,8 +4,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
 
-import { colors } from '../../styles';
-
 interface MenuItemProps {
   icon: React.ReactNode;
   name: string;

@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useCallback } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import MenuItem from './MenuItem';
 import Icon from '../Icon';
@@ -60,6 +59,8 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
     moveTo('/myProfile');
   }, [moveTo, user]);
 
+  const hasNotfi = React.useMemo(() => user.notifications.some(noti => !noti.isViewd), [user.notifications])
+
   return (
     <MenuBarContainer className={className}>
       <Menus selected={selectedMenu}>
@@ -81,8 +82,9 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
           name="글쓰기"
           onClick={handleClickWrite}
         />
-        <MenuItem
+        <NotificationMenuItem
           className="Notification"
+          hasNoti={hasNotfi}
           icon={<Icon icon="notification" size="24px" color={colors.black33} />}
           name="알림"
           onClick={handleClickNotification}
@@ -124,5 +126,22 @@ const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap]}>`
     .icon {
       color: ${colors.black33};
     }
+  }
+`;
+
+const NotificationMenuItem = styled(MenuItem)<{ hasNoti: boolean}>`
+  position: relative;
+  &::after {
+    content: ${p => p.hasNoti ? "''" : 'none'};
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    margin: 0 auto;
+    transform: translateX(12px);
+    background-color: ${colors.primary};
+    border-radius: 6px;
   }
 `;
