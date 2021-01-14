@@ -29,7 +29,7 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
   const moveTo = useCallback(
     (path: string) => {
       if (pathname !== path) {
-        history.push(path);
+        history.replace(path);
       }
     },
     [history, pathname],

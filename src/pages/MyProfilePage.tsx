@@ -35,29 +35,26 @@ export default observer(function ProfilePage(): JSX.Element {
   }, [bottomSheet]);
 
   const handleOpenUserActivations = React.useCallback((menu) => {
-    bottomSheet.open({
-      contents: <UserActivations userCode={code} tab={menu}/>,
-      isFull: true,
-      hasTitleLine: false,
-    });
+    util.history.push('/myActivations', { menu })
   }, [bottomSheet]);
+
+  const handleUnknown = React.useCallback(async () => {
+    setCount(count + 1);
+    if (count > 20) {
+      const { data } = await APIS.auth.deleteUser(code);
+      if (data.ok) {
+        util.history.goBack();
+        setTimeout(() => {
+          window.location.reload();
+        }, 300)
+      }
+    }
+  }, [count])
 
   return (
     <StyledPage>
       <Profile.Header>
-        <h2 onClick={async () => {
-          setCount(count + 1);
-          if (count > 20) {
-            const { data } = await APIS.auth.deleteUser(code);
-            if (data.ok) {
-              util.history.goBack();
-              setTimeout(() => {
-                window.location.reload();
-              }, 300)
-            }
-          }
-          
-        }}>dosannan.222</h2>
+        <h2 onClick={handleUnknown}>dosannan.222</h2>
         <Icon icon="more" size="24px" color={colors.black22}/>
       </Profile.Header>
       <Body>

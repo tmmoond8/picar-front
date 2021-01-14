@@ -6,3 +6,4 @@ export { default as LoginPage } from './LoginPage';
 export { default as KakaoLoginBridge } from './KakaoLoginBridge';
 export { default as SearchPage } from './SearchPage';
 export { default as NotificationPage } from './NotificationPage';
+export { default as MyActivationsPage } from './MyActivationsPage';

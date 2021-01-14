@@ -19,6 +19,9 @@ function App() {
             <Route path="/myProfile">
               <Pages.MyProfilePage />
             </Route>
+            <Route path="/myActivations">
+              <Pages.MyActivationsPage />
+            </Route>
             <Route path="/test">
               <Pages.TestPage />
             </Route>
