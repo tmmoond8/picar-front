@@ -6,6 +6,7 @@ import { useStore, observer } from '../../stores';
 import Photo from './Photo';
 import Input from '../Input';
 import Icon from '../Icon';
+import LoungeSelector, { useSelector } from '../LoungeSelector';
 import PhotoUploader from '../PhotoUploader';
 import APIS from '../../apis';
 import { colors } from '../../styles';
@@ -25,7 +26,9 @@ const ModificationForm: React.FC<{ handleClose: () => void }> = ({
     user.profile.name,
     nicknameSkip,
   );
-  const [group, onChangeGroup] = Input.useTextField(user.profile.group || '');
+  const [group, setGroup] = useSelector(
+    user.profile.group,
+  );
   const descriptionSkip = (value: string) => value.length > 80;
   const [description, onChangeDescription] = Input.useTextField(
     user.profile.description ||
@@ -74,12 +77,7 @@ const ModificationForm: React.FC<{ handleClose: () => void }> = ({
         label="닉네임"
         maxLength={10}
       />
-      <InputBox
-        id="profile-group"
-        onChange={onChangeGroup}
-        value={group}
-        label="업종"
-      />
+      <Selector label="업종" selected={group} setSelected={setGroup} />
       <InputBox
         id="profile-description"
         onChange={onChangeDescription}
@@ -139,4 +137,24 @@ const SubmitButton = styled(Icon)`
 const ImageUploader = styled(PhotoUploader.Uploader)`
   width: fit-content;
   margin: 0 auto;
+`;
+
+const Selector = styled(LoungeSelector)`
+  margin: 12px 0 0 0;
+  padding: 13px 0;
+
+  .Selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 48px;
+    margin: 12px 0 0 0;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    background-color: ${colors.transparent};
+    color: ${colors.black22};
+    font-size: 16px;
+    line-height: 1.5;
+  }
 `;

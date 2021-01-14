@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import cx from 'classnames';
 
 import { colors } from '../../styles';
@@ -17,10 +17,13 @@ const lounges = [
 ];
 
 const LoungeSelector: React.FC<{
+  className?: string;
   selected: string;
   setSelected: (value: string) => void;
+  label?: string;
+  all?: boolean;
 }> = ({
-  selected, setSelected
+  selected, setSelected, className, label, all = false,
 }) => {
   const bottomSheet = useBottomSheet();
   const handleSelect = React.useCallback((value: string) => {
@@ -28,11 +31,15 @@ const LoungeSelector: React.FC<{
     setSelected(value);
   }, [setSelected, bottomSheet])
 
-  const handleOpenSelects = React.useCallback(() => {
+  const handleOpenSelects = React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
     bottomSheet.open({
       title: '라운지 선택',
       contents: (
-        <LoungeList handleSelect={handleSelect}/>
+        <React.Fragment>
+          {all && <AllLoungeList handleSelect={handleSelect}/> }
+          {!all && <LoungeList handleSelect={handleSelect}/>}
+        </React.Fragment>
       ),
       isFull: true,
       hasTitleLine: false,
@@ -40,16 +47,20 @@ const LoungeSelector: React.FC<{
   }, [bottomSheet])
 
   return (
-    <StyledSelector onClick={handleOpenSelects}>
-      {selected}
-      <Icon icon="arrowDown" color={colors.black22} size="16px"/>
-    </StyledSelector>
+    <Box className={cx('SelectBox', className)}>
+      {label && <Label>{label}</Label>}
+      <StyledSelector className={'Selector'} onClick={handleOpenSelects}>
+        {selected}
+        <Icon icon="arrowDown" color={colors.black22} size="16px"/>
+      </StyledSelector>
+    </Box>
+    
   )
 }
 
 export default LoungeSelector;
 
-export const LoungeList: React.FC<{
+export const AllLoungeList: React.FC<{
   handleSelect: (value: string) => void
 }> = ({ handleSelect }) => {
 
@@ -68,7 +79,31 @@ export const LoungeList: React.FC<{
   )
 }
 
+export const LoungeList: React.FC<{
+  handleSelect: (value: string) => void
+}> = ({ handleSelect }) => {
+
+  return (
+    <List>
+      {LOUNGES.map(({ name }) => (
+        <Lounge key={name} lounge={name} icon="arrowRight" onClick={() => handleSelect(name)}/>
+      ))}
+    </List>
+  )
+}
+
+const Box = styled.div``;
+
+const Label = styled.p`
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+  color: ${colors.black77};
+  opacity: 0.99;
+`;
+
 const StyledSelector = styled.button`
+  display: block;
   min-width: 100px;
   padding: 8px 12px 9px 16px;
   font-size: 14px;

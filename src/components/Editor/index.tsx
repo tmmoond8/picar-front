@@ -81,7 +81,7 @@ const Editor: React.FC<{
 
   return (
     <Styled.Page>
-      <Selector selected={selected} setSelected={setSelected} />
+      <Selector selected={selected} setSelected={setSelected} all/>
       <Styled.Title
         value={title}
         onChange={setTitle}
