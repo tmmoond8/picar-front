@@ -11,18 +11,25 @@ import { useStore, observer } from '../stores';
 
 const MyActivationsPage: React.FC = () => {
   const location = useLocation();
-  console.log(location);
-  const { user, util} = useStore();
+  const { user} = useStore();
   const HeaderOption = {
     title: '나의 활동',
     noBottomLine: true,
   }
   return (
-    <Page>
+    <StyledPage>
       <BackHeader options={HeaderOption} />
-      <ActivationsContainer userCode={user.profile.code} tab={(location?.state as Record<string, any>).menu ?? 'comment'}/>
-    </Page>
+      <Activations userCode={user.profile.code} tab={(location?.state as Record<string, any>).menu ?? 'comment'}/>
+    </StyledPage>
   )
 }
 export default observer(MyActivationsPage);
 
+const StyledPage = styled(Page)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Activations = styled(ActivationsContainer)`
+  flex: 1;
+`;

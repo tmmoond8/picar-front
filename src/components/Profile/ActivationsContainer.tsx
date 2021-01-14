@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import Profile from './Profile';
 import APIS from '../../apis';
 import ArticleList from '../ArticleList';
@@ -19,7 +20,7 @@ const tabs = [
   { id: 'bookmark', display: '북마크' },
 ];
 
-const UserActivations: React.FC<{ userCode: string; tab: string}> = ({ userCode, tab }) => {
+const UserActivations: React.FC<{ userCode: string; tab: string; className?: string}> = ({ userCode, tab, className }) => {
   const [ articles, setArticles] = React.useState<Article[]>([]);
   const [ comments, setComments] = React.useState<Comment[]>([]);
   const { user } = useStore();
@@ -49,7 +50,7 @@ const UserActivations: React.FC<{ userCode: string; tab: string}> = ({ userCode,
 
   return (
     <React.Fragment>
-      {articles && comments && <Container>
+      {articles && comments && <Container className={cx('ActivationsContainer', className)}>
         <Tabs>
           {tabs.map((tab, index) => (
             <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
