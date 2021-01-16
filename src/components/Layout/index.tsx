@@ -20,8 +20,7 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Contents>{children}</Contents>
         <Right>
           <FixedBox>
-            <LoungeSelector />
-            <MyActivity />
+            <PopularArticles />
           </FixedBox>
         </Right>
       </Body>
