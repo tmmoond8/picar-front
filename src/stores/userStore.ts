@@ -29,6 +29,7 @@ export interface UserStoreInterface {
   needLogin: () => boolean;
   setEmotion: (articleId: number, emotionType: EmotionType) => void;
   checkNotifications: (notificationIds: string[]) => void;
+  isLogined: boolean;
 }
 
 class UserStore implements UserStoreInterface {
@@ -46,7 +47,7 @@ class UserStore implements UserStoreInterface {
     this.comments = {};
     this.notifications = [];
     this.fetch();
-    this.needLogin = () => (console.log('need initialized'), false);
+    this.needLogin = () => (console.log('need initialized'), true);
   }
 
   fetchUserData() {
@@ -183,6 +184,11 @@ class UserStore implements UserStoreInterface {
       }
       return noti;
     })
+  }
+
+  @computed
+  get isLogined() {
+    return this.profile.code !== 'guest';
   }
 }
 
