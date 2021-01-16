@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import { colors } from '../../styles';
 
 import Icon from '../Icon';
@@ -9,26 +10,41 @@ import Input from '../Input';
 
 const SearchInput: React.FC<{ 
   search: string;
+  placeholder?: string;
+  className?: string;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  onClear: () => void;
-  isOnSearch: boolean;
-  setIsOnSearch: (v: boolean) => void;
-}> = ({ search, onChangeSearch, setIsOnSearch, onClear, isOnSearch }) => {
-  
+  onClear?: () => void;
+  isOnSearch?: boolean;
+  setIsOnSearch?: (v: boolean) => void;
+}> = ({ 
+    className, 
+    search, 
+    onChangeSearch, 
+    setIsOnSearch = () => {}, 
+    onClear = () => {}, 
+    isOnSearch, 
+    placeholder="검색어를 입력하세요" 
+}) => {
+  const [focus, setFocus] = React.useState(false);
+
   return (
-    <Wrapper>
+    <Wrapper className={cx('SearchInputWrapper', className, focus ? 'focus' : null)}>
       {isOnSearch && <Icon icon="back" size="24px" color={colors.black22} onClick={() => {
         setIsOnSearch(false);
         onClear();
       }}/>}
-      <InputBox>
+      <InputBox className="SearchInput">
         <Icon icon="search" size="20px" color={colors.blackCC}/>
         <TextField 
           id="searchText"
-          placeholder="검색어를 입력하세요"
+          placeholder={placeholder}
           value={search}
           onChange={onChangeSearch}
-          onFocus={() => setIsOnSearch(true)}
+          onFocus={() => {
+            setIsOnSearch(true)
+            setFocus(true);
+          }}
+          onBlur={() => setFocus(false)}
         />
       </InputBox>
     </Wrapper>

@@ -7,6 +7,7 @@ import { colors } from '../../styles';
 import LoungeSelector from './LoungeSelector';
 import MyActivity from './MyActivity';
 import PopularArticles from './PopularArticles';
+import DesktopHeader from '../Header/DesktopHeader';
 import MenuBar from '../MenuBar';
 
 const GAP = 24;
@@ -14,15 +15,15 @@ const GAP = 24;
 const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Layout>
-      <StyledMenuBar />
+      <DesktopHeader />
       <Body>
-        <Left>
+        <Contents>{children}</Contents>
+        <Right>
           <FixedBox>
             <LoungeSelector />
             <MyActivity />
           </FixedBox>
-        </Left>
-        <Contents>{children}</Contents>
+        </Right>
       </Body>
     </Layout>
   );

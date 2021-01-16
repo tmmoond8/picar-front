@@ -44,15 +44,9 @@ const BasePage: React.FC<{
       {ui.queryMatch.Mobile && (
         <Page className={cx(className, 'MobilePage')}>{children}</Page>
       )}
-      {ui.queryMatch.Tablet && (
+      {(ui.queryMatch.Tablet || ui.queryMatch.Desktop) && (
         <Page className={cx(className, 'TabletPage')}>
           <Layout.Tablet>{children}</Layout.Tablet>
-        </Page>
-      )}
-
-      {ui.queryMatch.Desktop && (
-        <Page className={cx(className, 'DesktopPage')}>
-          <Layout.Desktop>{children}</Layout.Desktop>
         </Page>
       )}
     </React.Fragment>

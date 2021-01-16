@@ -6,6 +6,7 @@ export default {
   black100: '#1f1f1f',
   black22: '#222222',
   black33: '#333333',
+  black40: '#404040',
   black66: '#666666',
   black77: '#777777',
   black99: '#999999',

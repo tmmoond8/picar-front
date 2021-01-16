@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
 import { colors } from '../../styles';
-import Icon from '../Icon';
 import { useStore, observer } from '../../stores';
 import { getVirtualKeyboardHeight } from '../../modules/virtualKeyboardHeight';
 
