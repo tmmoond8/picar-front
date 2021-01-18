@@ -23,6 +23,7 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Aside.PopularArticles />
             <Aside.Advertisement />
             <Aside.DownloadApp />
+            <Aside.Copyrights />
           </FixedBox>
         </Right>
       </Body>
@@ -47,6 +48,7 @@ const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Aside.PopularArticles />
             <Aside.Advertisement />
             <Aside.DownloadApp />
+            <Aside.Copyrights />
           </FixedBox>
         </Right>
       </Body>
