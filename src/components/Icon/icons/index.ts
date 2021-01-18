@@ -1,5 +1,7 @@
 export { ReactComponent as add } from './add.svg';
 export { ReactComponent as addRound } from './add-round.svg';
+export { ReactComponent as appStore } from './app-store.svg';
+export { ReactComponent as googlePlay } from './google-play.svg';
 export { ReactComponent as article } from './article.svg';
 export { ReactComponent as articleNew } from './article-new.svg';
 export { ReactComponent as arrowLeft } from './arrow-left.svg';
