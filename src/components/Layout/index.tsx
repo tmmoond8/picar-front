@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { colors } from '../../styles';
 import LoungeSelector from './LoungeSelector';
 import MyActivity from './MyActivity';
-import PopularArticles from './PopularArticles';
+import Aside from '../Aside';
 import DesktopHeader from '../Header/DesktopHeader';
 import MenuBar from '../MenuBar';
 
@@ -20,7 +20,8 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Contents>{children}</Contents>
         <Right>
           <FixedBox>
-            <PopularArticles />
+            <Aside.PopularArticles />
+            <Aside.Advertisement />
           </FixedBox>
         </Right>
       </Body>
@@ -42,7 +43,8 @@ const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Contents>{children}</Contents>
         <Right>
           <FixedBox>
-            <PopularArticles />
+            <Aside.PopularArticles />
+            <Aside.Advertisement />
           </FixedBox>
         </Right>
       </Body>
