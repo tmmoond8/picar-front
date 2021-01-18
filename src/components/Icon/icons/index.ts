@@ -2,6 +2,7 @@ export { ReactComponent as add } from './add.svg';
 export { ReactComponent as addRound } from './add-round.svg';
 export { ReactComponent as article } from './article.svg';
 export { ReactComponent as articleNew } from './article-new.svg';
+export { ReactComponent as arrowLeft } from './arrow-left.svg';
 export { ReactComponent as arrowRight } from './arrow-right.svg';
 export { ReactComponent as arrowDown } from './arrow-down.svg';
 export { ReactComponent as bookmark } from './bookmark.svg';

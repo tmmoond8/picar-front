@@ -2,15 +2,19 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useLocation } from 'react-router';
 import Icon from '../Icon';
 import APIS from '../../apis';
 import { colors } from '../../styles';
 import ArticleType from '../../types/Article';
 import { useInitBefore } from '../../hooks';
+import { useStore, observer } from '../../stores';
 
 const SIZE = 5;
 
 const PopularArticles: React.FC<{}> = () => {
+  const { util } = useStore();
+  const location = useLocation();
   const [page, setPage] = React.useState(0);
   const [popArticles, setPopArticles] = React.useState<ArticleType[]>([]);
   const articles = React.useMemo(() => {
@@ -28,18 +32,26 @@ const PopularArticles: React.FC<{}> = () => {
     setPopArticles(data.articles)
   });
 
+  const handleClickLink = React.useCallback((articleId: number) => {
+    if (location.pathname.includes('/article')) {
+      util.history.replace(`/article/${articleId}`);
+    } else {
+      util.history.push(`/article/${articleId}`);
+    }
+  }, [location, util])
+
   return (
     <StyledPopularArticles className="PopularArticles">
       <Header>
         <h3>인기 글</h3>
         <Navigations>
-          <NavItem onClick={pagePrev} disabled={page === 0}><Icon icon="leftTriangle"/></NavItem>
-          <NavItem onClick={pageNext} disabled={page === Math.floor(popArticles.length / SIZE)}><Icon icon="leftTriangle" /></NavItem>
+          <NavItem onClick={pagePrev} disabled={page === 0}><Icon icon="arrowLeft"/></NavItem>
+          <NavItem onClick={pageNext} disabled={page === Math.floor(popArticles.length / SIZE)}><Icon icon="arrowRight" /></NavItem>
         </Navigations>
       </Header>
       <List>
         {articles.map(article => (
-          <Article key={article.title}>
+          <Article key={article.title} onClick={() => handleClickLink(article.id)}>
             <h4>{article.title}</h4>
             <h6>{article.group}</h6>
           </Article>
@@ -49,7 +61,7 @@ const PopularArticles: React.FC<{}> = () => {
   );
 };
 
-export default PopularArticles;
+export default observer(PopularArticles);
 
 const StyledPopularArticles = styled.div`
   width: 264px;
@@ -112,6 +124,10 @@ const Article = styled.li`
   justify-content: center;
   height: 77px;
   padding: 8px 20px;
+  cursor: pointer;
+  :hover {
+    background-color: ${colors.blackF7};
+  }
 
   h4 {
     font-size: 15px;
