@@ -80,7 +80,7 @@ const Left = styled.aside`
 `;
 
 const Right = styled.div`
-  width: 300px;
+  width: 264px;
   height: 600px;
   margin: 0 0 0 ${GAP}px;
 

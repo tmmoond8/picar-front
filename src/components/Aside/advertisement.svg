@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="264" height="128" viewBox="0 0 264 128">
+    <defs>
+        <path id="rucw37gjwa" d="M0 0H264V128H0z"/>
+        <path id="ni0vl7fbic" d="M0 0L86.4 0 86.4 86.4 0 86.4z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g transform="translate(-876 -566) translate(876 566)">
+                <mask id="rpnfry2t6b" fill="#fff">
+                    <use xlink:href="#rucw37gjwa"/>
+                </mask>
+                <use fill="#579FF7" xlink:href="#rucw37gjwa"/>
+                <text fill="#FFF" font-family="NotoSansCJKkr-Bold, Noto Sans CJK KR" font-size="20" font-weight="bold" letter-spacing="-.5" mask="url(#rpnfry2t6b)">
+                    <tspan x="102" y="49">선배 사장님에게 </tspan> <tspan x="102" y="74">물어보세요</tspan>
+                </text>
+                <text fill="#FFF" font-family="NotoSansCJKkr-Bold, Noto Sans CJK KR" font-size="13" font-weight="bold" letter-spacing="-.5" mask="url(#rpnfry2t6b)" opacity=".8">
+                    <tspan x="102" y="101">사장님 커뮤니티, 오너스</tspan>
+                </text>
+                <g mask="url(#rpnfry2t6b)">
+                    <g transform="translate(11 16)">
+                        <g>
+                            <mask id="z7fqrni7hd" fill="#fff">
+                                <use xlink:href="#ni0vl7fbic"/>
+                            </mask>
+                            <use fill="#579FF7" xlink:href="#ni0vl7fbic"/>
+                            <path fill="#579FF7" d="M14.4 37.44H74.88V59.04H14.4z" mask="url(#z7fqrni7hd)"/>
+                            <circle cx="43.2" cy="43.2" r="24.48" fill="#F1F8FF" mask="url(#z7fqrni7hd)"/>
+                            <g mask="url(#z7fqrni7hd)">
+                                <g transform="translate(5.76 34.56)">
+                                    <circle cx="10.08" cy="8.64" r="8.64" fill="#F1F8FF"/>
+                                    <circle cx="64.8" cy="8.64" r="8.64" fill="#F1F8FF"/>
+                                    <circle cx="64.8" cy="8.64" r="8.64" fill="#F1F8FF"/>
+                                    <path fill="#3A4C6A" d="M43.907 14.688c-1.172 2.388-3.627 4.032-6.467 4.032s-5.295-1.644-6.467-4.032z"/>
+                                    <circle cx="29.16" cy="5.832" r="1.8" fill="#3A4C6A"/>
+                                    <circle cx="45" cy="5.832" r="1.8" fill="#3A4C6A"/>
+                                    <path stroke="#C6CFDE" stroke-width="2.88" d="M64.8 4.32L64.8 11.52M10.08 4.32L10.08 11.52"/>
+                                    <circle cx="37.44" cy="72" r="37.44" fill="#3A4C6A"/>
+                                    <path fill="#F1F8FF" d="M31.68 30.24L28.8 43.2 46.08 43.2 43.2 30.24 37.44 30.24z"/>
+                                </g>
+                            </g>
+                        </g>
+                        <circle cx="33.12" cy="40.32" r="7.2" stroke="#3A4C6A" stroke-width="2.88"/>
+                        <circle cx="53.28" cy="40.32" r="7.2" stroke="#3A4C6A" stroke-width="2.88"/>
+                        <path stroke="#3A4C6A" stroke-width="2.88" d="M40.32 40.32L46.08 40.32"/>
+                        <path fill="#3A4C6A" d="M48.96 21.6L66.24 21.6 66.24 33.12 48.96 33.12zM18.72 21.6L36 21.6 36 33.12 18.72 33.12z"/>
+                        <path fill="#3A4C6A" d="M36 21.6l7.2 2.88 5.76-2.88h17.28c0-6.362-5.158-11.52-11.52-11.52H30.24c-6.362 0-11.52 5.158-11.52 11.52H36z"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
