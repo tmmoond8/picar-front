@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import { toast } from 'react-toastify';
 
 import Article from '../../types/Article';
@@ -11,6 +12,7 @@ import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
 
 interface ArticleListProps {
+  className?: string;
   articles: Article[];
   bookmarks: Set<number>;
 }
@@ -18,7 +20,7 @@ interface ArticleListProps {
 export default observer(function ArticleList(
   props: ArticleListProps,
 ): JSX.Element {
-  const { articles, bookmarks } = props;
+  const { articles, bookmarks, className } = props;
   const { user } = useStore();
 
   const handleClickBookmark = React.useCallback(
@@ -44,7 +46,7 @@ export default observer(function ArticleList(
   };
 
   return (
-    <StyledArticleList className="ArticleList">
+    <StyledArticleList className={cx("ArticleList", className)}>
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
@@ -67,6 +69,5 @@ const StyledArticleList = styled.ol`
   overflow-y: scroll;
   li {
     margin-top: 8px;
-    box-shadow: 0 -8px ${colors.blackF5F6F7};
   }
 `;

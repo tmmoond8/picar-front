@@ -11,6 +11,7 @@ export default {
   black77: '#777777',
   black84: '#848484',
   black99: '#999999',
+  blackAA: '#aaaaaa',
   blackBF: '#bfbfbf',
   blackCC: '#cccccc',
   blackD9: '#d9d9d9',

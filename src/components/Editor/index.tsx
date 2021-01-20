@@ -10,7 +10,6 @@ import Icon from '../Icon';
 import HR from '../HR';
 import Styled from './Styled';
 import API from '../../apis';
-import { NAVIGATIONS, LOUNGES, LOUNGE } from '../../types/constants';
 import Article from '../../types/Article';
 
 const Editor: React.FC<{

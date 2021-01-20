@@ -8,8 +8,9 @@ import { observer, useStore } from '../stores';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
 import MenuBar from '../components/MenuBar';
+import LoungeNavigation from '../components/LoungeNavigation';
 import NavigationHeader from '../components/Header/NavigationHeader';
-import { CAROUSEL } from '../types/constants';
+import { CAROUSEL, NAVIGATIONS, LOUNGES, LOUNGE } from '../types/constants';
 
 const HomePage = () => {
   const { ui } = useStore();
@@ -76,7 +77,17 @@ const TabletHome = observer(() => {
   const { article, user } = useStore();
   return (
     <React.Fragment>
-      <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} />
+      <LoungeNavigation.Tablet />
+      {article.selectedGroup === LOUNGE && <TabletArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === '자유' && <TabletArticleList articles={article.freeArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === '유머' && <TabletArticleList articles={article.humorArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === '정부지원' && <TabletArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} />}
     </React.Fragment>
   );
 });
+
+const TabletArticleList = styled(ArticleList)`
+  .ArticleCard {
+    margin-top: 1px;
+  }
+`;

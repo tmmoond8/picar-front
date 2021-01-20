@@ -45,7 +45,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   }, [history, id]);
 
   return (
-    <Card>
+    <Card className="ArticleCard">
       <ArticleCardHead
         thumbnail={thumbnail}
         name={name}
