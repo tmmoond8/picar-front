@@ -16,28 +16,31 @@ function App() {
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
           <Switch>
-            <Route path="/myProfile">
+            <Route exact path="/myProfile/edit">
+              <Pages.MyProfileEditPage />
+            </Route>
+            <Route exact path="/myProfile">
               <Pages.MyProfilePage />
             </Route>
-            <Route path="/myActivations">
+            <Route exact path="/myActivations">
               <Pages.MyActivationsPage />
             </Route>
-            <Route path="/test">
+            <Route exact path="/test">
               <Pages.TestPage />
             </Route>
-            <Route path="/login/kakao">
+            <Route exact path="/login/kakao">
               <Pages.KakaoLoginBridge />
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
               <Pages.LoginPage />
             </Route>
-            <Route path="/article/:articleId">
+            <Route exact path="/article/:articleId">
               <Pages.ArticlePage />
             </Route>
-            <Route path="/search">
+            <Route exact path="/search">
               <Pages.SearchPage />
             </Route>
-            <Route path="/notification">
+            <Route exact path="/notification">
               <Pages.NotificationPage />
             </Route>
             <Route path="/">

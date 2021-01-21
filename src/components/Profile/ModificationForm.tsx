@@ -11,10 +11,8 @@ import PhotoUploader from '../PhotoUploader';
 import APIS from '../../apis';
 import { colors } from '../../styles';
 
-const ModificationForm: React.FC<{ handleClose: () => void }> = ({
-  handleClose,
-}) => {
-  const { user } = useStore();
+const ModificationForm = () => {
+  const { user, util } = useStore();
   const {
     uploadedUrl,
     preUploadUrl,
@@ -52,11 +50,11 @@ const ModificationForm: React.FC<{ handleClose: () => void }> = ({
         profileImage: uploadedUrl,
         description,
       };
-      handleClose();
+      util.history.goBack();
     } catch (error) {
       console.log(error);
     }
-  }, [description, group, handleClose, name, uploadedUrl, user.profile]);
+  }, [description, group, name, uploadedUrl, user.profile]);
 
   return (
     <Form>

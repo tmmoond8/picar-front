@@ -10,9 +10,7 @@ import MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
 import APIS from '../apis';
 import Profile from '../components/Profile';
-import UserActivations from '../components/Profile/ActivationsContainer';
 import { colors } from '../styles';
-import { useBottomSheet } from '../components/BottomSheet';
 
 const menus = [
   { menu: '게시글', key: 'article', icon: 'article' },
@@ -24,19 +22,14 @@ export default observer(function ProfilePage(): JSX.Element {
   const { user, util } = useStore();
 
   const [ count, setCount ] = React.useState(0);
-  const bottomSheet = useBottomSheet();
   const { profileImage, name, group, description, code } = user.profile;
   const handleModifyProfile = React.useCallback(() => {
-    bottomSheet.open({
-      title: '프로필 수정',
-      contents: <Profile.Form handleClose={bottomSheet.close} />,
-      isFull: true, 
-    });
-  }, [bottomSheet]);
+    util.history.push('/myProfile/edit')
+  }, []);
 
   const handleOpenUserActivations = React.useCallback((menu) => {
     util.history.push('/myActivations', { menu })
-  }, [bottomSheet]);
+  }, [util]);
 
   const handleUnknown = React.useCallback(async () => {
     setCount(count + 1);
