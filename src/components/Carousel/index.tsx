@@ -58,23 +58,6 @@ export default function Craousel(props: CraouselProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flickingRef.current, gesture]);
 
-  useEffect(() => {
-    const resizeEvent = throttle(32, false, () => {
-      if (!flickingRef.current) return;
-      const containerElement = (flickingRef.current! as any).cameraElement;
-      const { clientWidth, childNodes } = containerElement as HTMLUListElement;
-      childNodes.forEach((children: any, index) => {
-        children.style.left = `${index * clientWidth}px`;
-      });
-    });
-    if (flickingRef.current) {
-      window.addEventListener('resize', resizeEvent);
-    }
-    return () => {
-      window.removeEventListener('resize', resizeEvent);
-    };
-  }, []);
-
   return (
     <Self id={id} className={cx('carousel-container', className)}>
       <Flicking
@@ -98,8 +81,8 @@ export default function Craousel(props: CraouselProps): JSX.Element {
         inputType={['touch', 'mouse']}
         thresholdAngle={45}
         bounce={10}
-        autoResize={false}
-        adaptive={false}
+        autoResize={true}
+        adaptive={true}
         zIndex={2000}
         bound={false}
         overflow={true}
