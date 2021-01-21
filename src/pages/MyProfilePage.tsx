@@ -8,7 +8,7 @@ import Icon, { IconKey } from '../components/Icon';
 import HR from '../components/HR';
 import MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
-import APIS from '../apis';
+
 import Profile from '../components/Profile';
 import { colors } from '../styles';
 
@@ -18,10 +18,9 @@ const menus = [
   { menu: '북마크', key: 'bookmark', icon: 'bookmark' },
 ];
 
-export default observer(function ProfilePage(): JSX.Element {
+const Mobile = () => {
   const { user, util } = useStore();
 
-  const [ count, setCount ] = React.useState(0);
   const { profileImage, name, group, description, code } = user.profile;
   const handleModifyProfile = React.useCallback(() => {
     util.history.push('/myProfile/edit')
@@ -31,25 +30,9 @@ export default observer(function ProfilePage(): JSX.Element {
     util.history.push('/myActivations', { menu })
   }, [util]);
 
-  const handleUnknown = React.useCallback(async () => {
-    setCount(count + 1);
-    if (count > 20) {
-      const { data } = await APIS.auth.deleteUser(code);
-      if (data.ok) {
-        util.history.goBack();
-        setTimeout(() => {
-          window.location.reload();
-        }, 300)
-      }
-    }
-  }, [count])
-
   return (
     <StyledPage>
-      <Profile.Header>
-        <h2 onClick={handleUnknown}>dosannan.222</h2>
-        <Icon icon="more" size="24px" color={colors.black22}/>
-      </Profile.Header>
+      <Profile.Header />
       <Body>
         <Profile.Profile
           name={name}
@@ -88,6 +71,14 @@ export default observer(function ProfilePage(): JSX.Element {
       <StyledMenuBar />
     </StyledPage>
   );
+}
+
+export default observer(() => {
+  return (
+    <React.Fragment>
+      <Mobile />
+    </React.Fragment>
+  )
 });
 
 const StyledPage = styled(Page)`

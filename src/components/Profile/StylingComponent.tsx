@@ -5,23 +5,6 @@ import styled from '@emotion/styled';
 import Button from '../Button';
 import { colors } from '../../styles';
 
-export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 4px 0 0 0;
-  padding: 16px 18px;
-  
-  h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: ${colors.black22};
-  }
-
-  svg {
-    justify-self: flex-end;
-  }
-`;
 
 export const ProfileModifyButton = styled(Button)`
   width: 100%;
