@@ -5,6 +5,7 @@ import React from 'react';
 import cx from 'classnames';
 import Profile from './Profile';
 import APIS from '../../apis';
+import { colors } from '../../styles';
 import ArticleList from '../ArticleList';
 import CommentList from '../ProfileCommentList';
 import Article from '../../types/Article';
@@ -30,6 +31,25 @@ const UserActivations: React.FC<{ userCode: string; tab: string; className?: str
     (window as any).__OWNER__[CAROUSEL.PROFILE](tabIndex);
     setTabIndex(tabs.findIndex(({ id }) => id === tab.id));
   }, [])
+
+  const setCarouselHeight = React.useCallback((index) => {
+    const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
+    if (cameraElement) {
+      if (cameraElement && cameraElement.childNodes && cameraElement.childNodes.length > index) {
+        const childHeight = (cameraElement.childNodes[index] as any).scrollHeight;
+        (document.getElementById(CAROUSEL.PROFILE) as any).style.height = `${childHeight}px`;
+      }
+    }
+  }, [])
+
+  const handleOnChange = React.useCallback((index) => {
+    setTabIndex(index);
+    // setCarouselHeight(index);
+  }, [setCarouselHeight, setTabIndex])
+
+  React.useEffect(() => {
+    // setCarouselHeight(tabIndex);
+  }, [articles, comments])
 
   React.useEffect(() => {
     (async () => {
@@ -61,7 +81,7 @@ const UserActivations: React.FC<{ userCode: string; tab: string; className?: str
         <StyledCarousel
           id={CAROUSEL.PROFILE}
           index={tabIndex}
-          onChangeIndex={setTabIndex}
+          onChangeIndex={handleOnChange}
         >
           <ArticleList
             articles={articles}
@@ -83,12 +103,8 @@ export default observer(UserActivations);
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
-`;
-
-const StyledProfile = styled(Profile)`
-  height: fit-content;
-  padding: 14px 18px;
+  height: auto;
+  background-color: ${colors.white};
 `;
 
 const StyledCarousel = styled(Carousel)`

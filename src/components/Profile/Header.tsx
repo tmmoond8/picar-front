@@ -43,6 +43,7 @@ export const Header = styled.header`
   justify-content: space-between;
   margin: 4px 0 0 0;
   padding: 16px 18px;
+  background-color: ${colors.white};
 
   svg {
     justify-self: flex-end;

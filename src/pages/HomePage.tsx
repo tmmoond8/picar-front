@@ -10,7 +10,7 @@ import Carousel from '../components/Carousel';
 import MenuBar from '../components/MenuBar';
 import LoungeNavigation from '../components/LoungeNavigation';
 import NavigationHeader from '../components/Header/NavigationHeader';
-import { CAROUSEL, NAVIGATIONS, LOUNGES, LOUNGE } from '../types/constants';
+import { CAROUSEL, LOUNGE } from '../types/constants';
 
 const HomePage = () => {
   const { ui } = useStore();

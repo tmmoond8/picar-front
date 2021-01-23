@@ -19,7 +19,7 @@ const MyActivationsPage: React.FC = () => {
   return (
     <StyledPage>
       <BackHeader options={HeaderOption} />
-      <Activations userCode={user.profile.code} tab={(location?.state as Record<string, any>).menu ?? 'comment'}/>
+      <Activations userCode={user.profile.code} tab={(location?.state as Record<string, any>)?.menu ?? 'comment'}/>
     </StyledPage>
   )
 }
