@@ -21,7 +21,12 @@ const tabs = [
   { id: 'bookmark', display: '북마크' },
 ];
 
-const UserActivations: React.FC<{ userCode: string; tab: string; className?: string}> = ({ userCode, tab, className }) => {
+const UserActivations: React.FC<{ 
+  userCode: string; 
+  tab: string; 
+  className?: string;
+  onChange?: (index: number) => void;
+}> = ({ userCode, tab, className, onChange }) => {
   const [ articles, setArticles] = React.useState<Article[]>([]);
   const [ comments, setComments] = React.useState<Comment[]>([]);
   const { user } = useStore();
@@ -32,24 +37,12 @@ const UserActivations: React.FC<{ userCode: string; tab: string; className?: str
     setTabIndex(tabs.findIndex(({ id }) => id === tab.id));
   }, [])
 
-  const setCarouselHeight = React.useCallback((index) => {
-    const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
-    if (cameraElement) {
-      if (cameraElement && cameraElement.childNodes && cameraElement.childNodes.length > index) {
-        const childHeight = (cameraElement.childNodes[index] as any).scrollHeight;
-        (document.getElementById(CAROUSEL.PROFILE) as any).style.height = `${childHeight}px`;
-      }
-    }
-  }, [])
-
   const handleOnChange = React.useCallback((index) => {
     setTabIndex(index);
-    // setCarouselHeight(index);
-  }, [setCarouselHeight, setTabIndex])
-
-  React.useEffect(() => {
-    // setCarouselHeight(tabIndex);
-  }, [articles, comments])
+    if (typeof onChange === 'function') {
+      onChange(index);
+    }
+  }, [setTabIndex])
 
   React.useEffect(() => {
     (async () => {

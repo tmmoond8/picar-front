@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Page from './BasePage';
 import Icon, { IconKey } from '../components/Icon';
@@ -11,6 +10,7 @@ import MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
 
 import Profile from '../components/Profile';
+import { CAROUSEL } from '../types/constants';
 import { colors } from '../styles';
 import ActivationsContainer from '../components/Profile/ActivationsContainer';
 
@@ -70,9 +70,25 @@ const Mobile = () => {
 
 const Tablet = () => {
   const { user } = useStore();
-  const location = useLocation();
+  const [contentHeight, setContentHeight ] = React.useState('0px');
   const { profileImage, name, group, description, code } = user.profile;
   const { handleModifyProfile } = useProfileHandler();
+  const handleChangeActication = React.useCallback((index: number) => {
+    const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
+    if (cameraElement) {
+      if (cameraElement && cameraElement.childNodes && cameraElement.childNodes.length > index) {
+        const childHeight = (cameraElement.childNodes[index] as any).scrollHeight;
+        setContentHeight(`${childHeight}px`);
+      }
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      handleChangeActication(0);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [])
  
   return (
     <TabletWrapper className="MyProfileWrapper">
@@ -88,7 +104,12 @@ const Tablet = () => {
           프로필 수정
         </Profile.ProfileModifyButton>
       </Body>
-      <Activations userCode={user.profile.code} tab={'comment'}/>
+      <Activations 
+        userCode={user.profile.code} 
+        tab={'article'} 
+        onChange={handleChangeActication}
+        height={contentHeight}
+      />
     </TabletWrapper>
   );
 }
@@ -136,7 +157,7 @@ const TabletWrapper = styled.div`
   }
 `;
 
-const Activations = styled(ActivationsContainer)`
+const Activations = styled(ActivationsContainer)<{height: string}>`
   margin: 16px 0 0 0;
   .Tabs {
     height: 56px;
@@ -147,6 +168,20 @@ const Activations = styled(ActivationsContainer)`
     }
     .TabItem + .TabItem {
       margin-left: 20px;
+    }
+  }
+  
+  #${CAROUSEL.PROFILE} {
+    overflow: auto;
+    height: auto;
+    > div {
+      height: auto; 
+      .eg-flick-panel {
+        height: auto;
+      }
+    }
+    .eg-flick-camera, .eg-flick-viewport {
+      height: ${p => p.height} !important;
     }
   }
 `;
