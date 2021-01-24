@@ -16,7 +16,7 @@ const BackHeader: React.FC<{
   const history = useHistory();
 
   return (
-    <StyledBack noBottomLine={options.noBottomLine ?? false}>
+    <StyledBack noBottomLine={options.noBottomLine ?? false} className="BackHeader">
       <h2 className="title">{options?.title || ''}</h2>
       <Icon
         icon="back"
@@ -65,6 +65,6 @@ const StyledBack = styled.nav<{noBottomLine: boolean}>`
   }
   
   ${p => !p.noBottomLine && css`
-    box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 -0.5px 0 0 ${colors.blackEB};
   `}
 `;

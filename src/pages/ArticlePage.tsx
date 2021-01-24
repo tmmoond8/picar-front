@@ -6,12 +6,9 @@ import React from 'react';
 import { colors } from '../styles';
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
-import Icon from '../components/Icon';
 import Article from '../components/Article';
-import BackHeader from '../components/Header/BackHeader';
 import {
   useFetch as useFetchArticle,
-  useMoreMenu,
 } from '../components/Article/hooks';
 
 import CommentArea from '../components/Comment';
@@ -39,57 +36,17 @@ export default observer(function ArticlePage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article]);
 
-  const handleClickMore = useMoreMenu(article);
-
   const bookmark = React.useMemo(() => {
     return article?.id && user.bookmarks.has(article.id);
   }, [article, user.bookmarks]);
 
-  const handleClickBookmark = React.useCallback(async () => {
-    if (user.needLogin() || !article) {
-      return;
-    }
-    if (bookmark) {
-      user.removeBookmark(article.id);
-    } else {
-      user.addBookmark(article.id);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookmark, article]);
-
-  const isYourArticle = React.useMemo(
-    () => article?.author.code === user.profile.code,
-    [article?.author, user.profile],
-  );
-
-  const HeaderOption = {
-    right: (
-      <React.Fragment>
-        <Icon
-          color={bookmark ? colors.black33 : 'transparent'}
-          icon="bookmarkOutline"
-          size="24px"
-          onClick={handleClickBookmark}
-        />
-        {isYourArticle && (
-          <Icon
-            icon="more"
-            color={colors.black33}
-            size="24px"
-            onClick={handleClickMore}
-          />
-        )}
-      </React.Fragment>
-    ),
-  };
-
   return (
     <Page>
-      <BackHeader options={HeaderOption} />
-      <ArticleContainer>
+      <ArticleContainer className="ArticleContainer">
         {article && article.isDelete && <Article.Empty />}
         {article && !article.isDelete && (
           <React.Fragment>
+            {/* <Article.Header bookmark={!!bookmark} breadbump="ad" onBookmark={handleClickBookmark} onMore={handleClickMore}/> */}
             <Article article={article} commentCount={commentCount} />
             {article?.id && (
               <CommentArea
@@ -109,5 +66,6 @@ export default observer(function ArticlePage(): JSX.Element {
 
 const ArticleContainer = styled.div`
   height: calc(100% - 56px);
+  background-color: ${colors.white};
   overflow-y: scroll;
 `;

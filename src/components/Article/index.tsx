@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import ArticleHead from './ArticleHead';
+import ArticleHeader from './ArticleHeader';
 import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 import ArticleEmpty from './ArticleEmpty';
@@ -13,13 +14,12 @@ import { colors } from '../../styles';
 import ArticleContext from './context';
 
 import { useFetch as useFetchEmotion } from '../Emotion/hooks';
-
 export { useOpenArticleEditor, useMoreMenu, useFetch } from './hooks';
 
 const Article: React.FC<{
   article: IArticle;
   commentCount: number;
-}> & { Empty: React.FC } = ({ article, commentCount }) => {
+}> & { Empty: React.FC; } = ({ article, commentCount }) => {
   const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
 
   return (
@@ -32,6 +32,7 @@ const Article: React.FC<{
     >
       {article && (
         <React.Fragment>
+          <ArticleHeader />
           <ArticleHead />
           <ArticleBody />
           <ArticleFooter />
@@ -49,7 +50,5 @@ const HR = styled.hr`
   margin: 0;
   border: 0;
   height: 12px;
-  box-shadow: inset 0 0.5px 0 0 ${colors.blackD9},
-    inset 0 -0.5px 0 0 ${colors.blackD9};
   background-color: ${colors.blackF5F6F7};
 `;
