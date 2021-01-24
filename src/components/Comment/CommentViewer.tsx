@@ -1,18 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-
+import cx from 'classnames';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from './Comment';
 import CommentEditor from './CommentEditor';
 import { useCommentContext, observer } from './context';
 
-const CommentViewer = () => {
+const CommentViewer: React.FC<{className?: string}> = ({ className }) => {
   const { comments, articleAuthorCode } = useCommentContext();
   return (
-    <StyledComments>
-      <CommentList>
+    <StyledComments className={cx('Comments', className)}>
+      <CommentEditor />
+      <CommentList className="CommentList">
         {comments.map((comment) => (
           <Comment
             key={comment.id}
@@ -26,7 +27,7 @@ const CommentViewer = () => {
             thumbnail={comment.author.thumbnail}
             isDelete={comment.isDelete}
           >
-            <ReplyList>
+            <ReplyList className="ReplyList">
               {comment.replies &&
                 comment.replies.map((reply) => (
                   <Comment
@@ -52,7 +53,6 @@ const CommentViewer = () => {
           </Empty>
         )}
       </CommentList>
-      <CommentEditor />
     </StyledComments>
   );
 };
@@ -60,6 +60,8 @@ const CommentViewer = () => {
 export default observer(CommentViewer);
 
 const StyledComments = styled.div`
+  display: flex;
+  flex-direction: column;
   max-height: 70vh;
   padding: 0 0 92px;
 `;
@@ -67,7 +69,6 @@ const StyledComments = styled.div`
 const CommentList = styled.ul`
   min-height: 240px;
   overflow: hidden;
-  label: CommentList;
   padding: 0 0 70px;
 `;
 
@@ -81,7 +82,6 @@ const ReplyList = styled.ol`
       1150px 0 white, 1450px 0 white, 1350px 0 white, 1650px 0 white,
       1550px 0 white;
   }
-  label: ReplyList;
 `;
 
 const Empty = styled.div`

@@ -23,8 +23,6 @@ const TabletNavigation: React.FC = () => {
   const handleClickBottomMenu = React.useCallback((lounge: string) => {
     article.selectedLounge = lounge;
   }, [])
-  console.log('group', article.selectedGroup);
-  console.log('lounge', article.selectedLounge);
 
   return (
     <Navigation>

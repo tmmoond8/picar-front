@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -14,7 +14,7 @@ import {
 import CommentArea from '../components/Comment';
 
 export default observer(function ArticlePage(): JSX.Element {
-  const { article: articleStore, user } = useStore();
+  const { article: articleStore, user, ui } = useStore();
 
   const article = articleStore.articles.find(
     (article) =>
@@ -36,17 +36,12 @@ export default observer(function ArticlePage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article]);
 
-  const bookmark = React.useMemo(() => {
-    return article?.id && user.bookmarks.has(article.id);
-  }, [article, user.bookmarks]);
-
   return (
     <Page>
-      <ArticleContainer className="ArticleContainer">
+      <ArticleContainer className="ArticleContainer" desktop={!ui.queryMatch.Mobile}>
         {article && article.isDelete && <Article.Empty />}
         {article && !article.isDelete && (
           <React.Fragment>
-            {/* <Article.Header bookmark={!!bookmark} breadbump="ad" onBookmark={handleClickBookmark} onMore={handleClickMore}/> */}
             <Article article={article} commentCount={commentCount} />
             {article?.id && (
               <CommentArea
@@ -64,8 +59,11 @@ export default observer(function ArticlePage(): JSX.Element {
   );
 });
 
-const ArticleContainer = styled.div`
+const ArticleContainer = styled.div<{ desktop: boolean}>`
   height: calc(100% - 56px);
   background-color: ${colors.white};
   overflow-y: scroll;
+  ${p => p.desktop && css`
+    height: 100%;  
+  `}
 `;

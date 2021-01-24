@@ -6,11 +6,12 @@ import React from 'react';
 import { useStore } from '../../stores';
 import Profile from '../Profile';
 import Icon from '../Icon';
+import Button from '../Button';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
 
 const CommentEditor = () => {
-  const { user } = useStore();
+  const { user, ui } = useStore();
   const [content, setContent] = React.useState('');
   const textEditableRef = React.useRef<HTMLDivElement>(null);
   const handleChangeContent = React.useCallback(() => {
@@ -60,7 +61,7 @@ const CommentEditor = () => {
   const disabled = React.useMemo(() => content.trim().length === 0, [content]);
 
   return (
-    <Editor hasContent={content.length > 0}>
+    <Editor hasContent={content.length > 0} className="CommentWrapper" >
       <Context
         className="CommentEditor"
         ref={textEditableRef as React.RefObject<HTMLDivElement>}
@@ -69,19 +70,20 @@ const CommentEditor = () => {
         onInput={handleChangeContent}
       />
       <UserPhoto src={profilePhoto} />
-      <SendIconButton
+      {ui.queryMatch.Mobile && <SendIconButton
         disabled={disabled}
         icon="send"
         size="24px"
         onClick={handleClickSend}
-      />
+      />}
+      {!ui.queryMatch.Mobile && <SendButton disabled={disabled} onClick={handleClickSend}>댓글작성</SendButton>}
     </Editor>
   );
 };
 
 export default observer(CommentEditor);
 
-const Editor = styled.div<{ hasContent: boolean }>`
+const Editor = styled.div<{ hasContent: boolean;}>`
   display: flex;
   position: fixed;
   left: 0;
@@ -91,7 +93,6 @@ const Editor = styled.div<{ hasContent: boolean }>`
   padding: 18px;
   background: ${colors.white};
   border-top: 1px solid ${colors.blackF5F6F7};
-  /* box-shadow: 0 0px 20px 0px ${colors.blackCC}; */
 
   button {
     color: ${colors.primary4};
@@ -171,3 +172,15 @@ const SendIconButton = styled(Icon)<{ disabled: boolean }>`
       pointer-events: all;
     `}
 `;
+
+const SendButton = styled(Button)<{disabled: boolean}>`
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: ${colors.blackBF};
+  border: none;
+  outline: none;
+  pointer-events: ${p => p.disabled ? 'none': 'pointer'};
+  `
