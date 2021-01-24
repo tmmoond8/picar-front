@@ -11,7 +11,7 @@ import APIS from '../apis';
 import env from '../env';
 import { Profile as UserProfile } from '../types/User';
 import { SignUpUser, Profile } from '../types/User';
-import { useBottomSheet } from '../components/BottomSheet';
+import { useModal } from '../components/Modal';
 import { useStore } from '../stores';
 import OwwnersLogo from '../resources/images/owwners-logo.png';
 import storage from '../modules/localStorage';
@@ -41,27 +41,27 @@ const LoginPage = () => {
   const [message, setMessage ] = React.useState('');
 
   ui.setHeaderNone();
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
   const handleSetUserProfile = (profile: UserProfile) => {
     user.setProfile(profile);
   };
 
   const handleSignUp = React.useCallback(
     (user: SignUpUser) => {
-      bottomSheet.open({
+      modal.open({
         title: ' 회원가입',
         isFull: true,
         noHeader: true,
         contents: (
           <SignUpWithDelay
             {...user}
-            onClose={bottomSheet.close}
+            onClose={modal.close}
             onSetUserProfile={handleSetUserProfile}
           />
         ),
       });
     },
-    [bottomSheet],
+    [modal],
   );
 
   async function handleSaveUser(result: any, tokenData: any) {

@@ -8,7 +8,7 @@ import LoginBox from '../components/Login/LoginBox';
 import * as inputHooks from './input';
 import { useStore } from '../stores';
 import { BreakPoints } from '../styles/mediaQuery';
-import { useBottomSheet } from '../components/BottomSheet';
+import { useModal } from '../components/Modal';
 
 export const useTextInput = inputHooks.useTextInput;
 export const useTextarea = inputHooks.useTextarea;
@@ -25,16 +25,16 @@ export const useInitBefore = (callback: () => void) => {
 
 export const useCheckLogin = (
   handleSetUserProfile: (profile: UserProfile) => void,
-  bottomSheet: ReturnType<typeof useBottomSheet>,
+  modal: ReturnType<typeof useModal>,
 ) => {
   return React.useCallback(
     (code: string) => {
       if (code === 'guest') {
-        bottomSheet.open({
+        modal.open({
           title: '',
           contents: (
             <LoginBox
-              onClose={bottomSheet.close}
+              onClose={modal.close}
             />
           ),
           hasTitleLine: false,
@@ -44,7 +44,7 @@ export const useCheckLogin = (
       }
       return false;
     },
-    [bottomSheet, handleSetUserProfile],
+    [modal, handleSetUserProfile],
   );
 };
 

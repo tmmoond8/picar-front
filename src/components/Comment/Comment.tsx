@@ -9,7 +9,7 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
 import { getDateGoodLook } from '../../modules/string';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import ProfileContainer from '../Profile/ProfileContainer';
 
 interface CommentProps {
@@ -55,17 +55,17 @@ const Comment: React.FC<CommentProps> = (props) => {
     commentAuthorCode,
     userCode,
   ]);
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
 
   const handleOpenProfile = React.useCallback(() => {
-    bottomSheet.open({
+    modal.open({
       title: '',
       isFull: true,
       contents: (
         <ProfileContainer userCode={userCode}/>
       ),
     });
-  }, [bottomSheet])
+  }, [modal])
 
   return (
     <React.Fragment>

@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 
@@ -23,16 +23,16 @@ const EmotionCounter: React.FC<{
   handleEmotionUpdate,
 }) => {
   const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
 
   const handleClickEmotion = () => {
-    bottomSheet.open({
+    modal.open({
       title: `공감 ${emotionCount}`,
       contents: (
         <EmotionBox
           articleId={articleId}
           myEmotion={myEmotion}
-          handleClose={bottomSheet.close}
+          handleClose={modal.close}
           setEmotionCount={setEmotionCount}
           handleEmotionUpdate={handleEmotionUpdate}
         />

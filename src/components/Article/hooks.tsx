@@ -4,7 +4,7 @@ import APIS from '../../apis';
 
 import { useStore } from '../../stores';
 import { useContextMenu } from '../ContextMenu';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import Editor from '../Editor';
 
 export const useFetch = (
@@ -55,7 +55,7 @@ const useArticleRemove = (handleClose: () => void) => {
 
 export const useOpenArticleEditor = () => {
   const { article } = useStore();
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
 
   const updateArticle = React.useCallback(
     (newArticle: Article) => {
@@ -71,7 +71,7 @@ export const useOpenArticleEditor = () => {
   );
 
   return (exitingArticle?: Article) =>
-    bottomSheet.open({
+    modal.open({
       title: exitingArticle ? ' 글 수정' : '글 작성',
       isFull: true,
       contents: (
@@ -79,7 +79,7 @@ export const useOpenArticleEditor = () => {
           article={exitingArticle}
           group={article.selectedGroup === '라운지' ? article.selectedLounge : article.selectedGroup}
           syncArticle={exitingArticle ? updateArticle : appendArticle}
-          onClose={bottomSheet.close}
+          onClose={modal.close}
         />
       ),
     });

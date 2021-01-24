@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from '.';
@@ -23,12 +23,12 @@ const CommentCounter: React.FC<{
 }) => {
   const { user } = useStore();
   const [commentCount, setCommentCount] = React.useState(_commentCount);
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
 
   const handleClickComment = React.useCallback(() => {
     if (articleId) {
       // TODO userCode, profilePhoto 넣어줘야 함
-      bottomSheet.open({
+      modal.open({
         title: `댓글 ${commentCount}`,
         contents: (
           <Comment
@@ -37,7 +37,7 @@ const CommentCounter: React.FC<{
             profilePhoto={user.profile.profileImage ?? ''}
             articleAuthorCode={articleAuthorCode}
             userCode={user.profile.code}
-            handleClose={bottomSheet.close}
+            handleClose={modal.close}
           />
         ),
       });
@@ -45,7 +45,7 @@ const CommentCounter: React.FC<{
   }, [
     articleAuthorCode,
     articleId,
-    bottomSheet,
+    modal,
     commentCount,
     user.profile.code,
     user.profile.profileImage,

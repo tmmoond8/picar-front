@@ -13,7 +13,7 @@ import {
 } from 'react';
 import cx from 'classnames';
 
-import BottomSheetHeader from './BottomSheetHeader';
+import ModalHeader from './ModalHeader';
 import { colors, desktop } from '../../styles';
 import { observer } from '../../stores';
 
@@ -25,7 +25,7 @@ export const HEADER_TYPE = {
 
 export type HeaderType = keyof typeof HEADER_TYPE;
 
-interface BottomSheetViewerProps {
+interface ModalViewerProps {
   className?: string;
   id: string;
   title?: string;
@@ -36,10 +36,10 @@ interface BottomSheetViewerProps {
   hasTitleLine?: boolean;
 }
 
-export type BottomSheetData = BottomSheetViewerProps;
+export type ModalData = ModalViewerProps;
 
-const BottomSheetViewer = forwardRef(
-  (props: BottomSheetViewerProps, ref): JSX.Element => {
+const ModalViewer = forwardRef(
+  (props: ModalViewerProps, ref): JSX.Element => {
     const {
       className,
       id,
@@ -70,29 +70,29 @@ const BottomSheetViewer = forwardRef(
     return (
       <Wrapper
         onClick={handleClickWrapper}
-        className={cx('BottomSheetWrapper', className)}
+        className={cx('ModalWrapper', className)}
         open={open}
       >
-        <BottomSheetBox
+        <ModalBox
           id={id}
           open={open}
           ref={ref as RefObject<HTMLDivElement>}
           isFull={isFull}
         >
-          {!noHeader && <BottomSheetHeader
+          {!noHeader && <ModalHeader
             title={title}
             handleClose={handleClose}
             noRadius={isFull}
             hasTitleLine={hasTitleLine}
           />}
-          <BottomSheetBody>{contents}</BottomSheetBody>
-        </BottomSheetBox>
+          <ModalBody>{contents}</ModalBody>
+        </ModalBox>
       </Wrapper>
     );
   },
 );
 
-export default observer(BottomSheetViewer);
+export default observer(ModalViewer);
 
 const Wrapper = styled.div<{ open: boolean }>`
   position: fixed;
@@ -109,7 +109,7 @@ const Wrapper = styled.div<{ open: boolean }>`
   transition: background-color 0.2s ease 0s;
 `;
 
-const BottomSheetBox = styled.div<{ open: boolean; isFull: boolean }>`
+const ModalBox = styled.div<{ open: boolean; isFull: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -133,7 +133,7 @@ const BottomSheetBox = styled.div<{ open: boolean; isFull: boolean }>`
   )}
 `;
 
-const BottomSheetBody = styled.div`
+const ModalBody = styled.div`
   flex: 1;
   padding: 0;
   background-color: ${colors.white};

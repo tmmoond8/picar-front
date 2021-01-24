@@ -6,7 +6,7 @@ import React from 'react';
 import Profile from '../Profile';
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import ProfileContainer from '../Profile/ProfileContainer';
 
 interface ArticleCardHeadProps {
@@ -24,17 +24,17 @@ const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
   createAt,
   userCode,
 }) => {
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
 
   const handleOpenProfile = React.useCallback(() => {
-    bottomSheet.open({
+    modal.open({
       title: '',
       isFull: true,
       contents: (
         <ProfileContainer userCode={userCode}/>
       ),
     });
-  }, [bottomSheet])
+  }, [modal])
 
   return (
     <Head>

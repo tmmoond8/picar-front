@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { useStore, observer } from '../../stores';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import Icon from '../Icon';
 
 import { colors } from '../../styles';
@@ -15,9 +15,9 @@ import LoungeGrid from '../LoungeGrid';
 
 const NavigationHeader = () => {
   const { article } = useStore();
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
   const handleOpenBottomSheet = React.useCallback(() => {
-    bottomSheet.open({
+    modal.open({
       title: '업종 라운지를 선택해 주세요',
       contents: (
         <LoungeGrid
@@ -26,13 +26,13 @@ const NavigationHeader = () => {
             article.selectedLounge = group;
             article.selectedGroup = LOUNGE;
             setTimeout(() => {
-              bottomSheet.close();
+              modal.close();
             }, 300);
           }}
         />
       ),
     });
-  }, [article.selectedGroup, article.selectedLounge, bottomSheet]);
+  }, [article.selectedGroup, article.selectedLounge, modal]);
 
   const handleSetGroup = React.useCallback(
     (selected: string) => {

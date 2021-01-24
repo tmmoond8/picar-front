@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
 import { NAVIGATIONS, LOUNGES, LOUNGE, Lounge as LoungeKeys } from '../../types/constants';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 
 const lounges = [
   ...NAVIGATIONS.filter((navigation) => navigation.name !== LOUNGE).map(
@@ -25,15 +25,15 @@ const LoungeSelector: React.FC<{
 }> = ({
   selected, setSelected, className, label, all = false,
 }) => {
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
   const handleSelect = React.useCallback((value: string) => {
-    bottomSheet.close();
+    modal.close();
     setSelected(value);
-  }, [setSelected, bottomSheet])
+  }, [setSelected, modal])
 
   const handleOpenSelects = React.useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    bottomSheet.open({
+    modal.open({
       title: '라운지 선택',
       contents: (
         <React.Fragment>
@@ -44,7 +44,7 @@ const LoungeSelector: React.FC<{
       isFull: true,
       hasTitleLine: false,
     })
-  }, [bottomSheet])
+  }, [modal])
 
   return (
     <Box className={cx('SelectBox', className)}>

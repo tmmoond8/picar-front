@@ -8,7 +8,7 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 
 
-const BottomSheetHeader: React.FC<{
+const ModalHeader: React.FC<{
   className?: string;
   title: string;
   handleClose: () => void;
@@ -18,7 +18,7 @@ const BottomSheetHeader: React.FC<{
   className, title, handleClose, noRadius = false, hasTitleLine = true
 }) => {
   return (
-    <Head className={cx('BottomSheetHeader', className)} noRadius={noRadius} hasTitleLine={hasTitleLine}>
+    <Head className={cx('ModalHeader', className)} noRadius={noRadius} hasTitleLine={hasTitleLine}>
       <Title>{title}</Title>
       <CloseButton onClick={handleClose}>
         <Icon icon="close" size="24px" color={colors.black33} />
@@ -27,7 +27,7 @@ const BottomSheetHeader: React.FC<{
   );
 }
 
-export default React.memo(BottomSheetHeader);
+export default React.memo(ModalHeader);
 
 const HEIGHT = 60;
 

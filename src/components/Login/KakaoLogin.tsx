@@ -6,7 +6,7 @@ import React from 'react';
 import storage from '../../modules/localStorage';
 
 import KakaoLoginIcon from './login-kakao.svg';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import env from '../../env';
 
 interface KakaoLoginProps {
@@ -15,7 +15,7 @@ interface KakaoLoginProps {
 
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
   const { onClose } = props;
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
   
   const handleKakaoLogin = React.useCallback(() => {
     onClose();
@@ -24,7 +24,7 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
     setTimeout(() => {
       window.location.href = `${env.REACT_APP_LOGIN_URL}/kakao?uuid=${uuid}`;
     }, 200);
-  }, [bottomSheet])
+  }, [modal])
 
   return (
     <img src={KakaoLoginIcon} onClick={handleKakaoLogin}/>

@@ -2,10 +2,10 @@ import React from 'react';
 import ContextMenuViewer, { ContextMenuData } from '../ContextMenu';
 import ToastContainer from '../ToastContainer';
 
-import BottomSheetViewer, {
-  BottomSheetData,
-  useBottomSheet,
-} from '../BottomSheet';
+import ModalViewer, {
+  ModalData,
+  useModal,
+} from '../Modal';
 import { useStore, observer } from '../../stores';
 import 'react-toastify/dist/ReactToastify.css';
 import global from '../../types/global';
@@ -17,10 +17,10 @@ const UiProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const { ui, user } = useStore();
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
   const needLogin = useCheckLogin(
     (profile: UserProfile) => user.setProfile(profile),
-    bottomSheet,
+    modal,
   );
   const queryMatch = useBreakpoint();
   React.useEffect(() => {
@@ -33,7 +33,7 @@ const UiProvider: React.FC<{
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   useSetupContextMenu(ui);
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  useSetupBottomSheet(ui);
+  useSetupModal(ui);
 
   return (
     <React.Fragment>
@@ -43,8 +43,8 @@ const UiProvider: React.FC<{
           {...contextMenu}
         />
       ))}
-      {ui.bottomSheets.map((bottomSheet) => (
-        <BottomSheetViewer key={bottomSheet.id} {...bottomSheet} />
+      {ui.modals.map((modal) => (
+        <ModalViewer key={modal.id} {...modal} />
       ))}
       <ToastContainer />
       {children}
@@ -54,17 +54,18 @@ const UiProvider: React.FC<{
 
 export default observer(UiProvider);
 
-function useSetupBottomSheet(ui: UiStore) {
+function useSetupModal(ui: UiStore) {
   React.useEffect(() => {
-    global.__OWNER__.openBottomSheet = (data: BottomSheetData) => {
-      ui.bottomSheets = [...ui.bottomSheets, data];
+    global.__OWNER__.openModal = (data: ModalData) => {
+      ui.modals = [...ui.modals, data];
     };
-    global.__OWNER__.closeBottomSheet = (targetId: string) => {
-      ui.bottomSheets = ui.bottomSheets.filter(({ id }) => id !== targetId);
+    global.__OWNER__.closeModal = (targetId: string) => {
+      ui.modals = ui.modals.filter(({ id }) => id !== targetId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
+
 
 function useSetupContextMenu(ui: UiStore) {
   React.useEffect(() => {

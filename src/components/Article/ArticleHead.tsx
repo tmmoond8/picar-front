@@ -5,7 +5,7 @@ import React from 'react';
 
 import { colors } from '../../styles';
 import Profile from '../Profile';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 
 import { getDateGoodLook } from '../../modules/string';
 import { useArticleContext, observer } from './context';
@@ -14,17 +14,17 @@ import ProfileContainer from '../Profile/ProfileContainer';
 const ArticleHead = () => {
   const { article } = useArticleContext();
   const { thumbnail, id, name, group, code } = article!.author;
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
 
   const handleOpenProfile = React.useCallback(() => {
-    bottomSheet.open({
+    modal.open({
       title: '',
       isFull: true,
       contents: (
         <ProfileContainer userCode={code}/>
       ),
     });
-  }, [bottomSheet])
+  }, [modal])
 
   return (
     <Self>

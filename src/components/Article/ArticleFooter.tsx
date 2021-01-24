@@ -8,7 +8,7 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 import Content from '../Content';
 import Emotion from '../Emotion';
-import { useBottomSheet } from '../BottomSheet';
+import { useModal } from '../Modal';
 import { useStore } from '../../stores';
 import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
@@ -21,20 +21,20 @@ const ArticleFooter = () => {
     emotionCounts,
   } = useArticleContext();
   const { user } = useStore();
-  const bottomSheet = useBottomSheet();
+  const modal = useModal();
   const [views, setViews] = React.useState(0);
   const [emotionCount, setEmotionCount] = React.useState(
     article?.emotionCount ?? 0,
   );
 
   const handleClickEmotion = React.useCallback(() => {
-    bottomSheet.open({
+    modal.open({
       title: `공감 ${emotionCount}`,
       contents: (
         <Emotion.Box
           articleId={article!.id}
           myEmotion={user.emotions[article!.id]}
-          handleClose={() => bottomSheet.close()}
+          handleClose={() => modal.close()}
           setEmotionCount={setEmotionCount}
           handleEmotionUpdate={(emotionType: EmotionType) =>
             user.setEmotion(article!.id, emotionType)
@@ -43,7 +43,7 @@ const ArticleFooter = () => {
       ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [article, bottomSheet, emotionCount]);
+  }, [article, modal, emotionCount]);
 
   const handleClickComment = React.useCallback(() => {
     // selector로 가져오는 것이 항상 나쁠까?
