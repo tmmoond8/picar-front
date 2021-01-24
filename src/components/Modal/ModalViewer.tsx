@@ -2,20 +2,11 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import {
-  ReactNode,
-  useState,
-  useEffect,
-  RefObject,
-  forwardRef,
-  useCallback,
-  MouseEvent,
-} from 'react';
 import cx from 'classnames';
 
 import ModalHeader from './ModalHeader';
-import { colors, desktop } from '../../styles';
-import { observer } from '../../stores';
+import { colors } from '../../styles';
+import { useStore, observer } from '../../stores';
 
 export const HEADER_TYPE = {
   default: 'default',
@@ -29,7 +20,7 @@ interface ModalViewerProps {
   className?: string;
   id: string;
   title?: string;
-  contents: ReactNode;
+  contents: React.ReactNode;
   noHeader?: boolean;
   handleClose: () => void;
   isFull?: boolean;
@@ -38,7 +29,7 @@ interface ModalViewerProps {
 
 export type ModalData = ModalViewerProps;
 
-const ModalViewer = forwardRef(
+const ModalViewer = React.forwardRef(
   (props: ModalViewerProps, ref): JSX.Element => {
     const {
       className,
@@ -50,9 +41,10 @@ const ModalViewer = forwardRef(
       isFull = false,
       hasTitleLine = true,
     } = props;
-    const [open, setOpen] = useState<boolean>(false);
-    const handleClickWrapper = useCallback(
-      (e: MouseEvent<HTMLDivElement>) => {
+    const { ui } = useStore();
+    const [open, setOpen] = React.useState<boolean>(false);
+    const handleClickWrapper = React.useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.target === e.currentTarget) {
           handleClose();
         }
@@ -60,7 +52,7 @@ const ModalViewer = forwardRef(
       [handleClose],
     );
 
-    useEffect(() => {
+    React.useEffect(() => {
       if (!open) {
         setTimeout(() => {
           setOpen(true);
@@ -72,11 +64,13 @@ const ModalViewer = forwardRef(
         onClick={handleClickWrapper}
         className={cx('ModalWrapper', className)}
         open={open}
+        desktop={!ui.queryMatch.Mobile}
       >
         <ModalBox
           id={id}
+          className="ModalBox"
           open={open}
-          ref={ref as RefObject<HTMLDivElement>}
+          ref={ref as React.RefObject<HTMLDivElement>}
           isFull={isFull}
         >
           {!noHeader && <ModalHeader
@@ -94,12 +88,15 @@ const ModalViewer = forwardRef(
 
 export default observer(ModalViewer);
 
-const Wrapper = styled.div<{ open: boolean }>`
+const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
   bottom: env(safe-area-inset-bottom);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   margin: auto;
   font-family: 'Inter', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
     'Segoe UI Emoji', 'Segoe UI Symbol';
@@ -107,30 +104,29 @@ const Wrapper = styled.div<{ open: boolean }>`
   background-color: ${(p) => (p.open ? colors.dimmed : colors.notDimmed)};
   z-index: 2005;
   transition: background-color 0.2s ease 0s;
+  ${p => p.desktop && css`
+  align-items: center;
+    .ModalBox {
+      top: 0;
+      max-width: 414px;
+      max-height: 484px;
+      border-radius: 3px;
+      overflow: hidden;
+      border-radius: 0;
+      .ModalHeader {
+        border-radius: 0;
+      }
+    }
+  `}
 `;
 
 const ModalBox = styled.div<{ open: boolean; isFull: boolean }>`
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: ${({ isFull }) => (isFull ? '0' : 'auto')};
-  left: 0;
-  right: 0;
-  bottom: env(safe-area-inset-bottom);
-  margin: auto;
-  height: auto;
+  height: ${({ isFull }) => (isFull ? '100%' : 'auto')};
   width: 100%;
   transition: all 0.2s ease 0s;
   transform: translateY(${(p) => (p.open ? '0' : '100vh')});
-
-  ${desktop(
-    css`
-      max-width: 414px;
-      max-height: 484px;
-      border-radius: 3px;
-      overflow: hidden;
-    `,
-  )}
 `;
 
 const ModalBody = styled.div`
