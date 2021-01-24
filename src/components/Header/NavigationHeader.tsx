@@ -55,7 +55,7 @@ const NavigationHeader = () => {
         {NAVIGATIONS.map((item) => (
           <React.Fragment key={item.name}>
             {item.name === LOUNGE ? (
-              <RougeSelector
+              <LougeSelector
                 selected={article.selectedGroup === LOUNGE}
                 key={LOUNGE}
                 onClick={() => {
@@ -70,7 +70,7 @@ const NavigationHeader = () => {
               >
                 {article.selectedLounge}
                 <Icon icon="dropdown" size="16px" />
-              </RougeSelector>
+              </LougeSelector>
             ) : (
               <Item
                 selected={item.name === article.selectedGroup}
@@ -122,7 +122,7 @@ const Item = styled.li<{ selected: boolean }>`
   cursor: pointer;
 `;
 
-const RougeSelector = styled(Item)<{ selected: boolean }>`
+const LougeSelector = styled(Item)<{ selected: boolean }>`
   display: flex;
   svg {
     color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};

@@ -6,14 +6,7 @@ import cx from 'classnames';
 
 import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
-import { NAVIGATIONS, LOUNGES, LOUNGE, Lounge as LoungeKeys } from '../../types/constants';
-
-const lounges = [
-  ...NAVIGATIONS.filter((navigation) => navigation.name !== LOUNGE).map(
-    (navigation) => navigation.name,
-  ),
-  ...LOUNGES.map((lounge) => lounge.name),
-];
+import { NAVIGATIONS, LOUNGES, LOUNGE } from '../../types/constants';
 
 const TabletNavigation: React.FC = () => {
   const { article } = useStore();
@@ -22,10 +15,11 @@ const TabletNavigation: React.FC = () => {
   }, [])
   const handleClickBottomMenu = React.useCallback((lounge: string) => {
     article.selectedLounge = lounge;
+    article.selectedGroup = LOUNGE;
   }, [])
 
   return (
-    <Navigation>
+    <Navigation className={cx('TabletNavigation')}>
       <Top>
         {NAVIGATIONS.map(({ name }) => (
           <TopMenu 
