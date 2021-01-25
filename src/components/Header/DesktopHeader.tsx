@@ -11,6 +11,7 @@ import { useTextField } from '../Input/hooks';
 import Profile from '../Profile';
 import { useContextMenu } from '../ContextMenu';
 import { colors } from '../../styles';
+import APIS from '../../apis';
 import Icon from '../Icon';
 import { useOpenArticleEditor } from '../Article';
 
@@ -173,8 +174,16 @@ function useProfile() {
           },
           {
             name: '로그아웃',
-            onClick: () => {
+            onClick: async () => {
               contextMenu.close();
+              try {
+                const { data: { ok } } = await APIS.auth.logout();
+                if (ok) {
+                  window.location.reload(false);
+                }
+              } catch(error) {
+                console.error(error);
+              }
             },
           },
         ],
