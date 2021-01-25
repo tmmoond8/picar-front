@@ -4,6 +4,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Profile as UserProfile } from '../types/User';
+import createHistory from '../modules/history';
 import LoginBox from '../components/Login/LoginBox';
 import * as inputHooks from './input';
 import { useStore } from '../stores';
@@ -51,7 +52,7 @@ export const useCheckLogin = (
 export const useSetupHistory = () => {
   const { util } = useStore();
   const history = useHistory();
-  util.setHistory(history);
+  util.setHistory(createHistory(history));
 };
 
 type BreakPointKyes = keyof typeof BreakPoints;
