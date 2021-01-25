@@ -7,7 +7,7 @@ import cx from 'classnames';
 interface ProfilePhotoProps {
   className?: string;
   src?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   size?: number;
 }
 
@@ -16,9 +16,9 @@ const defaultImage =
 
 export default function ProfilePhoto(props: ProfilePhotoProps): JSX.Element {
   const { src, onClick, size = 32, className } = props;
-  const handleClick = React.useCallback(() => {
+  const handleClick = React.useCallback((e: React.MouseEvent) => {
     if (typeof onClick === 'function') {
-      onClick();
+      onClick(e);
     }
   }, [onClick]);
   return (

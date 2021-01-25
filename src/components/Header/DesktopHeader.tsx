@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import SearchInput from '../Search/SearchInput';
 import { useTextField } from '../Input/hooks';
 import Profile from '../Profile';
+import { useContextMenu } from '../ContextMenu';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 import { useOpenArticleEditor } from '../Article';
@@ -26,6 +27,8 @@ const DesktopHeader: React.FC<{
     }
     toast.success('지원 준비중 입니다.')
   }, [])
+  const handleClickProfile = useProfile();
+  
 
   const handleClickWrite = React.useCallback(() => {
     if (user.needLogin()) {
@@ -49,7 +52,7 @@ const DesktopHeader: React.FC<{
           color={colors.black99}
           onClick={handleClickNotification}
         />
-        {user.isLogined && <ProfilePhoto src={user.profile.thumbnail} size={36}/>}
+        {user.isLogined && <ProfilePhoto src={user.profile.thumbnail} size={36} onClick={handleClickProfile}/>}
         {!user.isLogined && <LoginButton onClick={user.needLogin}>로그인</LoginButton>}
         <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
       </UserBox>
@@ -129,3 +132,55 @@ const WriteButton = styled(Button)`
     color: ${colors.white};
   }
 `;
+
+function useProfile() {
+  const { user, util } = useStore();
+  const contextMenu = useContextMenu();
+
+  const handleClickProfile = React.useCallback(
+    (e: React.MouseEvent) => {
+      if (!user.isLogined) {
+        return;
+      }
+      const {
+        x,
+        width,
+        y,
+        height,
+      } = (e.target as HTMLElement).getBoundingClientRect();
+      contextMenu.open({
+        xPosition: x + width / 2,
+        yPosition: y + height,
+        menus: [
+          {
+            name: '내 프로필',
+            onClick: () => {
+              contextMenu.close();
+              util.history.push('/myProfile');
+            },
+          },
+          {
+            name: '공지사항',
+            onClick: () => {
+              contextMenu.close();
+            },
+          },
+          {
+            name: '자주 묻는 질문',
+            onClick: () => {
+              contextMenu.close();
+            },
+          },
+          {
+            name: '로그아웃',
+            onClick: () => {
+              contextMenu.close();
+            },
+          },
+        ],
+      });
+    },
+    [contextMenu],
+  );
+  return handleClickProfile;
+}
