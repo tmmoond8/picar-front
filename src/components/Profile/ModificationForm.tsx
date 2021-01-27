@@ -56,7 +56,6 @@ const ModificationForm = () => {
       console.log(error);
     }
   }, [description, group, name, uploadedUrl, user.profile]);
-  console.log(!ui.queryMatch.Mobile);
 
   return (
     <React.Fragment>

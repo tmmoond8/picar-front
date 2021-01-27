@@ -2,7 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useStore, observer } from '../../stores';
+import { useStore, observer, util } from '../../stores';
 import Logo from '../Logo';
 import Button from '../Button';
 import { toast } from 'react-toastify';
@@ -18,7 +18,7 @@ import { useOpenArticleEditor } from '../Article';
 const DesktopHeader: React.FC<{
   
 }> = () => {
-  const { user } = useStore();
+  const { user, ui } = useStore();
   const [ search, onChangeSearch ] = useTextField('');
   const openArticleEditor = useOpenArticleEditor();
 
@@ -30,6 +30,9 @@ const DesktopHeader: React.FC<{
   }, [])
   const handleClickProfile = useProfile();
   
+  const handleClickLogo = React.useCallback(() => {
+    util.history.push('/');
+  }, [])
 
   const handleClickWrite = React.useCallback(() => {
     if (user.needLogin()) {
@@ -40,7 +43,7 @@ const DesktopHeader: React.FC<{
 
   return (
     <Header>
-      <Logo color={colors.black40}/>
+      <Logo color={colors.black40} onClick={handleClickLogo}/>
       <Search 
         search={search} 
         onChangeSearch={onChangeSearch} 
