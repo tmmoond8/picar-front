@@ -61,11 +61,12 @@ const LoungeSelector: React.FC<{
 export default LoungeSelector;
 
 export const AllLoungeList: React.FC<{
-  handleSelect: (value: string) => void
-}> = ({ handleSelect }) => {
+  handleSelect: (value: string) => void;
+  className?: string;
+}> = ({ handleSelect, className }) => {
 
   return (
-    <List>
+    <List className={cx('AllLoungeList', className)}>
       <Lounge lounge="업종라운지" icon="add" disabled/>
       {NAVIGATIONS.map(({ name }) => (
         name === LOUNGE ? (

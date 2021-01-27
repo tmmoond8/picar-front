@@ -13,8 +13,15 @@ const SendButton = styled.button<{ disabled: boolean }>`
   cursor: pointer;
 `;
 
-const Page = styled.section`
+const Form = styled.section`
+  width: 100%;
+  height: 100%;
   padding: 24px 18px 34px;
+  box-sizing: border-box;
+`;
+
+const Page = styled.div`
+  height: 100%;
 `;
 
 const Title = styled.textarea`
@@ -59,6 +66,17 @@ const Tools = styled.div`
   }
 `;
 
+const Selector = styled.button`
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 2;
+  color: ${colors.black77};
+  background-color: ${colors.blackF5F6F7};
+  border-radius: 8px;
+  padding: 0 10px;
+  cursor: pointer;
+`
+
 const UploadButton = styled(Button)``;
 
 export default {
@@ -69,4 +87,6 @@ export default {
   Tools,
   UploadButton,
   Image,
+  Form,
+  Selector,
 };

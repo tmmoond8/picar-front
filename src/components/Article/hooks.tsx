@@ -71,9 +71,10 @@ export const useOpenArticleEditor = () => {
   );
 
   return (exitingArticle?: Article) =>
-    modal.open({
-      title: exitingArticle ? ' 글 수정' : '글 작성',
-      isFull: true,
+  modal.open({
+    title: exitingArticle ? ' 글 수정' : '글 작성',
+    noHeader: true,
+    isFull: true,
       contents: (
         <Editor
           article={exitingArticle}

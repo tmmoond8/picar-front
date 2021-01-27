@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-
+import cx from 'classnames';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 
@@ -10,12 +10,14 @@ import { colors } from '../../styles';
 export interface CarouselHeaderProps {
   step: number;
   title: string;
+  right?: React.ReactNode;
+  className?: string; 
   onBack: () => void;
   onClose: () => void;
 }
 
 const CarouselHeader: React.FC<CarouselHeaderProps> = ({
-  step, onBack, onClose, title
+  step, onBack, onClose, title, right, className
 }) => {
   const handleClick = React.useCallback(() => {
     if (step === 0) {
@@ -27,7 +29,7 @@ const CarouselHeader: React.FC<CarouselHeaderProps> = ({
   const icon = React.useMemo(() => (step === 0 ? 'close' : 'back'), [step]);
 
   return (
-    <Header>
+    <Header className={cx('CarouselHeader', className)}>
       <Icon
         icon={icon}
         size="24px"
@@ -35,7 +37,7 @@ const CarouselHeader: React.FC<CarouselHeaderProps> = ({
         onClick={handleClick}
       />
       <h2 className="title">{title}</h2>
-      <div className="right"></div>
+      <div className="right">{right}</div>
     </Header>
   );
 }

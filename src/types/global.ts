@@ -12,6 +12,7 @@ type OwnerGlobal = typeof globalThis & {
     signupFlickingMoveTo: (i: number) => void;
     searchFlickingMoveTo: (i: number) => void;
     profileFlickingMoveTo: (i: number) => void;
+    editorFlickingMoveTo: (i: number) => void;
   };
 };
 
@@ -27,6 +28,7 @@ if (global.__OWNER__ === undefined) {
     signupFlickingMoveTo: () => console.log('not initialzed'),
     searchFlickingMoveTo: () => console.log('not initialzed'),
     profileFlickingMoveTo: () => console.log('not initialzed'),
+    editorFlickingMoveTo: () => console.log('not initialzed'),
   };
 }
 

@@ -1,16 +1,18 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
+import styled from '@emotion/styled';
 import React from 'react';
-
 import { useStore } from '../../stores';
 import { useTextarea } from '../../hooks';
-import Selector, { useSelector } from '../LoungeSelector';
+import { AllLoungeList, useSelector } from '../LoungeSelector';
 import PhotoUploader from '../PhotoUploader';
 import Icon from '../Icon';
 import HR from '../HR';
 import Styled from './Styled';
+import Carousel from '../Carousel';
 import API from '../../apis';
 import Article from '../../types/Article';
+import { CAROUSEL } from '../../types/constants';
 
 const Editor: React.FC<{
   article?: Article;
@@ -23,6 +25,7 @@ const Editor: React.FC<{
   const [selected, setSelected] = useSelector(
     article?.group ?? group,
   );
+  const [step, setStep] = React.useState(0);
   const [title, setTitle] = useTextarea(article?.title ?? '');
   const [content, setContent] = useTextarea(article?.content ?? '');
   const [uploadedUrl, setUploadedUrl] = React.useState(article?.photos ?? '');
@@ -78,46 +81,94 @@ const Editor: React.FC<{
     return article ? handleClickUpdate : handleClickPost;
   }, [article, handleClickPost, handleClickUpdate]);
 
+  const handleGoBack = React.useCallback(() => {
+    setStep(step - 1);
+    (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
+  }, [step])
+  const handleNext = React.useCallback(() => {
+    setStep(step + 1);
+    (window as any).__OWNER__[CAROUSEL.EDITOR](step + 1);
+  }, [step])
+
+  const handleSelect = React.useCallback((selected: string) => {
+    setSelected(selected);
+    handleGoBack();
+  }, [handleGoBack])
+
+  const HeaderRight = (
+    <Styled.SendButton disabled={disabledWrite} onClick={handleSubmit}>
+      {article ? '수정' : '작성'}
+    </Styled.SendButton>
+  )
+
   return (
-    <Styled.Page>
-      <Selector selected={selected} setSelected={setSelected} all/>
-      <Styled.Title
-        value={title}
-        onChange={setTitle}
-        placeholder="제목을 입력하세요."
+    <Styled.Page className="EditorPage">
+      <Header 
+        title={article ? '글 수정' : '글 작성'}
+        onBack={handleGoBack}
+        onClose={onClose}
+        step={step}
+        right={HeaderRight}
+        hideRight={step !== 0}
       />
-      <HR marginTop={30} />
-      <Styled.Content
-        value={content}
-        onChange={setContent}
-        placeholder="내용을 입력하세요."
-      />
-      {preUploadUrl && (
-        <Styled.Image
-          uploadedUrl={uploadedUrl}
-          preUploadUrl={preUploadUrl}
-          clear={handleImageClear}
-        />
-      )}
-      <HR full />
-      <Styled.Tools>
-        <PhotoUploader.Uploader
-          setUploadedUrl={setUploadedUrl}
-          setPreUploadUrl={setPreUploadUrl}
-        >
-          <Styled.UploadButton
-            onClick={() => {
-              console.log('UploadButton click');
-            }}
-            icon={<Icon icon="image" size="24px" />}
+      <Carousel 
+        id={CAROUSEL.EDITOR}
+        index={step}
+        onChangeIndex={() => {}}
+        gesture={false}
+      >
+        <Styled.Form className="Form">
+          <Styled.Selector onClick={handleNext}>{selected}</Styled.Selector>
+          <Styled.Title
+            value={title}
+            onChange={setTitle}
+            placeholder="제목을 입력하세요."
           />
-        </PhotoUploader.Uploader>
-      </Styled.Tools>
-      <Styled.SendButton disabled={disabledWrite} onClick={handleSubmit}>
-        {article ? '수정' : '작성'}
-      </Styled.SendButton>
+          <HR marginTop={30} />
+          <Styled.Content
+            value={content}
+            onChange={setContent}
+            placeholder="내용을 입력하세요."
+          />
+          {preUploadUrl && (
+            <Styled.Image
+              uploadedUrl={uploadedUrl}
+              preUploadUrl={preUploadUrl}
+              clear={handleImageClear}
+            />
+          )}
+          <HR full />
+          <Styled.Tools>
+            <PhotoUploader.Uploader
+              setUploadedUrl={setUploadedUrl}
+              setPreUploadUrl={setPreUploadUrl}
+            >
+              <Styled.UploadButton
+                onClick={() => {
+                  console.log('UploadButton click');
+                }}
+                icon={<Icon icon="image" size="24px" />}
+              />
+            </PhotoUploader.Uploader>
+          </Styled.Tools>
+        </Styled.Form>
+        <AllLounges handleSelect={handleSelect}/>
+      </Carousel>
     </Styled.Page>
   );
 };
 
 export default Editor;
+
+const AllLounges = styled(AllLoungeList)`
+  width: 100%;
+  height: 100%;
+`;
+
+const Header = styled(Carousel.Header)<{ hideRight: boolean}>`
+  ${p => p.hideRight && css`
+    .right {
+      display: none;
+    }
+  `}
+`;
