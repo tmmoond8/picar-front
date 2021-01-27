@@ -5,19 +5,19 @@ import styled from '@emotion/styled';
 import Page from './BasePage';
 import BackHeader from '../components/Header/BackHeader';
 import Profile from '../components/Profile';
+import { useStore, observer } from '../stores';
 
 const ProfileEditPage = () => {
+  const { ui } = useStore();
   return (
     <StyledPage>
-      <BackHeader options={{
-        title: "프로필 수정"
-      }}/>
+      {ui.queryMatch.Mobile && <BackHeader options={{ title: "프로필 수정" }} />}
       <Profile.Form />
     </StyledPage>
   );
 }
 
-export default ProfileEditPage;
+export default observer(ProfileEditPage);
 
 const StyledPage = styled(Page)`
   display: flex;

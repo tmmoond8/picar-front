@@ -100,6 +100,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   padding: 26px 18px;
+  background-color: ${colors.white};
 `;
 
 const PHotoUploaderButton = styled.div`
