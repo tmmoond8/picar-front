@@ -21,7 +21,17 @@ const Form = styled.section`
 `;
 
 const Page = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100%;
+
+  #editorFlickingMoveTo {
+    flex: 1;
+    .eg-flick-camera > .Form,
+    .eg-flick-camera > .AllLoungeList {
+      overflow-y: scroll;
+    }
+  }
 `;
 
 const Title = styled.textarea`
