@@ -11,8 +11,6 @@ import NicknameForm from './NicknameForm';
 import EmailForm from './EmailForm';
 import AreYouOwnerForm from './AreYouOwnerForm';
 import LoungeForm from './LoungeForm';
-import SignUpHeader from './SignUpHeader';
-
 import Input from '../Input';
 import { SignUpUser, Profile } from '../../types/User';
 import stroage from '../../modules/localStorage';
@@ -119,7 +117,12 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         setLounge,
       }}
     >
-      <SignUpHeader />
+      <Carousel.Header 
+        step={step} 
+        title="회원가입" 
+        onBack={() => setStep(step - 1)} 
+        onClose={onClose}
+      />
       <SignUpCarousel
         id={CAROUSEL.SIGNUP}
         index={step}

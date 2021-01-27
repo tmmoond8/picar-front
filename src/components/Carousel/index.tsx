@@ -3,9 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 import cx from 'classnames';
-import { throttle } from 'throttle-debounce';
-
-// import { ChangeEvent } from '@egjs/flicking';
+import CarouselHeader, { CarouselHeaderProps } from './CarouselHeader';
 import Flicking from '@egjs/react-flicking';
 import global from '../../types/global';
 import { CAROUSEL } from '../../types/constants';
@@ -19,15 +17,16 @@ interface CraouselProps {
   onChangeIndex: (i: number) => void;
 }
 
-export default function Craousel(props: CraouselProps): JSX.Element {
-  const {
-    id,
-    className,
-    index,
-    children,
-    onChangeIndex,
-    gesture = true,
-  } = props;
+type CarouselComponent = React.FC<CraouselProps > & { Header: React.FC<CarouselHeaderProps>};
+
+const Carousel: CarouselComponent = ({
+  id,
+  className,
+  index,
+  children,
+  onChangeIndex,
+  gesture = true,
+}) => {
   const flickingRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -98,6 +97,9 @@ export default function Craousel(props: CraouselProps): JSX.Element {
     </Self>
   );
 }
+
+Carousel.Header = CarouselHeader;
+export default Carousel;
 
 const Self = styled.div`
   height: 100%;
