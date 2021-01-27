@@ -52,7 +52,7 @@ const RecommendationCard = styled.li`
   border: 1px solid ${colors.blackEB};
   cursor: pointer;
 
-  .icon {
+  .Icon {
     margin: 0 6px 0 0;
     cursor: pointer;
   }

@@ -113,7 +113,7 @@ const StyledSelector = styled.button`
   background-color: ${colors.blackD9};
   cursor: pointer;
 
-  .icon.arrowDown {
+  .Icon.arrowDown {
     display: inline-block;
     margin-left: 8px;
     vertical-align: middle;

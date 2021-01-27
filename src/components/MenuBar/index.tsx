@@ -118,12 +118,12 @@ const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap]}>`
   justify-content: space-between;
   height: 100%;
   margin: 0 auto;
-  .MenuBarItem, .icon {
+  .MenuBarItem, .Icon {
     color: ${colors.black99};
   }
   .MenuBarItem.${p => p.selected} {
     color: ${colors.black33};
-    .icon {
+    .Icon {
       color: ${colors.black33};
     }
   }

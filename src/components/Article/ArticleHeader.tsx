@@ -83,10 +83,10 @@ const Left = styled.div`
 `;
 const Right = styled.div`
   display: flex;
-  .icon {
+  .Icon {
     cursor: pointer;
   }
-  .icon + .icon {
+  .Icon + .Icon {
     margin: 0 0 0 16px;
   }
 `;

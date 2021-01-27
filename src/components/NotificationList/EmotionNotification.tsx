@@ -89,7 +89,7 @@ const ArticleTitle = styled.h4`
   line-height: 1.23;
   color: ${colors.black99};
 
-  .icon.articleNew {
+  .Icon.articleNew {
     margin: 0 5px 0 0;
   }
 `;

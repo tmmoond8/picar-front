@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useStore, observer } from '../../stores';
@@ -9,10 +9,11 @@ import Icon from '../Icon';
 import LoungeSelector, { useSelector } from '../LoungeSelector';
 import PhotoUploader from '../PhotoUploader';
 import APIS from '../../apis';
+import BackHeader from '../Header/BackHeader';
 import { colors } from '../../styles';
 
 const ModificationForm = () => {
-  const { user, util } = useStore();
+  const { user, util, ui } = useStore();
   const {
     uploadedUrl,
     preUploadUrl,
@@ -55,42 +56,50 @@ const ModificationForm = () => {
       console.log(error);
     }
   }, [description, group, name, uploadedUrl, user.profile]);
+  console.log(!ui.queryMatch.Mobile);
 
   return (
-    <Form>
-      <ImageUploader
-        setUploadedUrl={setUploadedUrl}
-        setPreUploadUrl={setPreUploadUrl}
-      >
-        <PHotoUploaderButton>
-          <StyledPhoto size={72} src={preUploadUrl} />
-          <CameraIcon icon="camera" size="24px" />
-        </PHotoUploaderButton>
-      </ImageUploader>
-      <InputBox
-        id="profile-nickname"
-        onChange={onChangeName}
-        value={name}
-        placeholder="닉네임을 입력해주세요"
-        label="닉네임"
-        maxLength={10}
+    <React.Fragment>
+      <Header 
+        options={{ title: "프로필 수정", right: (
+          <Icon
+            icon="vCheck"
+            size="24px"
+            color={colors.black22}
+            onClick={handleSubmit}
+          />
+        )}} 
+        desktop={!ui.queryMatch.Mobile}
       />
-      <Selector label="업종" selected={group} setSelected={setGroup} />
-      <InputBox
-        id="profile-description"
-        onChange={onChangeDescription}
-        value={description}
-        label="소개"
-        rows={3}
-        maxLength={80}
-      />
-      <SubmitButton
-        icon="vCheck"
-        size="24px"
-        color={colors.black22}
-        onClick={handleSubmit}
-      />
-    </Form>
+      <Form>
+        <ImageUploader
+          setUploadedUrl={setUploadedUrl}
+          setPreUploadUrl={setPreUploadUrl}
+        >
+          <PHotoUploaderButton>
+            <StyledPhoto size={72} src={preUploadUrl} />
+            <CameraIcon icon="camera" size="24px" />
+          </PHotoUploaderButton>
+        </ImageUploader>
+        <InputBox
+          id="profile-nickname"
+          onChange={onChangeName}
+          value={name}
+          placeholder="닉네임을 입력해주세요"
+          label="닉네임"
+          maxLength={10}
+        />
+        <Selector label="업종" selected={group} setSelected={setGroup} />
+        <InputBox
+          id="profile-description"
+          onChange={onChangeDescription}
+          value={description}
+          label="소개"
+          rows={3}
+          maxLength={80}
+        />
+      </Form>
+    </React.Fragment>
   );
 };
 
@@ -127,12 +136,6 @@ const InputBox = styled(Input.TextFieldOutline)`
   }
 `;
 
-const SubmitButton = styled(Icon)`
-  position: absolute;
-  top: 18px;
-  right: 22px;
-`;
-
 const ImageUploader = styled(PhotoUploader.Uploader)`
   width: fit-content;
   margin: 0 auto;
@@ -156,4 +159,12 @@ const Selector = styled(LoungeSelector)`
     font-size: 16px;
     line-height: 1.5;
   }
+`;
+
+const Header = styled(BackHeader)<{ desktop: boolean }>`
+  ${p => p.desktop && css`
+    .Icon.back {
+      display: none;
+    }
+  `}
 `;

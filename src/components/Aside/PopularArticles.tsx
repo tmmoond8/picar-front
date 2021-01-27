@@ -102,13 +102,13 @@ const NavItem = styled.div<{ disabled: boolean}>`
     border-left: 1px solid ${colors.blackEB};
   }
 
-  .icon {
+  .Icon {
     cursor: pointer;
     color: ${colors.black33};
   }
   ${p => p.disabled && css`
     pointer-events: none;
-    .icon {
+    .Icon {
       color: ${colors.blackEB};
     }
   `};

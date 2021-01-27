@@ -61,7 +61,7 @@ const Item = styled.li`
     color: ${colors.black99};
     letter-spacing: -0.25px;
 
-    .icon.articleNew {
+    .Icon.articleNew {
       display: inline-block;
       margin: 0 5px 0 0;
     }

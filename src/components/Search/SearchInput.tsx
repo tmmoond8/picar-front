@@ -59,7 +59,7 @@ const Wrapper = styled.div`
     min-height: 60px;
     padding: 10px 18px;
 
-    .icon.back {
+    .Icon.back {
       position: relative;
       left: -4px;
     }

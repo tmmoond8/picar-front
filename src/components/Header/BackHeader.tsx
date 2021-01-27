@@ -2,21 +2,23 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useHistory } from 'react-router-dom';
+import cx from 'classnames';
 
 import { colors } from '../../styles';
 import Icon from '../Icon';
 
 const BackHeader: React.FC<{
+  className?: string;
   options?: {
     title?: string;
     right?: React.ReactNode;
     noBottomLine?: boolean;
   }
-}> = ({ options = {} }) => {
+}> = ({ options = {}, className }) => {
   const history = useHistory();
 
   return (
-    <StyledBack noBottomLine={options.noBottomLine ?? false} className="BackHeader">
+    <StyledBack noBottomLine={options.noBottomLine ?? false} className={cx('BackHeader', className)}>
       <h2 className="title">{options?.title || ''}</h2>
       <Icon
         icon="back"

@@ -64,7 +64,7 @@ const Link = styled.a`
   border-radius: 4px;
   background-color: ${colors.blackF5F6F7};
 
-  .icon {
+  .Icon {
     margin-right: 12px;
   }
 `;

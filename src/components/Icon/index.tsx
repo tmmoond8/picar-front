@@ -45,7 +45,7 @@ function Icon(props: IconProps): JSX.Element {
   return (
     <SVGIcon
       css={[styles.base, customStyle, styles.size(size)]}
-      className={cx('icon', className, icon)}
+      className={cx('Icon', className, icon)}
       onClick={handleClick}
     />
   );

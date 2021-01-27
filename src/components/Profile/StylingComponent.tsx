@@ -56,7 +56,7 @@ export const AppMenus = styled.ul`
     justify-content: space-between;
     padding: 13px 0;
     cursor: pointer;
-    .icon {
+    .Icon {
       cursor: pointer;
     }
   }
