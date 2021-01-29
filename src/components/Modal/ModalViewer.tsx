@@ -109,7 +109,7 @@ const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
     .ModalBox {
       top: 0;
       max-width: 414px;
-      max-height: 484px;
+      max-height: 680px;
       border-radius: 3px;
       overflow: hidden;
       border-radius: 0;
