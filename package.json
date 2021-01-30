@@ -35,6 +35,7 @@
     "react-dom": "^16.13.1",
     "react-kakao-login": "^2.0.0",
     "react-naver-login": "^0.1.4",
+    "react-notion": "^0.9.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-toastify": "^6.2.0",

@@ -19,6 +19,12 @@ function App() {
             <Route exact path="/myProfile/edit">
               <Pages.MyProfileEditPage />
             </Route>
+            <Route path="/notice">
+              <Pages.NotionEmbedPage {...notionPages.notice}/>
+            </Route>
+            <Route path="/notice/:id">
+              <Pages.NotionEmbedPage />
+            </Route>
             <Route exact path="/myProfile">
               <Pages.MyProfilePage />
             </Route>
@@ -59,3 +65,7 @@ const Page = styled.div<{ headerHeight: number }>`
   height: 100%;
   overflow-y: hidden;
 `;
+
+const notionPages = {
+  notice: { title: '공지사항', pageId: 'Noticon-global-25373a706ffe47c6a1cb9c246f5fabf5'}
+}

@@ -7,6 +7,7 @@ import * as bookmark from './bookmark';
 import * as user from './user';
 import * as notification from './notification';
 import * as spreadSheet from './spreadSheet';
+import * as notion from './notion';
 import firebase from './firebaseDB';
 
 export default {
@@ -20,4 +21,5 @@ export default {
   notification,
   spreadSheet,
   firebase,
+  notion,
 };
