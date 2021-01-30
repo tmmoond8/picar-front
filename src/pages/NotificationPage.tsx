@@ -28,6 +28,9 @@ const StyledPage = styled(Page)`
 
 const Header = styled(CloseHeader)`
   box-shadow: none;
+  .Icon.close {
+    display: none;
+  }
 `;
 
 const StyledMenu = styled(MenuBar)`
