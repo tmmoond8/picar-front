@@ -21,7 +21,7 @@ const menus = [
 ];
 
 const Mobile = () => {
-  const { user } = useStore();
+  const { user, util } = useStore();
   const { profileImage, name, group, description } = user.profile;
   const { handleModifyProfile, handleOpenUserActivations } = useProfileHandler();
   
@@ -49,11 +49,11 @@ const Mobile = () => {
         </Profile.UserHistoryMenus>
         <HR height={1} color={colors.blackF5F6F7} />
         <Profile.AppMenus>
-          <li>
+          <li onClick={() => util.history.push('/notice')}>
             공지사항
             <Icon icon="arrowRight" size="16px" />
           </li>
-          <li>
+          <li onClick={() => util.history.push('/qna')}>
             자주 묻는 질문
             <Icon icon="arrowRight" size="16px" />
           </li>

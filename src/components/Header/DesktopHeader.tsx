@@ -18,7 +18,7 @@ import { useOpenArticleEditor } from '../Article';
 const DesktopHeader: React.FC<{
   
 }> = () => {
-  const { user, ui } = useStore();
+  const { user, util } = useStore();
   const [ search, onChangeSearch ] = useTextField('');
   const openArticleEditor = useOpenArticleEditor();
 
@@ -166,12 +166,14 @@ function useProfile() {
           {
             name: '공지사항',
             onClick: () => {
+              util.history.push('/notice');
               contextMenu.close();
             },
           },
           {
             name: '자주 묻는 질문',
             onClick: () => {
+              util.history.push('/qna');
               contextMenu.close();
             },
           },

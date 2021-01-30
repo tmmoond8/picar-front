@@ -22,6 +22,9 @@ function App() {
             <Route path="/notice">
               <Pages.NotionEmbedPage {...notionPages.notice}/>
             </Route>
+            <Route path="/qna">
+              <Pages.NotionEmbedPage {...notionPages.qna}/>
+            </Route>
             <Route path="/notice/:id">
               <Pages.NotionEmbedPage />
             </Route>
@@ -67,5 +70,6 @@ const Page = styled.div<{ headerHeight: number }>`
 `;
 
 const notionPages = {
-  notice: { title: '공지사항', pageId: 'Noticon-global-25373a706ffe47c6a1cb9c246f5fabf5'}
+  notice: { title: '공지사항', pageId: 'Noticon-global-25373a706ffe47c6a1cb9c246f5fabf5'},
+  qna: { title: '자주 묻는 질문', pageId: 'Noticon-global-25373a706ffe47c6a1cb9c246f5fabf5'}
 }
