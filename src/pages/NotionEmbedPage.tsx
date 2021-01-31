@@ -17,19 +17,19 @@ const NotionEmbedPage: React.FC<{ pageId?: string; title?: string }> = ({ pageId
   const { params } = useRouteMatch<{id: string | undefined}>();
   const [notice, setNotice] = React.useState<any>(null);
   const HeaderOption = { title }
-  const notionRenderRef = React.useRef<HTMLElement>();
+  const id = params.id ?? pageId ?? '7c13bd34a78d4c41b5b1956e19e272b4';
   React.useEffect(() => {
     (async () => {
-      const { data } = await APIS.notion.getPage(params.id ?? pageId ?? '7c13bd34a78d4c41b5b1956e19e272b4');
+      const { data } = await APIS.notion.getPage(id);
       setNotice(data);
     })();
-  }, [])
+  }, [id])
 
   return (
     <StyledPage>
       {ui.queryMatch.Mobile && <BackHeader options={HeaderOption} />}
       {notice && (
-        <NotionRenderer mapPageUrl={url => `/notice/${url}`} blockMap={notice}/>
+        <NotionRenderer mapPageUrl={url => `/notion/${url}`} blockMap={notice}/>
       )}
     </StyledPage>
   );

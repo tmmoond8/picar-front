@@ -22,8 +22,8 @@ function App() {
             <Route exact path="/notice">
               <Pages.NotionEmbedPage {...notionPages.notice}/>
             </Route>
-            <Route path="/notice/:id">
-              <Pages.NotionEmbedPage title={notionPages.notice.title}/>
+            <Route path="/notion/:id">
+              <Pages.NotionEmbedPage />
             </Route>
             <Route path="/qna">
               <Pages.NotionEmbedPage {...notionPages.qna}/>
