@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { colors } from '../styles';
+import { useRouteMatch } from 'react-router';
 import React from 'react';
 import APIS from '../apis';
 import "react-notion/src/styles.css";
@@ -13,11 +14,13 @@ import { useStore, observer } from '../stores';
 
 const NotionEmbedPage: React.FC<{ pageId?: string; title?: string }> = ({ pageId, title }) => {
   const { ui } = useStore();
+  const { params } = useRouteMatch<{id: string | undefined}>();
   const [notice, setNotice] = React.useState<any>(null);
   const HeaderOption = { title }
+  const notionRenderRef = React.useRef<HTMLElement>();
   React.useEffect(() => {
     (async () => {
-      const { data } = await APIS.notion.getPage(pageId ?? '');
+      const { data } = await APIS.notion.getPage(params.id ?? pageId ?? '7c13bd34a78d4c41b5b1956e19e272b4');
       setNotice(data);
     })();
   }, [])
@@ -26,7 +29,7 @@ const NotionEmbedPage: React.FC<{ pageId?: string; title?: string }> = ({ pageId
     <StyledPage>
       {ui.queryMatch.Mobile && <BackHeader options={HeaderOption} />}
       {notice && (
-        <NotionRenderer blockMap={notice}/>
+        <NotionRenderer mapPageUrl={url => `/notice/${url}`} blockMap={notice}/>
       )}
     </StyledPage>
   );

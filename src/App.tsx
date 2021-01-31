@@ -19,14 +19,14 @@ function App() {
             <Route exact path="/myProfile/edit">
               <Pages.MyProfileEditPage />
             </Route>
-            <Route path="/notice">
+            <Route exact path="/notice">
               <Pages.NotionEmbedPage {...notionPages.notice}/>
+            </Route>
+            <Route path="/notice/:id">
+              <Pages.NotionEmbedPage title={notionPages.notice.title}/>
             </Route>
             <Route path="/qna">
               <Pages.NotionEmbedPage {...notionPages.qna}/>
-            </Route>
-            <Route path="/notice/:id">
-              <Pages.NotionEmbedPage />
             </Route>
             <Route exact path="/myProfile">
               <Pages.MyProfilePage />
@@ -70,6 +70,6 @@ const Page = styled.div<{ headerHeight: number }>`
 `;
 
 const notionPages = {
-  notice: { title: '공지사항', pageId: 'Noticon-global-25373a706ffe47c6a1cb9c246f5fabf5'},
-  qna: { title: '자주 묻는 질문', pageId: 'Noticon-global-25373a706ffe47c6a1cb9c246f5fabf5'}
+  notice: { title: '공지사항', pageId: 'd7e6d7a18ec849b3b543e7389b0bd5fe'},
+  qna: { title: '자주 묻는 질문', pageId: '2fbdb025be1c45748504f74d33eda2d3'}
 }
