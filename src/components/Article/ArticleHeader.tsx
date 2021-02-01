@@ -51,12 +51,12 @@ const ArticleHeader: React.FC = () => {
           color={bookmark ? colors.black : colors.transparent}
           onClick={handleClickBookmark}
         />
-        <Icon 
+        {user.profile.code === article?.author.code && <Icon 
           icon="more" 
           size="24px" 
           color={colors.black}
           onClick={handleClickMore}
-        />
+        />}
       </Right>
     </Nav>
   );
