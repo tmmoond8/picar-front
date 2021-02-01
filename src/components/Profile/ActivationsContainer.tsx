@@ -60,6 +60,8 @@ const UserActivations: React.FC<{
   }, [userCode])
 
   const bookmarkedArticles = React.useMemo(() => articles.filter((article) => user.bookmarks.has(article.id)), [articles])
+  console.log(user.bookmarks.size);
+
 
   return (
     <React.Fragment>

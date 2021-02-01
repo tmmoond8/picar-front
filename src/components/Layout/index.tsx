@@ -19,12 +19,10 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Body className="TabletBody">
         <Contents className="TabletContents">{children}</Contents>
         <Right className="TabletRight">
-          <FixedBox>
-            <Aside.PopularArticles />
-            <Aside.Advertisement />
-            <Aside.DownloadApp />
-            <Aside.Copyrights />
-          </FixedBox>
+          <Aside.PopularArticles />
+          <Aside.Advertisement />
+          <Aside.DownloadApp />
+          <Aside.Copyrights />
         </Right>
       </Body>
     </Layout>
@@ -80,8 +78,9 @@ const Left = styled.aside`
 
 const Right = styled.div`
   width: 264px;
-  height: 600px;
+  height: 100%;
   margin: 0 0 0 ${GAP}px;
+  overflow-y: scroll;
 
   .MyActivity {
     bottom: 0;
