@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useParams } from 'react-router';
 
 import { colors } from '../styles';
 import Page from './BasePage';
@@ -13,13 +14,13 @@ import {
 
 import CommentArea from '../components/Comment';
 
-export default observer(function ArticlePage(): JSX.Element {
+const ArticlePage: React.FC = () => {
+  const { articleId } = useParams<{ articleId: string}>();
   const { article: articleStore, user, ui } = useStore();
 
   const article = articleStore.articles.find(
     (article) =>
-      article.id.toString() ===
-      (window.location.pathname.split('/').pop() as string).toString(),
+      article.id.toString() === articleId,
   );
 
   useFetchArticle(window.location.pathname.split('/').pop() as string, article);
@@ -57,7 +58,9 @@ export default observer(function ArticlePage(): JSX.Element {
       </ArticleContainer>
     </Page>
   );
-});
+};
+
+export default observer(ArticlePage);
 
 const ArticleContainer = styled.div<{ desktop: boolean}>`
   height: calc(100% - 56px);
