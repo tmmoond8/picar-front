@@ -25,7 +25,7 @@ const PopularArticles: React.FC<{}> = () => {
   }, [page])
   const pageNext = React.useCallback(() => {
     setPage(Math.min(page + 1, Math.floor(popArticles.length / SIZE)));
-  }, [page])
+  }, [page, popArticles])
 
   useInitBefore(async () => {
     const { data } = await APIS.article.listPop();
