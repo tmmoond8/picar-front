@@ -57,15 +57,21 @@ const ModificationForm = () => {
     }
   }, [description, group, name, uploadedUrl, user.profile]);
 
+  const disabled = 
+    user.profile.name === name || 
+    user.profile.group === group || 
+    user.profile.description === description;
+
   return (
     <React.Fragment>
       <Header 
         options={{ title: "프로필 수정", right: (
-          <Icon
+          <SubmitButton
             icon="vCheck"
             size="24px"
             color={colors.black22}
             onClick={handleSubmit}
+            disabled={disabled}
           />
         )}} 
         desktop={!ui.queryMatch.Mobile}
@@ -165,5 +171,12 @@ const Header = styled(BackHeader)<{ desktop: boolean }>`
     .Icon.back {
       display: none;
     }
+  `}
+`;
+
+const SubmitButton = styled(Icon)<{ disabled: boolean}>`
+  ${p => p.disabled && css`
+    pointer-events: none;
+    color: ${colors.blackAA};
   `}
 `;
