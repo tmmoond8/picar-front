@@ -8,6 +8,7 @@ import APIS from '../apis';
 import "react-notion/src/styles.css";
 import { NotionRenderer } from "react-notion";
 import BackHeader from '../components/Header/BackHeader';
+import Loader from '../components/Loader';
 import Page from './BasePage';
 import { useStore, observer } from '../stores';
 
@@ -28,9 +29,12 @@ const NotionEmbedPage: React.FC<{ pageId?: string; title?: string }> = ({ pageId
   return (
     <StyledPage>
       {ui.queryMatch.Mobile && <BackHeader options={HeaderOption} />}
-      {notice && (
-        <NotionRenderer mapPageUrl={url => `/notion/${url}`} blockMap={notice}/>
-      )}
+      <NotionContents>
+        {!notice && <Loader size="24px"/>}
+        {notice && (
+          <NotionRenderer mapPageUrl={url => `/notion/${url}`} blockMap={notice}/>
+        )}
+      </NotionContents>
     </StyledPage>
   );
 };
@@ -40,10 +44,11 @@ export default observer(NotionEmbedPage);
 const StyledPage = styled(Page)`
   display: flex;
   flex-direction: column;
-  .notion {
-    flex: 1;
-    padding: 16px 18px;
-    overflow-y: scroll;
-    background-color: ${colors.white};
-  }
+`;
+
+const NotionContents = styled.div`
+  height: 100%;
+  padding: 16px 18px;
+  background-color: ${colors.white};
+  overflow-y: scroll;
 `;
