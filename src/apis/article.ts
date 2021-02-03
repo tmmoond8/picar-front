@@ -3,6 +3,7 @@ import api from './config';
 export const list = () => api.get(`/article/list`);
 export const getUserArticles = (code: string) => api.get(`/article/list/${code}`);
 export const search = (search: string) => api.get(`/article/search?search=${search}`);
+export const listBookmark = (articleIds: number[]) => api.get(`/article/list/bookmark?articleIds=[${articleIds.toString()}]`);
 export const listPop = () => api.get('/article/list/pop');
 export const get = (articleId: number | string) =>
   api.get(`/article/${articleId}`);

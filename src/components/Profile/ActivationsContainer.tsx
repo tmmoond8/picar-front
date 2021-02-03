@@ -29,6 +29,7 @@ const UserActivations: React.FC<{
 }> = ({ userCode, tab, className, onChange }) => {
   const [ articles, setArticles] = React.useState<Article[]>([]);
   const [ comments, setComments] = React.useState<Comment[]>([]);
+  const [ bookmarks, setBookmarks] = React.useState<Article[]>([]);
   const { user } = useStore();
   const [tabIndex, setTabIndex] = React.useState(tabs.findIndex(({id}) => id === tab));
   const handleClickTab = React.useCallback((tab) => {
@@ -48,6 +49,7 @@ const UserActivations: React.FC<{
     (async () => {
       const articlePromise = APIS.article.getUserArticles(userCode);
       const commentPromise = APIS.comment.getUserComments(userCode);
+      const bookmarkPromise = APIS.article.listBookmark((Array.from(user.bookmarks)));
       const { data: articleData } = await articlePromise;
       if (articleData.ok) {
         setArticles(articleData.articles);
@@ -56,12 +58,14 @@ const UserActivations: React.FC<{
       if (commentData.ok) {
         setComments(commentData.userComments);
       }
+      const { data: bookmarkData } = await bookmarkPromise;
+      if (commentData.ok) {
+        setBookmarks(bookmarkData.articles);
+      }
     })();
   }, [userCode])
 
   const bookmarkedArticles = React.useMemo(() => articles.filter((article) => user.bookmarks.has(article.id)), [articles])
-  console.log(user.bookmarks.size);
-
 
   return (
     <React.Fragment>
@@ -84,7 +88,7 @@ const UserActivations: React.FC<{
           />
           <CommentList comments={comments}/>
           <ArticleList
-            articles={bookmarkedArticles}
+            articles={bookmarks}
             bookmarks={user.bookmarks}
           />
         </StyledCarousel>
