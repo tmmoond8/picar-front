@@ -80,18 +80,23 @@ const BottomMenu = styled.li<{ selected: boolean }>`
   font-weight: 500;
   letter-spacing: -0.28px;
   color: ${colors.blackAA};
+    border-radius: 19px;
   cursor: pointer;
 
-  ${p => p.selected && css`
-    color: ${colors.white};
-    border-radius: 19px;
-    background-color: ${colors.black33};
-    box-shadow: inset 0 0 0 20px ${colors.black33}, 0 0 0 8px ${colors.black33};
-  `}
   &:hover {
-    border-radius: 19px;
     color: ${colors.blackAA};
     background-color: ${colors.blackEB};
     box-shadow: inset 0 0 0 20px ${colors.blackEB}, 0 0 0 8px ${colors.blackEB};
   }
+
+  ${p => p.selected && css`
+    color: ${colors.white};
+    background-color: ${colors.black33};
+    box-shadow: inset 0 0 0 20px ${colors.black33}, 0 0 0 8px ${colors.black33};
+    &:hover {
+      color: ${colors.white};
+      background-color: ${colors.black33};
+      box-shadow: inset 0 0 0 20px ${colors.black33}, 0 0 0 8px ${colors.black33};
+    }
+  `}
 `;
