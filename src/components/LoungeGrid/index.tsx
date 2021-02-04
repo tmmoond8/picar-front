@@ -57,11 +57,6 @@ const Lounge = styled.li<{ selected: boolean }>`
   background-color: ${colors.blackF5F6F7};
   outline: none;
   cursor: pointer;
-  ${desktop(
-    css`
-      height: 120px;
-    `,
-  )}
 
   svg {
     width: 40%;

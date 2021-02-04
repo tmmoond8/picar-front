@@ -115,6 +115,7 @@ const NavItem = styled.div<{ disabled: boolean}>`
 `;
 
 const List = styled.ul`
+  height: 393px;
   padding: 4px 0;
 `;
 
