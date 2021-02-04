@@ -10,7 +10,7 @@ import { useMoreMenu } from './hooks';
 import { useArticleContext, observer } from './context';
 
 const ArticleHeader: React.FC = () => {
-  const { user, ui } = useStore();
+  const { user, ui, util } = useStore();
   const {
     article,
   } = useArticleContext();
@@ -39,10 +39,11 @@ const ArticleHeader: React.FC = () => {
   }, [bookmark, article]);
 
   const handleClickMore = useMoreMenu(article ?? undefined);
+  const handleGoBack = () => util.history.goBack();
 
   return (
     <Nav >
-      {ui.queryMatch.Mobile && <Icon icon="back" size="24px" color={colors.black}/>}
+      {ui.queryMatch.Mobile && <Icon icon="back" size="24px" color={colors.black} onClick={handleGoBack}/>}
       {(ui.queryMatch.Tablet || ui.queryMatch.Desktop) && (<Left>{breadbump}</Left>)}
       <Right>
         <Icon 
