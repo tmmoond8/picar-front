@@ -87,7 +87,11 @@ const Selector = styled.button`
   cursor: pointer;
 `
 
-const UploadButton = styled(Button)``;
+const UploadButton = styled(Button)`
+  .Icon {
+    cursor: pointer;
+  }
+`;
 
 export default {
   SendButton,

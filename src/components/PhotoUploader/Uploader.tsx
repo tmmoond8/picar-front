@@ -11,6 +11,7 @@ const Uploader: React.FC<{
   setUploadedUrl: (imgUrl: string) => void;
   setPreUploadUrl: (preUploadUrl: string) => void;
 }> = ({ className, children, setUploadedUrl, setPreUploadUrl }) => {
+  const hiddenInputRef = React.useRef<HTMLInputElement>(null);
   const handleChangeFile = async (event: React.ChangeEvent) => {
     event.preventDefault();
     const fileElement = event.target as HTMLInputElement;
@@ -31,10 +32,15 @@ const Uploader: React.FC<{
   };
 
   return (
-    <StyledUploader className={className}>
+    <StyledUploader className={className} onClick={() => {
+      if(hiddenInputRef.current) {
+        hiddenInputRef.current.click();
+      }
+    }}>
       {children}
       <HiddenInput
         type="file"
+        ref={hiddenInputRef}
         onChange={handleChangeFile}
         onError={(e) => {
           (e.target as HTMLInputElement).value = '';
@@ -59,5 +65,6 @@ const HiddenInput = styled.input`
   width: 100%;
   height: 100%;
   opacity: 0;
+  z-index: -1;
   cursor: pointer;
 `;
