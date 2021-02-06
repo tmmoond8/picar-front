@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { ToastContainer } from 'react-toastify';
-import { colors } from '../../styles';
+import { ToastContainer, Slide } from 'react-toastify';
+import { useStore, observer } from '../../stores';
 
 const Container = () => {
+  const { ui } = useStore();
+
   return (
     <StyledToastContainer
-      position="bottom-center"
+      position={ui.queryMatch.Mobile ? "bottom-center" : "top-right"}
       autoClose={3000}
       hideProgressBar
       closeOnClick={false}
+      transition={Slide}
     />
   );
 };
 
-export default Container;
+export default observer(Container);
 
 const StyledToastContainer = styled(ToastContainer)`
   & {
@@ -28,7 +31,7 @@ const StyledToastContainer = styled(ToastContainer)`
     padding: 12px 18px;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(16, 16, 16, 0.9);
+    background-color: rgba(16, 16, 16, 0.8);
   }
   .Toastify__toast-body {
     font-size: 14px;
