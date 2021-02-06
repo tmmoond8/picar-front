@@ -61,10 +61,12 @@ export default React.memo(ContextMenuViewer);
 
 const popup = keyframes`
   from {
-    transform: scale(0.85);
+    transform: translateY(-20px);
+    opacity: 0.2;
   } 
   to {
-    transform: scale(1);
+    transform: translateY(0);
+    opacity: 1;
   }
 `;
 
@@ -80,7 +82,7 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   outline: none;
   z-index: 1000;
   transition: transform 0.3s, opacity 0.2s;
-  animation: ${popup} 0.3s ease-out;
+  animation: ${popup} 0.1s ease-out;
 `;
 
 const Menu = styled.li`

@@ -8,8 +8,7 @@ export const useContextMenu = () => {
   const close = () => {
     const contextMenuElement: HTMLElement | null = document.querySelector(`#${elementId}`);
     if (contextMenuElement) {
-      contextMenuElement.style!.transform = 'scale(0.4)';
-      contextMenuElement.style!.opacity = '0.4';
+      contextMenuElement.style!.opacity = '0';
     }
     setTimeout(() => {
       global.__OWNER__.closeContextMenu(elementId);
