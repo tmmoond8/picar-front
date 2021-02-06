@@ -1,10 +1,10 @@
 import { observable, action, computed } from 'mobx';
-import Cookies from 'js-cookie';
 import APIS from '../apis';
 import { Profile } from '../types/User';
 import { Notification } from '../types/Notification';
 import Comment from '../types/Comment';
 import { EmotionType } from '../types/Emotion';
+import { Stores, CommonStore} from '.';
 
 const initalProfile = {
   code: 'guest',
@@ -17,7 +17,7 @@ const initalProfile = {
   email: 'test@gmail.com',
 }
 
-export interface UserStoreInterface {
+export interface UserStoreInterface extends CommonStore {
   profile: Profile;
   bookmarks: Set<number>;
   emotions: Record<number, EmotionType>;
@@ -39,6 +39,7 @@ class UserStore implements UserStoreInterface {
   @observable comments: Record<number, Comment[]>;
   @observable notifications: Notification[];
   @observable needLogin: () => boolean;
+  rootStore: Stores | null;
   
   constructor() {
     this.profile = initalProfile;
@@ -48,6 +49,7 @@ class UserStore implements UserStoreInterface {
     this.notifications = [];
     this.fetch();
     this.needLogin = () => (console.log('need initialized'), true);
+    this.rootStore = null;
   }
 
   fetchUserData() {
@@ -76,6 +78,7 @@ class UserStore implements UserStoreInterface {
   setProfile(profile: Profile) {
     this.profile = profile;
     this.fetchUserData();
+    this.rootStore!.article.selectedLounge = profile.group ?? this.rootStore!.article.selectedGroup;
   }
 
   async fetchComment() {
@@ -189,6 +192,10 @@ class UserStore implements UserStoreInterface {
   @computed
   get isLogined() {
     return this.profile.code !== 'guest';
+  }
+  
+  bindRoot(rootStore: Stores) {
+    this.rootStore = rootStore;
   }
 }
 

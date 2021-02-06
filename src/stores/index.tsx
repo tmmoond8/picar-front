@@ -16,6 +16,11 @@ export interface Stores {
   util: UtilStoreInterface;
 }
 
+export interface CommonStore {
+  bindRoot: (rootStore: Stores) => void;
+  rootStore: Stores | null;
+}
+
 export const article = new ArticleStore();
 export const ui = new UiStroe();
 export const user = new UserStroe();
@@ -27,6 +32,9 @@ const rootStore: Stores = {
   user,
   util,
 };
+
+article.bindRoot(rootStore);
+user.bindRoot(rootStore);
 
 export const MobxProvider = (props: { children: ReactNode }): JSX.Element => (
   <Provider {...rootStore}>{props.children}</Provider>

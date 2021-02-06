@@ -50,7 +50,7 @@ const NavigationHeader = () => {
   const isFreezed = () => Date.now() - delayCondition.current < 500;
 
   return (
-    <Self>
+    <Header>
       <List>
         {NAVIGATIONS.map((item) => (
           <React.Fragment key={item.name}>
@@ -87,7 +87,7 @@ const NavigationHeader = () => {
           </React.Fragment>
         ))}
       </List>
-    </Self>
+    </Header>
   );
 };
 
@@ -97,7 +97,7 @@ export default observer(NavigationHeader);
 
 const HEIGHT = 56;
 
-const Self = styled.nav`
+const Header = styled.nav`
   display: flex;
   align-items: center;
   height: ${HEIGHT}px;
