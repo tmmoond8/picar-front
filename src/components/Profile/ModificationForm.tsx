@@ -58,8 +58,8 @@ const ModificationForm = () => {
   }, [description, group, name, uploadedUrl, user.profile]);
 
   const disabled = 
-    user.profile.name === name || 
-    user.profile.group === group || 
+    user.profile.name === name &&
+    user.profile.group === group && 
     user.profile.description === description;
 
   return (
