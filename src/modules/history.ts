@@ -7,7 +7,7 @@ export default (history: History<LocationState>) => {
       if (path === history.location.pathname) {
         return;
       }
-      history.push(path);
+      history.push(path, state);
     }
   };
 }
