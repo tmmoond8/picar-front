@@ -1,7 +1,8 @@
 import { observable, action } from 'mobx';
 import { createBrowserHistory, History, LocationState } from 'history';
+import { Stores, CommonStore } from '.';
 
-export interface UtilStoreInterface {
+export interface UtilStoreInterface extends CommonStore {
   setHistory: (history: History<LocationState>) => void;
   useHistory: () => History<LocationState>;
   history: History<LocationState>;
@@ -11,9 +12,11 @@ let historySet = false;
 
 class UtilsStore implements UtilStoreInterface {
   @observable history: History<LocationState>;
+  rootStore: Stores | null;
 
   constructor() {
     this.history = createBrowserHistory();
+    this.rootStore = null;
   }
 
   @action
@@ -26,6 +29,10 @@ class UtilsStore implements UtilStoreInterface {
 
   useHistory() {
     return this.history;
+  }
+
+  bindRoot(rootStore: Stores) {
+    this.rootStore = rootStore;
   }
 }
 

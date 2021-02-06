@@ -77,7 +77,7 @@ class ArticleStore implements ArticleStoreInterface {
     return this.articles.filter((article) => article.group === '정부지원');
   }
 
-  bindRoot(rootStore: Stores) {
+  bindRoot(rootStore: Stores ) {
     this.rootStore = rootStore;
   }
 }

@@ -3,10 +3,11 @@ import { initalHeader, HeaderProps, headerType } from '../components/Header';
 import { ContextMenuData } from '../components/ContextMenu';
 import { ModalData } from '../components/Modal';
 import { BreakPoints } from '../styles/mediaQuery';
+import { CommonStore, Stores } from '.';
 
 type BreakPointKeys = keyof typeof BreakPoints;
 
-export interface UiStoreInterface {
+export interface UiStoreInterface extends CommonStore{
   header: HeaderProps;
   keyboardMargin: number;
   setHeaderNavigation: () => void;
@@ -25,12 +26,14 @@ class UiStore implements UiStoreInterface {
   @observable contextMenus: ContextMenuData[];
   @observable modals: ModalData[];
   @observable queryMatch: Record<BreakPointKeys, boolean>;
+  rootStore: Stores | null;
 
   constructor() {
     this.header = initalHeader;
     this.keyboardMargin = 0;
     this.contextMenus = [];
     this.modals = [];
+    this.rootStore = null;
     this.queryMatch = {
       Mobile: false,
       Tablet: false,
@@ -78,6 +81,10 @@ class UiStore implements UiStoreInterface {
   @action
   setKeyboardMargin(height: number) {
     this.keyboardMargin = height;
+  }
+
+  bindRoot(rootStore: Stores) {
+    this.rootStore = rootStore;
   }
 }
 
