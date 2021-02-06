@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { toast } from 'react-toastify';
 import { useStore } from '../../stores';
 import { useTextarea } from '../../hooks';
 import { AllLoungeList, useSelector } from '../LoungeSelector';
@@ -31,8 +32,21 @@ const Editor: React.FC<{
   const [uploadedUrl, setUploadedUrl] = React.useState(article?.photos ?? '');
   const [preUploadUrl, setPreUploadUrl] = React.useState(article?.photos ?? '');
 
+
+  const validate = React.useCallback(() => {
+    if (title.length === 0) {
+      toast.success('제목을 입력하세요.');
+      return false;
+    }
+    if (content.length === 0) {
+      toast.success('내용을 입력하세요.')
+      return false;
+    }
+    return true;
+  }, [title, content])
+
   const handleClickPost = React.useCallback(async () => {
-    if (title.length === 0 || content.length === 0) return;
+    if (!validate()) return;
     try {
       const { data } = await API.article.write({
         title,
@@ -51,7 +65,7 @@ const Editor: React.FC<{
   }, [title, content, selected, uploadedUrl, syncArticle, onClose, history]);
 
   const handleClickUpdate = React.useCallback(async () => {
-    if (title.length === 0 || content.length === 0 || !article) return;
+    if (!validate() || !article) return;
     try {
       const { data } = await API.article.update(article.id, {
         title,
@@ -96,7 +110,7 @@ const Editor: React.FC<{
   }, [handleGoBack])
 
   const HeaderRight = (
-    <Styled.SendButton disabled={disabledWrite} onClick={handleSubmit}>
+    <Styled.SendButton onClick={handleSubmit}>
       {article ? '수정' : '작성'}
     </Styled.SendButton>
   )
