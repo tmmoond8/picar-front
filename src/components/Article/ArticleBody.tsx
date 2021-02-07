@@ -31,7 +31,7 @@ const Title = styled.h1`
   line-height: 26px;
 `;
 
-const Content = styled.p`
+const Content = styled.pre`
   margin: 24px 0 0 0;
   font-size: 16px;
   color: ${colors.black33};
