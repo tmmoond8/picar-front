@@ -1,17 +1,24 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import React from 'react';
 
 import { colors } from '../../styles';
 import { useArticleContext, observer } from './context';
 
 const ArticleBody = () => {
   const { article } = useArticleContext();
+  const urlPattern = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi
+  const content = React.useMemo(() => {
+    return article!.content.replace(urlPattern, `<a href="$&" target="_blank">$&</a>`)
+  }, [article!.content])
 
   return (
     <Self>
       <Title>{article!.title}</Title>
-      <Content>{article!.content}</Content>
+      <Content dangerouslySetInnerHTML={{
+        __html: content
+      }}/>
       {article!.photos && (
         <ImageWrapper>
           <Image src={article!.photos} />
@@ -36,6 +43,10 @@ const Content = styled.pre`
   font-size: 16px;
   color: ${colors.black33};
   line-height: 24px;
+
+  a {
+    color: ${colors.primary};
+  }
 `;
 
 const ImageWrapper = styled.div`
