@@ -62,7 +62,7 @@ const ModalViewer = React.forwardRef(
     return (
       <Wrapper
         onClick={handleClickWrapper}
-        className={cx('ModalWrapper', className)}
+        className={cx('ModalWrapper')}
         open={open}
         desktop={!ui.queryMatch.Mobile}
       >
@@ -107,12 +107,14 @@ const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
   ${p => p.desktop && css`
   align-items: center;
     .ModalBox {
+      display: ${p.open ? 'block' : 'none'};
       top: 0;
       max-width: 414px;
       max-height: 680px;
       border-radius: 3px;
       overflow: hidden;
       border-radius: 0;
+      transform: none;
       .ModalHeader {
         border-radius: 0;
       }
