@@ -78,6 +78,7 @@ const Header = styled.header`
   padding: 10px 60px 10px 60px;
   box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
   background-color: ${colors.white};
+  z-index: 1000;
 `
 
 const Search = styled(SearchInput)`
