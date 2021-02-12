@@ -29,15 +29,19 @@ const TabletNavigation: React.FC = () => {
           >{name}</TopMenu>)
         )}
       </Top>
-      <Bottom>
-        {LOUNGES.map(({name}) => (
-          <BottomMenu
-            key={name} 
-            selected={article.selectedLounge === name}
-            onClick={() => handleClickBottomMenu(name)}
-          >{name}</BottomMenu>
-        ))}
+      {article.selectedGroup === LOUNGE && (
+        <Bottom>
+          <SubMenus>
+          {LOUNGES.map(({name}) => (
+            <BottomMenu
+              key={name} 
+              selected={article.selectedLounge === name}
+              onClick={() => handleClickBottomMenu(name)}
+            >{name}</BottomMenu>
+          ))}
+          </SubMenus>
       </Bottom>
+      )}
     </Navigation>
     
   )
@@ -68,19 +72,29 @@ const TopMenu = styled.li<{ selected: boolean }>`
     border-bottom: 2px solid ${colors.black22};
   `}
 `;
-const Bottom = styled.ul`
+
+const Bottom = styled.div`
+  display: flex;
+  align-items: center;
+  height: 56px;
+  width: 100%;
+  overflow-x: scroll;
+  border-bottom: 1px solid ${colors.blackEB};
+`;
+const SubMenus = styled.ul`
   display: flex;
   align-items: center;
   justify-content:space-between;
-  height: 56px;
+  min-width: 540px;
   padding: 0 20px;
 `;
 const BottomMenu = styled.li<{ selected: boolean }>`
+  height: 100%;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.28px;
   color: ${colors.blackAA};
-    border-radius: 19px;
+  border-radius: 19px;
   cursor: pointer;
 
   &:hover {

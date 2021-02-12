@@ -5,6 +5,7 @@ import React from 'react';
 import cx from 'classnames';
 import { toast } from 'react-toastify';
 
+import Icon from '../Icon';
 import Article from '../../types/Article';
 import { EmotionType } from '../../types/Emotion';
 import ArticleCard from './ArticleCard';
@@ -58,6 +59,12 @@ export default observer(function ArticleList(
           myEmotion={user.emotions[article.id]}
         />
       ))}
+      {articles.length === 0 && (
+        <Empty >
+          <Icon icon="cross" size="56px"/>
+          첫 글을 남겨보세요.
+        </Empty>
+      )}
     </StyledArticleList>
   );
 });
@@ -69,5 +76,23 @@ const StyledArticleList = styled.ol`
   overflow-y: scroll;
   li {
     margin-top: 8px;
+  }
+`;
+
+const Empty = styled.li`
+  && {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.18;
+    color: ${colors.black99};
+
+    .Icon.cross {
+      margin-bottom: 24px;
+    } 
   }
 `;

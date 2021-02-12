@@ -111,6 +111,13 @@ const Contents = styled.div`
   flex: 1;
   min-width: 320px;
   max-width: 540px;
+  .ArticleList {
+    background: ${colors.white};
+  }
+  .ArticleCard {
+    margin-top: 1px;
+    border-bottom: 1px solid ${colors.blackEB};
+  }
 `;
 
 const FixedBox = styled.div`

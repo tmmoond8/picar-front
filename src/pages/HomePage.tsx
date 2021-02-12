@@ -78,16 +78,10 @@ const TabletHome = observer(() => {
   return (
     <React.Fragment>
       <LoungeNavigation.Tablet />
-      {article.selectedGroup === LOUNGE && <TabletArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} />}
-      {article.selectedGroup === '자유' && <TabletArticleList articles={article.freeArticles} bookmarks={user.bookmarks} />}
-      {article.selectedGroup === '유머' && <TabletArticleList articles={article.humorArticles} bookmarks={user.bookmarks} />}
-      {article.selectedGroup === '정부지원' && <TabletArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === '유머' && <ArticleList articles={article.humorArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === '정부지원' && <ArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} />}
     </React.Fragment>
   );
 });
-
-const TabletArticleList = styled(ArticleList)`
-  .ArticleCard {
-    margin-top: 1px;
-  }
-`;
