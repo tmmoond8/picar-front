@@ -3,19 +3,19 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import Icon from '../Icon';
+import { toast } from 'react-toastify';
 import { colors } from '../../styles';
 
 const DownloadApp: React.FC<{}> = () => {
-
   return (
     <StyledDownloadApp>
       <Header>App 다운로드</Header>
       <Body>
-        <Link >
+        <Link onClick={() => toast.success('지원 준비 중 입니다.')}>
           <Icon icon="appStore" size="18px" color={colors.black66}/>
           App Store
         </Link>
-        <Link >
+        <Link onClick={() => toast.success('지원 준비 중 입니다.')}>
           <Icon icon="googlePlay" size="18px" color={colors.black66}/>
           Google Play
         </Link>
@@ -63,6 +63,7 @@ const Link = styled.a`
   font-weight: 500;
   border-radius: 4px;
   background-color: ${colors.blackF5F6F7};
+  cursor: pointer;
 
   .Icon {
     margin-right: 12px;

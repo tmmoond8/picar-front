@@ -11,6 +11,7 @@ import { EmotionType } from '../../types/Emotion';
 import ArticleCard from './ArticleCard';
 import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
+import { useOpenArticleEditor } from '../Article';
 
 interface ArticleListProps {
   className?: string;
@@ -23,6 +24,7 @@ export default observer(function ArticleList(
 ): JSX.Element {
   const { articles, bookmarks, className } = props;
   const { user } = useStore();
+  const openArticleEditor = useOpenArticleEditor();
 
   const handleClickBookmark = React.useCallback(
     (articleId: number) => () => {
@@ -46,6 +48,13 @@ export default observer(function ArticleList(
     user.setEmotion(articleId, emotionType);
   };
 
+  const handleClickWrite = React.useCallback(() => {
+    if (user.needLogin()) {
+      return;
+    }
+    openArticleEditor();
+  }, [openArticleEditor, user]);
+
   return (
     <StyledArticleList className={cx("ArticleList", className)}>
       {articles.map((article) => (
@@ -61,7 +70,7 @@ export default observer(function ArticleList(
       ))}
       {articles.length === 0 && (
         <Empty >
-          <Icon icon="cross" size="56px"/>
+          <Icon icon="cross" size="56px" onClick={handleClickWrite}/>
           첫 글을 남겨보세요.
         </Empty>
       )}
@@ -94,5 +103,9 @@ const Empty = styled.li`
     .Icon.cross {
       margin-bottom: 24px;
     } 
+
+    .Icon.cross {
+      cursor: pointer;
+    }
   }
 `;
