@@ -13,16 +13,14 @@ import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
 import { useOpenArticleEditor } from '../Article';
 
-interface ArticleListProps {
+const ArticleList: React.FC<{
   className?: string;
   articles: Article[];
   bookmarks: Set<number>;
-}
-
-export default observer(function ArticleList(
-  props: ArticleListProps,
-): JSX.Element {
-  const { articles, bookmarks, className } = props;
+  showEmpty?: boolean;
+}> = ({
+  articles, bookmarks, className, showEmpty = false,
+}) => {
   const { user } = useStore();
   const openArticleEditor = useOpenArticleEditor();
 
@@ -68,7 +66,7 @@ export default observer(function ArticleList(
           myEmotion={user.emotions[article.id]}
         />
       ))}
-      {articles.length === 0 && (
+      {showEmpty && articles.length === 0 && (
         <Empty >
           <Icon icon="cross" size="56px" onClick={handleClickWrite}/>
           첫 글을 남겨보세요.
@@ -76,7 +74,9 @@ export default observer(function ArticleList(
       )}
     </StyledArticleList>
   );
-});
+}
+
+export default observer(ArticleList);
 
 const StyledArticleList = styled.ol`
   width: 100%;

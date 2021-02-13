@@ -48,18 +48,22 @@ const MobileHome = observer(() => {
           <ArticleList
             articles={article.loungeArticles}
             bookmarks={user.bookmarks}
+            showEmpty
           />
           <ArticleList
             articles={article.freeArticles}
             bookmarks={user.bookmarks}
+            showEmpty
           />
           <ArticleList
             articles={article.humorArticles}
             bookmarks={user.bookmarks}
+            showEmpty
           />
           <ArticleList
             articles={article.govermentSupportArticles}
             bookmarks={user.bookmarks}
+            showEmpty
           />
         </Carousel>
       </Wrapper>
@@ -78,10 +82,10 @@ const TabletHome = observer(() => {
   return (
     <React.Fragment>
       <LoungeNavigation.Tablet />
-      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} />}
-      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} />}
-      {article.selectedGroup === '유머' && <ArticleList articles={article.humorArticles} bookmarks={user.bookmarks} />}
-      {article.selectedGroup === '정부지원' && <ArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} />}
+      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} showEmpty/>}
+      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} showEmpty/>}
+      {article.selectedGroup === '유머' && <ArticleList articles={article.humorArticles} bookmarks={user.bookmarks} showEmpty/>}
+      {article.selectedGroup === '정부지원' && <ArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} showEmpty/>}
     </React.Fragment>
   );
 });
