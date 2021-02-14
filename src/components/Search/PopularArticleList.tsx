@@ -33,7 +33,7 @@ export default observer(PopularArticleList);
 const List = styled.ol`
   padding: 0 18px;
   ol {
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 8px 0;
   }
 `;

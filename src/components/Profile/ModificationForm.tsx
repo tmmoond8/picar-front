@@ -115,7 +115,7 @@ const Form = styled.form`
   flex-direction: column;
   padding: 26px 18px;
   background-color: ${colors.white};
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const PHotoUploaderButton = styled.div`

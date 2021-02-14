@@ -124,7 +124,7 @@ const Context = styled.div<{ placeholder?: string }>`
   font-size: 16px;
   font-weight: normal;
   line-height: 1.4;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   outline: none;
   border: none;

@@ -65,7 +65,7 @@ export default observer(ArticlePage);
 const ArticleContainer = styled.div<{ desktop: boolean}>`
   height: calc(100% - 56px);
   background-color: ${colors.white};
-  overflow-y: scroll;
+  overflow-y: auto;
   ${p => p.desktop && css`
     height: 100%;  
   `}

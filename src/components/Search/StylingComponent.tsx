@@ -11,7 +11,7 @@ export const Page = styled(BasePage)`
 
   .PopularArticleList {
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 `;
 

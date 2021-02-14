@@ -50,5 +50,5 @@ const NotionContents = styled.div`
   height: 100%;
   padding: 16px 18px;
   background-color: ${colors.white};
-  overflow-y: scroll;
+  overflow-y: auto;
 `;

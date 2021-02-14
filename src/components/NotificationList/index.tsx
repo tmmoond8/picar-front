@@ -24,7 +24,7 @@ const NotificationList: React.FC<{ className?: string; notifications: Notificati
 export default NotificationList;
 
 const List = styled.ul`
-  overflow-y: scroll;
+  overflow-y: auto;
   flex: 1;
   padding: 4px 0;
 `;

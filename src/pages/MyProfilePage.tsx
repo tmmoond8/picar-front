@@ -133,7 +133,7 @@ const StyledPage = styled(Page)`
 const Body = styled.div`
   flex: 1;
   padding: 0 18px 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: ${colors.white};
 `;
 
@@ -142,7 +142,7 @@ const StyledMenuBar = styled(MenuBar)`
 `;
 
 const TabletWrapper = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .TabletBody {
     overflow-y: visible;

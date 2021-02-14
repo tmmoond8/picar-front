@@ -134,5 +134,5 @@ const ModalBody = styled.div`
   padding: 0;
   background-color: ${colors.white};
   color: ${colors.black22};
-  overflow: scroll;
+  overflow: auto;
 `;

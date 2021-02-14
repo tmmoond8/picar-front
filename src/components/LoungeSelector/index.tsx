@@ -123,7 +123,7 @@ const StyledSelector = styled.button`
 `;
 
 const List = styled.ol`
-  overflow-y: scroll;
+  overflow-y: auto;
   font-size: 17px;
   color: ${colors.black22};
 

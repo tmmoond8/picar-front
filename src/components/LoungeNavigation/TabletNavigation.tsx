@@ -78,7 +78,7 @@ const Bottom = styled.div`
   align-items: center;
   height: 56px;
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
   border-bottom: 1px solid ${colors.blackEB};
 `;
 const SubMenus = styled.ul`

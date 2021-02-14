@@ -80,7 +80,8 @@ const Right = styled.div`
   width: 264px;
   height: 100%;
   margin: 0 0 0 ${GAP}px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   .MyActivity {
     bottom: 0;

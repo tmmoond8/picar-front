@@ -31,7 +31,7 @@ export default ProfileCommentList;
 const List = styled.ol`
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .Comment {
     margin-top: 8px;

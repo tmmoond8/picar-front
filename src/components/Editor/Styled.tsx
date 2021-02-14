@@ -29,7 +29,7 @@ const Page = styled.div`
     flex: 1;
     .eg-flick-camera > .Form,
     .eg-flick-camera > .AllLoungeList {
-      overflow-y: scroll;
+      overflow-y: auto;
     }
   }
 `;
