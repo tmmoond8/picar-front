@@ -15,10 +15,11 @@ import { colors } from '../../styles';
 const ModificationForm = () => {
   const { user, util, ui } = useStore();
   const {
-    uploadedUrl,
     preUploadUrl,
+    thumbnailUrl,
     setUploadedUrl,
     setPreUploadUrl,
+    setThumbnailUrl,
   } = PhotoUploader.usePhotoUPloader(user.profile.profileImage);
   const nicknameSkip = (value: string) => value.length > 10;
   const [name, onChangeName] = Input.useTextField(
@@ -41,21 +42,21 @@ const ModificationForm = () => {
       await APIS.user.update({
         name,
         group,
-        profileImage: uploadedUrl,
+        profileImage: thumbnailUrl,
         description,
       });
       user.profile = {
         ...user.profile,
         name,
         group,
-        profileImage: uploadedUrl,
+        profileImage: thumbnailUrl,
         description,
       };
       util.history.goBack();
     } catch (error) {
       console.log(error);
     }
-  }, [description, group, name, uploadedUrl, user.profile]);
+  }, [description, group, name, user.profile, thumbnailUrl]);
 
   const disabled = 
     user.profile.name === name &&
@@ -80,6 +81,7 @@ const ModificationForm = () => {
         <ImageUploader
           setUploadedUrl={setUploadedUrl}
           setPreUploadUrl={setPreUploadUrl}
+          setThumbnailUrl={setThumbnailUrl}
         >
           <PHotoUploaderButton>
             <StyledPhoto size={72} src={preUploadUrl} />

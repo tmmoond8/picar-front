@@ -8,9 +8,10 @@ import API from '../../apis';
 const Uploader: React.FC<{
   className?: string;
   children: React.ReactNode;
+  setThumbnailUrl: (thumbnailUrl: string) => void; 
   setUploadedUrl: (imgUrl: string) => void;
   setPreUploadUrl: (preUploadUrl: string) => void;
-}> = ({ className, children, setUploadedUrl, setPreUploadUrl }) => {
+}> = ({ className, children, setUploadedUrl, setPreUploadUrl, setThumbnailUrl }) => {
   const hiddenInputRef = React.useRef<HTMLInputElement>(null);
   const handleChangeFile = async (event: React.ChangeEvent) => {
     event.preventDefault();
@@ -23,8 +24,15 @@ const Uploader: React.FC<{
         reader.readAsDataURL(files[0]);
         reader.onload = () => setPreUploadUrl(reader!.result!.toString());
 
-        const tempImage = await API.imageUpload(files[0]);
-        setUploadedUrl(tempImage.imgUrl);
+        Promise.all([
+          API.imageUpload(files[0], 'owwners_post'), 
+          API.imageUpload(files[0], 'owwners_thumbnail')]
+        ).then(([postImage, thumbnailImage]) => {
+          setUploadedUrl(postImage.imgUrl);
+          setThumbnailUrl(thumbnailImage.imgUrl);
+        }).catch(error => {
+          throw new Error(error);
+        });
       } catch (error) {
         console.log(error);
       }

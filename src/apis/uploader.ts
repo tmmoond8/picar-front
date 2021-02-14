@@ -1,14 +1,16 @@
 import axios from 'axios';
 
+type Presets = 'owwners_thumbnail' | 'owwners_post';
+
 export default async function (
-  file: File | string,
+  file: File | string, preset: Presets
 ): Promise<{ id: string; imgUrl: string; format: string }> {
   const form = new FormData();
   form.append('file', file);
   form.append('api_key', process.env.REACT_APP_CLOUDINARY_API_KEY || '');
   form.append(
     'upload_preset',
-    process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET || '',
+    preset,
   );
 
   try {
