@@ -57,7 +57,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         handleClickArticle={handleClickArticle}
         title={title}
         content={content}
-        photos={photos}
+        photos={photos?.thumbnail ?? null}
       />
       <ArticleCardBottom
         articleId={id}

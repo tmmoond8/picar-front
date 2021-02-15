@@ -38,39 +38,45 @@ const EmotionCounter: React.FC<{
         />
       ),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
-  const color = React.useMemo(() => (myEmotion ? colors.primary : undefined), [
-    myEmotion,
-  ]);
+  // const color = React.useMemo(() => (myEmotion ? colors.primary : undefined), [
+  //   myEmotion,
+  // ]);
   return (
     <EmotionCounterButton
-      icon={<Icon icon="emojiSmile" size="18px" color={color} />}
+      icon={<Icon icon="emojiSmile" size="18px"/>}
       onClick={handleClickEmotion}
+      hasMyEmotion={!!myEmotion}
     >
-      <Counter className="Counter" color={color}>
+      <span className="Counter">
         {emotionCount}
-      </Counter>
+      </span>
     </EmotionCounterButton>
   );
 };
 
 export default EmotionCounter;
 
-const EmotionCounterButton = styled(Button)`
+const EmotionCounterButton = styled(Button)<{ hasMyEmotion: boolean }>`
   && {
     border-radius: 4px;
     border: solid 1px #ebebeb;
+    transition: background-color 1s ease-out;
     cursor: pointer;
-    svg {
+    .Icon.emojiSmile {
       cursor: pointer;
     }
-  }
-`;
 
-const Counter = styled.span<{ color?: string }>`
-  &.Counter {
-    margin-left: 0;
-    ${(p) => p.color && `color: ${p.color};`}
+    .Counter {
+      margin-left: 0;
+    }
+    ${p => p.hasMyEmotion && css`
+      color: ${colors.primary};
+      background-color: ${colors.primaryE};
+      border: solid 1px ${colors.transparent};
+      .Counter, .Icon.emojiSmile {
+        color: ${colors.primary};
+      }
+    `}
   }
 `;

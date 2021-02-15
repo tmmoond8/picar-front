@@ -62,7 +62,7 @@ export default React.memo(ArticleCardHead);
 
 const Bottom = styled.div`
   display: flex;
-  height: 32px;
+  height: auto;
 
   & > button {
     cursor: auto;

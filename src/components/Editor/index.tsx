@@ -29,9 +29,14 @@ const Editor: React.FC<{
   const [step, setStep] = React.useState(0);
   const [title, setTitle] = useTextarea(article?.title ?? '');
   const [content, setContent] = useTextarea(article?.content ?? '');
-  const [uploadedUrl, setUploadedUrl] = React.useState(article?.photos ?? '');
-  const [preUploadUrl, setPreUploadUrl] = React.useState(article?.photos ?? '');
-
+  const { 
+    uploadedUrl,
+    preUploadUrl,
+    thumbnailUrl,
+    setUploadedUrl,
+    setPreUploadUrl,
+    setThumbnailUrl 
+  } = PhotoUploader.usePhotoUPloader(article?.photos?.thumbnail ?? undefined);
 
   const validate = React.useCallback(() => {
     if (title.length === 0) {
@@ -52,7 +57,10 @@ const Editor: React.FC<{
         title,
         content,
         group: selected,
-        photos: uploadedUrl,
+        photos: [{
+          thumbnail: thumbnailUrl,
+          photo: uploadedUrl,
+        }],
       });
       syncArticle(data.article);
       onClose();
@@ -71,7 +79,10 @@ const Editor: React.FC<{
         title,
         content,
         group: selected,
-        photos: uploadedUrl,
+        photos: [{
+          thumbnail: thumbnailUrl,
+          photo: uploadedUrl,
+        }],
       });
       if (data.ok) {
         syncArticle(data.article);
@@ -156,6 +167,7 @@ const Editor: React.FC<{
             <PhotoUploader.Uploader
               setUploadedUrl={setUploadedUrl}
               setPreUploadUrl={setPreUploadUrl}
+              setThumbnailUrl={setThumbnailUrl}
             >
               <Styled.UploadButton
                 onClick={() => {

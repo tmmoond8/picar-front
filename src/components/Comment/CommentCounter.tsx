@@ -50,38 +50,41 @@ const CommentCounter: React.FC<{
     user.profile.code,
     user.profile.profileImage,
   ]);
-  const color = React.useMemo(() => (hasComment ? colors.primary : undefined), [
-    hasComment,
-  ]);
 
   return (
     <CommentCounterButton
-      icon={<Icon icon="chat" size="18px" color={color} />}
+      icon={<Icon icon="chat" size="18px"/>}
       onClick={handleClickComment}
+      hasComment={hasComment}
     >
-      <Counter className="Counter" color={color}>
+      <span className="Counter">
         {commentCount}
-      </Counter>
+      </span>
     </CommentCounterButton>
   );
 };
 
 export default React.memo(CommentCounter);
 
-const CommentCounterButton = styled(Button)`
+const CommentCounterButton = styled(Button)<{ hasComment: boolean }>`
   && {
     border-radius: 4px;
     border: solid 1px #ebebeb;
+    transition: background-color 1s ease-out;
     cursor: pointer;
-    svg {
+    .Icon.chat {
       cursor: pointer;
     }
-  }
-`;
-
-const Counter = styled.span<{ color?: string }>`
-  &.Counter {
-    margin-left: 0;
-    ${(p) => p.color && `color: ${p.color};`}
+    .Counter {
+      margin-left: 0;
+    }
+    ${p => p.hasComment && css`
+      color: ${colors.primary};
+      background-color: ${colors.primaryE};
+      border: solid 1px ${colors.transparent};
+      .Counter, .Icon.chat {
+        color: ${colors.primary};
+      }
+    `}
   }
 `;
