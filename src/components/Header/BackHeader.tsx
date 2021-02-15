@@ -67,6 +67,6 @@ const StyledBack = styled.nav<{noBottomLine: boolean}>`
   }
   
   ${p => !p.noBottomLine && css`
-    box-shadow: inset 0 -0.5px 0 0 ${colors.blackEB};
+    /* box-shadow: inset 0 -0.5px 0 0 ${colors.blackEB}; */
   `}
 `;

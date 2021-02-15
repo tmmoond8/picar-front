@@ -73,7 +73,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   height: ${HEIGHT}px;
   padding: 0 20px;
-  box-shadow: 0 1px ${colors.blackEB};
+  /* box-shadow: 0 1px ${colors.blackEB}; */
 `;
 
 const Left = styled.div`

@@ -53,7 +53,7 @@ const Header = styled.nav`
   padding: 0 18px;
   background: ${colors.white};
   color: ${colors.black100};
-  box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6);
+  /* box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.6); */
   & > svg {
     position: absolute;
     left: 18px;

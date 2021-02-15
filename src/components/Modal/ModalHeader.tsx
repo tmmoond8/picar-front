@@ -39,7 +39,7 @@ const Head = styled.div<{ noRadius: boolean; hasTitleLine: boolean }>`
   align-items: center;
   border-radius: ${(p) => (p.noRadius ? 'none' : '12px 12px 0 0')};
   background-color: ${colors.white};
-  box-shadow: inset 0 -0.5px 0 0 ${p => p.hasTitleLine ? colors.blackBF : colors.transparent};
+  /* box-shadow: inset 0 -0.5px 0 0 ${p => p.hasTitleLine ? colors.blackBF : colors.transparent}; */
 `;
 
 const Title = styled.h2`
