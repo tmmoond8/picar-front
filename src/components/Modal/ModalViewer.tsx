@@ -98,8 +98,6 @@ const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
   justify-content: center;
   align-items: flex-end;
   margin: auto;
-  font-family: 'Inter', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
-    'Segoe UI Emoji', 'Segoe UI Symbol';
   overflow: hidden;
   background-color: ${(p) => (p.open ? colors.dimmed : colors.notDimmed)};
   z-index: 2005;

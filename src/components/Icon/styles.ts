@@ -5,8 +5,6 @@ export const base = css`
   display: block;
   width: 1em;
   height: auto;
-  font-family: 'Inter', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
-    'Segoe UI Emoji', 'Segoe UI Symbol';
   fill: ${colors.blackD9};
   flex-shrink: 0;
   backface-visibility: hidden;
