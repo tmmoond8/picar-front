@@ -1,7 +1,9 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { ToastContainer, Slide } from 'react-toastify';
 import { useStore, observer } from '../../stores';
+import { colors } from '../../styles';
 
 const Container = () => {
   const { ui } = useStore();
@@ -13,18 +15,17 @@ const Container = () => {
       hideProgressBar
       closeOnClick={false}
       transition={Slide}
+      desktop={!ui.queryMatch.Mobile}
     />
   );
 };
 export default observer(Container);
 
-const StyledToastContainer = styled(ToastContainer)`
+const StyledToastContainer = styled(ToastContainer)<{ desktop: boolean }>`
   & {
     width: 100%;
-    top: 64px;
-    max-width: 375px;
+    bottom: 66px;
     padding: 0 8px;
-    z-index: 999;
   }
   .Toastify__toast {
     min-height: auto;
@@ -42,5 +43,21 @@ const StyledToastContainer = styled(ToastContainer)`
   }
   .Toastify__close-button {
     display: none;
+  }
+  & {
+    ${p => p.desktop && css`
+    top: 64px;
+    bottom: auto;
+    padding: 0;
+    z-index: 999;
+    .Toastify__toast {
+      color: ${colors.primary};
+      font-weight: bold;
+      font-size: 15px;
+      border-radius: 0;
+      background-color: ${colors.primaryE};
+      box-shadow: 0 1px rgba(8, 48, 98, 0.2);
+    }
+  `}
   }
 `;

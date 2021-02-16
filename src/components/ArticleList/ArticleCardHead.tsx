@@ -56,7 +56,8 @@ const Head = styled.div`
     flex: 1;
     text-align: right;
     font-size: 13px;
-    color: ${colors.black99};
+    font-weight: 400;
+    color: ${colors.blackAA};
   }
 `;
 

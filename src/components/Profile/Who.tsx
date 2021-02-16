@@ -39,7 +39,7 @@ const StyledWhotDot = styled.div<{ nameColor?: string }>`
   font-weight: 500;
 
   .user-name {
-    font-size: 13px;
+    font-size: 14px;
     color: ${colors.black50};
     ${(p) =>
       p.nameColor &&
@@ -50,7 +50,8 @@ const StyledWhotDot = styled.div<{ nameColor?: string }>`
   .user-group {
     position: relative;
     margin-left: 10px;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 400;
     color: ${colors.black99};
     &::before {
       content: '·';

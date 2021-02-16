@@ -59,7 +59,7 @@ const EmotionBox: React.FC<EmotionBoxProp> = ({
           selected={myEmotion === emotionCount.type}
           onClick={() => handleClickEmotion(emotionCount.type)}
         >
-          <Icon icon={emotionCount.icon as IconKey} size="48px" />
+          <Icon icon={emotionCount.icon as IconKey} size="60px" />
           <p>{emotionCount.count}</p>
         </EmotionItem>
       ))}

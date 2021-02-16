@@ -111,7 +111,7 @@ const List = styled.ol`
   height: 29px;
   padding: 0 20px;
   li + li {
-    margin-left: 18px;
+    margin-left: 12px;
   }
 `;
 
