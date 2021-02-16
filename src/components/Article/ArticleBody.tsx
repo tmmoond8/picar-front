@@ -46,6 +46,8 @@ const Content = styled.pre`
   font-size: 16px;
   color: ${colors.black33};
   line-height: 24px;
+  word-break: break-all;
+  white-space: pre-wrap;
 
   a {
     color: ${colors.primary};
