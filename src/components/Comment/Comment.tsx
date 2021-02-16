@@ -89,7 +89,7 @@ const Comment: React.FC<CommentProps> = (props) => {
               className={cx('reply-btn')}
               onClick={() => {
                 handleClickReply(id);
-                if (editorRef.current) {
+                if (editorRef.current && !isFocus) {
                   editorRef.current.focus();
                 }
               }}

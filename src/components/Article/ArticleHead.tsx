@@ -27,30 +27,31 @@ const ArticleHead = () => {
   }, [modal])
 
   return (
-    <Self>
-      <Profile.Photo src={thumbnail} onClick={handleOpenProfile} />
-      <Content>
-        <Profile.WhoDot name={name} group={group} />
-        <p className="date">{getDateGoodLook(article!.createAt)}</p>
-      </Content>
-    </Self>
+    <Head>
+      <ProfilePhoto src={thumbnail} onClick={handleOpenProfile} />
+      <Profile.WhoDot name={name} group={group} />
+      <p className="article-time">{getDateGoodLook(article!.createAt)}</p>
+    </Head>
   );
 };
 export default observer(ArticleHead);
 
-const Self = styled.div`
+const Head = styled.div`
   display: flex;
   align-items: center;
-  height: 58px;
-  padding: 0 16px;
-`;
+  height: 60px;
+  padding: 0 18px;
 
-const Content = styled.div`
-  margin: 0 0 0 13px;
-
-  .date {
-    margin: 1px 0 0 0;
+  .article-time {
+    flex: 1;
+    text-align: right;
     font-size: 13px;
-    color: ${colors.black99};
+    font-weight: 400;
+    color: ${colors.blackAA};
   }
 `;
+
+const ProfilePhoto = styled(Profile.Photo)`
+  margin-right: 8px;
+`;
+
