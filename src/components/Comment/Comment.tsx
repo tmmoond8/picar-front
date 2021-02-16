@@ -178,6 +178,7 @@ const Content = styled.div`
   margin: 5px 0 10px;
   line-height: 20px;
   font-size: 15px;
+  word-break: break-all;
 `;
 
 const DeletedComment = styled.div`

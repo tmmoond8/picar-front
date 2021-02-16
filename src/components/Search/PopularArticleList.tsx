@@ -32,10 +32,7 @@ export default observer(PopularArticleList);
 
 const List = styled.ol`
   padding: 0 18px;
-  ol {
-    overflow-y: auto;
-    padding: 8px 0;
-  }
+  background-color: ${colors.white};
 `;
 
 

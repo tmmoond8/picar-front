@@ -23,15 +23,16 @@ font-weight: bold;
 `;
 
 export const ShadowTitle = styled(Title)`
+  background-color: ${colors.white};
   &:after {
-  content: '';
-  position: absolute;
-  bottom: -18px;
-  left: 0;
-  width: 100%;
-  height: 20px;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.1),  rgba(255, 255, 255, 0.9));
-}
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1),  rgba(255, 255, 255, 0.9));
+  }
 `;
 
 export const RemoveRecentSearchs = styled(Button)`

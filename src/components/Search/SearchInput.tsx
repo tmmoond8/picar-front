@@ -58,6 +58,7 @@ const Wrapper = styled.div`
     height: 60px;
     min-height: 60px;
     padding: 10px 18px;
+    background-color: ${colors.white};
 
     .Icon.back {
       position: relative;
