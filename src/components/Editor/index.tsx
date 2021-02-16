@@ -14,6 +14,7 @@ import Carousel from '../Carousel';
 import API from '../../apis';
 import Article from '../../types/Article';
 import { CAROUSEL } from '../../types/constants';
+import { colors } from '../../styles';
 
 const Editor: React.FC<{
   article?: Article;
@@ -27,7 +28,7 @@ const Editor: React.FC<{
     article?.group ?? group,
   );
   const [step, setStep] = React.useState(0);
-  const [title, setTitle] = useTextarea(article?.title ?? '');
+  const [title, setTitle] = React.useState(article?.title ?? '');
   const [content, setContent] = useTextarea(article?.content ?? '');
   const { 
     uploadedUrl,
@@ -37,6 +38,7 @@ const Editor: React.FC<{
     setPreUploadUrl,
     setThumbnailUrl 
   } = PhotoUploader.usePhotoUPloader(article?.photos?.thumbnail ?? undefined);
+  const titleRef = React.useRef<HTMLDivElement>(null);
 
   const validate = React.useCallback(() => {
     if (title.length === 0) {
@@ -93,6 +95,19 @@ const Editor: React.FC<{
     }
   }, [title, content, article, selected, uploadedUrl, syncArticle, onClose]);
 
+  const handleKeyDown = React.useCallback((e) => {
+    const allowedKeys = [ 8, 16, 17, 18, 27, 37, 38, 39, 40, 46, 91, 93 ];
+    if (e.keyCode === 13 || (title.length > 32 && !allowedKeys.includes(e.keyCode))) {
+      e.preventDefault();
+    }
+  }, [title])
+
+  const handleKeyUp = React.useCallback((e) => {
+    if (titleRef.current) {
+      setTitle((titleRef.current as any).textContent);
+    }
+  }, [setTitle])
+
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');
     setPreUploadUrl('');
@@ -122,7 +137,11 @@ const Editor: React.FC<{
 
   const HeaderRight = (
     <Styled.SendButton onClick={handleSubmit}>
-      {article ? '수정' : '작성'}
+      <Icon 
+        icon="vCheck" 
+        size="24px" 
+        color={disabledWrite ? colors.blackEB : colors.black22}
+      />
     </Styled.SendButton>
   )
 
@@ -145,9 +164,12 @@ const Editor: React.FC<{
         <Styled.Form className="Form">
           <Styled.Selector onClick={handleNext}>{selected}</Styled.Selector>
           <Styled.Title
-            value={title}
-            onChange={setTitle}
-            placeholder="제목을 입력하세요."
+            className="Title"
+            ref={titleRef as React.RefObject<HTMLDivElement>}
+            contentEditable
+            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyUp}
+            placeholder={title.length > 0 ? '' : '제목을 입력하세요.'}
           />
           <HR marginTop={30} />
           <Styled.Content

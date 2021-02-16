@@ -69,7 +69,7 @@ const CommentEditor = () => {
 
   return (
     <Editor hasContent={content.length > 0} className="CommentWrapper" >
-      <Context
+      <Content
         className="CommentEditor"
         ref={textEditableRef as React.RefObject<HTMLDivElement>}
         contentEditable
@@ -121,7 +121,7 @@ const Editor = styled.div<{ hasContent: boolean;}>`
       }
     `}
 `;
-const Context = styled.div<{ placeholder?: string }>`
+const Content = styled.div<{ placeholder?: string }>`
   position: relative;
   flex: 1;
   height: auto;

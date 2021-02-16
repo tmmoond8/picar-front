@@ -34,32 +34,49 @@ const Page = styled.div`
   }
 `;
 
-const Title = styled.textarea`
-  width: 100%;
+const Title = styled.div<{ placeholder?: string }>`
+  position: relative;
+  flex: 1;
   height: auto;
-  max-height: 72px;
-  margin-top: 30px;
-  overflow: hidden;
+  min-height: 22px;
+  max-height: 60px;
+  margin: 24px 0 0 0;
+  order: 1;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.58;
+  overflow-y: auto;
 
   outline: none;
   border: none;
-  color: ${colors.black100};
-  font-size: 17px;
-  line-height: 24px;
-  resize: none;
+  transition: all 0.3s ease-in-out;
+
+  &:after {
+    content: ${(p) => (p.placeholder ? `'${p.placeholder}'` : 'none')};
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: ${colors.black99};
+    pointer-events: none;
+  }
+
+  &:focus {
+    &:after {
+      content: none;
+    }
+  }
 `;
 
 const Content = styled.textarea`
   position: relative;
   flex: 1;
   width: 100%;
-  height: 312px;
+  min-height: 312px;
   margin-top: 21px;
 
   font-size: 16px;
   font-weight: normal;
   line-height: 1.4;
-  resize: none;
   &::placeholder {
     color: ${colors.black99};
   }
