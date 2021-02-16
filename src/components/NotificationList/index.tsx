@@ -5,6 +5,7 @@ import React from 'react';
 import { Notification } from '../../types/Notification';
 import CommentNotification from './CommentNotification';
 import EmotionNotification from './EmotionNotification';
+import { colors } from '../../styles';
 
 const NotificationList: React.FC<{ className?: string; notifications: Notification[]
  }> = ({ className, notifications }) => {
@@ -24,6 +25,7 @@ const NotificationList: React.FC<{ className?: string; notifications: Notificati
 export default NotificationList;
 
 const List = styled.ul`
+  background-color: ${colors.white};
   overflow-y: auto;
   flex: 1;
   padding: 4px 0;
