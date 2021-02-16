@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -76,13 +76,14 @@ const ArticleFooter = () => {
       </InteractionCounter>
       <Content.HR size={1} color="" />
       <InteractionPanel>
-        <li onClick={handleClickEmotion}>
+        <Interaction hasInteraction={!!user.emotions[article!.id]} onClick={handleClickEmotion}>
           <Icon icon="emojiSmileOutline" size="20px" /> 공감표현
-        </li>
-        <li onClick={handleClickComment}>
+        </Interaction>
+        <Interaction hasInteraction={!!user.comments[article!.id]} onClick={handleClickComment}>
           <Icon icon="chatOutline" size="20px" /> 댓글쓰기
-        </li>
-        <li
+        </Interaction>
+        <Interaction
+        hasInteraction={false}
           onClick={() => {
             toast(
               "'시작과끝' 활동 알림을 켭니다. 새 글을 작성하면 알림을 보내드려요",
@@ -90,7 +91,7 @@ const ArticleFooter = () => {
           }}
         >
           <Icon icon="share" size="20px" /> 공유하기
-        </li>
+        </Interaction>
       </InteractionPanel>
     </React.Fragment>
   );
@@ -133,13 +134,21 @@ const InteractionPanel = styled.ul`
   color: ${colors.black66};
 
   font-size: 14px;
-  li {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+`;
 
-    svg {
-      margin-right: 6px;
-    }
+const Interaction = styled.li<{ hasInteraction: boolean }>`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .Icon {
+    margin-right: 6px;
   }
+
+  ${p => p.hasInteraction && css`
+    color: ${colors.primary};
+    .Icon {
+      color: ${colors.primary};
+    }
+  `}
 `;

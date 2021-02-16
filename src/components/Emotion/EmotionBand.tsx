@@ -57,7 +57,7 @@ const EmotionBand: React.FC<{ emotionCounts: EmotionCount[] }> = ({
       <Emotions className="Emotions">
         {emotionCounts.map((emotionCount) => (
           <Emotion key={emotionCount.type}>
-            <Icon icon={emotionCount.icon as IconKey} size="18px" />
+            <Icon icon={emotionCount.icon as IconKey} size="24px" />
             <span>{emotionCount.count}</span>
           </Emotion>
         ))}

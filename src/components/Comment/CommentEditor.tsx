@@ -54,6 +54,13 @@ const CommentEditor = () => {
     );
   }, [about, clearAbout, content, handleClose, handleWriteComment, user]);
 
+  const handleFocusEditor = React.useCallback((e) => {
+    e.preventDefault();
+    if (user.needLogin()) {
+      return;
+    }
+  }, [user.isLogined])
+
   const placeholder = React.useMemo(() => {
     if (content.length > 0) return undefined;
     return `${about === null ? '댓글' : '답글'}을 입력하세요`;
@@ -68,8 +75,9 @@ const CommentEditor = () => {
         contentEditable
         placeholder={placeholder}
         onInput={handleChangeContent}
+        onFocus={handleFocusEditor}
       />
-      <UserPhoto src={profilePhoto} />
+      {user.isLogined && <UserPhoto src={profilePhoto} />}
       {ui.queryMatch.Mobile && <SendIconButton
         disabled={disabled}
         icon="send"
@@ -89,7 +97,7 @@ const Editor = styled.div<{ hasContent: boolean;}>`
   left: 0;
   bottom: env(safe-area-inset-bottom);
   width: 100%;
-  align-items: flex-start;
+  align-items: center;
   padding: 18px;
   background: ${colors.white};
   border-top: 1px solid ${colors.blackF5F6F7};
@@ -117,7 +125,7 @@ const Context = styled.div<{ placeholder?: string }>`
   position: relative;
   flex: 1;
   height: auto;
-  min-height: 32px;
+  min-height: 22px;
   max-height: 70px;
   margin: 0 16px;
   order: 1;
