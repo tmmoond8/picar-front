@@ -14,14 +14,14 @@ const GAP = 24;
 
 const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Layout className="TabletLayout">
+    <Layout className="TabletLayoust">
       <DesktopHeader />
       <Body className="TabletBody">
         <Contents className="TabletContents">{children}</Contents>
         <Right className="TabletRight">
           <Aside.PopularArticles />
           <Aside.Advertisement />
-          <Aside.DownloadApp />
+          {/* <Aside.DownloadApp /> */}
           <Aside.Copyrights />
         </Right>
       </Body>
@@ -61,7 +61,6 @@ export default {
 const Layout = styled.div`
   height: 100%;
   padding: ${60 + GAP}px ${GAP}px ${GAP}px ${GAP}px;
-  background-color: ${colors.blackF5F6F7};
   overflow-y: hidden;
 `;
 

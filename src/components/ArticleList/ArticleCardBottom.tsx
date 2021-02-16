@@ -93,7 +93,7 @@ const BookmarkButton = styled(Button)<{ marked: boolean }>`
       background-color: ${colors.primaryE};
       border: none;
       svg {
-        color: ${colors.primary3};
+        color: ${colors.primary};
       }
     `}
 `;

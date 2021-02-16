@@ -1,10 +1,15 @@
 /** @jsx jsx */
 import { jsx, Global, css } from '@emotion/core';
 import emotionReset from 'emotion-reset';
+import colors from './colors';
 
 const customReset = css`
   html {
     font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  body {
+    background-color: ${colors.blackF5F6F7};
   }
 
   html,

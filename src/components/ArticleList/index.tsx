@@ -81,7 +81,6 @@ export default observer(ArticleList);
 const StyledArticleList = styled.ol`
   width: 100%;
   height: 100%;
-  background: ${colors.blackF5F6F7};
   overflow-y: auto;
   li {
     margin-top: 8px;
