@@ -19,7 +19,7 @@ export const useTextField = (initialValue: string, skipCondition?: ((value: stri
   ]
 }
 
-export const useSwitch = (values: OwnerTypes): ['owner' | 'preOwner', (v: 'owner' | 'preOwner') => void] => {
-  const [ value, setValue ] = React.useState<'owner' | 'preOwner'>(values[0].value);
+export const useSwitch = (values: OwnerTypes): ['owner' | 'preOwner' | '', (v: 'owner' | 'preOwner' | '') => void] => {
+  const [ value, setValue ] = React.useState<'owner' | 'preOwner' | ''>('');
   return [ value, setValue ];
 }

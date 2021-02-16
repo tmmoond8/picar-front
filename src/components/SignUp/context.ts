@@ -9,8 +9,8 @@ const SignUpContext = React.createContext<{
   setStep: (v: number) => void;
   nicknameField: TextFieldHandler;
   emailField: TextFieldHandler;
-  ownerType: string;
-  setOwnerType: (v: 'owner' | 'preOwner') => void;
+  ownerType: 'owner' | 'preOwner' | '';
+  setOwnerType: (v: 'owner' | 'preOwner' | '') => void;
   onClose: () => void;
   lounge: string;
   setLounge: (v: string) => void;
@@ -19,7 +19,7 @@ const SignUpContext = React.createContext<{
   setStep: () => {},
   nicknameField: ['', () => {}, () => {}],
   emailField: ['', () => {}, () => {}],
-  ownerType: 'owner',
+  ownerType: '',
   setOwnerType: () => {},
   onClose: () => {},
   lounge: '',

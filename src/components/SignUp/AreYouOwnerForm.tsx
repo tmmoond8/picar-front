@@ -12,7 +12,7 @@ import { colors } from '../../styles';
 const AreYouOwner: React.FC<{ handleNext: () => void }> = ({ handleNext }) => {
   const { ownerType: selectedOwnerType, setOwnerType } = useSignUpContext();
   const handleClickSelectButton = React.useCallback(
-    (ownerType: 'owner' | 'preOwner') => {
+    (ownerType: 'owner' | 'preOwner' | '') => {
       setOwnerType(ownerType);
     },
     [setOwnerType],
