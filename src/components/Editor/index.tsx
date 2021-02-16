@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { useStore } from '../../stores';
-import { useTextarea } from '../../hooks';
 import { AllLoungeList, useSelector } from '../LoungeSelector';
 import PhotoUploader from '../PhotoUploader';
 import Icon from '../Icon';
@@ -29,7 +28,7 @@ const Editor: React.FC<{
   );
   const [step, setStep] = React.useState(0);
   const [title, setTitle] = React.useState(article?.title ?? '');
-  const [content, setContent] = useTextarea(article?.content ?? '');
+  const [content, setContent] = React.useState(article?.content ?? '');
   const { 
     uploadedUrl,
     preUploadUrl,
@@ -39,6 +38,7 @@ const Editor: React.FC<{
     setThumbnailUrl 
   } = PhotoUploader.usePhotoUPloader(article?.photos?.thumbnail ?? undefined);
   const titleRef = React.useRef<HTMLDivElement>(null);
+  const contentRef = React.useRef<HTMLDivElement>(null);
 
   const validate = React.useCallback(() => {
     if (title.length === 0) {
@@ -102,11 +102,17 @@ const Editor: React.FC<{
     }
   }, [title])
 
-  const handleKeyUp = React.useCallback((e) => {
+  const handleKeyUpTitle = React.useCallback((e) => {
     if (titleRef.current) {
       setTitle((titleRef.current as any).textContent);
     }
   }, [setTitle])
+
+  const handleKeyUpContent = React.useCallback((e) => {
+    if (contentRef.current) {
+      setContent((contentRef.current as any).textContent);
+    }
+  }, [setContent])
 
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');
@@ -168,14 +174,16 @@ const Editor: React.FC<{
             ref={titleRef as React.RefObject<HTMLDivElement>}
             contentEditable
             onKeyDown={handleKeyDown}
-            onKeyUp={handleKeyUp}
+            onKeyUp={handleKeyUpTitle}
             placeholder={title.length > 0 ? '' : '제목을 입력하세요.'}
           />
           <HR marginTop={30} />
           <Styled.Content
-            value={content}
-            onChange={setContent}
-            placeholder="내용을 입력하세요."
+            className="Content"
+            ref={contentRef as React.RefObject<HTMLDivElement>}
+            contentEditable
+            onKeyUp={handleKeyUpContent}
+            placeholder={content.length > 0 ? '' : '내용을 입력하세요.'}
           />
           {preUploadUrl && (
             <Styled.Image

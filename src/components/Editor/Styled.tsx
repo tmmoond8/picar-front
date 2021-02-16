@@ -67,21 +67,37 @@ const Title = styled.div<{ placeholder?: string }>`
   }
 `;
 
-const Content = styled.textarea`
+const Content = styled.div<{ placeholder?: string }>`
   position: relative;
   flex: 1;
-  width: 100%;
-  min-height: 312px;
-  margin-top: 21px;
+  height: auto;
+  min-height: 260px;
+  margin: 24px 0;
+  order: 1;
+  color: ${colors.black33};
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 26px;
+  overflow-y: auto;
 
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1.4;
-  &::placeholder {
-    color: ${colors.black99};
-  }
   outline: none;
   border: none;
+  transition: all 0.3s ease-in-out;
+
+  &:after {
+    content: ${(p) => (p.placeholder ? `'${p.placeholder}'` : 'none')};
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: ${colors.black99};
+    pointer-events: none;
+  }
+
+  &:focus {
+    &:after {
+      content: none;
+    }
+  }
 `;
 
 const Tools = styled.div`
