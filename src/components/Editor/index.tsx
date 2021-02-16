@@ -168,7 +168,10 @@ const Editor: React.FC<{
         gesture={false}
       >
         <Styled.Form className="Form">
-          <Styled.Selector onClick={handleNext}>{selected}</Styled.Selector>
+          <Styled.Selector onClick={handleNext}>
+            {selected}
+            <Icon icon="arrowDown" size="16px"/>
+          </Styled.Selector>
           <Styled.Title
             className="Title"
             ref={titleRef as React.RefObject<HTMLDivElement>}

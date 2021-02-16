@@ -110,6 +110,8 @@ const Tools = styled.div`
 `;
 
 const Selector = styled.button`
+  display: flex;
+  align-items: center;
   font-size: 13px;
   font-weight: 500;
   line-height: 2;
@@ -118,6 +120,10 @@ const Selector = styled.button`
   border-radius: 8px;
   padding: 0 10px;
   cursor: pointer;
+
+  .Icon.arrowDown {
+    margin: 0 0 0 6px;
+  }
 `
 
 const UploadButton = styled(Button)`
