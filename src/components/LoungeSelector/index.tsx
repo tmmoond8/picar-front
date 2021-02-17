@@ -22,8 +22,9 @@ const LoungeSelector: React.FC<{
   setSelected: (value: string) => void;
   label?: string;
   all?: boolean;
+  myLounge?: string;
 }> = ({
-  selected, setSelected, className, label, all = false,
+  selected, setSelected, className, label, all = false, myLounge,
 }) => {
   const modal = useModal();
   const handleSelect = React.useCallback((value: string) => {
@@ -37,8 +38,8 @@ const LoungeSelector: React.FC<{
       title: '라운지 선택',
       contents: (
         <React.Fragment>
-          {all && <AllLoungeList handleSelect={handleSelect}/> }
-          {!all && <LoungeList handleSelect={handleSelect}/>}
+          {all && <AllLoungeList handleSelect={handleSelect} myLounge={myLounge}/> }
+          {!all && <LoungeList handleSelect={handleSelect} myLounge={myLounge}/>}
         </React.Fragment>
       ),
       isFull: true,
@@ -63,15 +64,24 @@ export default LoungeSelector;
 export const AllLoungeList: React.FC<{
   handleSelect: (value: string) => void;
   className?: string;
-}> = ({ handleSelect, className }) => {
+  myLounge?: string;
+}> = ({ handleSelect, className, myLounge }) => {
+  console.log(myLounge);
 
   return (
     <List className={cx('AllLoungeList', className)}>
-      <Lounge lounge="업종라운지" icon="add" disabled/>
+      <Lounge lounge="업종라운지" icon="add" disabled />
       {NAVIGATIONS.map(({ name }) => (
         name === LOUNGE ? (
           LOUNGES.map(({ name }) => (
-            <Lounge key={name} lounge={name} icon="arrowRight" isSubMenu onClick={() => handleSelect(name)}/>
+            <Lounge 
+              key={name} 
+              lounge={name} 
+              icon="arrowRight" 
+              isSubMenu 
+              onClick={() => handleSelect(name)}
+              isMyLounge={myLounge === name}
+            />
           ))
         ) :
         <Lounge key={name} lounge={name} icon="arrowRight" onClick={() => handleSelect(name)}/>
@@ -82,12 +92,20 @@ export const AllLoungeList: React.FC<{
 
 export const LoungeList: React.FC<{
   handleSelect: (value: string) => void
-}> = ({ handleSelect }) => {
+  myLounge?: string;
+}> = ({ handleSelect, myLounge }) => {
+  console.log(myLounge);
 
   return (
     <List>
       {LOUNGES.map(({ name }) => (
-        <Lounge key={name} lounge={name} icon="arrowRight" onClick={() => handleSelect(name)}/>
+        <Lounge 
+          key={name} 
+          lounge={name} 
+          icon="arrowRight" 
+          onClick={() => handleSelect(name)}
+          isMyLounge={myLounge === name}
+        />
       ))}
     </List>
   )
@@ -127,11 +145,29 @@ const List = styled.ol`
   font-size: 17px;
   color: ${colors.black22};
 
-  li {
+  .Lounge {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 13px 15px 14px 18px;
     cursor: pointer;
+
+    .Name {
+      display: flex;
+      align-items: center;
+    }
+
+    .Badge { 
+      height: 16px;
+      line-height: 13px;
+      margin: 0 0 0 12px;
+      padding: 0 5px;
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 500;
+      background-color: ${colors.black22};
+      color: ${colors.blackF7};
+    }
   }
 
   .subMenu {
@@ -148,14 +184,17 @@ const Lounge: React.FC<{
   lounge: string;
   icon: IconKey;
   isSubMenu?: boolean;
+  isMyLounge?: boolean;
   disabled?: boolean;
   onClick?: () => void;
 }> = ({
-  lounge, icon, onClick = () => {}, isSubMenu = false, disabled = false
+  lounge, icon, onClick = () => {}, isSubMenu = false, disabled = false, isMyLounge = false,
 }) => {
   return (
-    <li onClick={onClick} className={cx(disabled ? 'disabled' : '', isSubMenu ? 'subMenu' : '')}>
-      {lounge}
+    <li 
+      onClick={onClick} 
+      className={cx('Lounge', disabled ? 'disabled' : '', isSubMenu ? 'subMenu' : '')}>
+      <p className="Name">{lounge}{isMyLounge && <span className="Badge">my</span>}</p>
       <Icon icon={icon} size="16px" color={colors.blackBF}/>
     </li>
   )

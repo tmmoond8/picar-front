@@ -1,17 +1,14 @@
-<svg fill="red" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-    <defs color="red" fill="red">
-        <filter fill="red"  id="5ganj2qlxa">
-            <feColorMatrix fill="red"  in="SourceGraphic" values="0 0 0 0 0.466667 0 0 0 0 0.466667 0 0 0 0 0.466667 0 0 0 1.000000 0"/>
-        </filter>
+<svg style="transform: rotate(270deg)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <path id="gvjyqwcnya" d="M10.414 12l5.293-5.293c.39-.39.39-1.024 0-1.414-.39-.39-1.024-.39-1.414 0l-6 6c-.39.39-.39 1.024 0 1.414l6 6c.39.39 1.024.39 1.414 0 .39-.39.39-1.024 0-1.414L10.414 12z"/>
     </defs>
-    <g fill="none"  fill-rule="evenodd">
+    <g fill-rule="evenodd" >
         <g>
-            <g fill="none "  filter="url(#5ganj2qlxa)" transform="translate(-2383 -1055) translate(2295 1044)">
-                <g>
-                    <path d="M0 0H16V16H0z" transform="translate(88 11)"/>
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6L8 10 12 6" transform="translate(88 11)"/>
-                </g>
-            </g>
+            <mask id="n9h65njezb" >
+                <use xlink:href="#gvjyqwcnya"/>
+            </mask>
+            <use fill="currentColor" fill-rule="nonzero" xlink:href="#gvjyqwcnya"/>
+            <path fill="currentColor" d="M0 0H24V24H0z" mask="url(#n9h65njezb)"/>
         </g>
     </g>
 </svg>

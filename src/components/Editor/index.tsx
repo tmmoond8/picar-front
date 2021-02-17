@@ -21,7 +21,7 @@ const Editor: React.FC<{
   syncArticle: (article: Article) => void;
   onClose: () => void;
 }> = ({ article, group, syncArticle, onClose }) => {
-  const { util } = useStore();
+  const { util, user } = useStore();
   const history = util.useHistory();
   const [selected, setSelected] = useSelector(
     article?.group ?? group,
@@ -211,7 +211,7 @@ const Editor: React.FC<{
             </PhotoUploader.Uploader>
           </Styled.Tools>
         </Styled.Form>
-        <AllLounges handleSelect={handleSelect}/>
+        <AllLounges handleSelect={handleSelect} myLounge={user.profile.group}/>
       </Carousel>
     </Styled.Page>
   );
