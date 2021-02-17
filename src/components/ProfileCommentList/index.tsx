@@ -53,20 +53,22 @@ const Item = styled.li`
   cursor: pointer;
 
   .CommentContent {
+    line-height: 1.38;
     font-size: 16px;
     font-weight: 500;
-    line-height: 1.38;
+    word-break: break-all;
     color: ${colors.black33};
   }
 
   .ArticleTitle {
     display: flex;
     align-items: center;
+    line-height: 1.14;
     margin: 10px 0 0 0;
     font-size: 14px;
-    line-height: 1.14;
     color: ${colors.black99};
     letter-spacing: -0.25px;
+    word-break: break-all;
 
     .Icon.articleNew {
       display: inline-block;

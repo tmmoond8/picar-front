@@ -66,6 +66,7 @@ const customReset = css`
   select:focus,
   textarea {
     font-size: 16px;
+    -webkit-appearance: none;
   }
 `;
 

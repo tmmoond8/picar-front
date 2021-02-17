@@ -126,7 +126,6 @@ const Field = styled.textarea<{ error: boolean; focus: boolean }>`
   border-radius: 8px;
   outline: none;
   resize: none;
-  -webkit-appearance: none;
 
   ${(p) =>
     p.focus &&

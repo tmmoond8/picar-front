@@ -32,9 +32,7 @@ const ModificationForm = () => {
   );
   const descriptionSkip = (value: string) => value.length > 80;
   const [description, onChangeDescription] = Input.useTextField(
-    user.profile.description ||
-      `삼산텍을 창업하고 소프트웨어 엔지니어로
-    일하고 있습니다. AI기술로 세상을 바꾸고 싶습니다`,
+    user.profile.description ?? '',
     descriptionSkip,
   );
 
@@ -150,7 +148,7 @@ const CameraIcon = styled(Icon)`
 
 const InputBox = styled(Input.TextFieldOutline)`
   margin: 14px 0 0 0;
-  .Field {
+  #ProfileIntoduction {
     height: 127px;
   }
   & + & {
