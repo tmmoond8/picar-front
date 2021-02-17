@@ -46,11 +46,11 @@ const Mobile = () => {
         </Profile.UserHistoryMenus>
         <HR height={1} color={colors.blackF5F6F7} />
         <Profile.AppMenus>
-          <li onClick={() => util.history.push('/notice')}>
+        <li onClick={() => window.open('https://www.notion.so/taem/d7e6d7a18ec849b3b543e7389b0bd5fe', '_blank')}>
             공지사항
             <Icon icon="arrowRight" size="16px" />
           </li>
-          <li onClick={() => util.history.push('/qna')}>
+          <li onClick={() => window.open('https://www.notion.so/taem/2fbdb025be1c45748504f74d33eda2d3', '_blank')}>
             자주 묻는 질문
             <Icon icon="arrowRight" size="16px" />
           </li>

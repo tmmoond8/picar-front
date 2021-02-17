@@ -161,14 +161,14 @@ function useProfile() {
           {
             name: '공지사항',
             onClick: () => {
-              util.history.push('/notice');
+              window.open('https://www.notion.so/taem/d7e6d7a18ec849b3b543e7389b0bd5fe', '_blank')
               contextMenu.close();
             },
           },
           {
             name: '자주 묻는 질문',
             onClick: () => {
-              util.history.push('/qna');
+              window.open('https://www.notion.so/taem/2fbdb025be1c45748504f74d33eda2d3', '_blank')
               contextMenu.close();
             },
           },

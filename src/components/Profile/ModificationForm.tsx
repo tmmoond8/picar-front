@@ -151,6 +151,9 @@ const CameraIcon = styled(Icon)`
 
 const InputBox = styled(Input.TextFieldOutline)`
   margin: 14px 0 0 0;
+  .Field {
+    height: 127px;
+  }
   & + & {
     margin: 0;
   }
