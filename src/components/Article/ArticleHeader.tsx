@@ -42,7 +42,7 @@ const ArticleHeader: React.FC = () => {
   const handleGoBack = () => util.history.goBack();
 
   return (
-    <Nav >
+    <Header >
       {ui.queryMatch.Mobile && <Icon icon="back" size="24px" color={colors.black} onClick={handleGoBack}/>}
       {(ui.queryMatch.Tablet || ui.queryMatch.Desktop) && (<Left>{breadbump}</Left>)}
       <Right>
@@ -59,7 +59,7 @@ const ArticleHeader: React.FC = () => {
           onClick={handleClickMore}
         />}
       </Right>
-    </Nav>
+    </Header>
   );
 }
 
@@ -67,7 +67,7 @@ export default observer(ArticleHeader);
 
 const HEIGHT = 56;
 
-const Nav = styled.nav`
+const Header = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;

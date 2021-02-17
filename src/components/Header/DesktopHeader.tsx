@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import SearchInput from '../Search/SearchInput';
 import { useTextField } from '../Input/hooks';
 import Profile from '../Profile';
-import { useContextMenu } from '../ContextMenu';
+import { useContextMenu, getElementPosition } from '../ContextMenu';
 import { colors } from '../../styles';
 import APIS from '../../apis';
 import Icon from '../Icon';
@@ -147,15 +147,9 @@ function useProfile() {
       if (!user.isLogined) {
         return;
       }
-      const {
-        x,
-        width,
-        y,
-        height,
-      } = (e.target as HTMLElement).getBoundingClientRect();
+      const positions = getElementPosition(e.target as HTMLElement);
       contextMenu.open({
-        xPosition: x + width / 2,
-        yPosition: y + height,
+        ...positions,
         menus: [
           {
             name: '내 프로필',
