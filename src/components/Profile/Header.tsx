@@ -10,7 +10,7 @@ import APIS from '../../apis';
 import { useContextMenu, getElementPosition } from '../ContextMenu';
 
 const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
-  const { user, util, ui } = useStore();
+  const { user, util } = useStore();
   const [ count, setCount ] = React.useState(0);
   const { code } = user.profile;
   const contextMenu = useContextMenu();

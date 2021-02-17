@@ -5,6 +5,7 @@ import React from 'react';
 import cx from 'classnames';
 import Photo from './Photo';
 import { colors } from '../../styles';
+import { useStore, observer } from '../../stores';
 
 const Profile: React.FC<{
   className?: string;
@@ -13,55 +14,59 @@ const Profile: React.FC<{
   profileImage?: string;
   description: string | null;
 }> = ({ name, group, description, profileImage, className }) => {
+  const { util } = useStore();
+  const handleClickEditIntroduction = React.useCallback(() => {
+    util.history.push('/myProfile/edit', { focus: 'ProfileIntoduction'});
+  }, [])
+
   return (
-    <Wrapper className={cx('Profile', className)}>
-      <UserProfile>
-        <Photo className="profilePhoto" src={profileImage} size={60} />
-        <UserNameGroup>
-          <h2 className="name">{name}</h2>
-          <h4 className="group">{group}</h4>
-        </UserNameGroup>
-      </UserProfile>
-      <Introduction>
-        {description ??
-          '삼산텍을 창업하고 소프트웨어 엔지니어로 일하고 있습니다. AI기술로 세상을 바꾸고 싶습니다.'}
-      </Introduction>
-    </Wrapper>
+    <UserProfile className={cx('Profile', className)}>
+      <Photo className="Photo" src={profileImage} size={96} />
+      <h2 className="Name">{name}</h2>
+      <h4 className="Group">{group}</h4>
+      {description && <p className="Introduction">{description}</p>}
+      {!description && <p className="EditIntrodution" onClick={handleClickEditIntroduction}>프로필 소개 추가...</p>}
+    </UserProfile>
   );
 };
 
-export default React.memo(Profile);
-
-const Wrapper = styled.div``;
+export default observer(Profile);
 
 const UserProfile = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 88px;
-  text-align: center;
-  .profilePhoto {
+
+  .Photo {
     display: inline-block;
+    margin: 12px 0 0 0;
   }
-`;
 
-const UserNameGroup = styled.div`
-  margin: 0 0 0 16px;
-  text-align: left;
-
-  .name {
-    font-size: 18px;
+  .Name {
+    margin: 12px 0 0 0;
+    font-size: 17px;
     font-weight: 500;
+    color: ${colors.black22}
   }
-  .group {
-    margin: 5px 0 0 0;
+
+  .Group {
+    margin: 2px 0 0 0;
     color: ${colors.black77};
     font-size: 14px;
   }
-`;
 
-const Introduction = styled.h3`
-  padding: 8px 0;
-  font-size: 15px;
-  line-height: 25px;
-  color: ${colors.black66};
+  .Introduction, .EditIntrodution {
+    width: 100%;
+    margin: 12px 0 0 0;
+    padding: 12px 28px;
+    font-size: 15px;
+    color: ${colors.black77};
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  .EditIntrodution {
+    color: ${colors.primary};
+    cursor: pointer;
+  }
 `;

@@ -2,25 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import Button from '../Button';
 import { colors } from '../../styles';
-
-
-export const ProfileModifyButton = styled(Button)`
-  width: 100%;
-  height: 48px;
-  margin: 26px 0 0 0;
-  background-color: ${colors.blackF5F6F7};
-  border-radius: 8px;
-  border: none;
-  span {
-    margin: 0 auto;
-    font-size: 15px;
-    line-height: 24px;
-    color: ${colors.black22};
-    font-weight: 600;
-  }
-`;
 
 export const UserHistoryMenus = styled.ul`
   display: flex;

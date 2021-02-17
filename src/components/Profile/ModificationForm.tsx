@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useLocation } from 'react-router';
 import { useStore, observer } from '../../stores';
 import Photo from './Photo';
 import Input from '../Input';
@@ -14,6 +15,7 @@ import { colors } from '../../styles';
 
 const ModificationForm = () => {
   const { user, util, ui } = useStore();
+  const location = useLocation();
   const {
     preUploadUrl,
     thumbnailUrl,
@@ -36,6 +38,15 @@ const ModificationForm = () => {
     일하고 있습니다. AI기술로 세상을 바꾸고 싶습니다`,
     descriptionSkip,
   );
+
+  React.useEffect(() => {
+    if (location.state && 'focus' in location.state) {
+      const focusedElement = document.querySelector(`#${location.state['focus']}`);
+      if (focusedElement) {
+        (focusedElement as HTMLElement).focus();
+      }
+    }
+  }, [location.state])
 
   const handleSubmit = React.useCallback(async () => {
     try {
@@ -89,7 +100,7 @@ const ModificationForm = () => {
           </PHotoUploaderButton>
         </ImageUploader>
         <InputBox
-          id="profile-nickname"
+          id="ProfileNickname"
           onChange={onChangeName}
           value={name}
           placeholder="닉네임을 입력해주세요"
@@ -98,7 +109,7 @@ const ModificationForm = () => {
         />
         <Selector label="업종" selected={group} setSelected={setGroup} />
         <InputBox
-          id="profile-description"
+          id="ProfileIntoduction"
           onChange={onChangeDescription}
           value={description}
           label="소개"
@@ -115,6 +126,7 @@ export default observer(ModificationForm);
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  height: 100%;
   padding: 26px 18px;
   background-color: ${colors.white};
   overflow-y: auto;

@@ -23,7 +23,7 @@ const menus = [
 const Mobile = () => {
   const { user, util } = useStore();
   const { profileImage, name, group, description } = user.profile;
-  const { handleModifyProfile, handleOpenUserActivations } = useProfileHandler();
+  const { handleOpenUserActivations } = useProfileHandler();
   
   return (
     <React.Fragment>
@@ -35,10 +35,7 @@ const Mobile = () => {
           profileImage={profileImage}
           description={description}
         />
-        <Profile.ProfileModifyButton onClick={handleModifyProfile}>
-          프로필 수정
-        </Profile.ProfileModifyButton>
-        <HR height={1} color={colors.blackF5F6F7} marginTop={26} />
+        <HR height={1} color={colors.blackF5F6F7} marginTop={12} />
         <Profile.UserHistoryMenus>
           {menus.map(({ menu, icon, key }) => (
             <Profile.UserHistoryMenu key={key} onClick={() => handleOpenUserActivations(key)}>
@@ -57,10 +54,6 @@ const Mobile = () => {
             자주 묻는 질문
             <Icon icon="arrowRight" size="16px" />
           </li>
-          <li>
-            앱 설정
-            <Icon icon="arrowRight" size="16px" />
-          </li>
         </Profile.AppMenus>
       </Body>
       <StyledMenuBar />
@@ -71,8 +64,7 @@ const Mobile = () => {
 const Tablet = () => {
   const { user } = useStore();
   const [contentHeight, setContentHeight ] = React.useState('0px');
-  const { profileImage, name, group, description, code } = user.profile;
-  const { handleModifyProfile } = useProfileHandler();
+  const { profileImage, name, group, description } = user.profile;
   const handleChangeActication = React.useCallback((index: number) => {
     const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
     if (cameraElement) {
@@ -100,9 +92,6 @@ const Tablet = () => {
           profileImage={profileImage}
           description={description}
         />
-        <Profile.ProfileModifyButton onClick={handleModifyProfile}>
-          프로필 수정
-        </Profile.ProfileModifyButton>
       </Body>
       <Activations 
         userCode={user.profile.code} 
