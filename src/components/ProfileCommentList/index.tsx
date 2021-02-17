@@ -2,17 +2,23 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Comment from '../../types/Comment';
 import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 import Icon from '../Icon';
 
 const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
+  const history = useHistory();
+
+  const handleClickArticle = React.useCallback((id: number) => {
+    history.push(`/article/${id}`);
+  }, [history]);
 
   return (
     <List>
       {comments.map((comment) => (
-        <Item className="Comment">
+        <Item className="Comment" onClick={() => handleClickArticle(comment.articleId)}>
           <h2 className="CommentContent">{comment.content}</h2>
           <h3 className="ArticleTitle"><Icon icon="articleNew" size="16px"/>{comment.article!.title}</h3>
           <div className="CommentFooter">
@@ -44,6 +50,7 @@ const Item = styled.li`
   padding: 15px 18px;
   background-color: ${colors.white};
   box-sizing: content-box;
+  cursor: pointer;
 
   .CommentContent {
     font-size: 16px;

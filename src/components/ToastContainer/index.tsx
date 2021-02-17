@@ -49,7 +49,6 @@ const StyledToastContainer = styled(ToastContainer)<{ desktop: boolean }>`
     top: 64px;
     bottom: auto;
     padding: 0;
-    z-index: 999;
     .Toastify__toast {
       color: ${colors.primary};
       font-weight: bold;
