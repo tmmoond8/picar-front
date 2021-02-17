@@ -33,10 +33,6 @@ const CommentEditor = () => {
   }, [setEditorRef, textEditableRef]);
 
   const handleClickSend = React.useCallback(() => {
-    if (user.needLogin()) {
-      typeof handleClose === 'function' && handleClose();
-      return;
-    }
     handleWriteComment(
       content,
       (result, error) => {
@@ -54,37 +50,44 @@ const CommentEditor = () => {
     );
   }, [about, clearAbout, content, handleClose, handleWriteComment, user]);
 
-  const handleFocusEditor = React.useCallback((e) => {
-    e.preventDefault();
-    if (user.needLogin()) {
-      return;
-    }
-  }, [user.isLogined])
-
   const placeholder = React.useMemo(() => {
     if (content.length > 0) return undefined;
     return `${about === null ? '댓글' : '답글'}을 입력하세요`;
   }, [about, content.length]);
   const disabled = React.useMemo(() => content.trim().length === 0, [content]);
 
+  const clickNeedLogin = React.useCallback(() => {
+    if (user.needLogin()) {
+      typeof handleClose === 'function' && handleClose();
+      return;
+    }
+  }, [user, handleClose])
+  
+
   return (
     <Editor hasContent={content.length > 0} className="CommentWrapper" >
-      <Content
-        className="CommentEditor"
-        ref={textEditableRef as React.RefObject<HTMLDivElement>}
-        contentEditable
-        placeholder={placeholder}
-        onInput={handleChangeContent}
-        onFocus={handleFocusEditor}
-      />
-      {user.isLogined && <UserPhoto src={profilePhoto} />}
-      {ui.queryMatch.Mobile && <SendIconButton
-        disabled={disabled}
-        icon="send"
-        size="24px"
-        onClick={handleClickSend}
-      />}
-      {!ui.queryMatch.Mobile && <SendButton disabled={disabled} onClick={handleClickSend}>댓글작성</SendButton>}
+      {user.isLogined && (
+        <React.Fragment>
+          <Content
+          className="CommentEditor"
+          ref={textEditableRef as React.RefObject<HTMLDivElement>}
+          contentEditable
+          placeholder={placeholder}
+          onInput={handleChangeContent}
+        />
+        {user.isLogined && <UserPhoto src={profilePhoto} />}
+        {ui.queryMatch.Mobile && <SendIconButton
+          disabled={disabled}
+          icon="send"
+          size="24px"
+          onClick={handleClickSend}
+        />}
+        {!ui.queryMatch.Mobile && <SendButton disabled={disabled} onClick={handleClickSend}>댓글작성</SendButton>}
+        </React.Fragment>
+      ) }
+      {!user.isLogined && (
+        <NeedLogin onClick={clickNeedLogin}>로그인이 필요합니다.</NeedLogin>
+      )}
     </Editor>
   );
 };
@@ -191,4 +194,11 @@ const SendButton = styled(Button)<{disabled: boolean}>`
   border: none;
   outline: none;
   pointer-events: ${p => p.disabled ? 'none': 'pointer'};
-  `
+`
+
+const NeedLogin = styled.div`
+  width: 100%;
+  font-size: 16px;
+  color: ${colors.black99};
+  cursor: pointer;
+`;
