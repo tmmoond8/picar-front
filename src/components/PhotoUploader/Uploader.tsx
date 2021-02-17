@@ -8,10 +8,11 @@ import API from '../../apis';
 const Uploader: React.FC<{
   className?: string;
   children: React.ReactNode;
-  setThumbnailUrl: (thumbnailUrl: string) => void; 
-  setUploadedUrl: (imgUrl: string) => void;
+  setProfileUrl?: (url: string) => void; 
+  setThumbnailUrl?: (url: string) => void; 
+  setUploadedUrl?: (url: string) => void;
   setPreUploadUrl: (preUploadUrl: string) => void;
-}> = ({ className, children, setUploadedUrl, setPreUploadUrl, setThumbnailUrl }) => {
+}> = ({ className, children, setUploadedUrl, setPreUploadUrl, setThumbnailUrl, setProfileUrl }) => {
   const hiddenInputRef = React.useRef<HTMLInputElement>(null);
   const handleChangeFile = async (event: React.ChangeEvent) => {
     event.preventDefault();
@@ -24,12 +25,25 @@ const Uploader: React.FC<{
         reader.readAsDataURL(files[0]);
         reader.onload = () => setPreUploadUrl(reader!.result!.toString());
 
-        Promise.all([
-          API.imageUpload(files[0], 'owwners_post'), 
-          API.imageUpload(files[0], 'owwners_thumbnail')]
-        ).then(([postImage, thumbnailImage]) => {
-          setUploadedUrl(postImage.imgUrl);
-          setThumbnailUrl(thumbnailImage.imgUrl);
+        const uploaders = [];
+        const setImages: ((url: string) => void)[] = [];
+        if (setProfileUrl) {
+          uploaders.push(API.imageUpload(files[0], 'owwners_profile'));
+          setImages.push(setProfileUrl);
+        }
+        if (setThumbnailUrl) {
+          uploaders.push(API.imageUpload(files[0], 'owwners_thumbnail'));
+          setImages.push(setThumbnailUrl);
+        }
+        if (setUploadedUrl) {
+          uploaders.push(API.imageUpload(files[0], 'owwners_post'));
+          setImages.push(setUploadedUrl);
+        }
+
+        Promise.all(uploaders).then((uploaedImages) => {
+          uploaedImages.forEach((image, index) => {
+            setImages[index](image.imgUrl);
+          })
         }).catch(error => {
           throw new Error(error);
         });

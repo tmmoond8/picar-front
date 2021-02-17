@@ -5,8 +5,9 @@ const emptyImage = 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1
 export const usePhotoUPloader = (defaultImage?: string) => {
   const [uploadedUrl, setUploadedUrl ] = useState(defaultImage ?? emptyImage);
   const [preUploadUrl, setPreUploadUrl] = useState(defaultImage ?? emptyImage);
-  const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [thumbnailUrl, setThumbnailUrl] = useState(defaultImage ?? emptyImage);
+  const [profileUrl, setProfileUrl] = useState(defaultImage ?? emptyImage);
   return {
-    uploadedUrl, setUploadedUrl, preUploadUrl, setPreUploadUrl, thumbnailUrl, setThumbnailUrl
+    uploadedUrl, setUploadedUrl, preUploadUrl, setPreUploadUrl, thumbnailUrl, setThumbnailUrl, profileUrl, setProfileUrl,
   }
 }

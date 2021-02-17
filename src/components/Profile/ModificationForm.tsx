@@ -18,10 +18,9 @@ const ModificationForm = () => {
   const location = useLocation();
   const {
     preUploadUrl,
-    thumbnailUrl,
-    setUploadedUrl,
+    profileUrl,
+    setProfileUrl,
     setPreUploadUrl,
-    setThumbnailUrl,
   } = PhotoUploader.usePhotoUPloader(user.profile.profileImage);
   const nicknameSkip = (value: string) => value.length > 10;
   const [name, onChangeName] = Input.useTextField(
@@ -53,23 +52,24 @@ const ModificationForm = () => {
       await APIS.user.update({
         name,
         group,
-        profileImage: thumbnailUrl,
+        profileImage: profileUrl,
         description,
       });
       user.profile = {
         ...user.profile,
         name,
         group,
-        profileImage: thumbnailUrl,
+        profileImage: profileUrl,
         description,
       };
       util.history.goBack();
     } catch (error) {
       console.log(error);
     }
-  }, [description, group, name, user.profile, thumbnailUrl]);
+  }, [description, group, name, user.profile, profileUrl]);
 
   const disabled = 
+    user.profile.profileImage === profileUrl &&
     user.profile.name === name &&
     user.profile.group === group && 
     user.profile.description === description;
@@ -90,9 +90,8 @@ const ModificationForm = () => {
       />
       <Form>
         <ImageUploader
-          setUploadedUrl={setUploadedUrl}
+          setProfileUrl={setProfileUrl}
           setPreUploadUrl={setPreUploadUrl}
-          setThumbnailUrl={setThumbnailUrl}
         >
           <PHotoUploaderButton>
             <StyledPhoto size={72} src={preUploadUrl} />

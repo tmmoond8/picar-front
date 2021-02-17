@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-type Presets = 'owwners_thumbnail' | 'owwners_post';
+type Presets = 'owwners_thumbnail' | 'owwners_post' | 'owwners_profile';
 
 export default async function (
   file: File | string, preset: Presets
