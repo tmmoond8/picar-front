@@ -9,13 +9,13 @@ import { colors } from '../../styles';
 
 const NotificationList: React.FC<{ className?: string; notifications: Notification[]
  }> = ({ className, notifications }) => {
-   
   return (
     <List className={className}>
       {notifications.map((notification) => (
-        <React.Fragment>
-          {notification.target === 'comment' && <CommentNotification {...notification}/>}
-          {notification.target === 'emotion' && <EmotionNotification {...notification}/>}
+        <React.Fragment key={notification.id}>
+          {notification.type === 'comment' && <CommentNotification {...notification}/>}
+          {notification.type === 'emotion' && <EmotionNotification {...notification}/>}
+          {notification.type === 'reply' && <CommentNotification {...notification}/>}
         </React.Fragment>
       ))}
     </List>

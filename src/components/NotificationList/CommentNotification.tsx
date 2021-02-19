@@ -18,7 +18,8 @@ const CommentNotification: React.FC<Notification & { className?: string}> = ({
   createAt,
   isViewd,
   id,
-  articleId
+  articleId,
+  type,
 }) => {
   const { user: userStore, util } = useStore();
   const history = util.useHistory();
@@ -41,7 +42,7 @@ const CommentNotification: React.FC<Notification & { className?: string}> = ({
     <NotificationItem isViewd={isViewd} className={className} onClick={handleCheckView}>
       <Profile.Photo src={user.profileImage} size={48}/>
       <Contents>
-        <Title>{`${user.name}  님이 댓글을 남겼습니다.`}</Title>
+        <Title>{`${user.name}  님이 ${type === 'comment' ? '댓글' : '답글'}을 남겼습니다.`}</Title>
         <ArticleTitle>
           <Icon icon="articleNew" size="16px"/>
           {targetContent}
