@@ -10,7 +10,7 @@ import { useModal } from '../Modal';
 import ProfileContainer from '../Profile/ProfileContainer';
 
 interface ArticleCardHeadProps {
-  profileImage: string;
+  profileImage?: string;
   name: string;
   group: string;
   createAt: string;
@@ -18,7 +18,7 @@ interface ArticleCardHeadProps {
 }
 
 const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
-  profileImage,
+  profileImage = 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1613735392/noticon/ggaqjh4wfjf0miavt4dc.png',
   name,
   group,
   createAt,

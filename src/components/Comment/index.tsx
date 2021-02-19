@@ -14,12 +14,12 @@ const CommentArea: React.FC<{
   setCommentCount: (count: number) => void;
   userCode: string;
   articleAuthorCode: string;
-  profilePhoto: string;
+  profilePhoto?: string;
   handleClose?: () => void;
 }> = ({
   articleId,
   setCommentCount,
-  profilePhoto,
+  profilePhoto = 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1613735392/noticon/ggaqjh4wfjf0miavt4dc.png',
   userCode,
   articleAuthorCode,
   handleClose,
