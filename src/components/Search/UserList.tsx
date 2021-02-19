@@ -10,9 +10,9 @@ import Profile from '../Profile';
 const UserList: React.FC<{ users: ProfileType[]}> = ({ users }) => {
   return (
     <List className="UserList">
-      {users.map(({ code, thumbnail, name, group }) => (
+      {users.map(({ code, profileImage, name, group }) => (
         <User key={code}>
-          <Profile.Photo src={thumbnail} size={48}/>
+          <Profile.Photo src={profileImage} size={48}/>
           <Profile.Who name={name} group={group}/>
         </User>
       ))}
@@ -37,42 +37,3 @@ const User = styled.li`
 `;
 
 export default  UserList;
-
-var test: ProfileType[] = [
-  {
-    code: "phupdv3yb",
-    description: '',
-    email: "ttl7917516@naver.com",
-    group: "주점",
-    name: "실버",
-    profileImage: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_640x640.jpg",
-    thumbnail: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_110x110.jpg",
-  },
-  {
-    code: "phupdv3yb",
-    description: '',
-    email: "ttl7917516@naver.com",
-    group: "주점",
-    name: "실버",
-    profileImage: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_640x640.jpg",
-    thumbnail: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_110x110.jpg",
-  },
-  {
-    code: "phupdv3yb",
-    description: '',
-    email: "ttl7917516@naver.com",
-    group: "주점",
-    name: "실버",
-    profileImage: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_640x640.jpg",
-    thumbnail: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_110x110.jpg",
-  },
-  {
-    code: "phupdv3yb",
-    description: '',
-    email: "ttl7917516@naver.com",
-    group: "주점",
-    name: "실버",
-    profileImage: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_640x640.jpg",
-    thumbnail: "http://k.kakaocdn.net/dn/dbGd6g/btqOdo0B8fk/CRaZvA3NZ6lfb6FxZrwDi1/img_110x110.jpg",
-  },
-]

@@ -9,7 +9,8 @@ export default interface Article {
   emotionCount: number;
   commentCount: number;
   isDelete: boolean;
-  photos: { thumbnail: string; photo: string } | null;
+  photos: string;
+  thumbnail: string;
   createAt: string;
   updateAt: string;
 }

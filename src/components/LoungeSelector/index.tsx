@@ -66,7 +66,6 @@ export const AllLoungeList: React.FC<{
   className?: string;
   myLounge?: string;
 }> = ({ handleSelect, className, myLounge }) => {
-  console.log(myLounge);
 
   return (
     <List className={cx('AllLoungeList', className)}>
@@ -94,7 +93,6 @@ export const LoungeList: React.FC<{
   handleSelect: (value: string) => void
   myLounge?: string;
 }> = ({ handleSelect, myLounge }) => {
-  console.log(myLounge);
 
   return (
     <List>

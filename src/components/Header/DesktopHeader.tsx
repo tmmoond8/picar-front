@@ -56,7 +56,7 @@ const DesktopHeader: React.FC<{
           color={colors.black99}
           onClick={handleClickNotification}
         />
-        {user.isLogined && <ProfilePhoto src={user.profile.thumbnail} size={36} onClick={handleClickProfile}/>}
+        {user.isLogined && <ProfilePhoto src={user.profile.profileImage} size={36} onClick={handleClickProfile}/>}
         {!user.isLogined && <LoginButton onClick={user.needLogin}>로그인</LoginButton>}
         <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
       </UserBox>

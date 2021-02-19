@@ -28,7 +28,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   author,
   createAt,
   id,
-  photos,
+  thumbnail,
   commentCount,
   emotionCount,
   hasComment,
@@ -37,7 +37,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   handleClickBookmark,
   handleEmotionUpdate,
 }) => {
-  const { thumbnail, name, group, code } = author as UserProfile;
+  const { profileImage, name, group, code } = author as UserProfile;
   const history = useHistory();
 
   const handleClickArticle = React.useCallback(() => {
@@ -47,7 +47,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   return (
     <Card className="ArticleCard">
       <ArticleCardHead
-        thumbnail={thumbnail}
+        profileImage={profileImage}
         name={name}
         group={group || ''}
         createAt={createAt}
@@ -57,7 +57,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         handleClickArticle={handleClickArticle}
         title={title}
         content={content}
-        photos={photos?.thumbnail ?? null}
+        photos={thumbnail}
       />
       <ArticleCardBottom
         articleId={id}

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useStore } from '../../stores';
 import { AllLoungeList, useSelector } from '../LoungeSelector';
@@ -21,6 +21,7 @@ const Editor: React.FC<{
   syncArticle: (article: Article) => void;
   onClose: () => void;
 }> = ({ article, group, syncArticle, onClose }) => {
+  console.log(article);
   const { util, user } = useStore();
   const history = util.useHistory();
   const [selected, setSelected] = useSelector(
@@ -36,7 +37,7 @@ const Editor: React.FC<{
     setUploadedUrl,
     setPreUploadUrl,
     setThumbnailUrl 
-  } = PhotoUploader.usePhotoUPloader(article?.photos?.thumbnail ?? undefined);
+  } = PhotoUploader.usePhotoUPloader(article?.photos);
   const titleRef = React.useRef<HTMLDivElement>(null);
   const contentRef = React.useRef<HTMLDivElement>(null);
 
@@ -59,10 +60,8 @@ const Editor: React.FC<{
         title,
         content,
         group: selected,
-        photos: [{
-          thumbnail: thumbnailUrl,
-          photo: uploadedUrl,
-        }],
+        photos: uploadedUrl,
+        thumbnail: uploadedUrl ? thumbnailUrl : '',
       });
       syncArticle(data.article);
       onClose();
@@ -81,10 +80,8 @@ const Editor: React.FC<{
         title,
         content,
         group: selected,
-        photos: [{
-          thumbnail: thumbnailUrl,
-          photo: uploadedUrl,
-        }],
+        photos: uploadedUrl,
+        thumbnail: uploadedUrl ? thumbnailUrl : '',
       });
       if (data.ok) {
         syncArticle(data.article);
@@ -113,6 +110,13 @@ const Editor: React.FC<{
       setContent((contentRef.current as any).textContent);
     }
   }, [setContent])
+
+  useEffect(() => {
+    if (titleRef.current && contentRef.current) {
+      titleRef.current.textContent = title;
+      contentRef.current.textContent = content;
+    }
+  }, [titleRef, contentRef])
 
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');

@@ -6,7 +6,7 @@ import React from 'react';
 import Icon from '../Icon';
 
 interface ImageProps {
-  uploadedUrl: string;
+  uploadedUrl?: string;
   preUploadUrl: string;
   clear: () => void;
 }

@@ -10,7 +10,7 @@ import { useModal } from '../Modal';
 import ProfileContainer from '../Profile/ProfileContainer';
 
 interface ArticleCardHeadProps {
-  thumbnail: string;
+  profileImage: string;
   name: string;
   group: string;
   createAt: string;
@@ -18,7 +18,7 @@ interface ArticleCardHeadProps {
 }
 
 const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
-  thumbnail,
+  profileImage,
   name,
   group,
   createAt,
@@ -38,7 +38,7 @@ const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
 
   return (
     <Head>
-      <ProfilePhoto src={thumbnail} size={24} onClick={handleOpenProfile}/>
+      <ProfilePhoto src={profileImage} size={24} onClick={handleOpenProfile}/>
       <Profile.WhoDot name={name} group={group} />
       <p className="article-time">{getDateGoodLook(createAt)}</p>
     </Head>

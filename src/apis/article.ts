@@ -1,10 +1,5 @@
 import api from './config';
 
-interface Photo {
-  thumbnail: string;
-  photo: string;
-}
-
 export const list = () => api.get(`/article/list`);
 export const getUserArticles = (code: string) => api.get(`/article/list/${code}`);
 export const search = (search: string) => api.get(`/article/search?search=${search}`);
@@ -16,7 +11,8 @@ export const write = (data: {
   title: string;
   content: string;
   group: string;
-  photos: Photo[];
+  photos?: string;
+  thumbnail?: string;
 }) => api.post('/article/write', data);
 export const remove = (articleId: number | string) =>
   api.delete(`/article/remove/${articleId}`);
@@ -24,5 +20,6 @@ export const update = (articleId: number | string, data: {
   title: string;
   content: string;
   group: string;
-  photos: Photo[];
+  photos?: string;
+  thumbnail?: string;
 }) => api.put(`/article/update/${articleId}`, data);

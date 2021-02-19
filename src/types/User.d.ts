@@ -1,8 +1,7 @@
 export interface Profile {
   code: string;
   name: string;
-  thumbnail: string;
-  profileImage?: string;
+  profileImage: string;
   email: string;
   description: string | null;
   group?: string;

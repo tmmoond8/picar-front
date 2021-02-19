@@ -22,7 +22,7 @@ const ArticleBody = () => {
       }}/>
       {article!.photos && (
         <ImageWrapper>
-          <Image src={article!.photos.photo} />
+          <Image src={article!.photos} />
         </ImageWrapper>
       )}
     </Body>

@@ -50,7 +50,7 @@ const ArticlePage: React.FC = () => {
                 setCommentCount={setCommentCount}
                 userCode={user.profile.code}
                 articleAuthorCode={article.author.code}
-                profilePhoto={user.profile.thumbnail}
+                profilePhoto={user.profile.profileImage}
               />
             )}
           </React.Fragment>
