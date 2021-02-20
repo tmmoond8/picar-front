@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import Image from './Image';
+import Input from '../Input';
 import Button from '../Button';
 import { colors } from '../../styles';
 
@@ -26,6 +27,7 @@ const Page = styled.div`
   height: 100%;
 
   #editorFlickingMoveTo {
+
     flex: 1;
     .eg-flick-camera > .Form,
     .eg-flick-camera > .AllLoungeList {
@@ -34,69 +36,29 @@ const Page = styled.div`
   }
 `;
 
-const Title = styled.div<{ placeholder?: string }>`
-  position: relative;
-  flex: 1;
+const Title = styled(Input.TextArea)`
   height: auto;
   min-height: 22px;
   max-height: 60px;
-  margin: 24px 0 0 0;
-  order: 1;
-  font-size: 19px;
-  font-weight: 500;
-  line-height: 1.58;
-  overflow-y: auto;
 
-  outline: none;
-  border: none;
-  transition: all 0.3s ease-in-out;
-
-  &:after {
-    content: ${(p) => (p.placeholder ? `'${p.placeholder}'` : 'none')};
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: ${colors.black99};
-    pointer-events: none;
-  }
-
-  &:focus {
-    &:after {
-      content: none;
-    }
+  .Input {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.58;
   }
 `;
 
-const Content = styled.div<{ placeholder?: string }>`
-  position: relative;
-  flex: 1;
+const Content = styled(Input.TextArea)`
+  min-height: 250px;
   height: auto;
-  min-height: 260px;
-  margin: 24px 0;
-  order: 1;
-  color: ${colors.black33};
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 26px;
-  overflow-y: auto;
 
-  outline: none;
-  border: none;
-  transition: all 0.3s ease-in-out;
-
-  &:after {
-    content: ${(p) => (p.placeholder ? `'${p.placeholder}'` : 'none')};
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: ${colors.black99};
-    pointer-events: none;
-  }
-
-  &:focus {
-    &:after {
-      content: none;
-    }
+  .Input {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.73;
+    letter-spacing: normal;
   }
 `;
 

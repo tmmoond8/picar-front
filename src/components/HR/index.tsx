@@ -22,7 +22,6 @@ const StyledHR = styled.hr<HRProps>`
   width: auto;
   height: ${(p) => p.height}px;
   margin: 0;
-  margin-top: ${(p) => p.marginTop}px;
   background-color: ${(p) => (p.color ? p.color : colors.blackEB)};
   border: none;
   outline: none;
@@ -31,4 +30,5 @@ const StyledHR = styled.hr<HRProps>`
     css`
       margin: 0 -18px 0 -18px;
     `};
+  margin-top: ${(p) => p.marginTop}px;
 `;

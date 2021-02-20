@@ -65,6 +65,7 @@ const customReset = css`
   input[type='week'],
   select:focus,
   textarea {
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
     -webkit-appearance: none;
   }

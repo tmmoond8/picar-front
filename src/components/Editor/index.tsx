@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { useStore } from '../../stores';
 import { AllLoungeList, useSelector } from '../LoungeSelector';
@@ -29,6 +29,7 @@ const Editor: React.FC<{
   const [step, setStep] = React.useState(0);
   const [title, setTitle] = React.useState(article?.title ?? '');
   const [content, setContent] = React.useState(article?.content ?? '');
+  
   const { 
     uploadedUrl,
     preUploadUrl,
@@ -37,8 +38,6 @@ const Editor: React.FC<{
     setPreUploadUrl,
     setThumbnailUrl 
   } = PhotoUploader.usePhotoUPloader(article?.photos);
-  const titleRef = React.useRef<HTMLDivElement>(null);
-  const contentRef = React.useRef<HTMLDivElement>(null);
 
   const validate = React.useCallback(() => {
     if (title.length === 0) {
@@ -91,31 +90,16 @@ const Editor: React.FC<{
     }
   }, [title, content, article, selected, uploadedUrl, syncArticle, onClose]);
 
-  const handleKeyDown = React.useCallback((e) => {
+  const handleKeyDownTitle = React.useCallback((e) => {
     const allowedKeys = [ 8, 16, 17, 18, 27, 37, 38, 39, 40, 46, 91, 93 ];
     if (e.keyCode === 13 || (title.length > 32 && !allowedKeys.includes(e.keyCode))) {
       e.preventDefault();
     }
   }, [title])
 
-  const handleKeyUpTitle = React.useCallback((e) => {
-    if (titleRef.current) {
-      setTitle((titleRef.current as any).textContent);
-    }
-  }, [setTitle])
-
-  const handleKeyUpContent = React.useCallback((e) => {
-    if (contentRef.current) {
-      setContent((contentRef.current as any).textContent);
-    }
-  }, [setContent])
-
-  useEffect(() => {
-    if (titleRef.current && contentRef.current) {
-      titleRef.current.textContent = title;
-      contentRef.current.textContent = content;
-    }
-  }, [titleRef, contentRef])
+  const handleSetTitle = React.useCallback((title: string) => {
+    setTitle(title.slice(0, 32))
+  }, [setTitle]);
 
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');
@@ -176,19 +160,17 @@ const Editor: React.FC<{
             <Icon icon="arrowDown" size="16px"/>
           </Styled.Selector>
           <Styled.Title
-            className="Title"
-            ref={titleRef as React.RefObject<HTMLDivElement>}
-            contentEditable
-            onKeyDown={handleKeyDown}
-            onKeyUp={handleKeyUpTitle}
+            name="Title"
+            text={title} 
+            onKeyDown={handleKeyDownTitle}
+            setText={handleSetTitle}
             placeholder={title.length > 0 ? '' : '제목을 입력하세요.'}
           />
           <HR marginTop={30} />
           <Styled.Content
-            className="Content"
-            ref={contentRef as React.RefObject<HTMLDivElement>}
-            contentEditable
-            onKeyUp={handleKeyUpContent}
+            name="Content"
+            text={content} 
+            setText={setContent}
             placeholder={content.length > 0 ? '' : '내용을 입력하세요.'}
           />
           {preUploadUrl && (
@@ -198,7 +180,7 @@ const Editor: React.FC<{
               clear={handleImageClear}
             />
           )}
-          <HR full />
+          <HR full marginTop={24}/>
           <Styled.Tools>
             <PhotoUploader.Uploader
               isLoading={false}
