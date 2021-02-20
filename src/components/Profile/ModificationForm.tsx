@@ -35,6 +35,21 @@ const ModificationForm = () => {
     user.profile.description ?? '',
     descriptionSkip,
   );
+  const [loading, setLoading] = React.useState(false);
+  const setProfile = React.useCallback((url: string) => {
+    setProfileUrl(url);
+    setPreUploadUrl('');
+  }, [])
+
+  React.useEffect(() => {
+    if (preUploadUrl) {
+      setLoading(true);
+    }
+  }, [preUploadUrl]);
+
+  React.useEffect(() => {
+    setLoading(false);
+  }, [profileUrl])
 
   React.useEffect(() => {
     if (location.state && 'focus' in location.state) {
@@ -67,6 +82,7 @@ const ModificationForm = () => {
   }, [description, group, name, user.profile, profileUrl]);
 
   const disabled = 
+    loading &&
     user.profile.profileImage === profileUrl &&
     user.profile.name === name &&
     user.profile.group === group && 
@@ -88,11 +104,12 @@ const ModificationForm = () => {
       />
       <Form>
         <ImageUploader
-          setProfileUrl={setProfileUrl}
+          isLoading={loading}
+          setProfileUrl={setProfile}
           setPreUploadUrl={setPreUploadUrl}
         >
           <PHotoUploaderButton>
-            <StyledPhoto size={72} src={preUploadUrl} />
+            <StyledPhoto size={72} src={preUploadUrl || profileUrl} />
             <CameraIcon icon="camera" size="24px" />
           </PHotoUploaderButton>
         </ImageUploader>

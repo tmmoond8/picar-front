@@ -21,7 +21,6 @@ const Editor: React.FC<{
   syncArticle: (article: Article) => void;
   onClose: () => void;
 }> = ({ article, group, syncArticle, onClose }) => {
-  console.log(article);
   const { util, user } = useStore();
   const history = util.useHistory();
   const [selected, setSelected] = useSelector(
@@ -202,6 +201,7 @@ const Editor: React.FC<{
           <HR full />
           <Styled.Tools>
             <PhotoUploader.Uploader
+              isLoading={false}
               setUploadedUrl={setUploadedUrl}
               setPreUploadUrl={setPreUploadUrl}
               setThumbnailUrl={setThumbnailUrl}
