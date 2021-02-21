@@ -196,6 +196,7 @@ function useProfile() {
               contextMenu.close();
               util.history.push('/myProfile');
             },
+            underline: true,
           },
           {
             name: '공지사항',
@@ -210,6 +211,7 @@ function useProfile() {
               window.open('https://www.notion.so/taem/2fbdb025be1c45748504f74d33eda2d3', '_blank')
               contextMenu.close();
             },
+            underline: true,
           },
           {
             name: '로그아웃',

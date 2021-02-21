@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, keyframes } from '@emotion/core';
+import { jsx, css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
@@ -7,6 +7,7 @@ import { colors } from '../../styles';
 interface ContextMenu {
   name: string;
   onClick: () => void;
+  underline?: boolean;
 }
 
 const MARGIN = 18;
@@ -27,7 +28,6 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
   menus,
   handleClose,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const { x, y } = usePosition(xPosition, yPosition);
   const ref = React.useRef<HTMLUListElement>(null);
   React.useEffect(() => {
@@ -48,8 +48,8 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
       y={y}
       onBlur={handleClose}
     >
-      {menus.map(({ name, onClick }) => (
-        <Menu key={name} onClick={onClick}>
+      {menus.map(({ name, onClick, underline }) => (
+        <Menu key={name} onClick={onClick} underline={!!underline}>
           {name}
         </Menu>
       ))}
@@ -76,7 +76,7 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   top: ${(p) => p.y};
   left: ${(p) => p.x};
   padding: 4px 0;
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: ${colors.white};
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
   outline: none;
@@ -85,10 +85,13 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   animation: ${popup} 0.1s ease-out;
 `;
 
-const Menu = styled.li`
+const Menu = styled.li<{underline: boolean}>`
   height: 48px;
   line-height: 48px;
   text-align: center;
+  ${p => p.underline && css`
+    border-bottom: 1px solid ${colors.blackF5F6F7};
+  `}
   cursor: pointer;
   :hover {
     background-color: ${colors.blackEB};
