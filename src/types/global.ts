@@ -1,12 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import { ModalData } from '../components/Modal';
-import { ContextMenuData } from '../components/ContextMenu';;
+import { ContextMenuData, CustomContextMenuData } from '../components/ContextMenu';
 
 type OwnerGlobal = typeof globalThis & {
   __OWNER__: {
     openModal: (params: ModalData) => void;
     closeModal: (id: string) => void;
-    openContextMenu: (params: ContextMenuData) => void;
+    openContextMenu: (params: ContextMenuData | CustomContextMenuData) => void;
     closeContextMenu: (id: string) => void;
     homeFlickingMoveTo: (i: number) => void;
     signupFlickingMoveTo: (i: number) => void;

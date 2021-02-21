@@ -4,32 +4,26 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
 
-interface ContextMenu {
-  name: string;
-  onClick: () => void;
-  underline?: boolean;
-}
-
 const MARGIN = 6;
 const WIDTH = 147;
 
-export interface ContextMenuData {
+export interface CustomContextMenuData {
   id: string;
   xPosition: number;
   yPosition: number;
-  menus: ContextMenu[];
   handleClose: () => void;
+  contents: React.ReactNode;
 }
 
-const ContextMenuViewer: React.FC<ContextMenuData> = ({
+const CustomContextMenuViewer: React.FC<CustomContextMenuData> = ({
   id,
   xPosition,
   yPosition,
-  menus,
+  contents,
   handleClose,
 }) => {
   const { x, y } = usePosition(xPosition, yPosition);
-  const ref = React.useRef<HTMLUListElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const timer = setTimeout(() => {
       if (ref.current) {
@@ -40,7 +34,7 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
   }, [ref]);
 
   return (
-    <StyledContextMenus
+    <StyledCustomContextMenus
       tabIndex={-1}
       ref={ref}
       id={id}
@@ -48,16 +42,12 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
       y={y}
       onBlur={handleClose}
     >
-      {menus.map(({ name, onClick, underline }) => (
-        <Menu key={name} onClick={onClick} underline={!!underline}>
-          {name}
-        </Menu>
-      ))}
-    </StyledContextMenus>
+      {contents}
+    </StyledCustomContextMenus>
   );
 };
 
-export default React.memo(ContextMenuViewer);
+export default React.memo(CustomContextMenuViewer);
 
 const popup = keyframes`
   from {
@@ -70,9 +60,9 @@ const popup = keyframes`
   }
 `;
 
-const StyledContextMenus = styled.ul<{ x: string; y: string }>`
+const StyledCustomContextMenus = styled.div<{ x: string; y: string }>`
   position: fixed;
-  width: ${WIDTH}px;
+  width: auto;
   top: ${(p) => p.y};
   left: ${(p) => p.x};
   padding: 4px 0;
@@ -83,19 +73,6 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   z-index: 11000;
   transition: transform 0.3s, opacity 0.2s;
   animation: ${popup} 0.1s ease-out;
-`;
-
-const Menu = styled.li<{underline: boolean}>`
-  height: 48px;
-  line-height: 48px;
-  text-align: center;
-  ${p => p.underline && css`
-    border-bottom: 1px solid ${colors.blackF5F6F7};
-  `}
-  cursor: pointer;
-  :hover {
-    background-color: ${colors.blackEB};
-  }
 `;
 
 function usePosition(xPosition: number, yPosition: number) {

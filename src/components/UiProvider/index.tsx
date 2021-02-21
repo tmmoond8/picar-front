@@ -1,5 +1,5 @@
 import React from 'react';
-import ContextMenuViewer, { ContextMenuData } from '../ContextMenu';
+import ContextMenuViewer, { ContextMenuData, CustomContextMenuData, CustomContextMenuViewer } from '../ContextMenu';
 import ToastContainer from '../ToastContainer';
 
 import ModalViewer, {
@@ -38,10 +38,10 @@ const UiProvider: React.FC<{
   return (
     <React.Fragment>
       {ui.contextMenus.map((contextMenu) => (
-        <ContextMenuViewer
-          key={`${contextMenu.id}_${contextMenu.xPosition}_${contextMenu.yPosition}`}
-          {...contextMenu}
-        />
+        <React.Fragment key={`${contextMenu.id}_${contextMenu.xPosition}_${contextMenu.yPosition}`}>
+          {'menus' in contextMenu && <ContextMenuViewer {...contextMenu} />}
+          {'contents' in contextMenu && <CustomContextMenuViewer {...contextMenu} />}
+        </React.Fragment>
       ))}
       {ui.modals.map((modal) => (
         <ModalViewer key={modal.id} {...modal} />
@@ -69,7 +69,7 @@ function useSetupModal(ui: UiStore) {
 
 function useSetupContextMenu(ui: UiStore) {
   React.useEffect(() => {
-    global.__OWNER__.openContextMenu = (data: ContextMenuData) => {
+    global.__OWNER__.openContextMenu = (data: ContextMenuData | CustomContextMenuData) => {
       ui.contextMenus = [...ui.contextMenus, data];
     };
     global.__OWNER__.closeContextMenu = (targetId: string) => {

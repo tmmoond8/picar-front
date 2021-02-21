@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 import { initalHeader, HeaderProps, headerType } from '../components/Header';
-import { ContextMenuData } from '../components/ContextMenu';
+import { ContextMenuData, CustomContextMenuData } from '../components/ContextMenu';
 import { ModalData } from '../components/Modal';
 import { BreakPoints } from '../styles/mediaQuery';
 import { CommonStore, Stores } from '.';
@@ -15,7 +15,7 @@ export interface UiStoreInterface extends CommonStore{
   setHeaderBack: (options: Record<string, any>) => void;
   setHeaderClose: (options: Record<string, any>) => void;
   setKeyboardMargin: (height: number) => void;
-  contextMenus: ContextMenuData[];
+  contextMenus: (ContextMenuData | CustomContextMenuData)[];
   modals: ModalData[];
   queryMatch: Record<BreakPointKeys, boolean>;
 }
@@ -23,7 +23,7 @@ export interface UiStoreInterface extends CommonStore{
 class UiStore implements UiStoreInterface {
   @observable header: HeaderProps;
   @observable keyboardMargin: number;
-  @observable contextMenus: ContextMenuData[];
+  @observable contextMenus: (ContextMenuData | CustomContextMenuData)[];
   @observable modals: ModalData[];
   @observable queryMatch: Record<BreakPointKeys, boolean>;
   rootStore: Stores | null;

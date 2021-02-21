@@ -5,16 +5,11 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { useStore, observer } from '../../stores';
 import Icon from '../Icon';
+import { useContextMenu, getElementPosition } from '../ContextMenu';
 import { colors } from '../../styles';
 
 const Notification = () => {
-  const { user } = useStore();
-  const handleClickNotification = React.useCallback(() => {
-    if (user.needLogin()) {
-      return;
-    }
-    toast.success('지원 준비중 입니다.')
-  }, [])
+  const handleClickNotification = useNotification();
   
   return (
     <StyledNotification onClick={handleClickNotification}>
@@ -42,3 +37,22 @@ const StyledNotification = styled.div`
     cursor: pointer;
   }
 `;
+
+function useNotification() {
+  const { user } = useStore();
+  const contextMenu = useContextMenu();
+
+  return React.useCallback(
+    (e: React.MouseEvent) => {
+      if (!user.isLogined) {
+        return;
+      }
+      const positions = getElementPosition(e.target as HTMLElement);
+      contextMenu.open({
+        ...positions,
+        contents: <p>abcd slkdfjskf jdslkfj asdlkjf sdlkfj fasdlkfj sdaklfj sadkf</p>
+      });
+    },
+    [contextMenu],
+  );
+}
