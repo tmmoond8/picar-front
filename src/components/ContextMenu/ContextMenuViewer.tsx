@@ -11,7 +11,6 @@ interface ContextMenu {
 }
 
 const MARGIN = 6;
-const WIDTH = 147;
 
 export interface ContextMenuData {
   id: string;
@@ -28,7 +27,8 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
   menus,
   handleClose,
 }) => {
-  const { x, y } = usePosition(xPosition, yPosition);
+  const [ width, setWidth ] = React.useState(0);
+  const { x, y } = usePosition(xPosition, yPosition, width);
   const ref = React.useRef<HTMLUListElement>(null);
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -38,6 +38,12 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
     }, 50);
     return () => clearTimeout(timer);
   }, [ref]);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      setWidth(ref.current.clientWidth);
+    }
+  }, [])
 
   return (
     <StyledContextMenus
@@ -72,7 +78,7 @@ const popup = keyframes`
 
 const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   position: fixed;
-  width: ${WIDTH}px;
+  width: auto;
   top: ${(p) => p.y};
   left: ${(p) => p.x};
   padding: 4px 0;
@@ -86,9 +92,10 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
 `;
 
 const Menu = styled.li<{underline: boolean}>`
+  width: 160px;
   height: 48px;
   line-height: 48px;
-  text-align: center;
+  padding: 0 20px;
   ${p => p.underline && css`
     border-bottom: 1px solid ${colors.blackF5F6F7};
   `}
@@ -98,19 +105,19 @@ const Menu = styled.li<{underline: boolean}>`
   }
 `;
 
-function usePosition(xPosition: number, yPosition: number) {
+function usePosition(xPosition: number, yPosition: number, width: number) {
   const [x, setX] = React.useState<string>('-1000px');
   const [y, setY] = React.useState<string>('0px');
 
   React.useEffect(() => {
     const { innerWidth } = window;
-    if (xPosition + WIDTH / 2 + MARGIN > innerWidth) {
-      setX(`${innerWidth - MARGIN - WIDTH}px`);
+    if (xPosition + width / 2 + MARGIN > innerWidth) {
+      setX(`${innerWidth - MARGIN - width}px`);
     } else {
-      setX(`${Math.max(xPosition - WIDTH / 2, 18)}px`);
+      setX(`${Math.max(xPosition - width / 2, 18)}px`);
     }
     setY(`${yPosition + MARGIN}px`);
-  }, [xPosition, yPosition]);
+  }, [xPosition, yPosition, width]);
 
   return {
     x,

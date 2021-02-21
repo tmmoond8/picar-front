@@ -27,6 +27,12 @@ const UiProvider: React.FC<{
     ui.queryMatch = queryMatch;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryMatch]);
+  React.useEffect(() => {
+    console.log('resize');
+    window.addEventListener('resize', () => {
+      ui.contextMenus = [];
+    })
+  }, [])
 
   user.needLogin = () => needLogin(user.profile.code);
 

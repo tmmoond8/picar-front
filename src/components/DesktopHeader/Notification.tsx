@@ -7,6 +7,7 @@ import { useStore, observer } from '../../stores';
 import Icon from '../Icon';
 import { useContextMenu, getElementPosition } from '../ContextMenu';
 import { colors } from '../../styles';
+import NotificationList from '../NotificationList';
 
 const Notification = () => {
   const handleClickNotification = useNotification();
@@ -50,7 +51,7 @@ function useNotification() {
       const positions = getElementPosition(e.target as HTMLElement);
       contextMenu.open({
         ...positions,
-        contents: <p>abcd slkdfjskf jdslkfj asdlkjf sdlkfj fasdlkfj sdaklfj sadkf</p>
+        contents: <NotificationList notifications={user.notifications}/>
       });
     },
     [contextMenu],

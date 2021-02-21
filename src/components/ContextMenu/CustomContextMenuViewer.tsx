@@ -5,7 +5,6 @@ import React from 'react';
 import { colors } from '../../styles';
 
 const MARGIN = 6;
-const WIDTH = 147;
 
 export interface CustomContextMenuData {
   id: string;
@@ -22,7 +21,8 @@ const CustomContextMenuViewer: React.FC<CustomContextMenuData> = ({
   contents,
   handleClose,
 }) => {
-  const { x, y } = usePosition(xPosition, yPosition);
+  const [ width, setWidth ] = React.useState(0);
+  const { x, y } = usePosition(xPosition, yPosition, width);
   const ref = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,6 +32,11 @@ const CustomContextMenuViewer: React.FC<CustomContextMenuData> = ({
     }, 50);
     return () => clearTimeout(timer);
   }, [ref]);
+  React.useEffect(() => {
+    if (ref.current) {
+      setWidth(ref.current.clientWidth);
+    }
+  }, [])
 
   return (
     <StyledCustomContextMenus
@@ -63,9 +68,11 @@ const popup = keyframes`
 const StyledCustomContextMenus = styled.div<{ x: string; y: string }>`
   position: fixed;
   width: auto;
+  max-height: 480px;
   top: ${(p) => p.y};
   left: ${(p) => p.x};
   padding: 4px 0;
+  overflow-y: auto;
   border-radius: 2px;
   background-color: ${colors.white};
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
@@ -75,19 +82,19 @@ const StyledCustomContextMenus = styled.div<{ x: string; y: string }>`
   animation: ${popup} 0.1s ease-out;
 `;
 
-function usePosition(xPosition: number, yPosition: number) {
+function usePosition(xPosition: number, yPosition: number, width: number) {
   const [x, setX] = React.useState<string>('-1000px');
   const [y, setY] = React.useState<string>('0px');
 
   React.useEffect(() => {
     const { innerWidth } = window;
-    if (xPosition + WIDTH / 2 + MARGIN > innerWidth) {
-      setX(`${innerWidth - MARGIN - WIDTH}px`);
+    if (xPosition + width / 2 + MARGIN > innerWidth) {
+      setX(`${innerWidth - MARGIN - width}px`);
     } else {
-      setX(`${Math.max(xPosition - WIDTH / 2, 18)}px`);
+      setX(`${Math.max(xPosition - width / 2, 18)}px`);
     }
     setY(`${yPosition + MARGIN}px`);
-  }, [xPosition, yPosition]);
+  }, [xPosition, yPosition, width]);
 
   return {
     x,
