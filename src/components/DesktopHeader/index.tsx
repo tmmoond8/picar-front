@@ -2,26 +2,22 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useLocation  } from 'react-router';
 import { useStore, observer } from '../../stores';
 import Logo from '../Logo';
 import Button from '../Button';
 import { toast } from 'react-toastify';
-import SearchInput from '../Search/SearchInput';
-import { useTextField } from '../Input/hooks';
+
 import Profile from '../Profile';
 import { useContextMenu, getElementPosition } from '../ContextMenu';
 import { colors } from '../../styles';
 import APIS from '../../apis';
 import Icon from '../Icon';
 import { useOpenArticleEditor } from '../Article';
+import Search from './Search';
 
 const DesktopHeader: React.FC = () => {
   const { user, util } = useStore();
-  const { state } = useLocation();
-  const [ search, onChangeSearch ] = useTextField('');
   const openArticleEditor = useOpenArticleEditor();
-
   const handleClickNotification = React.useCallback(() => {
     if (user.needLogin()) {
       return;
@@ -41,28 +37,11 @@ const DesktopHeader: React.FC = () => {
     openArticleEditor();
   }, [openArticleEditor, user]);
 
-  const handleKeyDown = React.useCallback((event: React.KeyboardEvent) => {
-    if (event.keyCode === 13) {
-      util.history.push('/search', { search })
-    }
-  }, [search])
-
-  React.useEffect(() => {
-    if (state && 'search' in state) {
-      onChangeSearch({ target: { value: (state as any).search}} as any)
-    }
-  }, [])
-
   return (
     <Header>
       <Container>
         <Logo color={colors.black40} onClick={handleClickLogo}/>
-          <Search 
-            search={search} 
-            onChangeSearch={onChangeSearch} 
-            placeholder="찾고싶은 주제 혹은 닉네임을 입력하세요"
-            onKeyDown={handleKeyDown}
-          />
+          <Search />
           <UserBox >
             <Notification onClick={handleClickNotification}>
               <Icon 
@@ -89,7 +68,6 @@ const DesktopHeader: React.FC = () => {
 export default observer(DesktopHeader);
 
 const Header = styled.header`
-  
   position: fixed;
   top: 0;
   left: 0;
@@ -107,30 +85,6 @@ const Container = styled.div`
   align-items: center;
   max-width: 1024px;
   margin: 0 auto;
-`;
-
-const Search = styled(SearchInput)`
-  display: flex;
-  align-items: center;
-  flex: 1;
-  height: 44px;
-  margin: 0 20px 0 24px;
-  padding: 0;
-
-  .SearchInput {
-    height: 44px;
-    margin: 0;
-    padding: 10px 16px;
-    background-color: ${colors.transparent};
-    border: solid 1px ${colors.blackBF};
-    border-radius: 22px;
-  }
-
-  &.focus {
-    .SearchInput {
-      border: solid 1px ${colors.black22};
-    }
-  }
 `;
 
 const UserBox = styled.div`

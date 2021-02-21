@@ -7,7 +7,7 @@ import { colors } from '../../styles';
 import LoungeSelector from './LoungeSelector';
 import MyActivity from './MyActivity';
 import Aside from '../Aside';
-import DesktopHeader from '../Header/DesktopHeader';
+import DesktopHeader from '../DesktopHeader';
 import MenuBar from '../MenuBar';
 
 const GAP = 24;
