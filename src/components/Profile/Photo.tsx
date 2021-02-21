@@ -12,7 +12,7 @@ interface ProfilePhotoProps {
 }
 
 const defaultImage =
-  'https://res.cloudinary.com/dgggcrkxq/image/upload/v1600597433/noticon/ayvhqsqwqbfr0dauelcv.png';
+'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1613735392/noticon/ggaqjh4wfjf0miavt4dc.png';
 
 export default function ProfilePhoto(props: ProfilePhotoProps): JSX.Element {
   const { src, onClick, size = 32, className } = props;

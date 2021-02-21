@@ -14,7 +14,7 @@ const GAP = 24;
 
 const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Layout className="TabletLayoust">
+    <Layout className="TabletLayout">
       <DesktopHeader />
       <Body className="TabletBody">
         <Contents className="TabletContents">{children}</Contents>

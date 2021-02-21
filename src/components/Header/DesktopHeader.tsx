@@ -43,23 +43,32 @@ const DesktopHeader: React.FC<{
 
   return (
     <Header>
-      <Logo color={colors.black40} onClick={handleClickLogo}/>
-      <Search 
-        search={search} 
-        onChangeSearch={onChangeSearch} 
-        placeholder="찾고싶은 주제 혹은 닉네임을 입력하세요"
-      />
-      <UserBox>
-        <Icon 
-          icon="notification" 
-          size="24px" 
-          color={colors.black99}
-          onClick={handleClickNotification}
-        />
-        {user.isLogined && <ProfilePhoto src={user.profile.profileImage} size={36} onClick={handleClickProfile}/>}
-        {!user.isLogined && <LoginButton onClick={user.needLogin}>로그인</LoginButton>}
-        <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
-      </UserBox>
+      <Container>
+        <Logo color={colors.black40} onClick={handleClickLogo}/>
+          <Search 
+            search={search} 
+            onChangeSearch={onChangeSearch} 
+            placeholder="찾고싶은 주제 혹은 닉네임을 입력하세요"
+          />
+          <UserBox >
+            <Notification onClick={handleClickNotification}>
+              <Icon 
+                icon="notification" 
+                size="24px" 
+                color={colors.black33}
+              />
+            </Notification>
+            
+            {user.isLogined && (
+              <ProfilePhoto onClick={handleClickProfile}>
+                <Profile.Photo src={user.profile.profileImage} size={36}/>
+              </ProfilePhoto>
+            )}
+            
+            {!user.isLogined && <LoginButton onClick={user.needLogin}>로그인</LoginButton>}
+            <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
+          </UserBox>
+      </Container>
     </Header>
   );
 }
@@ -67,26 +76,32 @@ const DesktopHeader: React.FC<{
 export default observer(DesktopHeader);
 
 const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 64px;
-  padding: 10px 60px 10px 60px;
+  padding: 0 36px;
   box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
   background-color: ${colors.white};
   z-index: 10000;
 `
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1024px;
+  margin: 0 auto;
+`;
+
 const Search = styled(SearchInput)`
   display: flex;
   align-items: center;
-  width: 40%;
-  max-width: 360px;
+  flex: 1;
   height: 44px;
+  margin: 0 20px 0 24px;
   padding: 0;
 
   .SearchInput {
@@ -95,7 +110,7 @@ const Search = styled(SearchInput)`
     padding: 10px 16px;
     background-color: ${colors.transparent};
     border: solid 1px ${colors.blackBF};
-    border-radius: 8px;
+    border-radius: 22px;
   }
 
   &.focus {
@@ -110,14 +125,39 @@ const UserBox = styled.div`
   align-items: center;
 `;
 
-const ProfilePhoto = styled(Profile.Photo)`
-  margin: 0 24px;
+const Notification = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: ${colors.blackF5F6F7};
+  border-radius: 24px;
+  cursor: pointer;
+  .Icon.notification {
+    cursor: pointer;
+  }
+`;
+
+const ProfilePhoto = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 20px 0 12px;
+  background-color: ${colors.blackF5F6F7};
+  border-radius: 24px;
+  cursor: pointer;
+  .UserProfilePhoto {
+    cursor: pointer;
+  }
 `;
 
 const LoginButton = styled(Button)`
   height: 44px;
   padding: 6px 20px;
-  margin-left: 24px;
+  margin: 0 12px 0 20px;
 
   span {
     margin: 0;
@@ -128,7 +168,6 @@ const LoginButton = styled(Button)`
 const WriteButton = styled(Button)`
   height: 44px;
   padding: 6px 20px;
-  margin-left: 8px;
   background-color: ${colors.primary};
   
   span {
