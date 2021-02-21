@@ -14,6 +14,7 @@ const SearchInput: React.FC<{
   className?: string;
   onChangeSearch: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onClear?: () => void;
+  onKeyDown?: (event: React.KeyboardEvent) => void;
   isOnSearch?: boolean;
   setIsOnSearch?: (v: boolean) => void;
 }> = ({ 
@@ -22,6 +23,7 @@ const SearchInput: React.FC<{
     onChangeSearch, 
     setIsOnSearch = () => {}, 
     onClear = () => {}, 
+    onKeyDown = () => {},
     isOnSearch, 
     placeholder="검색어를 입력하세요" 
 }) => {
@@ -44,6 +46,7 @@ const SearchInput: React.FC<{
             setIsOnSearch(true)
             setFocus(true);
           }}
+          onKeyDown={onKeyDown}
           onBlur={() => setFocus(false)}
         />
       </InputBox>

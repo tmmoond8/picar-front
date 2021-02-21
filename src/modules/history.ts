@@ -5,7 +5,7 @@ export default (history: History<LocationState>) => {
     ...history,
     push: (path: Path, state?: LocationState) => {
       if (path === history.location.pathname) {
-        return;
+        return history.replace(path, state);
       }
       history.push(path, state);
     }

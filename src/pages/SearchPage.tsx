@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-
+import { useLocation  } from 'react-router';
 import SearchComponents from '../components/Search';
-import Input from '../components/Input';
-import Content from '../components/Content';
+import { useStore, observer } from '../stores';
 import APIS from '../apis';
 
 const SearchPage: React.FC = () => {
+  const { ui } = useStore()
+  const { state } = useLocation();
   const [ search, setSearch ] = React.useState('');
   const [ recommendations, setrecommendations] = React.useState([]);
   const [ isOnSearch, setIsOnSearch ] = React.useState(false);
@@ -26,15 +27,24 @@ const SearchPage: React.FC = () => {
     }
   }, [recommendations])
 
+  React.useEffect(() => {
+    if (state && 'search' in state) {
+      setSearch((state as any).search);
+      setIsOnSearch(true);
+    }
+  }, [(state as any).search])
+
   return (
     <SearchComponents.Page>
-      <SearchComponents.Input 
-        search={search} 
-        onChangeSearch={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSearch(e.target.value)} 
-        onClear={() => setSearch('')} 
-        isOnSearch={isOnSearch}
-        setIsOnSearch={setIsOnSearch}
-      />
+      {ui.queryMatch.Mobile && (
+        <SearchComponents.Input 
+          search={search} 
+          onChangeSearch={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSearch(e.target.value)} 
+          onClear={() => setSearch('')} 
+          isOnSearch={isOnSearch}
+          setIsOnSearch={setIsOnSearch}
+        />
+      )}
       {isOnSearch && !search && (
         <React.Fragment>
           <SearchComponents.Title>검색어 추천</SearchComponents.Title>
@@ -56,4 +66,4 @@ const SearchPage: React.FC = () => {
     </SearchComponents.Page>
   )
 }
-export default SearchPage;
+export default observer(SearchPage);

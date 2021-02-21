@@ -8,6 +8,7 @@ export const Page = styled(BasePage)`
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: ${colors.white};
 
   .PopularArticleList {
     flex: 1;

@@ -15,6 +15,7 @@ interface TextFieldProps {
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent) => void;
   onClear?: () => void;
   errorMessage?: string;
   onBlur?: () => void;
@@ -33,6 +34,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     className,
     onBlur = () => {},
     onFocus = () => {},
+    onKeyDown = () => {},
     onClear,
     autocomplete = true,
   } = props;
@@ -83,6 +85,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
           onFocus={handleFocus}
           onChange={onChange}
           onBlur={handleBlur}
+          onKeyDown={onKeyDown}
           autoComplete={autocomplete ? 'on' : 'off'}
         />
         {value.length > 0 && onClear && (
