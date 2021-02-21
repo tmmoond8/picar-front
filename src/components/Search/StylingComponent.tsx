@@ -16,10 +16,11 @@ export const Page = styled(BasePage)`
 `;
 
 export const Title = styled.h2`
-position: relative;
-padding: 18px 18px 0 18px;
-color: ${colors.black22};
-font-weight: bold;
+  position: relative;
+  padding: 18px 18px 0 18px;
+  color: ${colors.black22};
+  font-weight: bold;
+  background-color: ${colors.white};
 `;
 
 export const ShadowTitle = styled(Title)`

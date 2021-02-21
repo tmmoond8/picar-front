@@ -31,6 +31,7 @@ const Wrapper = styled.div`
   display: flex;
   flex: 1;
   padding: 0 18px;
+  background-color: ${colors.white};
 `;
 
 const RecommendationCards = styled.ul`

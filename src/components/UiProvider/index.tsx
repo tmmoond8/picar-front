@@ -28,7 +28,6 @@ const UiProvider: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryMatch]);
   React.useEffect(() => {
-    console.log('resize');
     window.addEventListener('resize', () => {
       ui.contextMenus = [];
     })

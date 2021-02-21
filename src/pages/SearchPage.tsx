@@ -32,7 +32,7 @@ const SearchPage: React.FC = () => {
       setSearch((state as any).search);
       setIsOnSearch(true);
     }
-  }, [(state as any).search])
+  }, [state])
 
   return (
     <SearchComponents.Page>

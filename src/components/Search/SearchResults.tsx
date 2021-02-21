@@ -76,6 +76,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  background-color: ${colors.white};
   overflow-y: hidden;
 
   .ArticleList {
