@@ -48,13 +48,13 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
 
   return (
     <Wrapper>
-      <Tabs>
+      <SearchResultsTab>
         {tabs.map((tab, index) => (
           <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
             {tab.display}
           </TabItem>)
         )}
-      </Tabs>
+      </SearchResultsTab>
       <Carousel
         id={CAROUSEL.SEARCH}
         index={tabIndex}
@@ -89,4 +89,8 @@ const Wrapper = styled.div`
     flex: 1;
     overflow-y: hidden;
   }
+`;
+
+const SearchResultsTab = styled(Tabs)`
+  background-color: ${colors.white};
 `;
