@@ -9,6 +9,7 @@ import PhotoUploader from '../PhotoUploader';
 import Icon from '../Icon';
 import HR from '../HR';
 import Styled from './Styled';
+import Content from './Content';
 import Carousel from '../Carousel';
 import API from '../../apis';
 import Article from '../../types/Article';
@@ -152,7 +153,6 @@ const Editor: React.FC<{
         id={CAROUSEL.EDITOR}
         index={step}
         onChangeIndex={() => {}}
-        gesture={false}
       >
         <Styled.Form className="Form">
           <Styled.Selector onClick={handleNext}>
@@ -167,12 +167,7 @@ const Editor: React.FC<{
             placeholder={title.length > 0 ? '' : '제목을 입력하세요.'}
           />
           <HR marginTop={30} />
-          <Styled.Content
-            name="Content"
-            text={content} 
-            setText={setContent}
-            placeholder={content.length > 0 ? '' : '내용을 입력하세요.'}
-          />
+          <Content content={content}  setContent={setContent} />
           {preUploadUrl && (
             <Styled.Image
               uploadedUrl={uploadedUrl}

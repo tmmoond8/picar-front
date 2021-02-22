@@ -48,20 +48,6 @@ const Title = styled(Input.TextArea)`
   }
 `;
 
-const Content = styled(Input.TextArea)`
-  min-height: 250px;
-  height: auto;
-
-  .Input {
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.73;
-    letter-spacing: normal;
-  }
-`;
-
 const Tools = styled.div`
   display: flex;
   padding: 14px 0;
@@ -98,7 +84,6 @@ export default {
   SendButton,
   Page,
   Title,
-  Content,
   Tools,
   UploadButton,
   Image,
