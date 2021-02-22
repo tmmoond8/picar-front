@@ -5,16 +5,21 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { useStore } from '../../stores';
 import { AllLoungeList, useSelector } from '../LoungeSelector';
-import PhotoUploader from '../PhotoUploader';
+
 import Icon from '../Icon';
 import HR from '../HR';
+import EditorContext from './context';
 import Styled from './Styled';
+import Selector from './Selector';
+import Header from './Header';
+import Title from './Title';
 import Content from './Content';
 import Carousel from '../Carousel';
 import API from '../../apis';
 import Article from '../../types/Article';
 import { CAROUSEL } from '../../types/constants';
 import { colors } from '../../styles';
+import PhotoUploader from '../PhotoUploader';
 
 const Editor: React.FC<{
   article?: Article;
@@ -24,9 +29,7 @@ const Editor: React.FC<{
 }> = ({ article, group, syncArticle, onClose }) => {
   const { util, user } = useStore();
   const history = util.useHistory();
-  const [selected, setSelected] = useSelector(
-    article?.group ?? group,
-  );
+  const [selected, setSelected] = useSelector(article?.group ?? group);
   const [step, setStep] = React.useState(0);
   const [title, setTitle] = React.useState(article?.title ?? '');
   const [content, setContent] = React.useState(article?.content ?? '');
@@ -91,17 +94,6 @@ const Editor: React.FC<{
     }
   }, [title, content, article, selected, uploadedUrl, syncArticle, onClose]);
 
-  const handleKeyDownTitle = React.useCallback((e) => {
-    const allowedKeys = [ 8, 16, 17, 18, 27, 37, 38, 39, 40, 46, 91, 93 ];
-    if (e.keyCode === 13 || (title.length > 32 && !allowedKeys.includes(e.keyCode))) {
-      e.preventDefault();
-    }
-  }, [title])
-
-  const handleSetTitle = React.useCallback((title: string) => {
-    setTitle(title.slice(0, 32))
-  }, [setTitle]);
-
   const handleImageClear = React.useCallback(() => {
     setUploadedUrl('');
     setPreUploadUrl('');
@@ -119,11 +111,7 @@ const Editor: React.FC<{
     setStep(step - 1);
     (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
   }, [step])
-  const handleNext = React.useCallback(() => {
-    setStep(step + 1);
-    (window as any).__OWNER__[CAROUSEL.EDITOR](step + 1);
-  }, [step])
-
+  
   const handleSelect = React.useCallback((selected: string) => {
     setSelected(selected);
     handleGoBack();
@@ -141,60 +129,58 @@ const Editor: React.FC<{
 
   return (
     <Styled.Page className="EditorPage">
-      <Header 
-        title={article ? '글 수정' : '글 작성'}
-        onBack={handleGoBack}
-        onClose={onClose}
-        step={step}
-        right={HeaderRight}
-        hideRight={step !== 0}
-      />
-      <Carousel 
-        id={CAROUSEL.EDITOR}
-        index={step}
-        gesture={false}
-        onChangeIndex={() => {}}
-      >
-        <Styled.Form className="Form">
-          <Styled.Selector onClick={handleNext}>
-            {selected}
-            <Icon icon="arrowDown" size="16px"/>
-          </Styled.Selector>
-          <Styled.Title
-            name="Title"
-            text={title} 
-            onKeyDown={handleKeyDownTitle}
-            setText={handleSetTitle}
-            placeholder={title.length > 0 ? '' : '제목을 입력하세요.'}
-          />
-          <HR marginTop={30} />
-          <Content content={content}  setContent={setContent} />
-          {preUploadUrl && (
-            <Styled.Image
-              uploadedUrl={uploadedUrl}
-              preUploadUrl={preUploadUrl}
-              clear={handleImageClear}
-            />
-          )}
-          <HR full marginTop={24}/>
-          <Styled.Tools>
-            <PhotoUploader.Uploader
-              isLoading={false}
-              setUploadedUrl={setUploadedUrl}
-              setPreUploadUrl={setPreUploadUrl}
-              setThumbnailUrl={setThumbnailUrl}
-            >
-              <Styled.UploadButton
-                onClick={() => {
-                  console.log('UploadButton click');
-                }}
-                icon={<Icon icon="image" size="24px" />}
+      <EditorContext.Provider value={{
+        article,
+        title,
+        content,
+        selected,
+        step,
+        onClose,
+        setStep,
+        setTitle,
+        setContent,
+        setSelected,
+        HeaderRight,
+      }}>
+        <Header />
+        <Carousel 
+          id={CAROUSEL.EDITOR}
+          index={step}
+          gesture={false}
+          onChangeIndex={() => {}}
+        >
+          <Styled.Form className="Form">
+            <Selector />
+            <Title />
+            <HR marginTop={30} />
+            <Content />
+            {preUploadUrl && (
+              <Styled.Image
+                uploadedUrl={uploadedUrl}
+                preUploadUrl={preUploadUrl}
+                clear={handleImageClear}
               />
-            </PhotoUploader.Uploader>
-          </Styled.Tools>
-        </Styled.Form>
-        <AllLounges handleSelect={handleSelect} myLounge={user.profile.group}/>
-      </Carousel>
+            )}
+            <HR full marginTop={24}/>
+            <Styled.Tools>
+              <PhotoUploader.Uploader
+                isLoading={false}
+                setUploadedUrl={setUploadedUrl}
+                setPreUploadUrl={setPreUploadUrl}
+                setThumbnailUrl={setThumbnailUrl}
+              >
+                <Styled.UploadButton
+                  onClick={() => {
+                    console.log('UploadButton click');
+                  }}
+                  icon={<Icon icon="image" size="24px" />}
+                />
+              </PhotoUploader.Uploader>
+            </Styled.Tools>
+          </Styled.Form>
+          <AllLounges handleSelect={handleSelect} myLounge={user.profile.group}/>
+        </Carousel>
+      </EditorContext.Provider>
     </Styled.Page>
   );
 };
@@ -204,12 +190,4 @@ export default Editor;
 const AllLounges = styled(AllLoungeList)`
   width: 100%;
   height: 100%;
-`;
-
-const Header = styled(Carousel.Header)<{ hideRight: boolean}>`
-  ${p => p.hideRight && css`
-    .right {
-      display: none;
-    }
-  `}
 `;

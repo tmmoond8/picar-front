@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 import Image from './Image';
-import Input from '../Input';
 import Button from '../Button';
 import { colors } from '../../styles';
 
@@ -36,18 +35,6 @@ const Page = styled.div`
   }
 `;
 
-const Title = styled(Input.TextArea)`
-  height: auto;
-  min-height: 22px;
-  max-height: 60px;
-
-  .Input {
-    font-size: 19px;
-    font-weight: 500;
-    line-height: 1.58;
-  }
-`;
-
 const Tools = styled.div`
   display: flex;
   padding: 14px 0;
@@ -56,23 +43,6 @@ const Tools = styled.div`
     padding: 0;
   }
 `;
-
-const Selector = styled.button`
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 2;
-  color: ${colors.black77};
-  background-color: ${colors.blackF5F6F7};
-  border-radius: 8px;
-  padding: 0 10px;
-  cursor: pointer;
-
-  .Icon.arrowDown {
-    margin: 0 0 0 6px;
-  }
-`
 
 const UploadButton = styled(Button)`
   .Icon {
@@ -83,10 +53,8 @@ const UploadButton = styled(Button)`
 export default {
   SendButton,
   Page,
-  Title,
   Tools,
   UploadButton,
   Image,
   Form,
-  Selector,
 };

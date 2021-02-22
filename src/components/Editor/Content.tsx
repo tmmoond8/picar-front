@@ -3,11 +3,10 @@ import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import Input from '../Input';
+import { useEditorContext, observer } from './context';
 
-const Content: React.FC<{ 
-  content: string; 
-  setContent: (content: string) => void
-}> = ({ content, setContent }) => {
+const Content: React.FC = () => {
+  const { content, setContent } = useEditorContext();
   return (
     <StyledContent
       name="Content"
@@ -18,7 +17,7 @@ const Content: React.FC<{
   )
 }
 
-export default Content;
+export default observer(Content);
 
 const StyledContent = styled(Input.TextArea)`
   min-height: 250px;
