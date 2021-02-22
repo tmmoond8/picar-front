@@ -14,6 +14,9 @@ export const NAVIGATIONS = [
   {
     name: '정부지원',
   },
+  {
+    name: '피드백',
+  },
 ];
 
 export interface Lounge {

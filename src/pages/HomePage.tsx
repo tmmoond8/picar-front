@@ -65,6 +65,11 @@ const MobileHome = observer(() => {
             bookmarks={user.bookmarks}
             showEmpty
           />
+          <ArticleList
+            articles={article.feedbackArticles}
+            bookmarks={user.bookmarks}
+            showEmpty
+          />
         </Carousel>
       </Wrapper>
       <MenuBar />
@@ -86,6 +91,7 @@ const TabletHome = observer(() => {
       {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} showEmpty/>}
       {article.selectedGroup === '유머' && <ArticleList articles={article.humorArticles} bookmarks={user.bookmarks} showEmpty/>}
       {article.selectedGroup === '정부지원' && <ArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} showEmpty/>}
+      {article.selectedGroup === '피드백' && <ArticleList articles={article.feedbackArticles} bookmarks={user.bookmarks} showEmpty/>}
     </React.Fragment>
   );
 });

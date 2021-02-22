@@ -13,6 +13,7 @@ export interface ArticleStoreInterface extends CommonStore{
   loungeArticles: Article[];
   freeArticles: Article[];
   humorArticles: Article[];
+  feedbackArticles: Article[];
   govermentSupportArticles: Article[];
 }
 
@@ -75,6 +76,11 @@ class ArticleStore implements ArticleStoreInterface {
   @computed
   get govermentSupportArticles() {
     return this.articles.filter((article) => article.group === '정부지원');
+  }
+
+  @computed
+  get feedbackArticles() {
+    return this.articles.filter((article) => article.group === '피드백');
   }
 
   bindRoot(rootStore: Stores ) {
