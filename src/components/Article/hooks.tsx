@@ -75,6 +75,7 @@ export const useOpenArticleEditor = () => {
     title: exitingArticle ? ' 글 수정' : '글 작성',
     noHeader: true,
     isFull: true,
+    noBlur: true,
       contents: (
         <Editor
           article={exitingArticle}

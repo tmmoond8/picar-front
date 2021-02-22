@@ -52,6 +52,7 @@ const LoginPage = () => {
         title: ' 회원가입',
         isFull: true,
         noHeader: true,
+        noBlur: true,
         contents: (
           <SignUpWithDelay
             {...user}

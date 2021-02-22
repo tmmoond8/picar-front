@@ -25,6 +25,7 @@ interface ModalViewerProps {
   handleClose: () => void;
   isFull?: boolean;
   hasTitleLine?: boolean;
+  noBlur?: boolean;
 }
 
 export type ModalData = ModalViewerProps;
@@ -40,16 +41,17 @@ const ModalViewer = React.forwardRef(
       handleClose,
       isFull = false,
       hasTitleLine = true,
+      noBlur = false,
     } = props;
     const { ui } = useStore();
     const [open, setOpen] = React.useState<boolean>(false);
     const handleClickWrapper = React.useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.target === e.currentTarget) {
+        if (e.target === e.currentTarget && !noBlur) {
           handleClose();
         }
       },
-      [handleClose],
+      [handleClose, noBlur],
     );
 
     React.useEffect(() => {
