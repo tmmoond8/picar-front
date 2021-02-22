@@ -2,16 +2,6 @@ import styled from '@emotion/styled';
 
 import Image from './Image';
 import Button from '../Button';
-import { colors } from '../../styles';
-
-const SendButton = styled.button`
-  position: fixed;
-  right: 18px;
-  top: 18px;
-  font-size: 16px;
-  color: ${colors.primary};
-  cursor: pointer;
-`;
 
 const Form = styled.section`
   width: 100%;
@@ -51,7 +41,6 @@ const UploadButton = styled(Button)`
 `;
 
 export default {
-  SendButton,
   Page,
   Tools,
   UploadButton,

@@ -9,22 +9,31 @@ const EditorContext = React.createContext<{
   step: number;
   content: string;
   selected: string;
+  photos: string;
+  thumbnail: string;
   onClose: () => void;
   setStep: (step: number) => void;
   setTitle: (title: string) => void;
   setSelected: (selcted: string) => void;
   setContent: (content: string) => void;
-  HeaderRight?: React.ReactNode;
+  syncArticle: (article: Article) => void;
+  setPhotos: (photos: string) => void;
+  setThumbnail: (thumbnail: string) => void;
 }>({
   title: '',
   content: '',
   step: 0,
   selected: '',
+  photos: '',
+  thumbnail: '',
   setStep: () => {},
   setTitle: () => {},
   setContent: () => {},
   setSelected: () => {},
   onClose: () => {},
+  syncArticle: () => {},
+  setPhotos: () => {},
+  setThumbnail: () => {},
 });
 
 EditorContext.displayName = 'EditorContext';
