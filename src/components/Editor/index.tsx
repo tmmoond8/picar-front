@@ -152,6 +152,7 @@ const Editor: React.FC<{
       <Carousel 
         id={CAROUSEL.EDITOR}
         index={step}
+        gesture={false}
         onChangeIndex={() => {}}
       >
         <Styled.Form className="Form">
