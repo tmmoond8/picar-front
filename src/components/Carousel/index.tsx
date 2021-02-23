@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
 import cx from 'classnames';
 import CarouselHeader, { CarouselHeaderProps } from './CarouselHeader';
+import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
 import global from '../../types/global';
 import { CAROUSEL } from '../../types/constants';
@@ -43,19 +44,11 @@ const Carousel: CarouselComponent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flickingRef.current, index]);
 
-  useEffect(() => {
-    const blockEvent = (e: MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-    if (flickingRef.current && !gesture) {
-      const cameraElement = (flickingRef.current as any).cameraElement as any;
-
-      cameraElement.ontouchmove = blockEvent;
-      cameraElement.onmousemove = blockEvent;
+  const customEvent = (e: FlickingEvent) => {
+    if (!gesture) {
+      e.stop();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flickingRef.current, gesture]);
+  }
 
   return (
     <Self id={id} className={cx('carousel-container', className)}>
@@ -67,6 +60,9 @@ const Carousel: CarouselComponent = ({
         onChange={e => {
           onChangeIndex(e.index);
         }}
+        onMoveStart={customEvent as any}
+        onMove={customEvent as any}
+        onMoveEnd={customEvent as any}
         classPrefix="eg-flick"
         deceleration={0.0075}
         horizontal={true}
