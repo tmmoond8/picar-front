@@ -8,7 +8,7 @@ import API from '../../apis';
 const Uploader: React.FC<{
   className?: string;
   children: React.ReactNode;
-  isLoading: boolean;
+  isLoading?: boolean;
   setProfileUrl?: (url: string) => void; 
   setThumbnailUrl?: (url: string) => void; 
   setUploadedUrl?: (url: string) => void;
@@ -16,7 +16,7 @@ const Uploader: React.FC<{
 }> = ({ 
     className, 
     children, 
-    isLoading,
+    isLoading = false,
     setUploadedUrl, 
     setPreUploadUrl, 
     setThumbnailUrl, 
@@ -40,28 +40,16 @@ const Uploader: React.FC<{
         reader.readAsDataURL(files[0]);
         reader.onload = () => setPreUploadUrl(reader!.result!.toString());
 
-        const uploaders = [];
-        const setImages: ((url: string) => void)[] = [];
         if (setProfileUrl) {
-          uploaders.push(API.imageUpload(files[0], 'owwners_profile'));
-          setImages.push(setProfileUrl);
+          API.imageUpload(files[0], 'owwners_profile').then(profileUrl => setProfileUrl(profileUrl.imgUrl));
         }
+        
         if (setThumbnailUrl) {
-          uploaders.push(API.imageUpload(files[0], 'owwners_thumbnail'));
-          setImages.push(setThumbnailUrl);
+          API.imageUpload(files[0], 'owwners_thumbnail').then(thumbnailUrl => setThumbnailUrl(thumbnailUrl.imgUrl));
         }
         if (setUploadedUrl) {
-          uploaders.push(API.imageUpload(files[0], 'owwners_post'));
-          setImages.push(setUploadedUrl);
+          API.imageUpload(files[0], 'owwners_post').then(photoUrl => setUploadedUrl(photoUrl.imgUrl));
         }
-
-        Promise.all(uploaders).then((uploaedImages) => {
-          uploaedImages.forEach((image, index) => {
-            setImages[index](image.imgUrl);
-          })
-        }).catch(error => {
-          throw new Error(error);
-        });
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +57,7 @@ const Uploader: React.FC<{
   };
 
   return (
-    <StyledUploader isLoading={isLoading} className={className} onClick={handleClick}>
+    <StyledUploader className={className} onClick={handleClick} isLoading={isLoading}>
       {isLoading && <Loader icon="loading" size="24px" />}
       {children}
       <HiddenInput
