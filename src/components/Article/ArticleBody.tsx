@@ -12,6 +12,9 @@ const ArticleBody = () => {
   const content = React.useMemo(() => {
     return article!.content.replace(urlPattern, `<a href="$&" target="_blank">$&</a>`)
   }, [article!.content])
+  const photos = React.useMemo(() => {
+    return article!.photos.split(',').filter(p => !!p)
+  }, [article!.photos])
 
   return (
     <Body>
@@ -20,11 +23,9 @@ const ArticleBody = () => {
       <Content dangerouslySetInnerHTML={{
         __html: content
       }}/>
-      {article!.photos && (
-        <ImageWrapper>
-          <Image src={article!.photos} />
-        </ImageWrapper>
-      )}
+      <ImageWrapper>
+        {photos.map(photo => <Image src={photo} />)}
+      </ImageWrapper>
     </Body>
   );
 };

@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 import Image from './Image';
-import Button from '../Button';
 
 const Form = styled.section`
   width: 100%;
@@ -25,25 +24,8 @@ const Page = styled.div`
   }
 `;
 
-const Tools = styled.div`
-  display: flex;
-  padding: 14px 0;
-  button {
-    border: none;
-    padding: 0;
-  }
-`;
-
-const UploadButton = styled(Button)`
-  .Icon {
-    cursor: pointer;
-  }
-`;
-
 export default {
   Page,
-  Tools,
-  UploadButton,
   Image,
   Form,
 };

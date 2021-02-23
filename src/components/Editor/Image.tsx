@@ -1,21 +1,19 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
 import Icon from '../Icon';
 
-interface ImageProps {
-  uploadedUrl?: string;
-  preUploadUrl: string;
+const Image: React.FC<{
+  photoUrl?: string;
+  thumbnailUrl?: string;
+  preUploadUrl?: string;
   clear: () => void;
-}
-
-export default function Image(props: ImageProps): JSX.Element {
-  const { preUploadUrl, uploadedUrl, clear } = props;
+}> = ({ preUploadUrl, photoUrl, clear }) => {
   const isLoading = React.useMemo(() => {
-    return !uploadedUrl;
-  }, [uploadedUrl]);
+    return !photoUrl;
+  }, [photoUrl]);
 
   return (
     <Wrapper isLoading={isLoading}>
@@ -28,13 +26,12 @@ export default function Image(props: ImageProps): JSX.Element {
   );
 }
 
+export default Image;
+
 const Wrapper = styled.figure<{ isLoading: boolean }>`
   position: relative;
   width: 72px;
   height: 72px;
-  margin: 15px 0;
-  background: ${(p) =>
-    p.isLoading ? 'rgba(51, 51, 51, 0.4)' : 'rgba(51, 51, 51, 0.1)'};
   border-radius: 4px;
 
   img {
@@ -43,6 +40,12 @@ const Wrapper = styled.figure<{ isLoading: boolean }>`
     border-radius: 4px;
     object-fit: cover;
   }
+
+  ${p => p.isLoading && css`
+    img {
+      filter: brightness(0.5);
+    }
+  `}
 `;
 
 const Loader = styled(Icon)`

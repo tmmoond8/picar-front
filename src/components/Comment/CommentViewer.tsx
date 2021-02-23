@@ -63,7 +63,6 @@ const StyledComments = styled.div`
   display: flex;
   flex-direction: column;
   max-height: 70vh;
-  padding: 0 0 92px;
 `;
 
 const CommentList = styled.ul`

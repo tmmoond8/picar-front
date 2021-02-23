@@ -1,23 +1,22 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useStore } from '../../stores';
 import { AllLoungeList, useSelector } from '../LoungeSelector';
 
-import Icon from '../Icon';
 import HR from '../HR';
 import EditorContext from './context';
 import Styled from './Styled';
 import Selector from './Selector';
 import Header from './Header';
 import Title from './Title';
+import PhotoSection from './PhotoSection';
 import Content from './Content';
 import Carousel from '../Carousel';
 
 import Article from '../../types/Article';
 import { CAROUSEL } from '../../types/constants';
-import PhotoUploader from '../PhotoUploader';
 
 const Editor: React.FC<{
   article?: Article;
@@ -33,19 +32,6 @@ const Editor: React.FC<{
   const [ content, setContent ] = React.useState(article?.content ?? '');
   const [ photos, setPhotos ] = React.useState(article?.photos ?? '');
   const [ thumbnail, setThumbnail ] = React.useState(article?.thumbnail ?? '');
-  const { 
-    uploadedUrl,
-    preUploadUrl,
-    thumbnailUrl,
-    setUploadedUrl,
-    setPreUploadUrl,
-    setThumbnailUrl 
-  } = PhotoUploader.usePhotoUPloader(article?.photos);
-
-  const handleImageClear = React.useCallback(() => {
-    setUploadedUrl('');
-    setPreUploadUrl('');
-  }, [setUploadedUrl, setPreUploadUrl]);
   
   const handleGoBack = React.useCallback(() => {
     setStep(step - 1);
@@ -57,7 +43,6 @@ const Editor: React.FC<{
     handleGoBack();
   }, [handleGoBack])
 
-
   return (
     <Styled.Page className="EditorPage">
       <EditorContext.Provider value={{
@@ -66,8 +51,8 @@ const Editor: React.FC<{
         content,
         selected,
         step,
-        photos: uploadedUrl ?? '',
-        thumbnail: thumbnailUrl ?? '',
+        photos,
+        thumbnail,
         onClose,
         setStep,
         setTitle,
@@ -89,29 +74,7 @@ const Editor: React.FC<{
             <Title />
             <HR marginTop={30} />
             <Content />
-            {preUploadUrl && (
-              <Styled.Image
-                uploadedUrl={uploadedUrl}
-                preUploadUrl={preUploadUrl}
-                clear={handleImageClear}
-              />
-            )}
-            <HR full marginTop={24}/>
-            <Styled.Tools>
-              <PhotoUploader.Uploader
-                isLoading={false}
-                setUploadedUrl={setUploadedUrl}
-                setPreUploadUrl={setPreUploadUrl}
-                setThumbnailUrl={setThumbnailUrl}
-              >
-                <Styled.UploadButton
-                  onClick={() => {
-                    console.log('UploadButton click');
-                  }}
-                  icon={<Icon icon="image" size="24px" />}
-                />
-              </PhotoUploader.Uploader>
-            </Styled.Tools>
+            <PhotoSection />
           </Styled.Form>
           <AllLounges handleSelect={handleSelect} myLounge={user.profile.group}/>
         </Carousel>

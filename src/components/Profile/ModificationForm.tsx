@@ -38,18 +38,13 @@ const ModificationForm = () => {
   const [loading, setLoading] = React.useState(false);
   const setProfile = React.useCallback((url: string) => {
     setProfileUrl(url);
-    setPreUploadUrl('');
+    setLoading(false);
   }, [])
 
-  React.useEffect(() => {
-    if (preUploadUrl) {
-      setLoading(true);
-    }
-  }, [preUploadUrl]);
-
-  React.useEffect(() => {
-    setLoading(false);
-  }, [profileUrl])
+  const handleSetPreLoadImage = (preLoadImage: string) => {
+    setPreUploadUrl(preLoadImage);
+    setLoading(true);
+  }
 
   React.useEffect(() => {
     if (location.state && 'focus' in location.state) {
@@ -106,7 +101,7 @@ const ModificationForm = () => {
         <ImageUploader
           isLoading={loading}
           setProfileUrl={setProfile}
-          setPreUploadUrl={setPreUploadUrl}
+          setPreUploadUrl={handleSetPreLoadImage}
         >
           <PHotoUploaderButton>
             <StyledPhoto size={72} src={preUploadUrl || profileUrl} />
