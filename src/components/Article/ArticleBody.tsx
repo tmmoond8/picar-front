@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-
+import Album from './ArticlePhotoAlbum';
 import { colors } from '../../styles';
 import { useArticleContext, observer } from './context';
 
@@ -23,9 +23,7 @@ const ArticleBody = () => {
       <Content dangerouslySetInnerHTML={{
         __html: content
       }}/>
-      <ImageWrapper>
-        {photos.map(photo => <Image src={photo} />)}
-      </ImageWrapper>
+      <Album photos={photos} />
     </Body>
   );
 };
@@ -33,6 +31,7 @@ export default observer(ArticleBody);
 
 const Body = styled.div`
   padding: 8px 18px 10px;
+  overflow-x: hidden;
 `;
 
 const Title = styled.h1`
@@ -53,16 +52,6 @@ const Content = styled.pre`
   a {
     color: ${colors.primary};
   }
-`;
-
-const ImageWrapper = styled.div`
-  margin: 37px -18px 0 -18px;
-  width: auto;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: auto;
 `;
 
 const Lounge = styled.p`
