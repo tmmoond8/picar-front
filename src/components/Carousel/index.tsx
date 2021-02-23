@@ -31,21 +31,27 @@ const Carousel: CarouselComponent = ({
   const flickingRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     if (flickingRef?.current) {
       global.__OWNER__[id as typeof CAROUSEL[keyof typeof CAROUSEL]] = (
         _index: number,
       ) => {
+        (flickingRef.current as any).forced = true;
         (flickingRef.current as any).moveTo(
           _index,
           Math.abs(index - _index) > 1 ? 0 : 500,
         );
+        timer = setTimeout(() => {
+          (flickingRef.current as any).forced = false;
+        }, 500)
       };
     }
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flickingRef.current, index]);
 
   const customEvent = (e: FlickingEvent) => {
-    if (!gesture) {
+    if (!gesture && !(flickingRef.current as any).forced) {
       e.stop();
     }
   }
