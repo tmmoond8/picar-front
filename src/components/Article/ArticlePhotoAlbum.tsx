@@ -71,7 +71,7 @@ const MobileNivigation = styled.div`
   position: absolute;
   top: 18px;
   right: 12px;
-  z-index: 3000;
+  z-index: 2001;
   color: ${colors.white};
   font-size: 13px;
   font-weight: 500;
