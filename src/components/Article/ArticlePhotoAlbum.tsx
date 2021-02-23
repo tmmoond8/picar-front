@@ -10,9 +10,10 @@ import { colors } from '../../styles';
 const Album: React.FC<{ photos: string[]}> = ({ photos }) => {
   const { ui } = useStore();
   const [index, setIndex] = React.useState(0);
+  const hasPhoto = React.useMemo(() => photos.length > 0, [photos]);
   return (
     <Wrapper>
-      {ui.queryMatch.Mobile && (
+      {ui.queryMatch.Mobile && hasPhoto && (
         <MobileAlbum>
           <MobileNivigation>{`${index + 1}/${photos.length}`}</MobileNivigation>
           <Carousel 
@@ -24,7 +25,7 @@ const Album: React.FC<{ photos: string[]}> = ({ photos }) => {
           </Carousel>
         </MobileAlbum>
       )}
-      {!ui.queryMatch.Mobile && (
+      {!ui.queryMatch.Mobile && hasPhoto && (
         <DesktopAlbum>
           {photos.map((photo, index) => <li key={`${index}_${photo}`}><Image src={photo} /></li>)}          
         </DesktopAlbum>

@@ -13,7 +13,7 @@ const ArticleBody = () => {
     return article!.content.replace(urlPattern, `<a href="$&" target="_blank">$&</a>`)
   }, [article!.content])
   const photos = React.useMemo(() => {
-    return article!.photos.split(',').filter(p => !!p)
+    return article!.photos ? article!.photos.split(',').filter(p => !!p) : []
   }, [article!.photos])
 
   return (
