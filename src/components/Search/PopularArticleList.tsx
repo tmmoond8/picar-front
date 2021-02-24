@@ -82,7 +82,7 @@ const Item = observer((article: Article) => {
         <h3 className="articleTitle">{article.title}</h3>
         <p className="articleGroup">{article.group}</p>
       </TextContent>
-      {article.photos && <Thumbnail src={article.photos}/>}
+      {article.photos && <Thumbnail src={article.thumbnail}/>}
     </ArticleItem>
   )
 })
