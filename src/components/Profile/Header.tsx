@@ -8,12 +8,14 @@ import { useStore, observer } from '../../stores';
 import Icon from '../Icon';
 import APIS from '../../apis';
 import { useContextMenu, getElementPosition } from '../ContextMenu';
+import { useAlert } from '../Alert';
 
 const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
   const { user, util } = useStore();
   const [ count, setCount ] = React.useState(0);
   const { code } = user.profile;
   const contextMenu = useContextMenu();
+  const alert = useAlert();
 
   const handleUnknown = React.useCallback(async () => {
     setCount(count + 1);
@@ -44,14 +46,21 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
           name: '로그아웃',
           onClick: async () => {
             contextMenu.close();
-            try {
-              const { data: { ok } } = await APIS.auth.logout();
-              if (ok) {
-                window.location.reload(false);
-              }
-            } catch(error) {
-              console.error(error);
-            }
+            alert.open({
+              title: '로그아웃 하시겠어요?',
+              handleConfirm: async () => {
+                alert.close();
+                try {
+                  const { data: { ok } } = await APIS.auth.logout();
+                  if (ok) {
+                    window.location.reload(false);
+                  }
+                } catch(error) {
+                  console.error(error);
+                }
+              },
+            })
+            
           },
         },
       ],

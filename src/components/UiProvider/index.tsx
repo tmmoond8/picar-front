@@ -1,6 +1,7 @@
 import React from 'react';
 import ContextMenuViewer, { ContextMenuData, CustomContextMenuData, CustomContextMenuViewer } from '../ContextMenu';
 import ToastContainer from '../ToastContainer';
+import AlertViewer, { AlertData } from '../Alert';
 
 import ModalViewer, {
   ModalData,
@@ -35,11 +36,10 @@ const UiProvider: React.FC<{
 
   user.needLogin = () => needLogin(user.profile.code);
 
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   useSetupContextMenu(ui);
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   useSetupModal(ui);
-
+  useSetupAlert(ui);
+  
   return (
     <React.Fragment>
       {ui.contextMenus.map((contextMenu) => (
@@ -50,6 +50,9 @@ const UiProvider: React.FC<{
       ))}
       {ui.modals.map((modal) => (
         <ModalViewer key={modal.id} {...modal} />
+      ))}
+      {ui.alerts.map((alert) => (
+        <AlertViewer key={alert.id} {...alert} />
       ))}
       <ToastContainer />
       {children}
@@ -79,6 +82,19 @@ function useSetupContextMenu(ui: UiStore) {
     };
     global.__OWNER__.closeContextMenu = (targetId: string) => {
       ui.contextMenus = ui.contextMenus.filter(({ id }) => id !== targetId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}
+
+
+function useSetupAlert(ui: UiStore) {
+  React.useEffect(() => {
+    global.__OWNER__.openAlert = (data: AlertData) => {
+      ui.alerts = [...ui.alerts, data];
+    };
+    global.__OWNER__.closeAlert = (targetId: string) => {
+      ui.alerts = ui.alerts.filter(({ id }) => id !== targetId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

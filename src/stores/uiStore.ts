@@ -2,8 +2,9 @@ import { action, observable } from 'mobx';
 import { initalHeader, HeaderProps, headerType } from '../components/Header';
 import { ContextMenuData, CustomContextMenuData } from '../components/ContextMenu';
 import { ModalData } from '../components/Modal';
+import { AlertData } from '../components/Alert';
 import { BreakPoints } from '../styles/mediaQuery';
-import { CommonStore, Stores } from '.';
+import { CommonStore, observer, Stores } from '.';
 
 type BreakPointKeys = keyof typeof BreakPoints;
 
@@ -17,6 +18,7 @@ export interface UiStoreInterface extends CommonStore{
   setKeyboardMargin: (height: number) => void;
   contextMenus: (ContextMenuData | CustomContextMenuData)[];
   modals: ModalData[];
+  alerts: AlertData[];
   queryMatch: Record<BreakPointKeys, boolean>;
 }
 
@@ -25,6 +27,7 @@ class UiStore implements UiStoreInterface {
   @observable keyboardMargin: number;
   @observable contextMenus: (ContextMenuData | CustomContextMenuData)[];
   @observable modals: ModalData[];
+  @observable alerts: AlertData[];
   @observable queryMatch: Record<BreakPointKeys, boolean>;
   rootStore: Stores | null;
 
@@ -33,6 +36,7 @@ class UiStore implements UiStoreInterface {
     this.keyboardMargin = 0;
     this.contextMenus = [];
     this.modals = [];
+    this.alerts = [];
     this.rootStore = null;
     this.queryMatch = {
       Mobile: false,

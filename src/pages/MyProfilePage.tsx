@@ -24,6 +24,11 @@ const Mobile = () => {
   const { user, util } = useStore();
   const { profileImage, name, group, description } = user.profile;
   const { handleOpenUserActivations } = useProfileHandler();
+  React.useEffect(() => {
+    if (!user.isLogined) {
+      util.history.replace('/');
+    }
+  }, [])
   
   return (
     <React.Fragment>
