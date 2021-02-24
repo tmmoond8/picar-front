@@ -94,6 +94,7 @@ const UploadButton = styled(Button)`
 const PhotoRow = styled.ul`
   display: flex;
   padding: 12px 0 0 0;
+  overflow-x: auto;
   li + li {
     margin: 0 0 0 14px;
   }

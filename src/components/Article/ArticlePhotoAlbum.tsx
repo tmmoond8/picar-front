@@ -14,16 +14,18 @@ const Album: React.FC<{ photos: string[]}> = ({ photos }) => {
   return (
     <Wrapper>
       {ui.queryMatch.Mobile && hasPhoto && (
-        <MobileAlbum>
-          <MobileNivigation>{`${index + 1}/${photos.length}`}</MobileNivigation>
-          <Carousel 
-            id={CAROUSEL.ARTICLE_ALBUM}
-            index={index}
-            onChangeIndex={(index: number) => setIndex(index)}
-          >
-            {photos.map((photo, index) => <li key={`${index}_${photo}`}><Image src={photo} /></li>)}
-          </Carousel>
-        </MobileAlbum>
+        photos.length === 1 ? (<Image src={photos[0]} />) : (
+          <MobileAlbum>
+            <MobileNivigation>{`${index + 1}/${photos.length}`}</MobileNivigation>
+            <Carousel 
+              id={CAROUSEL.ARTICLE_ALBUM}
+              index={index}
+              onChangeIndex={(index: number) => setIndex(index)}
+            >
+              {photos.map((photo, index) => <li key={`${index}_${photo}`}><Image src={photo} /></li>)}
+            </Carousel>
+          </MobileAlbum>
+        )
       )}
       {!ui.queryMatch.Mobile && hasPhoto && (
         <DesktopAlbum>
@@ -37,12 +39,11 @@ const Album: React.FC<{ photos: string[]}> = ({ photos }) => {
 export default observer(Album);
 
 const Wrapper = styled.div`
-  margin: 0 0 0 -18px;
+  margin: 32px 0 0 -18px;
+  width: calc(100% + 36px);
 `;
 
 const DesktopAlbum = styled.ul`
-  margin: 37px -18px 0 -18px;
-
   li {
     height: 100%;
     width: 100%;
@@ -59,7 +60,6 @@ const MobileAlbum = styled.div`
   position: relative;
   height: 280px;
   width: 100vw;
-  margin: 32px 0 0 0;
   list-style: none;
   li {
     height: 100%;
