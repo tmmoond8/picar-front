@@ -36,10 +36,10 @@ const ProfilePhoto = styled.div`
   height: 48px;
   margin: 0 20px 0 12px;
   background-color: ${colors.blackF5F6F7};
-  border-radius: 24px;
   cursor: pointer;
   .UserProfilePhoto {
     cursor: pointer;
+    clip-path: url(#squircle);
   }
 `;
 

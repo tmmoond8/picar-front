@@ -38,6 +38,6 @@ const Photo = styled.img<{ src: string; size: number; clickable: boolean}>`
   height: ${(p) => p.size}px;
   min-height: ${(p) => p.size}px;
   object-fit: cover;
-  border-radius: ${(p) => p.size / 3}px;
+  clip-path: url(#squircle);
   cursor: ${p => p.clickable ? 'pointer' : 'auto'};
 `;

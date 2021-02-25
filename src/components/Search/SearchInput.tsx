@@ -66,16 +66,16 @@ const Wrapper = styled.div`
     .Icon.back {
       position: relative;
       left: -4px;
+      margin: 0 8px 0 0;
     }
 `;
 
 const InputBox = styled.div`
     display: flex;
     flex: 1;
-    margin: 0 0 0 8px;
     padding: 8px 12px;
     border-radius: 12px;
-    background-color: ${colors.blackEB};
+    background-color: ${colors.blackF5F6F7};
 `;
 
 const TextField = styled(Input.TextField )`
