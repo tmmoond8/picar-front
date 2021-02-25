@@ -77,11 +77,12 @@ const ModificationForm = () => {
   }, [description, group, name, user.profile, profileUrl]);
 
   const disabled = 
-    loading &&
-    user.profile.profileImage === profileUrl &&
-    user.profile.name === name &&
-    user.profile.group === group && 
-    user.profile.description === description;
+    loading || (
+      user.profile.profileImage === profileUrl &&
+      user.profile.name === name &&
+      user.profile.group === group && 
+      user.profile.description === description
+    );
 
   return (
     <React.Fragment>
