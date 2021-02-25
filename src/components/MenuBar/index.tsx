@@ -120,6 +120,7 @@ const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap]}>`
   margin: 0 auto;
   .MenuBarItem, .Icon {
     color: ${colors.black99};
+    cursor: pointer;
   }
   .MenuBarItem.${p => p.selected} {
     color: ${colors.black33};
