@@ -14,6 +14,7 @@ import Title from './Title';
 import PhotoSection from './PhotoSection';
 import Content from './Content';
 import Carousel from '../Carousel';
+import { useAlert } from '../Alert';
 
 import Article from '../../types/Article';
 import { CAROUSEL } from '../../types/constants';
@@ -25,7 +26,7 @@ const Editor: React.FC<{
   onClose: () => void;
 }> = ({ article, group, syncArticle, onClose }) => {
   const { user } = useStore();
-  
+  const alert = useAlert();
   const [ selected, setSelected ] = useSelector(article?.group ?? group);
   const [ step, setStep ] = React.useState(0);
   const [ title, setTitle ] = React.useState(article?.title ?? '');
@@ -43,6 +44,15 @@ const Editor: React.FC<{
     handleGoBack();
   }, [handleGoBack])
 
+  const handleClose = React.useCallback(() => {
+    alert.open({
+      title: `작성중인 글쓰기를 삭제하고
+이전페이지로 돌아갑니다`, 
+      subtitle: `작성중인 글쓰기를 삭제하고 이전페이지로 돌아갑니다이전페이지로 돌아갑니다이전페이지로 돌아갑니다`,
+      handleConfirm: onClose
+    })
+  }, [])
+
   return (
     <Styled.Page className="EditorPage">
       <EditorContext.Provider value={{
@@ -53,7 +63,7 @@ const Editor: React.FC<{
         step,
         photos,
         thumbnail,
-        onClose,
+        onClose: handleClose,
         setStep,
         setTitle,
         setContent,

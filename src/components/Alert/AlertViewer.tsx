@@ -22,9 +22,11 @@ const AlertViewer: React.FC<AlertData> = ({
   return (
     <AlertContainer className="AlertContainer">
       <Box>
-        <h3 className="Title">{title}</h3>
-        {subtitle && <p className="Subtitle">{subtitle}</p>}
-        <ActionButton className="Confrim" onClick={handleConfirm}>확인</ActionButton>
+        <Content>
+          <h3 className="Title">{title}</h3>
+          {subtitle && <p className="Subtitle">{subtitle}</p>}
+        </Content>
+        <ActionButton className="Confrim" onClick={() => { handleConfirm(); handleClose();}}>확인</ActionButton>
         <ActionButton className="Cancel" onClick={handleClose}>취소</ActionButton>
       </Box>
     </AlertContainer>
@@ -32,17 +34,6 @@ const AlertViewer: React.FC<AlertData> = ({
 };
 
 export default React.memo(AlertViewer);
-
-const popup = keyframes`
-  from {
-    transform: translateY(-20px);
-    opacity: 0.2;
-  } 
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`;
 
 const AlertContainer = styled.div`
   position: fixed;
@@ -66,12 +57,24 @@ const Box = styled.section`
   background-color: ${colors.white};
   transform: translateY(-50%);
 
+`;
+
+const Content = styled.div`
+  padding: 32px 32px 24px 32px;
   .Title {
-    padding: 32px 19px;
+    padding: 0 0 8px 0;
     font-size: 17px;
     font-weight: 500;
     line-height: 1.41;
     letter-spacing: -0.25px;
+    white-space: pre;
+    text-align: center;
+  }
+  .Subtitle {
+    padding: 8px 0 0 0;
+    font-size: 14px;
+    line-height: 1.43;
+    color: ${colors.black99};
     text-align: center;
   }
 `;
@@ -86,6 +89,7 @@ const ActionButton = styled.button`
   font-weight: 500;
   line-height: 1.6;
   letter-spacing: -0.22px;
+  cursor: pointer;
 
   &.Confrim {
     font-weight: bold;
