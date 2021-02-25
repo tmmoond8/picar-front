@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
 
@@ -34,10 +34,10 @@ const SignUpWithDelay = (props: LoginBoxProps & SignUpUser) => {
 };
 
 const LoginPage = () => {
-  const { user, ui, util } = useStore();
+  const { user, ui } = useStore();
   const location = useLocation();
   const { code } = queryString.parse(location.search);
-  const history  = util.useHistory();
+  const history  = useHistory();
   const [message, setMessage ] = React.useState('');
 
   ui.setHeaderNone();
@@ -45,6 +45,13 @@ const LoginPage = () => {
   const handleSetUserProfile = (profile: UserProfile) => {
     user.setProfile(profile);
   };
+
+  const handleClose = React.useCallback(() => {
+    modal.close();
+    setTimeout(() => {
+      history.replace('/', false);
+    }, 200)
+  }, [])
 
   const handleSignUp = React.useCallback(
     (user: SignUpUser) => {
@@ -56,7 +63,7 @@ const LoginPage = () => {
         contents: (
           <SignUpWithDelay
             {...user}
-            onClose={modal.close}
+            onClose={handleClose}
             onSetUserProfile={handleSetUserProfile}
           />
         ),

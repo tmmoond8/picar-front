@@ -79,14 +79,14 @@ function useProfile() {
           {
             name: '공지사항',
             onClick: () => {
-              window.open('https://www.notion.so/taem/d7e6d7a18ec849b3b543e7389b0bd5fe', '_blank')
+              window.open('https://bit.ly/3bHRJMd', '_blank')
               contextMenu.close();
             },
           },
           {
             name: '자주 묻는 질문',
             onClick: () => {
-              window.open('https://www.notion.so/taem/2fbdb025be1c45748504f74d33eda2d3', '_blank')
+              window.open('https://bit.ly/2O3MHBd', '_blank')
               contextMenu.close();
             },
             underline: true,

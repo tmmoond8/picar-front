@@ -102,7 +102,7 @@ const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
   margin: auto;
   overflow: hidden;
   background-color: ${(p) => (p.open ? colors.dimmed : colors.notDimmed)};
-  z-index: 2005;
+  z-index: 10005;
   transition: background-color 0.2s ease 0s;
   ${p => p.desktop && css`
   align-items: center;
