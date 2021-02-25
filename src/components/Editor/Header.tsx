@@ -9,6 +9,7 @@ import { CAROUSEL } from '../../types/constants';
 import { colors } from '../../styles';
 import API from '../../apis';
 import Icon from '../Icon';
+import { useAlert } from '../Alert';
 import { useStore, observer } from '../../stores';
 
 const Header: React.FC = () => {
@@ -31,6 +32,7 @@ const Header: React.FC = () => {
     setStep(step - 1);
     (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
   }, [step])
+  const alert = useAlert();
   
   const validate = React.useCallback(() => {
     if (title.length === 0) {
@@ -91,6 +93,22 @@ const Header: React.FC = () => {
     return title.length === 0 || content.length === 0;
   }, [content.length, title.length]);
 
+  const handleClose = React.useCallback(() => {
+    if (
+      (title === article?.title || title === '') &&
+      (content === article?.content || content === '') &&
+      (photos === article?.photos || photos === '')
+    ) {
+      return onClose();
+    }
+    alert.open({
+      title: `작성중인 글쓰기를 삭제하고
+이전페이지로 돌아갑니다`, 
+      subtitle: `작성중인 글쓰기를 삭제하고 이전페이지로 돌아갑니다이전페이지로 돌아갑니다이전페이지로 돌아갑니다`,
+      handleConfirm: onClose
+    })
+  }, [title, content, photos])
+
   const HeaderRight = (
     <SendButton onClick={handleSubmit}>
       <Icon 
@@ -105,7 +123,7 @@ const Header: React.FC = () => {
     <StyledHeader 
       title={article ? '글 수정' : '글 작성'}
       onBack={handleGoBack}
-      onClose={onClose}
+      onClose={handleClose}
       step={step}
       right={HeaderRight}
       hideRight={step !== 0}

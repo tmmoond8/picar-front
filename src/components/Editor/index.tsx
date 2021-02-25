@@ -26,7 +26,6 @@ const Editor: React.FC<{
   onClose: () => void;
 }> = ({ article, group, syncArticle, onClose }) => {
   const { user } = useStore();
-  const alert = useAlert();
   const [ selected, setSelected ] = useSelector(article?.group ?? group);
   const [ step, setStep ] = React.useState(0);
   const [ title, setTitle ] = React.useState(article?.title ?? '');
@@ -44,22 +43,6 @@ const Editor: React.FC<{
     handleGoBack();
   }, [handleGoBack])
 
-  const handleClose = React.useCallback(() => {
-    if (
-      (title === article?.title || title === '') &&
-      (content === article?.content || content === '') &&
-      (photos === article?.photos || photos === '')
-    ) {
-      return onClose();
-    }
-    alert.open({
-      title: `작성중인 글쓰기를 삭제하고
-이전페이지로 돌아갑니다`, 
-      subtitle: `작성중인 글쓰기를 삭제하고 이전페이지로 돌아갑니다이전페이지로 돌아갑니다이전페이지로 돌아갑니다`,
-      handleConfirm: onClose
-    })
-  }, [title, content, photos])
-
   return (
     <Styled.Page className="EditorPage">
       <EditorContext.Provider value={{
@@ -70,7 +53,7 @@ const Editor: React.FC<{
         step,
         photos,
         thumbnail,
-        onClose: handleClose,
+        onClose,
         setStep,
         setTitle,
         setContent,
