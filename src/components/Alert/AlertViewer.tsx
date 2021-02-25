@@ -43,7 +43,7 @@ const AlertContainer = styled.div`
   bottom: 0;
   margin: auto;
   background-color: rgba(0, 0, 0, 0.55);
-  z-index: 4000;
+  z-index: 10040;
 `;
 
 const Box = styled.section`

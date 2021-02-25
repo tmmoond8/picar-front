@@ -60,7 +60,6 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
                 }
               },
             })
-            
           },
         },
       ],

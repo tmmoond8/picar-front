@@ -8,6 +8,7 @@ import { useContextMenu, getElementPosition } from '../ContextMenu';
 import APIS from '../../apis';
 import { colors } from '../../styles';
 import Button from '../Button';
+import { useAlert } from '../Alert';
 
 const UserProfile = () => {
   const { user } = useStore();
@@ -56,6 +57,7 @@ const LoginButton = styled(Button)`
 function useProfile() {
   const { user, util } = useStore();
   const contextMenu = useContextMenu();
+  const alert = useAlert();
 
   const handleClickProfile = React.useCallback(
     (e: React.MouseEvent) => {
@@ -93,14 +95,20 @@ function useProfile() {
             name: '로그아웃',
             onClick: async () => {
               contextMenu.close();
-              try {
-                const { data: { ok } } = await APIS.auth.logout();
-                if (ok) {
-                  window.location.reload(false);
-                }
-              } catch(error) {
-                console.error(error);
-              }
+              alert.open({
+                title: '로그아웃 하시겠어요?',
+                handleConfirm: async () => {
+                  alert.close();
+                  try {
+                    const { data: { ok } } = await APIS.auth.logout();
+                    if (ok) {
+                      window.location.reload(false);
+                    }
+                  } catch(error) {
+                    console.error(error);
+                  }
+                },
+              })
             },
           },
         ],
