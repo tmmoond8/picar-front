@@ -39,6 +39,7 @@ const ProfilePhoto = styled.div`
   cursor: pointer;
   .UserProfilePhoto {
     cursor: pointer;
+    -webkit-clip-path: url(#squircle);
     clip-path: url(#squircle);
   }
 `;
