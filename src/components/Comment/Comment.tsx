@@ -16,7 +16,7 @@ interface CommentProps {
   id: string;
   articleAuthorCode: string;
   commentAuthorCode: string;
-  thumbnail?: string;
+  thumbnail: string;
   name: string;
   content: string;
   group?: string;
