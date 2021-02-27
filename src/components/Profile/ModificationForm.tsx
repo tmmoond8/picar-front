@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useLocation } from 'react-router';
 import { useStore, observer } from '../../stores';
-import Photo from './Photo';
+import Squircle from '../Squircle';
 import Input from '../Input';
 import Icon from '../Icon';
 import LoungeSelector, { useSelector } from '../LoungeSelector';
@@ -105,7 +105,7 @@ const ModificationForm = () => {
           setPreUploadUrl={handleSetPreLoadImage}
         >
           <PHotoUploaderButton>
-            <StyledPhoto size={72} src={preUploadUrl || profileUrl} />
+            <ProfilePhoto size={72} src={preUploadUrl || profileUrl} />
             <CameraIcon icon="camera" size="24px" />
           </PHotoUploaderButton>
         </ImageUploader>
@@ -148,7 +148,7 @@ const PHotoUploaderButton = styled.div`
   text-align: center;
 `;
 
-const StyledPhoto = styled(Photo)`
+const ProfilePhoto = styled(Squircle)`
   border-radius: 26px;
   cursor: pointer;
 `;

@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
-import Photo from './Photo';
+import Squircle from '../Squircle';
 import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
 
@@ -21,7 +21,7 @@ const Profile: React.FC<{
 
   return (
     <UserProfile className={cx('Profile', className)}>
-      <Photo className="Photo" src={profileImage} size={96} />
+      <Squircle className="Photo" src={profileImage} size={96} />
       <h2 className="Name">{name}</h2>
       <h4 className="Group">{group}</h4>
       {description && <p className="Introduction">{description}</p>}
