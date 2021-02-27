@@ -58,7 +58,7 @@ const ModalViewer = React.forwardRef(
       if (!open) {
         setTimeout(() => {
           setOpen(true);
-        }, 300);
+        }, 50);
       }
     }, [title, open]);
     return (
