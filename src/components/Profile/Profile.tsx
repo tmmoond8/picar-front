@@ -6,15 +6,17 @@ import cx from 'classnames';
 import Squircle from '../Squircle';
 import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
+import { Profile as TProfile } from '../../types/User';
 
-const Profile: React.FC<{
-  className?: string;
-  name: string;
-  group?: string;
-  profileImage: string;
-  description: string | null;
-}> = ({ name, group, description, profileImage, className }) => {
-  const { util } = useStore();
+const Profile: React.FC<Pick<TProfile, 'name' | 'group' | 'profileImage' | 'description' | 'code'> & { className?: string }> = ({ 
+  name, 
+  group, 
+  description, 
+  profileImage, 
+  className,
+  code,
+}) => {
+  const { util, user } = useStore();
   const handleClickEditIntroduction = React.useCallback(() => {
     util.history.push('/myProfile/edit', { focus: 'ProfileIntoduction'});
   }, [])
@@ -25,7 +27,7 @@ const Profile: React.FC<{
       <h2 className="Name">{name}</h2>
       <h4 className="Group">{group}</h4>
       {description && <p className="Introduction">{description}</p>}
-      {!description && <p className="EditIntrodution" onClick={handleClickEditIntroduction}>프로필 소개 추가...</p>}
+      {!description && code === user.profile.code && <p className="EditIntrodution" onClick={handleClickEditIntroduction}>프로필 소개 추가...</p>}
     </UserProfile>
   );
 };

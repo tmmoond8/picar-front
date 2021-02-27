@@ -22,7 +22,7 @@ const menus = [
 
 const Mobile = () => {
   const { user, util } = useStore();
-  const { profileImage, name, group, description } = user.profile;
+  const { profileImage, name, group, description, code } = user.profile;
   const { handleOpenUserActivations } = useProfileHandler();
   React.useEffect(() => {
     if (!user.isLogined) {
@@ -39,6 +39,7 @@ const Mobile = () => {
           group={group}
           profileImage={profileImage}
           description={description}
+          code={code}
         />
         <HR height={1} color={colors.blackF5F6F7} marginTop={12} />
         <Profile.UserHistoryMenus>
@@ -69,7 +70,7 @@ const Mobile = () => {
 const Tablet = () => {
   const { user } = useStore();
   const [contentHeight, setContentHeight ] = React.useState('0px');
-  const { profileImage, name, group, description } = user.profile;
+  const { profileImage, name, group, description, code } = user.profile;
   const handleChangeActication = React.useCallback((index: number) => {
     const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
     if (cameraElement) {
@@ -96,6 +97,7 @@ const Tablet = () => {
           group={group}
           profileImage={profileImage}
           description={description}
+          code={code}
         />
       </Body>
       <Activations 
