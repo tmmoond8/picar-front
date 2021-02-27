@@ -39,6 +39,7 @@ const Wrapper = styled.figure<{ isLoading: boolean }>`
     height: 100%;
     border-radius: 4px;
     object-fit: cover;
+    object-position: top;
   }
 
   ${p => p.isLoading && css`

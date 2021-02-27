@@ -69,5 +69,6 @@ const Thumbnail = styled.img`
   height: 80px;
   border-radius: 2px;
   object-fit: cover;
+  object-position: top;
   margin-left: 16px;
 `;
