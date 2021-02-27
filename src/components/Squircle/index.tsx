@@ -4,15 +4,12 @@ import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
 
-const defaultImage =
-  'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1613735392/noticon/ggaqjh4wfjf0miavt4dc.png';
-
 const Squircle: React.FC<{
   className?: string;
-  src?: string;
+  src: string;
   size?: number;
   onClick?: (e: React.MouseEvent) => void;
-}> = ({ className, src = defaultImage, size = 32, onClick}) => {
+}> = ({ className, src, size = 32, onClick}) => {
   const handleClick = React.useCallback((e: React.MouseEvent) => {
     if (typeof onClick === 'function') {
       onClick(e);

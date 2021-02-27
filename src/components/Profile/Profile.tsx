@@ -11,7 +11,7 @@ const Profile: React.FC<{
   className?: string;
   name: string;
   group?: string;
-  profileImage?: string;
+  profileImage: string;
   description: string | null;
 }> = ({ name, group, description, profileImage, className }) => {
   const { util } = useStore();

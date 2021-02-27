@@ -37,11 +37,6 @@ const ProfilePhoto = styled.div`
   margin: 0 20px 0 12px;
   background-color: ${colors.blackF5F6F7};
   cursor: pointer;
-  .UserProfilePhoto {
-    cursor: pointer;
-    -webkit-clip-path: url(#squircle);
-    clip-path: url(#squircle);
-  }
 `;
 
 const LoginButton = styled(Button)`
