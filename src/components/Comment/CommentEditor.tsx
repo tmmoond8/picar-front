@@ -104,6 +104,7 @@ const Editor = styled.div<{ hasContent: boolean;}>`
   padding: 18px;
   background: ${colors.white};
   border-top: 1px solid ${colors.blackF5F6F7};
+  z-index: 10;
 
   button {
     color: ${colors.primary4};
@@ -112,7 +113,7 @@ const Editor = styled.div<{ hasContent: boolean;}>`
     cursor: pointer;
   }
 
-  .CommentEditor:focus + img[src] {
+  .CommentEditor:focus + .UserProfilePhoto {
     display: block;
   }
 

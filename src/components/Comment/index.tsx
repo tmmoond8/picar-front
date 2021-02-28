@@ -95,6 +95,11 @@ const ResponsibleComment = styled(CommentViewer)<{desktop: boolean}>`
       .CommentEditor + img[src] {
         display: block;
       } 
+      .UserProfilePhoto {
+        align-self: flex-start;
+        display: block;
+        animation: none;
+      }
     }
 
     .CommentList {

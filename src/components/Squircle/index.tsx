@@ -40,6 +40,7 @@ const Squircle: React.FC<{
 export default Squircle;
 
 const Wrapper = styled.div<{ width: number}>`
+  height: ${p => p.width}px;
   svg {
     width: ${p => p.width}px;
     height: auto;
