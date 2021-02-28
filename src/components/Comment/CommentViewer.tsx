@@ -62,13 +62,12 @@ export default observer(CommentViewer);
 const StyledComments = styled.div`
   display: flex;
   flex-direction: column;
-  max-height: 70vh;
 `;
 
 const CommentList = styled.ul`
   min-height: 240px;
   overflow: hidden;
-  padding: 0 0 70px;
+  padding: 0 0 17px;
 `;
 
 const ReplyList = styled.ol`
