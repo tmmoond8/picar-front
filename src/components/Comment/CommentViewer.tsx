@@ -6,12 +6,15 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from './Comment';
 import CommentEditor from './CommentEditor';
+import { useStore } from '../../stores';
 import { useCommentContext, observer } from './context';
 
 const CommentViewer: React.FC<{className?: string}> = ({ className }) => {
+  const { ui } = useStore();
   const { comments, articleAuthorCode } = useCommentContext();
   return (
     <StyledComments className={cx('Comments', className)}>
+      {!ui.queryMatch.Mobile && <CommentHeader>댓글 {comments.length}</CommentHeader>}
       <CommentEditor />
       <CommentList className="CommentList">
         {comments.map((comment) => (
@@ -96,4 +99,12 @@ const Empty = styled.div`
     line-height: normal;
     color: ${colors.blackBF};
   }
+`;
+
+const CommentHeader = styled.div`
+  height: 56px;
+  padding: 15px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  color: ${colors.black22};
 `;
