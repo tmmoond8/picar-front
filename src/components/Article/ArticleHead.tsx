@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React from 'react';
 
 import { colors } from '../../styles';
 import Profile from '../Profile';
@@ -9,26 +8,17 @@ import { useModal } from '../Modal';
 
 import { getDateGoodLook } from '../../modules/string';
 import { useArticleContext, observer } from './context';
-import ProfileContainer from '../Profile/ProfileContainer';
 
 const ArticleHead = () => {
   const { article } = useArticleContext();
   const { thumbnail, id, name, group, code } = article!.author;
   const modal = useModal();
 
-  const handleOpenProfile = React.useCallback(() => {
-    modal.open({
-      title: '',
-      isFull: true,
-      contents: (
-        <ProfileContainer userCode={code}/>
-      ),
-    });
-  }, [modal])
+  const handleOpenProfile = Profile.useOpenProfile();
 
   return (
     <Head>
-      <ProfilePhoto src={thumbnail} onClick={handleOpenProfile} />
+      <ProfilePhoto src={thumbnail} onClick={() => handleOpenProfile(code)} />
       <Profile.WhoDot name={name} group={group} />
       <p className="article-time">{getDateGoodLook(article!.createAt)}</p>
     </Head>

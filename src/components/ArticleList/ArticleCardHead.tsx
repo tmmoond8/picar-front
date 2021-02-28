@@ -6,8 +6,6 @@ import React from 'react';
 import Profile from '../Profile';
 import { getDateGoodLook } from '../../modules/string';
 import { colors } from '../../styles';
-import { useModal } from '../Modal';
-import ProfileContainer from '../Profile/ProfileContainer';
 
 interface ArticleCardHeadProps {
   profileImage: string;
@@ -24,21 +22,11 @@ const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
   createAt,
   userCode,
 }) => {
-  const modal = useModal();
-
-  const handleOpenProfile = React.useCallback(() => {
-    modal.open({
-      title: '',
-      isFull: true,
-      contents: (
-        <ProfileContainer userCode={userCode}/>
-      ),
-    });
-  }, [modal])
+  const handleOpenProfile = Profile.useOpenProfile();
 
   return (
     <Head>
-      <ProfilePhoto src={profileImage} size={24} onClick={handleOpenProfile}/>
+      <ProfilePhoto src={profileImage} size={24} onClick={() => handleOpenProfile(userCode)}/>
       <Profile.WhoDot name={name} group={group} />
       <p className="article-time">{getDateGoodLook(createAt)}</p>
     </Head>

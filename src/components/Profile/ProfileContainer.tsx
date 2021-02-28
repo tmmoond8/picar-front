@@ -20,7 +20,7 @@ const tabs = [
 ];
 
 const ProfileContainer: React.FC<{ userCode: string}> = ({ userCode = "phupdv3yb" }) => {
-  const [targetUser, setTargetUser] = React.useState<ProfileType | null>(null);
+  const [targetUser, setTargetUser] = React.useState<any | null>(null);
   const [ articles, setArticles] = React.useState<Article[]>([]);
   const [ comments, setComments] = React.useState<Comment[]>([]);
   const { user } = useStore();

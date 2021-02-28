@@ -9,8 +9,6 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useCommentContext, observer } from './context';
 import { getDateGoodLook } from '../../modules/string';
-import { useModal } from '../Modal';
-import ProfileContainer from '../Profile/ProfileContainer';
 
 interface CommentProps {
   id: string;
@@ -55,22 +53,12 @@ const Comment: React.FC<CommentProps> = (props) => {
     commentAuthorCode,
     userCode,
   ]);
-  const modal = useModal();
-
-  const handleOpenProfile = React.useCallback(() => {
-    modal.open({
-      title: '',
-      isFull: true,
-      contents: (
-        <ProfileContainer userCode={userCode}/>
-      ),
-    });
-  }, [modal])
+  const handleOpenProfile = Profile.useOpenProfile();
 
   return (
     <React.Fragment>
       <StyledComment isFocus={isFocus}>
-        <ProfilePhoto src={thumbnail} onClick={handleOpenProfile}/>
+        <ProfilePhoto src={thumbnail} onClick={() => handleOpenProfile(commentAuthorCode)}/>
         <ContentBox>
           <Profile.WhoDot
             name={name}
