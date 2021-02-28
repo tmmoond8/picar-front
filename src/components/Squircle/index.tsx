@@ -29,7 +29,7 @@ const Squircle: React.FC<{
         <image width="100%" 
           height="100%"  
           preserveAspectRatio="xMidYMid slice"
-          clip-path={`url(#${clipSquircle})`} 
+          clipPath={`url(#${clipSquircle})`} 
           xlinkHref={src}
         />
       </svg>
