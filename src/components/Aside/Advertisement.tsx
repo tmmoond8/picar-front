@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { ReactComponent as AdvertisementSVG } from './advertisement.svg';
+
 
 const Advertisement: React.FC<{}> = () => {
 
   return (
     <AdLink target="_blank">
-      <AdvertisementSVG />
+      <Img src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-ad_log4vn.png" alt="owwners banner"/>
     </AdLink>
   );
 };
@@ -21,4 +21,9 @@ const AdLink = styled.a`
   height: 128px;
   margin-top: 16px;
   cursor: pointer;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: auto;
 `;
