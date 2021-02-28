@@ -129,7 +129,8 @@ const InteractionPanel = styled.ul`
   justify-content: space-between;
   height: 54px;
   width: 100%;
-  max-width: 307px;
+  max-width: 464px;
+  padding: 0 18px;
   margin: 0 auto;
   color: ${colors.black66};
 
