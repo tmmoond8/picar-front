@@ -60,7 +60,7 @@ export default {
 
 const Layout = styled.div`
   height: 100%;
-  padding: ${60 + GAP}px ${GAP}px ${GAP}px ${GAP}px;
+  padding: ${60 + GAP}px ${GAP}px 0 ${GAP}px;
   overflow-y: hidden;
 `;
 
@@ -117,6 +117,10 @@ const Contents = styled.div`
   .ArticleCard {
     margin-top: 1px;
     border-bottom: 1px solid ${colors.blackEB};
+  }
+  & > *:last-child {
+    padding-bottom: ${GAP}px;
+    box-shadow: inset 0 -24px ${colors.blackF5F6F7};
   }
 `;
 
