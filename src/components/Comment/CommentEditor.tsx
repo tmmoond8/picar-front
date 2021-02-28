@@ -186,15 +186,17 @@ const SendIconButton = styled(Icon)<{ disabled: boolean }>`
 `;
 
 const SendButton = styled(Button)<{disabled: boolean}>`
-  position: absolute;
-  bottom: 18px;
-  right: 20px;
-  font-size: 15px;
-  font-weight: bold;
-  color: ${colors.blackBF};
-  border: none;
-  outline: none;
-  pointer-events: ${p => p.disabled ? 'none': 'pointer'};
+  && {
+    position: absolute;
+    bottom: 18px;
+    right: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: ${colors.blackBF};
+    border: none;
+    outline: none;
+    pointer-events: ${p => p.disabled ? 'none': 'pointer'};
+  }
 `
 
 const NeedLogin = styled.div`

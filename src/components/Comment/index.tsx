@@ -103,8 +103,11 @@ const ResponsibleComment = styled(CommentViewer)<{desktop: boolean}>`
     }
 
     .CommentList {
-        padding: 0 0 16px 0;
+      padding: 0 0 16px 0;
+      .Empty {
+        margin: 0 0 180px 0;
       }
+    }
   `}
  
 `

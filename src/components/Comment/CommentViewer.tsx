@@ -50,7 +50,7 @@ const CommentViewer: React.FC<{className?: string}> = ({ className }) => {
           </Comment>
         ))}
         {comments.length === 0 && (
-          <Empty>
+          <Empty className="Empty">
             <Icon icon="chat" size="39px" />
             <h3>첫 댓글을 남겨주세요.</h3>
           </Empty>
