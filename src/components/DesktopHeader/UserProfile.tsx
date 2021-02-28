@@ -35,8 +35,12 @@ const ProfilePhoto = styled.div`
   width: 48px;
   height: 48px;
   margin: 0 20px 0 12px;
+  border-radius: 24px;
   background-color: ${colors.blackF5F6F7};
   cursor: pointer;
+  .UserProfilePhoto {
+    height: 36px;
+  }
 `;
 
 const LoginButton = styled(Button)`

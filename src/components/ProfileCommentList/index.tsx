@@ -18,7 +18,7 @@ const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
   return (
     <List>
       {comments.map((comment) => (
-        <Item className="Comment" onClick={() => handleClickArticle(comment.articleId)}>
+        <Item key={comment.id} className="Comment" onClick={() => handleClickArticle(comment.articleId)}>
           <h2 className="CommentContent">{comment.content}</h2>
           <h3 className="ArticleTitle"><Icon icon="articleNew" size="16px"/>{comment.article!.title}</h3>
           <div className="CommentFooter">
