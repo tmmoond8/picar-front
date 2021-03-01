@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import Image from './Image';
 
 const Form = styled.section`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   padding: 24px 18px 34px;

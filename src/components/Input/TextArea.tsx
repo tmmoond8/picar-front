@@ -31,11 +31,9 @@ export default React.memo(TextArea);
 
 const StyledTextArea = styled.div<{ placeholder?: string }>`
   position: relative;
-  flex: 1;
   height: auto;
   min-height: 22px;
   margin: 24px 0 0 0;
-  order: 1;
   overflow-y: auto;
 
   outline: none;
@@ -79,4 +77,5 @@ const HiddenText = styled.p`
   word-break: break-all;
   white-space: pre-line;
   visibility: hidden;
+  height: auto;
 `;

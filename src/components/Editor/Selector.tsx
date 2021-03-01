@@ -27,13 +27,14 @@ export default observer(Selector);
 const StyledSelector = styled.button`
   display: flex;
   align-items: center;
+  margin-right: auto;
+  padding: 0 10px;
   font-size: 13px;
   font-weight: 500;
   line-height: 2;
   color: ${colors.black77};
   background-color: ${colors.blackF5F6F7};
   border-radius: 8px;
-  padding: 0 10px;
   cursor: pointer;
 
   .Icon.arrowDown {

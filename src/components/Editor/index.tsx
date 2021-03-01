@@ -14,7 +14,6 @@ import Title from './Title';
 import PhotoSection from './PhotoSection';
 import Content from './Content';
 import Carousel from '../Carousel';
-import { useAlert } from '../Alert';
 
 import Article from '../../types/Article';
 import { CAROUSEL } from '../../types/constants';

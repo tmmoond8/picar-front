@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import Input from '../Input';
@@ -33,8 +33,6 @@ export default observer(Title);
 
 const StyledTitle = styled(Input.TextArea)`
   height: auto;
-  min-height: 22px;
-  max-height: 60px;
 
   .Input {
     font-size: 19px;
