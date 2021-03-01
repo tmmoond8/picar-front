@@ -8,16 +8,23 @@ import { useEditorContext, observer } from './context';
 const Content: React.FC = () => {
   const { content, setContent } = useEditorContext();
   return (
-    <StyledContent
-      name="Content"
-      text={content} 
-      setText={setContent}
-      placeholder={content.length > 0 ? '' : '내용을 입력하세요.'}
-    />
+    <Wrapper>
+      <StyledContent
+        name="Content"
+        text={content} 
+        setText={setContent}
+        placeholder={content.length > 0 ? '' : '내용을 입력하세요.'}
+      />
+    </Wrapper>
   )
 }
 
 export default observer(Content);
+
+const Wrapper = styled.div`
+  flex: 1;
+  overflow: auto;
+`;
 
 const StyledContent = styled(Input.TextArea)`
   min-height: 250px;
@@ -30,5 +37,8 @@ const StyledContent = styled(Input.TextArea)`
     font-style: normal;
     line-height: 1.73;
     letter-spacing: normal;
+  }
+  .Input.HiddenText {
+    padding-top: 26px;
   }
 `;
