@@ -110,6 +110,7 @@ const List = styled.ol`
   align-items: center;
   height: 29px;
   padding: 0 20px;
+  overflow-x: scroll;
   li + li {
     margin-left: 12px;
   }
@@ -119,6 +120,7 @@ const Item = styled.li<{ selected: boolean }>`
   font-size: 20px;
   font-weight: 600;
   color: ${(p) => (p.selected ? colors.black33 : colors.blackBF)};
+  word-break: keep-all;
   cursor: pointer;
 `;
 
