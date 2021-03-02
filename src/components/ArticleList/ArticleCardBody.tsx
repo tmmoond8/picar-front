@@ -20,9 +20,9 @@ const ArticleCardBody: React.FC<ArticleCardBodyProps> = ({
 }) => {
   return (
     <Body onClick={handleClickArticle}>
-      <div className="article-content-wrapper">
-        <p className="article-title">{title}</p>
-        <p className="article-content">{content}</p>
+      <div className="ArticleContentWrapper">
+        <p className="ArticleTitle">{title}</p>
+        <p className="ArticleContent">{content}</p>
       </div>
       {photos && <Thumbnail src={photos} />}
     </Body>
@@ -36,11 +36,12 @@ const Body = styled.div`
   padding: 16px 0;
   cursor: pointer;
 
-  .article-content-wrapper {
+  .ArticleContentWrapper {
     flex: 1;
+    width: 100%;
   }
 
-  .article-title {
+  .ArticleTitle {
     font-size: 17px;
     line-height: 24px;
     color: ${colors.black100};
@@ -51,7 +52,7 @@ const Body = styled.div`
     -webkit-box-orient: vertical;
   }
 
-  .article-content {
+  .ArticleContent {
     margin-top: 8px;
     font-size: 14px;
     line-height: 20px;
