@@ -88,9 +88,13 @@ const ArticleFooter = () => {
         hasInteraction={false}
           onClick={() => {
             if (windowNavigator.share) {
-              toast(
-                "'시작과끝' 활동 알림을 켭니다. 새 글을 작성하면 알림을 보내드려요",
-              );
+              windowNavigator.share({
+                title: 'owwners',
+                text: article?.title,
+                url: window.location.href,
+              })
+                .then(() => console.log('Successful share'))
+                .catch((error: unknown) => console.log('Error sharing', error));
             } else {
               toast(
                 "지원 안함",
