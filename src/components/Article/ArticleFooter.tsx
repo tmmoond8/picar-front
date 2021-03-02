@@ -14,6 +14,8 @@ import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
 import APIS from '../../apis';
 
+const windowNavigator = (navigator as any);
+
 const ArticleFooter = () => {
   const {
     article,
@@ -85,9 +87,15 @@ const ArticleFooter = () => {
         <Interaction
         hasInteraction={false}
           onClick={() => {
-            toast(
-              "'시작과끝' 활동 알림을 켭니다. 새 글을 작성하면 알림을 보내드려요",
-            );
+            if (windowNavigator.share) {
+              toast(
+                "'시작과끝' 활동 알림을 켭니다. 새 글을 작성하면 알림을 보내드려요",
+              );
+            } else {
+              toast(
+                "지원 안함",
+              );
+            }
           }}
         >
           <Icon icon="share" size="20px" /> 공유하기
