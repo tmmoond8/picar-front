@@ -3,6 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import copy from 'clipboard-copy';
 import { toast } from 'react-toastify';
 import { colors } from '../../styles';
 import Icon from '../Icon';
@@ -96,9 +97,8 @@ const ArticleFooter = () => {
                 .then(() => console.log('Successful share'))
                 .catch((error: unknown) => console.log('Error sharing', error));
             } else {
-              toast(
-                "지원 안함",
-              );
+              copy(window.location.href);
+              toast("주소가 복사되었습니다.");
             }
           }}
         >
