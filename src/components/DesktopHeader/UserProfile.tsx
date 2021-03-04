@@ -36,8 +36,13 @@ const ProfilePhoto = styled.div`
   height: 48px;
   margin: 0 20px 0 12px;
   border-radius: 24px;
-  background-color: ${colors.blackF5F6F7};
   cursor: pointer;
+
+  transition: background-color 0.3s ease-out;
+
+  &:hover {
+    background-color: ${colors.blackF5F6F7};
+  }
 `;
 
 const LoginButton = styled(Button)`

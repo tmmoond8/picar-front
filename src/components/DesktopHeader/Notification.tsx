@@ -31,11 +31,15 @@ const StyledNotification = styled.div`
   justify-content: center;
   width: 48px;
   height: 48px;
-  background-color: ${colors.blackF5F6F7};
   border-radius: 24px;
   cursor: pointer;
   .Icon.notification {
     cursor: pointer;
+  }
+  transition: background-color 0.3s ease-out;
+
+  &:hover {
+    background-color: ${colors.blackF5F6F7};
   }
 `;
 
