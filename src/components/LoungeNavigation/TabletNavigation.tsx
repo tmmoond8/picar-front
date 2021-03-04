@@ -21,7 +21,7 @@ const TabletNavigation: React.FC = () => {
   return (
     <Navigation className={cx('TabletNavigation')}>
       <Top>
-        {NAVIGATIONS.map(({ name }) => (
+        {NAVIGATIONS.map((name) => (
           <TopMenu 
             key={name} 
             selected={article.selectedGroup === name}

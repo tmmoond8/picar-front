@@ -1,24 +1,13 @@
 import { IconKey } from '../components/Icon';
 export const LOUNGE = '라운지';
+export const LOUNGE_NAMES = {
+  FREE: '자유',
+  HUMOR: '유머',
+  GOVERMENT: '정부지원',
+  FEEDBACK: '피드백',
+} as const;
 
-export const NAVIGATIONS = [
-  {
-    name: LOUNGE,
-  },
-  {
-    name: '자유',
-  },
-  {
-    name: '유머',
-  },
-  {
-    name: '정부지원',
-  },
-  {
-    name: '피드백',
-  },
-];
-
+export const NAVIGATIONS = [LOUNGE, ...Object.values(LOUNGE_NAMES)];
 export interface Lounge {
   name: string;
   icon: IconKey;

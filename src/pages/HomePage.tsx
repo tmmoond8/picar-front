@@ -10,7 +10,7 @@ import Carousel from '../components/Carousel';
 import MenuBar from '../components/MenuBar';
 import LoungeNavigation from '../components/LoungeNavigation';
 import NavigationHeader from '../components/Header/NavigationHeader';
-import { CAROUSEL, LOUNGE } from '../types/constants';
+import { CAROUSEL, LOUNGE, LOUNGE_NAMES } from '../types/constants';
 
 const HomePage = () => {
   const { ui } = useStore();
@@ -46,26 +46,31 @@ const MobileHome = observer(() => {
           onChangeIndex={handleChangeIndex}
         >
           <ArticleList
+            name={LOUNGE}
             articles={article.loungeArticles}
             bookmarks={user.bookmarks}
             showEmpty
           />
           <ArticleList
+            name={LOUNGE_NAMES.FREE}
             articles={article.freeArticles}
             bookmarks={user.bookmarks}
             showEmpty
           />
           <ArticleList
+            name={LOUNGE_NAMES.HUMOR}
             articles={article.humorArticles}
             bookmarks={user.bookmarks}
             showEmpty
           />
           <ArticleList
+            name={LOUNGE_NAMES.GOVERMENT}
             articles={article.govermentSupportArticles}
             bookmarks={user.bookmarks}
             showEmpty
           />
           <ArticleList
+            name={LOUNGE_NAMES.FEEDBACK}
             articles={article.feedbackArticles}
             bookmarks={user.bookmarks}
             showEmpty
@@ -87,11 +92,11 @@ const TabletHome = observer(() => {
   return (
     <React.Fragment>
       <LoungeNavigation.Tablet />
-      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} showEmpty/>}
-      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} showEmpty/>}
-      {article.selectedGroup === '유머' && <ArticleList articles={article.humorArticles} bookmarks={user.bookmarks} showEmpty/>}
-      {article.selectedGroup === '정부지원' && <ArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} showEmpty/>}
-      {article.selectedGroup === '피드백' && <ArticleList articles={article.feedbackArticles} bookmarks={user.bookmarks} showEmpty/>}
+      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE}/>}
+      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.FREE}/>}
+      {article.selectedGroup === '유머' && <ArticleList articles={article.humorArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.HUMOR}/>}
+      {article.selectedGroup === '정부지원' && <ArticleList articles={article.govermentSupportArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.GOVERMENT}/>}
+      {article.selectedGroup === '피드백' && <ArticleList articles={article.feedbackArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.FEEDBACK}/>}
     </React.Fragment>
   );
 });

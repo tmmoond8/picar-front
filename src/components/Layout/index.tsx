@@ -5,19 +5,33 @@ import styled from '@emotion/styled';
 
 import { colors } from '../../styles';
 import LoungeSelector from './LoungeSelector';
+import Icon from '../Icon';
 import MyActivity from './MyActivity';
 import Aside from '../Aside';
+import { useStore, observer } from '../../stores';
 import DesktopHeader from '../DesktopHeader';
 import MenuBar from '../MenuBar';
 
 const GAP = 24;
 
-const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) => {
+  const { article } = useStore();
+  const handleClickGoTop = React.useCallback(() => {
+    const currentList = document.querySelector(`.ArticleList[data-id="${article.selectedGroup}"]`);
+    if (currentList) {
+      currentList.scrollTop = 0;
+    }
+  }, [article.selectedGroup])
   return (
     <Layout className="TabletLayout">
       <DesktopHeader />
       <Body className="TabletBody">
-        <Contents className="TabletContents">{children}</Contents>
+        <Contents className="TabletContents">
+          <ButtonGoTop onClick={handleClickGoTop}>
+            <Icon icon="back" size="24px" color={colors.black99}/>
+          </ButtonGoTop>
+          {children}
+        </Contents>
         <Right className="TabletRight">
           <Aside.PopularArticles />
           <Aside.Advertisement />
@@ -27,9 +41,16 @@ const Tablet: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </Body>
     </Layout>
   );
-};
+});
 
-const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Desktop: React.FC<{ children: React.ReactNode }> = observer(({ children }) => {
+  const { article } = useStore();
+  const handleClickGoTop = React.useCallback(() => {
+    const currentList = document.querySelector(`.ArticleList[data-id="${article.selectedGroup}"]`);
+    if (currentList) {
+      currentList.scrollTop = 0;
+    }
+  }, [article.selectedGroup])
   return (
     <Layout>
       <StyledMenuBar />
@@ -40,7 +61,12 @@ const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <MyActivity />
           </FixedBox>
         </Left>
-        <Contents>{children}</Contents>
+        <Contents>
+          <ButtonGoTop onClick={handleClickGoTop}>
+            <Icon icon="back" size="24px" color={colors.black99}/>
+          </ButtonGoTop>
+          {children}
+        </Contents>
         <Right>
           <FixedBox>
             <Aside.PopularArticles />
@@ -52,7 +78,7 @@ const Desktop: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       </Body>
     </Layout>
   );
-};
+});
 export default {
   Tablet,
   Desktop,
@@ -108,6 +134,7 @@ const Body = styled.div`
 const Contents = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   flex: 1;
   min-width: 320px;
   max-width: 540px;
@@ -126,4 +153,23 @@ const Contents = styled.div`
 
 const FixedBox = styled.div`
   position: fixed;
+`;
+
+const ButtonGoTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: -64px;
+  bottom: 36px;
+  border-radius: 1px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+  background-color: ${colors.white};
+  cursor: pointer;
+  .Icon.back {
+    transform: rotate(90deg);
+    cursor: pointer;
+  }
 `;

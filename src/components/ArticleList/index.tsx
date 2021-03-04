@@ -17,9 +17,10 @@ const ArticleList: React.FC<{
   className?: string;
   articles: Article[];
   bookmarks: Set<number>;
+  name?: string;
   showEmpty?: boolean;
 }> = ({
-  articles, bookmarks, className, showEmpty = false,
+  articles, bookmarks, className, showEmpty = false, name,
 }) => {
   const { user } = useStore();
   const openArticleEditor = useOpenArticleEditor();
@@ -54,7 +55,7 @@ const ArticleList: React.FC<{
   }, [openArticleEditor, user]);
 
   return (
-    <StyledArticleList className={cx("ArticleList", className)}>
+    <StyledArticleList data-id={name} className={cx("ArticleList", className)}>
       {articles.map((article) => (
         <ArticleCard
           key={article.id}
@@ -81,6 +82,7 @@ export default observer(ArticleList);
 const StyledArticleList = styled.ol`
   width: 100%;
   height: 100%;
+  scroll-behavior: smooth;
   overflow-y: auto;
   li {
     margin-top: 8px;

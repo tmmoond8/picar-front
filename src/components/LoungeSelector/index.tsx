@@ -10,9 +10,7 @@ import { NAVIGATIONS, LOUNGES, LOUNGE, Lounge as LoungeKeys } from '../../types/
 import { useModal } from '../Modal';
 
 const lounges = [
-  ...NAVIGATIONS.filter((navigation) => navigation.name !== LOUNGE).map(
-    (navigation) => navigation.name,
-  ),
+  ...NAVIGATIONS.filter((name) => name!== LOUNGE),
   ...LOUNGES.map((lounge) => lounge.name),
 ];
 
@@ -70,7 +68,7 @@ export const AllLoungeList: React.FC<{
   return (
     <List className={cx('AllLoungeList', className)}>
       <Lounge lounge="업종라운지" icon="add" disabled />
-      {NAVIGATIONS.map(({ name }) => (
+      {NAVIGATIONS.map((name) => (
         name === LOUNGE ? (
           LOUNGES.map(({ name }) => (
             <Lounge 

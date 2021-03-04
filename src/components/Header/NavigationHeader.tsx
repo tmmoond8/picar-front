@@ -38,7 +38,7 @@ const NavigationHeader = () => {
     (selected: string) => {
       article.selectedGroup = selected;
       const moveIndex = Math.max(
-        NAVIGATIONS.findIndex(({ name }) => name === selected),
+        NAVIGATIONS.findIndex((name) => name === selected),
         0,
       );
       (window as any).__OWNER__[CAROUSEL.HOME](moveIndex);
@@ -52,9 +52,9 @@ const NavigationHeader = () => {
   return (
     <Header>
       <List>
-        {NAVIGATIONS.map((item) => (
-          <React.Fragment key={item.name}>
-            {item.name === LOUNGE ? (
+        {NAVIGATIONS.map((name) => (
+          <React.Fragment key={name}>
+            {name === LOUNGE ? (
               <LougeSelector
                 selected={article.selectedGroup === LOUNGE}
                 key={LOUNGE}
@@ -64,7 +64,7 @@ const NavigationHeader = () => {
                   if (article.selectedGroup === LOUNGE) {
                     handleOpenBottomSheet();
                   } else {
-                    handleSetGroup(item.name);
+                    handleSetGroup(name);
                   }
                 }}
               >
@@ -73,15 +73,15 @@ const NavigationHeader = () => {
               </LougeSelector>
             ) : (
               <Item
-                selected={item.name === article.selectedGroup}
-                key={item.name}
+                selected={name === article.selectedGroup}
+                key={name}
                 onClick={() => {
                   if (isFreezed()) return;
                   delayCondition.current = Date.now();
-                  handleSetGroup(item.name);
+                  handleSetGroup(name);
                 }}
               >
-                {item.name}
+                {name}
               </Item>
             )}
           </React.Fragment>

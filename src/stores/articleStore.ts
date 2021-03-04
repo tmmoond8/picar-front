@@ -47,13 +47,13 @@ class ArticleStore implements ArticleStoreInterface {
   @computed
   get groupIndex() {
     return Math.max(
-      NAVIGATIONS.findIndex(({ name }) => name === this.selectedGroup),
+      NAVIGATIONS.findIndex((name) => name === this.selectedGroup),
       0,
     );
   }
 
   set groupIndex(index: number) {
-    this.selectedGroup = NAVIGATIONS[index].name;
+    this.selectedGroup = NAVIGATIONS[index];
   }
   
   @computed
