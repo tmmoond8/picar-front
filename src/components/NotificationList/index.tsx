@@ -7,10 +7,13 @@ import CommentNotification from './CommentNotification';
 import EmotionNotification from './EmotionNotification';
 import { colors } from '../../styles';
 
-const NotificationList: React.FC<{ className?: string; notifications: Notification[]
- }> = ({ className, notifications }) => {
+const NotificationList: React.FC<{ 
+  className?: string; 
+  notifications: Notification[];
+  onClick?: () => void;
+ }> = ({ className, notifications, onClick = () => {} }) => {
   return (
-    <List className={className}>
+    <List className={className} onClick={onClick}>
       {notifications.map((notification) => (
         <React.Fragment key={notification.id}>
           {notification.type === 'comment' && <CommentNotification {...notification}/>}

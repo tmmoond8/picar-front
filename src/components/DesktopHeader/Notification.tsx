@@ -55,7 +55,7 @@ function useNotification() {
       const positions = getElementPosition(e.target as HTMLElement);
       contextMenu.open({
         ...positions,
-        contents: <NotificationList notifications={user.notifications}/>
+        contents: <NotificationList onClick={contextMenu.close} notifications={user.notifications}/>
       });
     },
     [contextMenu],
