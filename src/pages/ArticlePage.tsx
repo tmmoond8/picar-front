@@ -22,7 +22,7 @@ const ArticlePage: React.FC = () => {
     (article) =>
       article.id.toString() === articleId,
   );
-
+  ui.scrollableElementSelector = `.ArticleContainer`;
   useFetchArticle(window.location.pathname.split('/').pop() as string, article);
 
   const [commentCount, setCommentCount] = React.useState(0);

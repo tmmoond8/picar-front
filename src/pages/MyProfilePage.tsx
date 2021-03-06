@@ -68,7 +68,7 @@ const Mobile = () => {
 }
 
 const Tablet = () => {
-  const { user } = useStore();
+  const { user, ui } = useStore();
   const [contentHeight, setContentHeight ] = React.useState('0px');
   const { profileImage, name, group, description, code } = user.profile;
   const handleChangeActication = React.useCallback((index: number) => {
@@ -80,6 +80,7 @@ const Tablet = () => {
       }
     }
   }, []);
+  ui.scrollableElementSelector = `.MyProfileWrapper`;
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
