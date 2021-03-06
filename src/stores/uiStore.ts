@@ -16,10 +16,12 @@ export interface UiStoreInterface extends CommonStore{
   setHeaderBack: (options: Record<string, any>) => void;
   setHeaderClose: (options: Record<string, any>) => void;
   setKeyboardMargin: (height: number) => void;
+  useTopButton: () => () => void;
   contextMenus: (ContextMenuData | CustomContextMenuData)[];
   modals: ModalData[];
   alerts: AlertData[];
   queryMatch: Record<BreakPointKeys, boolean>;
+  scrollableElementSelector: string;
 }
 
 class UiStore implements UiStoreInterface {
@@ -29,6 +31,7 @@ class UiStore implements UiStoreInterface {
   @observable modals: ModalData[];
   @observable alerts: AlertData[];
   @observable queryMatch: Record<BreakPointKeys, boolean>;
+  @observable scrollableElementSelector: string;
   rootStore: Stores | null;
 
   constructor() {
@@ -38,6 +41,7 @@ class UiStore implements UiStoreInterface {
     this.modals = [];
     this.alerts = [];
     this.rootStore = null;
+    this.scrollableElementSelector = '';
     this.queryMatch = {
       Mobile: false,
       Tablet: false,
@@ -89,6 +93,20 @@ class UiStore implements UiStoreInterface {
 
   bindRoot(rootStore: Stores) {
     this.rootStore = rootStore;
+  }
+
+  @action
+  useTopButton() {
+    return () => {
+      let scrollableElement: HTMLElement | null = null;
+      if (typeof this.scrollableElementSelector === 'string') {
+        scrollableElement =  document.querySelector(this.scrollableElementSelector);
+      }
+      if (scrollableElement !== null) {
+        scrollableElement.style.scrollBehavior = 'smooth';
+        scrollableElement.scrollTop = 0;
+      }
+    }
   }
 }
 

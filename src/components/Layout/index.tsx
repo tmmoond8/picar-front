@@ -15,13 +15,8 @@ import MenuBar from '../MenuBar';
 const GAP = 24;
 
 const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) => {
-  const { article } = useStore();
-  const handleClickGoTop = React.useCallback(() => {
-    const currentList = document.querySelector(`.ArticleList[data-id="${article.selectedGroup}"]`);
-    if (currentList) {
-      currentList.scrollTop = 0;
-    }
-  }, [article.selectedGroup])
+  const { ui } = useStore();
+  const handleClickGoTop = ui.useTopButton();
   return (
     <Layout className="TabletLayout">
       <DesktopHeader />

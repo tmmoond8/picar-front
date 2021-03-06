@@ -82,7 +82,6 @@ export default observer(ArticleList);
 const StyledArticleList = styled.ol`
   width: 100%;
   height: 100%;
-  scroll-behavior: smooth;
   overflow-y: auto;
   li {
     margin-top: 8px;

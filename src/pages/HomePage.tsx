@@ -88,7 +88,8 @@ const Wrapper = styled.main`
 `;
 
 const TabletHome = observer(() => {
-  const { article, user } = useStore();
+  const { article, user, ui } = useStore();
+  ui.scrollableElementSelector = `.ArticleList[data-id="${article.selectedGroup}"]`;
   return (
     <React.Fragment>
       <LoungeNavigation.Tablet />
