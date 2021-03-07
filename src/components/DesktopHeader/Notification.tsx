@@ -2,10 +2,9 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { toast } from 'react-toastify';
 import { useStore, observer } from '../../stores';
 import Icon from '../Icon';
-import { useContextMenu, getElementPosition } from '../ContextMenu';
+import { useContextMenu } from '../ContextMenu';
 import { colors } from '../../styles';
 import NotificationList from '../NotificationList';
 
@@ -52,9 +51,9 @@ function useNotification() {
       if (!user.isLogined) {
         return;
       }
-      const positions = getElementPosition(e.target as HTMLElement);
       contextMenu.open({
-        ...positions,
+        targetElement: e.target as HTMLElement,
+        alignX: 'right',
         contents: <NotificationList onClick={contextMenu.close} notifications={user.notifications}/>
       });
     },

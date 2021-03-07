@@ -97,15 +97,9 @@ export const useMoreMenu = (article?: Article) => {
       if (!article) {
         return;
       }
-      const {
-        x,
-        width,
-        y,
-        height,
-      } = (e.target as HTMLElement).getBoundingClientRect();
+      
       contextMenu.open({
-        xPosition: x + width / 2,
-        yPosition: y + height,
+        targetElement: e.target as HTMLElement,
         menus: [
           {
             name: '수정하기',

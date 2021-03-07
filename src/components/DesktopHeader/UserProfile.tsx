@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useStore, observer } from '../../stores';
 import Profile from '../Profile';
-import { useContextMenu, getElementPosition } from '../ContextMenu';
+import { useContextMenu } from '../ContextMenu';
 import APIS from '../../apis';
 import { colors } from '../../styles';
 import Button from '../Button';
@@ -66,9 +66,9 @@ function useProfile() {
       if (!user.isLogined) {
         return;
       }
-      const positions = getElementPosition(e.target as HTMLElement);
       contextMenu.open({
-        ...positions,
+        targetElement: e.target as HTMLElement,
+        alignX: 'right',
         menus: [
           {
             name: '내 프로필',

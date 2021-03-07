@@ -7,7 +7,7 @@ import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
 import Icon from '../Icon';
 import APIS from '../../apis';
-import { useContextMenu, getElementPosition } from '../ContextMenu';
+import { useContextMenu } from '../ContextMenu';
 import { useAlert } from '../Alert';
 
 const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
@@ -31,9 +31,8 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
   }, [count])
 
   const handleClickMore = React.useCallback((e) => {
-    const positions = getElementPosition(e.target as HTMLElement);
     contextMenu.open({
-      ...positions,
+      targetElement: e.target as HTMLElement,
       menus: [
         {
           name: '프로필 수정',

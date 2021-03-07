@@ -2,27 +2,28 @@
 import { jsx, css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { usePosition } from './hooks';
 import { colors } from '../../styles';
 
-const MARGIN = 6;
+type AlignX = 'left' | 'center' | 'right';
 
 export interface CustomContextMenuData {
   id: string;
-  xPosition: number;
-  yPosition: number;
+  targetElement: HTMLElement;
+  alignX?: AlignX;
   handleClose: () => void;
   contents: React.ReactNode;
 }
 
 const CustomContextMenuViewer: React.FC<CustomContextMenuData> = ({
   id,
-  xPosition,
-  yPosition,
+  targetElement,
+  alignX = 'center',
   contents,
   handleClose,
 }) => {
   const [ width, setWidth ] = React.useState(0);
-  const { x, y } = usePosition(xPosition, yPosition, width);
+  const { x, y } = usePosition(targetElement, width, alignX);
   const ref = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -81,23 +82,3 @@ const StyledCustomContextMenus = styled.div<{ x: string; y: string }>`
   transition: transform 0.3s, opacity 0.2s;
   animation: ${popup} 0.1s ease-out;
 `;
-
-function usePosition(xPosition: number, yPosition: number, width: number) {
-  const [x, setX] = React.useState<string>('-1000px');
-  const [y, setY] = React.useState<string>('0px');
-
-  React.useEffect(() => {
-    const { innerWidth } = window;
-    if (xPosition + width / 2 + MARGIN > innerWidth) {
-      setX(`${innerWidth - MARGIN - width}px`);
-    } else {
-      setX(`${Math.max(xPosition - width / 2, 18)}px`);
-    }
-    setY(`${yPosition + MARGIN}px`);
-  }, [xPosition, yPosition, width]);
-
-  return {
-    x,
-    y,
-  };
-}

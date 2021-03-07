@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import React from 'react';
 import { ContextMenuData } from './ContextMenuViewer';
 import { CustomContextMenuData } from './CustomContextMenuViewer';
 import global from '../../types/global';
@@ -41,3 +42,32 @@ export const useContextMenu = () => {
     open,
   };
 };
+
+const MARGIN = 6;
+type AlignX = 'left' | 'center' | 'right';
+
+export function usePosition(targetElement: HTMLElement, width: number, alignX: AlignX) {
+  const [x, setX] = React.useState<string>('-1000px');
+  const [y, setY] = React.useState<string>('0px');
+  const targetRect = targetElement.getBoundingClientRect();
+  const xPosition = targetRect.x + targetRect.width / 2;
+  const yPosition = targetRect.y + targetRect.height;
+
+  React.useEffect(() => {
+    const { innerWidth } = window;
+    if (xPosition + width / 2 + MARGIN > innerWidth) {
+      setX(`${innerWidth - MARGIN - width}px`);
+    } else {
+      let positionX = xPosition - targetRect.width / 2;
+      if (alignX === 'right') positionX = xPosition - width + targetRect.width / 2;
+      if (alignX === 'center') positionX = xPosition - width / 2;
+      setX(`${Math.max(positionX, 18)}px`);
+    }
+    setY(`${yPosition + MARGIN}px`);
+  }, [xPosition, yPosition, width]);
+
+  return {
+    x,
+    y,
+  };
+}

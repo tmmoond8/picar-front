@@ -43,7 +43,7 @@ const UiProvider: React.FC<{
   return (
     <React.Fragment>
       {ui.contextMenus.map((contextMenu) => (
-        <React.Fragment key={`${contextMenu.id}_${contextMenu.xPosition}_${contextMenu.yPosition}`}>
+        <React.Fragment key={`${contextMenu.id}`}>
           {'menus' in contextMenu && <ContextMenuViewer {...contextMenu} />}
           {'contents' in contextMenu && <CustomContextMenuViewer {...contextMenu} />}
         </React.Fragment>
