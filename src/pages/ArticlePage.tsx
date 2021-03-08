@@ -51,6 +51,7 @@ const ArticlePage: React.FC = () => {
                 userCode={user.profile.code}
                 articleAuthorCode={article.author.code}
                 profilePhoto={user.profile.profileImage}
+                showCount={!ui.queryMatch.Mobile}
               />
             )}
           </React.Fragment>

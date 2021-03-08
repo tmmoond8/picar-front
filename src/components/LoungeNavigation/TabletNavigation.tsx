@@ -55,15 +55,15 @@ const Navigation = styled.nav`
 const Top = styled.ul`
   display: flex;
   align-items: center;
-  height: 71px;
+  height: 56px;
   padding: 0 24px;
   cursor: pointer;
-  box-shadow: inset 0 -1px ${colors.blackF5F6F7};
+  box-shadow: inset 0 -1px ${colors.blackD9};
 `;
 const TopMenu = styled.li<{ selected: boolean }>`
   margin-right: 20px;
-  padding: 20px 0;
-  font-size: 20px;
+  padding: 14px 0;
+  font-size: 18px;
   font-weight: bold;
   letter-spacing: -0.28px;
   color: ${colors.blackAA};
@@ -85,12 +85,14 @@ const SubMenus = styled.ul`
   display: flex;
   align-items: center;
   justify-content:space-between;
+  position: relative;
+  top: -1px;
   min-width: 540px;
   padding: 0 20px;
 `;
 const BottomMenu = styled.li<{ selected: boolean }>`
   height: 100%;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   letter-spacing: -0.28px;
   color: ${colors.blackAA};
@@ -104,13 +106,9 @@ const BottomMenu = styled.li<{ selected: boolean }>`
   }
 
   ${p => p.selected && css`
-    color: ${colors.white};
-    background-color: ${colors.black33};
-    box-shadow: inset 0 0 0 20px ${colors.black33}, 0 0 0 8px ${colors.black33};
+    color: ${colors.black22};
     &:hover {
-      color: ${colors.white};
-      background-color: ${colors.black33};
-      box-shadow: inset 0 0 0 20px ${colors.black33}, 0 0 0 8px ${colors.black33};
+      color: ${colors.black22};
     }
   `}
 `;

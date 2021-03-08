@@ -15,6 +15,7 @@ const CommentArea: React.FC<{
   userCode: string;
   articleAuthorCode: string;
   profilePhoto?: string;
+  showCount?: boolean;
   handleClose?: () => void;
 }> = ({
   articleId,
@@ -22,6 +23,7 @@ const CommentArea: React.FC<{
   profilePhoto = 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1613735392/noticon/ggaqjh4wfjf0miavt4dc.png',
   userCode,
   articleAuthorCode,
+  showCount = false,
   handleClose,
 }) => {
   const { ui } = useStore();
@@ -65,7 +67,7 @@ const CommentArea: React.FC<{
         handleClose,
       }}
     >
-      <ResponsibleComment desktop={!ui.queryMatch.Mobile}/>
+      <ResponsibleComment desktop={!ui.queryMatch.Mobile} showCount={showCount}/>
     </CommentContext.Provider>
   );
 };

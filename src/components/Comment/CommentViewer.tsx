@@ -9,12 +9,12 @@ import CommentEditor from './CommentEditor';
 import { useStore } from '../../stores';
 import { useCommentContext, observer } from './context';
 
-const CommentViewer: React.FC<{className?: string}> = ({ className }) => {
+const CommentViewer: React.FC<{className?: string; showCount: boolean}> = ({ className, showCount }) => {
   const { ui } = useStore();
   const { comments, articleAuthorCode } = useCommentContext();
   return (
     <StyledComments className={cx('Comments', className)}>
-      {!ui.queryMatch.Mobile && <CommentHeader>댓글 {comments.length}</CommentHeader>}
+      {showCount && <CommentHeader>댓글 {comments.length}</CommentHeader>}
       <CommentEditor />
       <CommentList className="CommentList">
         {comments.map((comment) => (

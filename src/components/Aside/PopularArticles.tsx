@@ -74,7 +74,7 @@ const Header =  styled.div`
   align-items: center;
   height: 56px;
   padding: 0 12px 0 20px;
-  box-shadow: 0 1px 0 0 ${colors.blackEB};
+  box-shadow: 0 1px 0 0 ${colors.blackD9};
 
   h3 {
     font-size: 15px;
