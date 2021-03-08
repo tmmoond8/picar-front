@@ -40,6 +40,9 @@ function App() {
             <Route exact path="/login/kakao">
               <Pages.KakaoLoginBridge />
             </Route>
+            <Route exact path="/owwner">
+              <Pages.OwwnerPage />
+            </Route>
             <Route exact path="/login">
               <Pages.LoginPage />
             </Route>

@@ -21,6 +21,7 @@ interface TextFieldProps {
   onBlur?: () => void;
   onFocus?: () => void;
   autocomplete?: boolean;
+  type?: 'text' | 'password';
 }
 
 const TextField: React.FC<TextFieldProps> = (props) => {
@@ -37,6 +38,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     onKeyDown = () => {},
     onClear,
     autocomplete = true,
+    type = 'text',
   } = props;
   const { ui } = useStore();
   const [isFocus, setFocus] = React.useState(false);
@@ -78,7 +80,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
       <Field className="Field" error={!!errorMessage} focus={isFocus}>
         <input
           ref={inputRef}
-          type="text"
+          type={type}
           id={id}
           value={value}
           placeholder={placeholder}
