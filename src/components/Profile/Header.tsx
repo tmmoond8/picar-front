@@ -52,7 +52,9 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
                 try {
                   const { data: { ok } } = await APIS.auth.logout();
                   if (ok) {
-                    window.location.reload(false);
+                    setTimeout(() => {
+                      window.location.reload(false);
+                    }, 300)
                   }
                 } catch(error) {
                   console.error(error);
