@@ -105,7 +105,7 @@ function useProfile() {
                     const { data: { ok } } = await APIS.auth.logout();
                     if (ok) {
                       setTimeout(() => {
-                        // window.location.reload(false);
+                        window.location.reload(false);
                       }, 300)
                     }
                   } catch(error) {

@@ -50,10 +50,10 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
               handleConfirm: async () => {
                 alert.close();
                 try {
-                  const { data } = await APIS.auth.logout();
-                  if (data.ok) {
+                  const { data: { ok } } = await APIS.auth.logout();
+                  if (ok) {
                     setTimeout(() => {
-                      // window.location.reload(false);
+                      window.location.reload(false);
                     }, 300)
                   }
                 } catch(error) {
