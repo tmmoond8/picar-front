@@ -22,7 +22,6 @@ const OwwnersHelmet = (props: Partial<Header>) => {
     <Helmet>
       <meta charSet="utf-8" />
       <title>{props.title ?? headerData.title}</title>
-      <link rel="canonical" href={props.url ?? headerData.url} />
       <meta name="description" content={props.description ?? headerData.description} />
       <meta name="og:title" content={props.title ?? headerData.title} />
       <meta name="og:description" content={props.description ?? headerData.description} />
