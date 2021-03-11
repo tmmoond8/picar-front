@@ -12,7 +12,7 @@ export type Header = {
 const headerData: Header = {
   title: 'owwners',
   description: '사장님 커뮤니티, 오너스',
-  image: 'https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-ad_log4vn.png',
+  image: 'https://res.cloudinary.com/dhfi7dxpu/image/upload/v1615506675/owner/opengraph_img_800_eonjnd.png',
   favicon: '/favicon.ico',
   url: 'https://www.owwners.com',
 }
