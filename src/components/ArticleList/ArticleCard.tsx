@@ -79,4 +79,5 @@ export default React.memo(ArticleCard);
 const Card = styled.li`
   padding: 16px 18px;
   background-color: ${colors.white};
+  overflow: hidden;
 `;

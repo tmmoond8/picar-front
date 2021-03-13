@@ -39,6 +39,7 @@ const Body = styled.div`
   .ArticleContentWrapper {
     flex: 1;
     width: 100%;
+    word-break: break-all;
   }
 
   .ArticleTitle {
