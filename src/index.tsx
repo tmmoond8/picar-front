@@ -4,11 +4,9 @@ import App from './App';
 import { MobxProvider } from './stores';
 import * as serviceWorker from './serviceWorker';
 import UiProvider from './components/UiProvider';
-import Helmet from './components/OwwnersHelmet';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Helmet />
     <MobxProvider>
       <UiProvider>
         <App />
