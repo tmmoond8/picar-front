@@ -110,7 +110,7 @@ const List = styled.ol`
   align-items: center;
   height: 29px;
   padding: 0 20px;
-  overflow-x: scroll;
+  overflow-x: auto;
   li + li {
     margin-left: 12px;
   }
