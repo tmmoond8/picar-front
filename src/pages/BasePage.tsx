@@ -10,6 +10,7 @@ import storage from '../modules/localStorage';
 import { useStore, observer } from '../stores';
 import { useSetupHistory } from '../hooks';
 import Layout from '../components/Layout';
+import LoginBox from '../components/Login/LoginBox';
 
 const BasePage: React.FC<{
   className?: string;
@@ -49,6 +50,9 @@ const BasePage: React.FC<{
           <Layout.Tablet>{children}</Layout.Tablet>
         </Page>
       )}
+      <HiddenAreay>
+        <LoginBox onClose={() => {}}/>
+      </HiddenAreay>
     </React.Fragment>
   );
 };
@@ -66,4 +70,10 @@ const Page = styled.div`
       env(safe-area-inset-bottom)
       env(safe-area-inset-left);
   }
+`;
+
+const HiddenAreay = styled.div`
+  position: fixed;
+  top: -1000px;
+  left: -10000px;
 `;
