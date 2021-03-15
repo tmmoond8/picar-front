@@ -6,6 +6,7 @@ import Carousel from '../Carousel';
 import { CAROUSEL } from '../../types/constants';
 import { useStore, observer } from '../../stores';
 import { colors } from '../../styles';
+import Image from '../Image';
 
 const Album: React.FC<{ photos: string[]}> = ({ photos }) => {
   const { ui } = useStore();
@@ -50,15 +51,9 @@ const DesktopAlbum = styled.ul`
   }
 `;
 
-const Image = styled.img`
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-`;
-
 const MobileAlbum = styled.div`
   position: relative;
-  height: 280px;
+  height: 74.4vw;
   width: 100vw;
   list-style: none;
   li {
