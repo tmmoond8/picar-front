@@ -6,6 +6,10 @@ import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
 import Header from './components/Header';
 import { useStore, observer } from './stores';
+import env from './env';
+import storage from './modules/localStorage';
+const ExWindowUUID = storage.getExWindowUUID();
+const openUUID = storage.getOpenerUUID();
 
 function App() {
   const { ui } = useStore();
@@ -15,6 +19,14 @@ function App() {
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
+          {env.REACT_APP_DEV && (
+            <Location>
+              <p>{window.location.href}</p>
+              {ExWindowUUID && <p>`ExWindowUUID:${ExWindowUUID}`</p>}
+              {openUUID && <p>`openUUID:${openUUID}`</p>}
+            </Location>
+            )
+          }
           <Switch>
             <Route exact path="/myProfile/edit">
               <Pages.MyProfileEditPage />
@@ -38,7 +50,7 @@ function App() {
               <Pages.TestPage />
             </Route>
             <Route exact path="/login/kakao">
-              <Pages.KakaoLoginBridge />
+              <Pages.KakaoLoginBridgePage />
             </Route>
             <Route exact path="/owwner">
               <Pages.OwwnerPage />
@@ -76,3 +88,12 @@ const notionPages = {
   notice: { title: '공지사항', pageId: 'd7e6d7a18ec849b3b543e7389b0bd5fe'},
   qna: { title: '자주 묻는 질문', pageId: '2fbdb025be1c45748504f74d33eda2d3'}
 }
+
+const Location = styled.div`
+  position: fixed;
+  top: 40px;
+  left: 20px;
+  font-size: 10px;
+  color: rgba(100, 100, 100, 0.5);
+  z-index: 1000000;
+`;

@@ -17,4 +17,5 @@ export default {
   REACT_APP_FB_MESSAGING_SENDER_ID: process.env.REACT_APP_FB_MESSAGING_SENDER_ID ?? '',
   REACT_APP_FB_APP_ID: process.env.REACT_APP_FB_APP_ID ?? '',
   REACT_APP_FB_MEASUREMENT_ID: process.env.REACT_APP_FB_MEASUREMENT_ID ?? '',
+  REACT_APP_DEV: process.env.REACT_APP_DEV ?? '',
 }
