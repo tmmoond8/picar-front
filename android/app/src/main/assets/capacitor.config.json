@@ -9,9 +9,7 @@
       "launchShowDuration": 2000,
       "backgroundColor": "#ffffffff",
       "androidSplashResourceName": "splash",
-      "androidScaleType": "CENTER_CROP",
-      "splashImmersive": true,
-      "splashFullScreen": false
+      "androidScaleType": "CENTER_CROP"
     }
   },
   "cordova": {}
