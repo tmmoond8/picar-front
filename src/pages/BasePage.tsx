@@ -8,7 +8,7 @@ import cx from 'classnames';
 import APIS from '../apis';
 import storage from '../modules/localStorage';
 import { useStore, observer } from '../stores';
-import { useSetupHistory } from '../hooks';
+import hooks, { useSetupHistory } from '../hooks';
 import Layout from '../components/Layout';
 import LoginBox from '../components/Login/LoginBox';
 
@@ -18,20 +18,21 @@ const BasePage: React.FC<{
 }> = ({ children, className }) => {
   const { ui, user } = useStore();
   const { App } = Plugins;
+  const KakaoLogin = hooks.auth.useKakaoLogin();
   useSetupHistory();
   React.useEffect(() => {
     (async () => {
+      console.log('aaaa');
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
         const uuid = storage.getUUID();
         if (isActive && uuid) {
-          console.log('isActive')
           try {
             const {
-              data: { data },
+              data: { tokens },
             } = await APIS.auth.checkUUID(uuid);
             storage.clearUUID();
-            if (data) {
-              user.setProfile(data);
+            if (tokens) {
+              KakaoLogin(tokens.accessToken, tokens.refreshToken)
               return;
             }
           } catch (error) {

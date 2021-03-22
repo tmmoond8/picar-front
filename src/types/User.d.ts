@@ -26,3 +26,11 @@ export interface SignUpUser {
   regreshToken: string;
   uuid: string;
 }
+
+export interface KakaoUser {
+  id: string;
+  kakao_account: {
+    email?: string,
+    profile: { nickname: string; profile_image_url: string; thumbnail_image_url: string}
+  }
+}

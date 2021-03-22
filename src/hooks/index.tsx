@@ -10,7 +10,11 @@ import * as inputHooks from './input';
 import { useStore } from '../stores';
 import { BreakPoints } from '../styles/mediaQuery';
 import { useModal } from '../components/Modal';
+import * as auth from './auth';
 
+export default {
+  auth,
+}
 export const useTextInput = inputHooks.useTextInput;
 export const useTextarea = inputHooks.useTextarea;
 
