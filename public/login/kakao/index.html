@@ -25,14 +25,14 @@
       uuidEl.textContent = uuid;
       localStorage.setItem('uuid', uuid);
       const KAKAO_LOGIN_KEY = 'eaca64fa795006e298e348acc14ab691';
-      const KAKAO_LOGIN_BRIDGE_URL = 'http://192.168.1.165:5500/public/login/kakao/index.html';
+      const KAKAO_LOGIN_BRIDGE_URL = 'http://192.168.1.165:8100/login/kakao/index.html';
       window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&response_type=code`
     }
     if (code) {
       const codeEl = document.querySelector('#code');
       codeEl.textContent = code;
       const KAKAO_USER_API_KEY = '466b2d4c7394790641047c7226aa9c4b';
-      const KAKAO_LOGIN_BRIDGE_URL = 'http://192.168.1.165:5500/public/login/kakao/index.html';
+      const KAKAO_LOGIN_BRIDGE_URL = 'http://192.168.1.165:8100/login/kakao/index.html';
       const checkToken = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_USER_API_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&code=${code}`;
       const tokenEl = document.querySelector('#checkToken');
       tokenEl.textContent = checkToken;

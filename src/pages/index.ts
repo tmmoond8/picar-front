@@ -4,7 +4,6 @@ export { default as TestPage } from './TestPage';
 export { default as MyProfilePage } from './MyProfilePage';
 export { default as MyProfileEditPage } from './MyProfileEditPage';
 export { default as LoginPage } from './LoginPage';
-export { default as KakaoLoginBridgePage } from './KakaoLoginBridgePage';
 export { default as SearchPage } from './SearchPage';
 export { default as NotificationPage } from './NotificationPage';
 export { default as OwwnerPage } from './OwwnerPage';

@@ -44,9 +44,6 @@ function App() {
             <Route exact path="/test">
               <Pages.TestPage />
             </Route>
-            <Route exact path="/login/kakao">
-              <Pages.KakaoLoginBridgePage />
-            </Route>
             <Route exact path="/owwner">
               <Pages.OwwnerPage />
             </Route>
