@@ -21,7 +21,6 @@
     const { uuid, code } = getQuery();
     if (uuid) {
       // start
-      // console.log('uuid');
       const uuidEl = document.querySelector('#uuid');
       uuidEl.textContent = uuid;
       localStorage.setItem('uuid', uuid);
@@ -30,7 +29,6 @@
       window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&response_type=code`
     }
     if (code) {
-      // console.log('code');
       const codeEl = document.querySelector('#code');
       codeEl.textContent = code;
       const KAKAO_USER_API_KEY = '466b2d4c7394790641047c7226aa9c4b';
