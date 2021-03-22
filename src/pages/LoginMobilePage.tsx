@@ -38,6 +38,7 @@ const LoginPage = () => {
   const location = useLocation();
   const { code } = queryString.parse(location.search);
   const history  = useHistory();
+  const [message, setMessage ] = React.useState('');
 
   ui.setHeaderNone();
   const modal = useModal();
@@ -104,23 +105,35 @@ const LoginPage = () => {
   
   React.useEffect(() => {
     (async () => {
-      if (code) {
+      const uuid = stroage.getExWindowUUID();
+      if (code && uuid) {
         try {
+          stroage.clearExWindowUUID();
           const call = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`;
           const { data: { access_token, refresh_token } } = await axios.post(call)
           const { data } = await APIS.auth.kakaoLogin({
             accessToken: access_token,
             refreshToken: refresh_token,
+            uuid,
           })
           
+          const openerUUID = stroage.getOpenerUUID();
           if (data.code) {
+            // TODO replace reaload 조합이 아니고 goBack 으로 하되 사용자 정보가 셋업되도록...
+            history.replace('/');
             setTimeout(() => {
-              window.location.replace('/');
+              if (openerUUID) {
+                storage.clearOpenerUUID();
+                window.location.reload();
+              } else {
+                setMessage('Owwner 앱으로 이동하면 로그인이 완료됩니다.')
+              }
             }, 50)
           } else {
             handleSaveUser(data, {
               accessToken: access_token,
               refreshToken: refresh_token,
+              uuid: openerUUID,
             });
           }
         } catch (error) {
@@ -135,6 +148,7 @@ const LoginPage = () => {
     <Page>
       <FullLoading>
         <img src={OwwnersLogo} />
+        <h3>{message}</h3>
       </FullLoading>
     </Page>
   );
