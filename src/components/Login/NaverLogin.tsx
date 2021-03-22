@@ -22,16 +22,17 @@ interface NaverProfile {
 export default function NaverLogin(): JSX.Element {
   
   return (
-    <ReactNaverLogin
-      clientId={env.REACT_APP_NAVER_CLIENT_ID}
-      callbackUrl={env.REACT_APP_LOGIN_URL}
-      render={(props) => (
-        <img src={NaverLoginIcon} onClick={() => toast.success('지원 준비중 입니다. ')} />
-      )}
-      onSuccess={(result) => {
+    <img src={NaverLoginIcon}/>
+    // <ReactNaverLogin
+    //   clientId={env.REACT_APP_NAVER_CLIENT_ID}
+    //   callbackUrl={env.REACT_APP_LOGIN_URL}
+    //   render={(props) => (
+    //     <img src={NaverLoginIcon} onClick={() => toast.success('지원 준비중 입니다. ')} />
+    //   )}
+    //   onSuccess={(result) => {
         
-      }}
-      onFailure={(err: unknown) => console.error(err)}
-    />
+    //   }}
+    //   onFailure={(err: unknown) => console.error(err)}
+    // />
   );
 }
