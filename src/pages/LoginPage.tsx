@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import APIS from '../apis';
 import env from '../env';
+import storage from '../modules/localStorage';
 import { Profile as UserProfile } from '../types/User';
 import { SignUpUser, Profile } from '../types/User';
 import { useModal } from '../components/Modal';
@@ -110,7 +111,7 @@ const LoginPage = () => {
             accessToken: access_token,
             refreshToken: refresh_token,
           })
-          
+          storage.clearUUID();
           if (data.code) {
             setTimeout(() => {
               window.location.replace('/');

@@ -11,15 +11,14 @@ const KakaoLoginBridge: React.FC = () => {
     const location = useLocation();
     const { uuid } = queryString.parse(location.search);
 
-    React.useEffect(() => {
-        storage.setExWindowUUID(uuid?.toString() ?? '');
-        setTimeout(() => {
-            window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code`
-        }, 150)
-    }, [])
+    // React.useEffect(() => {
+    //     setTimeout(() => {
+    //         window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code`
+    //     }, 150)
+    // }, [])
 
     return (
-        <React.Fragment />
+        <p>no use</p>
     )
 }
 

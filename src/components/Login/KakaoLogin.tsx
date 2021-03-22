@@ -23,7 +23,7 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
   const handleKakaoLogin = React.useCallback(() => {
     onClose();
     const uuid = Math.random().toString(32).split('.')[1];
-    storage.setOpenerUUID(uuid);
+    storage.setUUID(uuid);
     setTimeout(() => {
       Browser.open({ url: `${process.env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'abc'});
       if (isHybrid()) {

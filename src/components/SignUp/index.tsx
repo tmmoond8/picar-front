@@ -59,12 +59,12 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         isOwner: ownerType === ownerTypes[0].value,
         group: lounge,
       });
-      const openerUUID = stroage.getOpenerUUID();
+      const openerUUID = stroage.getUUID();
       onSetUserProfile(data);
       history.replace('/');
       setTimeout(() => {
         if (openerUUID) {
-          stroage.clearOpenerUUID();
+          stroage.clearUUID();
           window.location.reload();
         } else {
           toast.success('Owwner 앱으로 이동하면 로그인이 완료됩니다.');
