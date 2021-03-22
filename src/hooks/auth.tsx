@@ -24,30 +24,33 @@ export const kakaoLogin = async (params: KakaoLogin) => {
   const tokens = { accessToken, refreshToken };
   storage.clearUUID();
   const { data } = await APIS.auth.kakaoLogin(tokens);
-  if ('code' in data) {
-    setTimeout(() => {
+  if ('profile' in data) {
+    storage.setOwwnersToken(data.owwnersToken);
+    return setTimeout(() => {
       window.location.replace('/');
-    }, 50)
+    }, 50);
   }
-  const kakaoUser = data as KakaoUser;
-  const {
-    data: { data: userProfile },
-  } = await APIS.auth.check(kakaoUser.id, 'kakao');
-  if (userProfile) {
-    handleSignIn(userProfile);
-    return;
+  if ('kakaoUser' in data) {
+    const kakaoUser = data.kakaoUser as KakaoUser;
+    const {
+      data: { data: userProfile },
+    } = await APIS.auth.check(kakaoUser.id, 'kakao');
+    if (userProfile) {
+      handleSignIn(userProfile);
+      return;
+    }
+    
+    const user: Partial<SignUpUser> = {
+      email: kakaoUser.kakao_account.email,
+      snsId: kakaoUser.id.toString(),
+      name: kakaoUser.kakao_account.profile.nickname,
+      thumbnail: kakaoUser.kakao_account.profile.thumbnail_image_url,
+      profileImage: kakaoUser.kakao_account.profile.profile_image_url,
+      provider: 'kakao',
+    };
+  
+    handleSignUp({ ...user, ...tokens});
   }
-
-  const user: Partial<SignUpUser> = {
-    email: kakaoUser.kakao_account.email,
-    snsId: kakaoUser.id.toString(),
-    name: kakaoUser.kakao_account.profile.nickname,
-    thumbnail: kakaoUser.kakao_account.profile.thumbnail_image_url,
-    profileImage: kakaoUser.kakao_account.profile.profile_image_url,
-    provider: 'kakao',
-  };
-
-  handleSignUp({ ...user, ...tokens});
 }
 
 export const useKakaoLogin = () => {

@@ -2,8 +2,6 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { toast } from 'react-toastify';
-
 import Carousel from '../Carousel';
 import SignupContext from './context';
 import { ownerTypes } from './constants';
@@ -66,8 +64,6 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         if (openerUUID) {
           stroage.clearUUID();
           window.location.reload();
-        } else {
-          toast.success('Owwner 앱으로 이동하면 로그인이 완료됩니다.');
         }
       }, 50)
     } catch (error) {

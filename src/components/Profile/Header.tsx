@@ -9,6 +9,7 @@ import Icon from '../Icon';
 import APIS from '../../apis';
 import { useContextMenu } from '../ContextMenu';
 import { useAlert } from '../Alert';
+import storage from '../../modules/localStorage';
 
 const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
   const { user, util } = useStore();
@@ -52,6 +53,7 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
                 try {
                   const { data: { ok } } = await APIS.auth.logout();
                   if (ok) {
+                    storage.clearOwwnersToken();
                     setTimeout(() => {
                       window.location.reload(false);
                     }, 300)

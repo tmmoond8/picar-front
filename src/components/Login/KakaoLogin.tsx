@@ -24,9 +24,9 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
     onClose();
     const uuid = Math.random().toString(32).split('.')[1];
     storage.setUUID(uuid);
-    setTimeout(() => {
-      Browser.open({ url: `${process.env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'abc'});
+    setTimeout(() => { 
       if (isHybrid()) {
+        Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'abc'});
       } else {
         window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code`
       }

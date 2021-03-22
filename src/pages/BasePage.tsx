@@ -22,7 +22,6 @@ const BasePage: React.FC<{
   useSetupHistory();
   React.useEffect(() => {
     (async () => {
-      console.log('aaaa');
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
         const uuid = storage.getUUID();
         if (isActive && uuid) {

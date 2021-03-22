@@ -9,6 +9,7 @@ import APIS from '../../apis';
 import { colors } from '../../styles';
 import Button from '../Button';
 import { useAlert } from '../Alert';
+import storage from '../../modules/localStorage';
 
 const UserProfile = () => {
   const { user } = useStore();
@@ -104,6 +105,7 @@ function useProfile() {
                   try {
                     const { data: { ok } } = await APIS.auth.logout();
                     if (ok) {
+                      storage.clearOwwnersToken();
                       setTimeout(() => {
                         window.location.reload(false);
                       }, 300)
