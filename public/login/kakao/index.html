@@ -15,24 +15,22 @@
   <p id="test1">test1</p>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="env.js"></script>
   <script>
     const locationHref = document.querySelector('#locationHref');
     locationHref.textContent = location.href;
     const { uuid, code } = getQuery();
+    const { KAKAO_LOGIN_KEY, KAKAO_USER_API_KEY, KAKAO_LOGIN_BRIDGE_URL, API_URL } = window.__OWWNERS__;
     if (uuid) {
       // start
       const uuidEl = document.querySelector('#uuid');
       uuidEl.textContent = uuid;
       localStorage.setItem('uuid', uuid);
-      const KAKAO_LOGIN_KEY = 'eaca64fa795006e298e348acc14ab691';
-      const KAKAO_LOGIN_BRIDGE_URL = 'http://192.168.1.165:8100/login/kakao/index.html';
       window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&response_type=code`
     }
     if (code) {
       const codeEl = document.querySelector('#code');
       codeEl.textContent = code;
-      const KAKAO_USER_API_KEY = '466b2d4c7394790641047c7226aa9c4b';
-      const KAKAO_LOGIN_BRIDGE_URL = 'http://192.168.1.165:8100/login/kakao/index.html';
       const checkToken = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_USER_API_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&code=${code}`;
       const tokenEl = document.querySelector('#checkToken');
       tokenEl.textContent = checkToken;
@@ -57,12 +55,14 @@
 
     function loginKakao({ access_token, refresh_token}) {
       const uuid = localStorage.getItem('uuid');
-      const body = {
-        accessToken: access_token,
-        refreshToken: refresh_token,
-        uuid
+      if (uuid) {
+        const body = {
+          accessToken: access_token,
+          refreshToken: refresh_token,
+        }
+        return axios.post(`${API_URL}/auth/uuid/${uuid}`, body);
       }
-      return axios.post('http://192.168.1.165:4040/api/auth/login/kakao', body);
+      throw new Error('uuid not existed')
     }
   </script>
 </body>
