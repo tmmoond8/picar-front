@@ -24,10 +24,12 @@ const BasePage: React.FC<{
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
         const uuid = storage.getOpenerUUID();
         if (isActive && uuid) {
+          console.log('isActive')
           try {
             const {
               data: { data },
             } = await APIS.auth.checkUUID(uuid);
+            storage.clearOpenerUUID();
             if (data) {
               user.setProfile(data);
               return;

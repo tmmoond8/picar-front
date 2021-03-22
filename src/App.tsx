@@ -7,9 +7,6 @@ import * as Pages from './pages';
 import Header from './components/Header';
 import { useStore, observer } from './stores';
 import env from './env';
-import storage from './modules/localStorage';
-const ExWindowUUID = storage.getExWindowUUID();
-const openUUID = storage.getOpenerUUID();
 
 function App() {
   const { ui } = useStore();
@@ -22,8 +19,6 @@ function App() {
           {env.REACT_APP_DEV && (
             <Location>
               <p>{window.location.href}</p>
-              {ExWindowUUID && <p>`ExWindowUUID:${ExWindowUUID}`</p>}
-              {openUUID && <p>`openUUID:${openUUID}`</p>}
             </Location>
             )
           }

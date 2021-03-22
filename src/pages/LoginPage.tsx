@@ -6,7 +6,6 @@ import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
 
-import stroage from '../modules/localStorage';
 import APIS from '../apis';
 import env from '../env';
 import { Profile as UserProfile } from '../types/User';
@@ -14,7 +13,6 @@ import { SignUpUser, Profile } from '../types/User';
 import { useModal } from '../components/Modal';
 import { useStore } from '../stores';
 import OwwnersLogo from '../resources/images/owwners-logo.png';
-import storage from '../modules/localStorage';
 import SignUp from '../components/SignUp';
 
 interface LoginBoxProps {
