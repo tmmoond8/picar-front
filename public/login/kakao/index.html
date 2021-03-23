@@ -5,14 +5,32 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>owwners</title>
+  <style>
+    .loading--image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 100%;
+      height: auto;
+    }
+    .dev--log {
+      visibility: hidden;
+    }
+  </style>
 </head>
 <body>
-  <h2>Kakao Login Page</h2>
-  <p id="locationHref"></p>
-  <p id="uuid">uuid</p>
-  <p id="code">code</p>
-  <p id="checkToken">checkToken</p>
-  <p id="test1">test1</p>
+  <img class="loading--image" src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-loading_qrzbog.png">
+  <div class="dev--log">
+    <h2>Kakao Login Page</h2>
+    <p id="locationHref"></p>
+    <p id="uuid">uuid</p>
+    <p id="code">code</p>
+    <p id="checkToken">checkToken</p>
+    <p id="test1">test1</p>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
   <script src="env.js"></script>
@@ -44,7 +62,8 @@
           })
         })
     }
-
+    showLog();
+    
     function getQuery() {
       return window.location.search.replace('?', '').split('&').reduce((accum, item) => {
         const [key, value] = item.split('=');
@@ -63,6 +82,13 @@
         return axios.post(`${API_URL}/auth/uuid/${uuid}`, body);
       }
       throw new Error('uuid not existed')
+    }
+
+    function showLog() {
+      const isDev = window.location.host !== 'tmmoond8.github.io';
+      if (isDev) {
+        document.querySelector('.dev--log').style.visibility = 'visible';
+      }
     }
   </script>
 </body>
