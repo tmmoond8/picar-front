@@ -12,6 +12,7 @@
 /build
 /resources/android
 /resources/ios
+/resources/keys
 
 # misc
 .DS_Store
