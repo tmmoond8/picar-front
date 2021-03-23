@@ -18,7 +18,7 @@ if (isHybrid()) {
       const owwnersToken = storage.getOwwnersToken();
       config.headers = {
         ...config.headers,
-        owwners_token: owwnersToken,
+        ['X-Custom-Token']: owwnersToken,
       }
       return config;
     },
@@ -28,9 +28,9 @@ if (isHybrid()) {
   );
   api.interceptors.response.use(
     (response) => {
-      console.log('response.headers.owwners_token', JSON.stringify(response.data));
-      if ('owwners_token' in response.headers) {
-        storage.setOwwnersToken(response.headers.owwners_token);
+      console.log('response.headers.X-Custom-Token', JSON.stringify(response.data));
+      if ('X-Custom-Token' in response.headers) {
+        storage.setOwwnersToken(response.headers['X-Custom-Token']);
       }
       return response;
     },
