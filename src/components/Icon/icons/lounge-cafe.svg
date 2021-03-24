@@ -1,11 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
     <g fill="none" fill-rule="evenodd">
-        <g transform="translate(-204 -258) translate(192 248) translate(12 10)">
-            <path fill="#FA506B" d="M7 9h22l-2.764 20.27c-.135.991-.982 1.73-1.982 1.73H11.746c-1 0-1.847-.739-1.982-1.73L7 9z"/>
-            <path fill="#FF89A5" style="mix-blend-mode:multiply" d="M5 9H31V14H5z"/>
-            <path fill="#CE1128" d="M29 9l-.682 5H7.682L7 9h22z"/>
-            <path fill="#FF89A5" d="M10.715 4h14.57c.937 0 1.749.651 1.952 1.566L28 9H8l.763-3.434C8.966 4.651 9.778 4 10.715 4z" style="mix-blend-mode:multiply"/>
-            <circle cx="18" cy="20" r="3" fill="#FFF"/>
-        </g>
+        <path fill="#3E8BFF" d="M8 14h20l-1.792 15.234C26.089 30.24 25.236 31 24.222 31H11.778c-1.014 0-1.867-.76-1.986-1.766L8 14z" transform="translate(-204 -258) translate(192 248) translate(12 10)"/>
+        <path fill="#1F73F3" d="M7 9h22c.552 0 1 .448 1 1v3c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1v-3c0-.552.448-1 1-1zM10.471 4.918l14.722-.823c.978-.055 1.852.607 2.064 1.563L28 9H8l.643-2.57c.212-.85.953-1.463 1.828-1.512z" style="mix-blend-mode:multiply" transform="translate(-204 -258) translate(192 248) translate(12 10)"/>
+        <path stroke="#FFF" stroke-linejoin="round" stroke-width="2" d="M15 17L15 25 21 25 21 17z" transform="translate(-204 -258) translate(192 248) translate(12 10)"/>
     </g>
 </svg>

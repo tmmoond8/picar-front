@@ -1,8 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
-    <g fill="none" fill-rule="evenodd">
-        <path fill="#FAAF19" d="M20.328 28.172c4.971 0 9-8.926 9-14.645 0-5.72-4.029-10.355-9-10.355-4.97 0-9 4.636-9 10.355s4.03 14.645 9 14.645z" transform="translate(-32 -258) translate(20 248) translate(12 10) rotate(45 20.328 15.672)"/>
-        <path fill="#F5A720" d="M21 9c1.657 0 3 1.343 3 3 1.657 0 3 1.343 3 3s-1.343 3-3 3c-.872 0-1.657-.372-2.205-.966l-10.76 10.761c.593.548.965 1.333.965 2.205 0 1.657-1.343 3-3 3-1.598 0-2.904-1.249-2.995-2.824L6 30l-.176-.005C4.249 29.904 3 28.598 3 27c0-1.657 1.343-3 3-3 .872 0 1.658.372 2.206.967l10.76-10.762C18.372 13.657 18 12.872 18 12c0-1.657 1.343-3 3-3z" style="mix-blend-mode:multiply" opacity=".3" transform="translate(-32 -258) translate(20 248) translate(12 10)"/>
-        <path fill="#FFE947" d="M11.49 24.51c.486.487 1.08.84 1.755 1.076l-2.21 2.21c.593.547.965 1.332.965 2.204 0 1.657-1.343 3-3 3-1.598 0-2.904-1.249-2.995-2.824L6 30l-.176-.005C4.249 29.904 3 28.598 3 27c0-1.657 1.343-3 3-3 .872 0 1.658.372 2.206.967l2.209-2.21c.236.673.588 1.267 1.075 1.753z" style="mix-blend-mode:multiply" transform="translate(-32 -258) translate(20 248) translate(12 10)"/>
-        <path fill="#FFF" fill-rule="nonzero" d="M27.242 8.674c1.085 1.086 1.757 2.586 1.757 4.243h-2c0-1.077-.425-2.082-1.172-2.829C25.32 9.58 24.69 9.22 24 9.043V7c1.256.21 2.38.812 3.242 1.674z" transform="translate(-32 -258) translate(20 248) translate(12 10)"/>
+    <g fill="#FA506B" fill-rule="evenodd" transform="translate(-32 -258) translate(20 248) translate(12 10)">
+        <ellipse cx="11" cy="12" rx="5" ry="6"/>
+        <path d="M19 6H22V30H19zM25 6H28V30H25zM10 15L9 30 13 30 12 15z"/>
     </g>
 </svg>

@@ -1,10 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
-    <g fill="none" fill-rule="evenodd">
-        <g transform="translate(-32 -515) translate(20 505) translate(12 10)">
-            <circle cx="18" cy="18" r="13" fill="#8C8B8B"/>
-            <text fill="#FFF" font-family="Montserrat-ExtraBold, Montserrat ExtraBold" font-size="10" font-weight="600" letter-spacing="-.458">
-                <tspan x="8.658" y="21.5">ALL</tspan>
-            </text>
-        </g>
+    <g fill="none" fill-rule="evenodd" transform="translate(-2433 -622) translate(2433 622)">
+        <circle cx="18" cy="18" r="13" fill="#8C8B8B"/>
+        <path fill="#FFF" fill-rule="nonzero" d="M10.537 21.5l.55-1.36h2.96l.55 1.36h2.06l-3.1-7h-1.95l-3.09 7h2.02zm2.93-2.82h-1.8l.9-2.24.9 2.24zm8.612 2.82v-1.57h-3.34V14.5h-1.98v7h5.32zm5.642 0v-1.57h-3.34V14.5H22.4v7h5.32z"/>
     </g>
 </svg>
