@@ -1,6 +1,6 @@
 {
   "appId": "com.tmmoond8.owwners",
-  "appName": "owwners",
+  "appName": "오너스",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
