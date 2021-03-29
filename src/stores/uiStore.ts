@@ -4,7 +4,7 @@ import { ContextMenuData, CustomContextMenuData } from '../components/ContextMen
 import { ModalData } from '../components/Modal';
 import { AlertData } from '../components/Alert';
 import { BreakPoints } from '../styles/mediaQuery';
-import { CommonStore, observer, Stores } from '.';
+import { CommonStore, Stores } from '.';
 
 type BreakPointKeys = keyof typeof BreakPoints;
 

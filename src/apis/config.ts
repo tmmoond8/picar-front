@@ -14,7 +14,6 @@ const api: AxiosInstance = axios.create(apiConfig);
 if (isHybrid()) {
   api.interceptors.request.use(
     (config) => {
-      console.log('config');
       const owwnersToken = storage.getOwwnersToken();
       config.headers = {
         ...config.headers,
@@ -28,7 +27,6 @@ if (isHybrid()) {
   );
   api.interceptors.response.use(
     (response) => {
-      console.log('response.headers.X-Custom-Token', JSON.stringify(response.data));
       if ('X-Custom-Token' in response.headers) {
         storage.setOwwnersToken(response.headers['X-Custom-Token']);
       }

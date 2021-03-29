@@ -11,6 +11,7 @@ import { useStore, observer } from '../stores';
 import hooks, { useSetupHistory } from '../hooks';
 import Layout from '../components/Layout';
 import LoginBox from '../components/Login/LoginBox';
+import { useAndroid } from '../hooks';
 
 const BasePage: React.FC<{
   className?: string;
@@ -20,6 +21,7 @@ const BasePage: React.FC<{
   const { App } = Plugins;
   const KakaoLogin = hooks.auth.useKakaoLogin();
   useSetupHistory();
+  useAndroid();
   React.useEffect(() => {
     (async () => {
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {

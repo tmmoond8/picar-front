@@ -1,6 +1,8 @@
 import { Path, LocationState, History } from 'history';
+import sessionStorage from '../modules/sessionStorage'
 
 export default (history: History<LocationState>) => {
+  sessionStorage.initStack();
   return {
     ...history,
     push: (path: Path, state?: LocationState) => {
