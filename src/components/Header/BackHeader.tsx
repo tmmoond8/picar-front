@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
+import { useStore, observer } from '../../stores';
 
 import { colors } from '../../styles';
 import Icon from '../Icon';
@@ -15,7 +15,7 @@ const BackHeader: React.FC<{
     noBottomLine?: boolean;
   }
 }> = ({ options = {}, className }) => {
-  const history = useHistory();
+  const { util } = useStore();
 
   return (
     <StyledBack noBottomLine={options.noBottomLine ?? false} className={cx('BackHeader', className)}>
@@ -24,14 +24,14 @@ const BackHeader: React.FC<{
         icon="back"
         size="24px"
         color={colors.black100}
-        onClick={() => history.goBack()}
+        onClick={() => util.history.goBack()}
       />
       <div className="right">{options?.right}</div>
     </StyledBack>
   );
 }
 
-export default BackHeader;
+export default observer(BackHeader);
 
 const HEIGHT = 56;
 

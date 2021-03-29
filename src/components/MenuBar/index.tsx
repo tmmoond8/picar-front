@@ -20,19 +20,18 @@ const activeMap = {
 } as const;
 
 const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
-  const { user } = useStore();
+  const { user, util } = useStore();
   const location = useLocation();
   const { pathname } = location;
   const openArticleEditor = useOpenArticleEditor();
-  const history = useHistory();
 
   const moveTo = useCallback(
     (path: string) => {
       if (pathname !== path) {
-        history.replace(path);
+        util.history.replace(path);
       }
     },
-    [history, pathname],
+    [util.history, pathname],
   );
   const selectedMenu = React.useMemo(() => {
     return activeMap[pathname as keyof typeof activeMap] ?? '/';

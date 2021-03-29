@@ -2,10 +2,9 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import Article from '../../types/Article';
-
+import { useStore, observer } from '../../stores';
 import { Profile as UserProfile } from '../../types/User';
 import { EmotionType } from '../../types/Emotion';
 
@@ -38,11 +37,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   handleEmotionUpdate,
 }) => {
   const { profileImage, name, group, code } = author as UserProfile;
-  const history = useHistory();
+  const { util } = useStore();
 
   const handleClickArticle = React.useCallback(() => {
-    history.push(`/article/${id}`);
-  }, [history, id]);
+    util.history.push(`/article/${id}`);
+  }, [util.history, id]);
 
   return (
     <Card className="ArticleCard">
@@ -74,7 +73,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   );
 };
 
-export default React.memo(ArticleCard);
+export default observer(ArticleCard);
 
 const Card = styled.li`
   padding: 16px 18px;

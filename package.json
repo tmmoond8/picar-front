@@ -67,6 +67,7 @@
   "scripts": {
     "dev": "ionic serve",
     "dev:ios": "ionic capacitor run ios -l --external",
+    "dev:android": "ionic capacitor run android -l --external",
     "build": "CI= react-scripts build",
     "build:mobile": "dotenv -e .env.production.env yarn build && capacitor copy ios && capacitor copy android",
     "build:local": "react-scripts build && capacitor copy ios && capacitor copy android",

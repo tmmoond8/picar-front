@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import APIS from '../apis';
 import storage from '../modules/localStorage';
 import { SignUpUser, Profile, KakaoUser } from '../types/User';
@@ -54,13 +53,12 @@ export const kakaoLogin = async (params: KakaoLogin) => {
 }
 
 export const useKakaoLogin = () => {
-  const { user } = useStore();
+  const { user, util } = useStore();
   const modal = useModal();
-  const history  = useHistory();
   const handleClose = React.useCallback(() => {
     modal.close();
     setTimeout(() => {
-      history.replace('/', false);
+      util.history.replace('/', false);
     }, 200)
   }, [])
 

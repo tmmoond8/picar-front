@@ -2,7 +2,6 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useLocation } from 'react-router';
 import Icon from '../Icon';
 import APIS from '../../apis';
 import { colors } from '../../styles';
@@ -14,7 +13,6 @@ const SIZE = 5;
 
 const PopularArticles: React.FC<{}> = () => {
   const { util } = useStore();
-  const location = useLocation();
   const [page, setPage] = React.useState(0);
   const [popArticles, setPopArticles] = React.useState<ArticleType[]>([]);
   const articles = React.useMemo(() => {
@@ -33,12 +31,12 @@ const PopularArticles: React.FC<{}> = () => {
   });
 
   const handleClickLink = React.useCallback((articleId: number) => {
-    if (location.pathname.includes('/article')) {
+    if (window.location.pathname.includes('/article')) {
       util.history.replace(`/article/${articleId}`);
     } else {
       util.history.push(`/article/${articleId}`);
     }
-  }, [location, util])
+  }, [util.history, util])
 
   return (
     <StyledPopularArticles className="PopularArticles">

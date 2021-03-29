@@ -2,18 +2,18 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useStore, observer } from '../../stores';
 import Comment from '../../types/Comment';
 import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 import Icon from '../Icon';
 
 const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
-  const history = useHistory();
+  const { util } = useStore();
 
   const handleClickArticle = React.useCallback((id: number) => {
-    history.push(`/article/${id}`);
-  }, [history]);
+    util.history.push(`/article/${id}`);
+  }, [util.history]);
 
   return (
     <List>
@@ -32,7 +32,7 @@ const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
   )
 }
 
-export default ProfileCommentList;
+export default observer(ProfileCommentList);
 
 const List = styled.ol`
   height: 100%;
