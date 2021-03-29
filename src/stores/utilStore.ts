@@ -1,26 +1,27 @@
 import { observable, action } from 'mobx';
-import { createBrowserHistory, History, LocationState } from 'history';
+import { createBrowserHistory, LocationState } from 'history';
+import { CustomHistory } from '../modules/history';
 import { Stores, CommonStore } from '.';
 
 export interface UtilStoreInterface extends CommonStore {
-  setHistory: (history: History<LocationState>) => void;
-  useHistory: () => History<LocationState>;
-  history: History<LocationState>;
+  setHistory: (history: CustomHistory<LocationState>) => void;
+  useHistory: () => CustomHistory<LocationState>;
+  history: CustomHistory<LocationState>;
 }
 
 let historySet = false;
 
 class UtilsStore implements UtilStoreInterface {
-  @observable history: History<LocationState>;
+  @observable history: CustomHistory<LocationState>;
   rootStore: Stores | null;
 
   constructor() {
-    this.history = createBrowserHistory();
+    this.history = createBrowserHistory() as CustomHistory<LocationState>;
     this.rootStore = null;
   }
 
   @action
-  setHistory(history: History<LocationState>) {
+  setHistory(history: CustomHistory<LocationState>) {
     if (!historySet) {
       this.history = history;
       historySet = true;

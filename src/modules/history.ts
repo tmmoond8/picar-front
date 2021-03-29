@@ -1,17 +1,24 @@
 import { Path, LocationState, History } from 'history';
 import sessionStorage from '../modules/sessionStorage'
+export interface CustomHistory<T> extends History<T> {
+  goBack: () => number;
 
-export default (history: History<LocationState>) => {
+}
+
+export default (history: History<LocationState>): CustomHistory<LocationState> => {
   sessionStorage.initStack();
   return {
     ...history,
     push: (path: Path, state?: LocationState) => {
-      console.log('custom push');
+      const currentStack = sessionStorage.top();
       if (path === history.location.pathname) {
         console.log('match', path, history.location.pathname);
-        return history.replace(path, state);
+        history.replace(path, state);
+        return currentStack;
       }
+      sessionStorage.pushStack();
       history.push(path, state);
+      return currentStack + 1;
     },
     replace: (path: Path, state?: LocationState) => {
       console.log('custom replace');
@@ -19,5 +26,10 @@ export default (history: History<LocationState>) => {
         return history.replace(path, state);
       }
     },
+    goBack: () => {
+      const stack = sessionStorage.popStack();
+      history.goBack();
+      return stack;
+    }
   };
 }
