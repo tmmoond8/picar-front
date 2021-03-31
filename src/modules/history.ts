@@ -2,7 +2,6 @@ import { Path, LocationState, History } from 'history';
 import sessionStorage from '../modules/sessionStorage'
 export interface CustomHistory<T> extends History<T> {
   goBack: () => number;
-
 }
 
 export default (history: History<LocationState>): CustomHistory<LocationState> => {
@@ -28,7 +27,9 @@ export default (history: History<LocationState>): CustomHistory<LocationState> =
     },
     goBack: () => {
       const stack = sessionStorage.popStack();
-      history.goBack();
+      if (stack !== -1) {
+        history.goBack();
+      }
       return stack;
     }
   };

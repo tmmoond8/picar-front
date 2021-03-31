@@ -76,7 +76,6 @@ export const useBreakpoint = () => {
   });
   React.useEffect(() => {
     if (isHybrid()) {
-      alert('aaaaaaa');
       return;
     }
     const mobile = window.matchMedia(`(max-width: ${BreakPoints.Tablet}px)`);
@@ -127,7 +126,6 @@ export const useBreakpoint = () => {
     setTimeout(() => {
       const width = window.innerWidth;
       if (isHybrid()) {
-        alert('aaaaaaa');
         return setQueryMatch({
           Mobile: true,
           Tablet: false,

@@ -17,8 +17,8 @@ const storage = {
     },
     popStack: () => {
         const currentStack = sessionStorage.getItem(STORAGE_KEYS.STACK);
-        if (currentStack && parseInt(currentStack) <= 0) {
-            return 0;
+        if (currentStack && parseInt(currentStack) <= 1) {
+            return -1;
         }
         const nextStack = Number(currentStack) - 1;
         sessionStorage.setItem(STORAGE_KEYS.STACK, `${nextStack}`);

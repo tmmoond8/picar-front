@@ -16,7 +16,7 @@ export const useAndroid = () => {
       const alert = ui.alerts[ui.alerts.length - 1];
       return alert.handleClose();
     }
-    if (util.history.goBack() === 0) {
+    if (util.history.goBack() === -1) {
       alert.open({
         title: '앱을 종료 하시겠어요?',
         handleConfirm: async () => {
