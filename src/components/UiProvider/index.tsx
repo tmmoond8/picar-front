@@ -2,6 +2,7 @@ import React from 'react';
 import ContextMenuViewer, { ContextMenuData, CustomContextMenuData, CustomContextMenuViewer } from '../ContextMenu';
 import ToastContainer from '../ToastContainer';
 import AlertViewer, { AlertData } from '../Alert';
+import { isHybrid } from '../../modules/crossPlatform'
 
 import ModalViewer, {
   ModalData,
@@ -26,6 +27,7 @@ const UiProvider: React.FC<{
   const queryMatch = useBreakpoint();
   React.useEffect(() => {
     ui.queryMatch = queryMatch;
+    console.log(JSON.stringify(queryMatch));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryMatch]);
   React.useEffect(() => {
@@ -39,6 +41,7 @@ const UiProvider: React.FC<{
   useSetupContextMenu(ui);
   useSetupModal(ui);
   useSetupAlert(ui);
+  useOrientation('portrait');
   
   return (
     <React.Fragment>
@@ -98,4 +101,10 @@ function useSetupAlert(ui: UiStore) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+}
+
+function useOrientation(orientation: 'portrait' | 'landscape') {
+  if(isHybrid()) {
+    window.screen.orientation.lock(orientation);
+  }
 }

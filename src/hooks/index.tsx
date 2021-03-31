@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { isHybrid } from '../modules/crossPlatform';
 import { Profile as UserProfile } from '../types/User';
 import createHistory from '../modules/history';
 import LoginBox from '../components/Login/LoginBox';
@@ -64,6 +65,7 @@ export const useSetupHistory = () => {
 type BreakPointKyes = keyof typeof BreakPoints;
 export const useBreakpoint = () => {
   const mobileValue = React.useRef<boolean>(false);
+  const tabletValue = React.useRef<boolean>(false);
   const desktopValue = React.useRef<boolean>(false);
   const [queryMatch, setQueryMatch] = React.useState<
     Record<BreakPointKyes, boolean>
@@ -73,21 +75,34 @@ export const useBreakpoint = () => {
     Desktop: false,
   });
   React.useEffect(() => {
+    if (isHybrid()) {
+      alert('aaaaaaa');
+      return;
+    }
     const mobile = window.matchMedia(`(max-width: ${BreakPoints.Tablet}px)`);
     mobile.addEventListener(
       'change',
-      () =>
-        // setQueryMatch({ ...queryMatch, Mobile: mobile.matches }),
-        (mobileValue.current = mobile.matches),
+      () => {
+        mobileValue.current = mobile.matches;
+        setTimeout(() => {
+          setQueryMatch({
+            Mobile: mobileValue.current,
+            Tablet: tabletValue.current,
+            Desktop: desktopValue.current,
+          });
+        }, 50);
+      }
+        ,
     );
     const tablet = window.matchMedia(
       `(min-width: ${BreakPoints.Tablet}px) and (max-width: ${BreakPoints.Desktop}px)`,
     );
     tablet.addEventListener('change', () => {
+      tabletValue.current = tablet.matches;
       setTimeout(() => {
         setQueryMatch({
           Mobile: mobileValue.current,
-          Tablet: tablet.matches,
+          Tablet: tabletValue.current,
           Desktop: desktopValue.current,
         });
       }, 50);
@@ -95,15 +110,30 @@ export const useBreakpoint = () => {
     const desktop = window.matchMedia(`(min-width: ${BreakPoints.Desktop}px)`);
     desktop.addEventListener(
       'change',
-      () =>
-        // setQueryMatch({ ...queryMatch, Desktop: desktop.matches }),
-        (desktopValue.current = desktop.matches),
+      () => {
+        desktopValue.current = desktop.matches;
+        setTimeout(() => {
+          setQueryMatch({
+            Mobile: mobileValue.current,
+            Tablet: tabletValue.current,
+            Desktop: desktopValue.current,
+          });
+        }, 50);
+      },
     );
   }, []);
+
   React.useEffect(() => {
     setTimeout(() => {
       const width = window.innerWidth;
-
+      if (isHybrid()) {
+        alert('aaaaaaa');
+        return setQueryMatch({
+          Mobile: true,
+          Tablet: false,
+          Desktop: false,
+        });
+      }
       setQueryMatch({
         Mobile: width <= BreakPoints.Tablet,
         Tablet: width > BreakPoints.Tablet && width <= BreakPoints.Desktop,
