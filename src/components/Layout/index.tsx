@@ -140,7 +140,7 @@ const Contents = styled.div`
     margin-top: 1px;
     border-bottom: 1px solid ${colors.blackEB};
   }
-  & > *:last-child {
+  .ArticleContainer > *:last-child {
     padding-bottom: ${GAP}px;
     box-shadow: inset 0 -24px ${colors.blackF5F6F7};
   }
