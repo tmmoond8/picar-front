@@ -135,6 +135,8 @@ const Contents = styled.div`
   max-width: 540px;
   .ArticleList {
     background: ${colors.white};
+    padding-bottom: ${GAP}px;
+    box-shadow: inset 0 -24px ${colors.blackF5F6F7};
   }
   .ArticleCard {
     margin-top: 1px;
