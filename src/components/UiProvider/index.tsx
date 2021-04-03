@@ -2,7 +2,6 @@ import React from 'react';
 import ContextMenuViewer, { ContextMenuData, CustomContextMenuData, CustomContextMenuViewer } from '../ContextMenu';
 import ToastContainer from '../ToastContainer';
 import AlertViewer, { AlertData } from '../Alert';
-import { isHybrid } from '../../modules/crossPlatform'
 
 import ModalViewer, {
   ModalData,
@@ -104,7 +103,7 @@ function useSetupAlert(ui: UiStore) {
 }
 
 function useOrientation(orientation: 'portrait' | 'landscape') {
-  if(isHybrid()) {
+  if(typeof window.screen?.orientation?.lock === 'function') {
     window.screen.orientation.lock(orientation);
   }
 }
