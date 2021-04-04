@@ -3,6 +3,7 @@ import { jsx, css, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { constants } from '../../styles';
 import { useStore } from '../../stores';
 import Profile from '../Profile';
 import Icon from '../Icon';
@@ -98,7 +99,7 @@ const Editor = styled.div<{ hasContent: boolean;}>`
   display: flex;
   position: fixed;
   left: 0;
-  bottom: env(safe-area-inset-bottom);
+  bottom: ${constants.safeBottom};
   width: 100%;
   align-items: center;
   padding: 18px;

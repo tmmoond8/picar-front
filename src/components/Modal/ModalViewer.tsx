@@ -5,7 +5,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import ModalHeader from './ModalHeader';
-import { colors } from '../../styles';
+import { colors, constants } from '../../styles'
 import { useStore, observer } from '../../stores';
 
 export const HEADER_TYPE = {
@@ -94,8 +94,8 @@ const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
   position: fixed;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: env(safe-area-inset-bottom);
+  top: ${constants.safeTop};
+  bottom: ${constants.safeBottom};
   display: flex;
   justify-content: center;
   align-items: flex-end;

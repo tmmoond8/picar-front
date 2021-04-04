@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
 
+import { constants } from '../styles';
 import hooks from '../hooks'
 import env from '../env';
 
@@ -60,7 +61,7 @@ const FullLoading = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
-  bottom: env(safe-area-inset-bottom);
+  bottom: ${constants.safeBottom};
   left: 0;
   right: 0;
   margin: auto;

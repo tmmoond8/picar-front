@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
 import Header from './components/Header';
@@ -83,7 +84,7 @@ const notionPages = {
 
 const Location = styled.div`
   position: fixed;
-  top: 40px;
+  top: calc(${constants.safeTop} + 40px);
   left: 20px;
   font-size: 10px;
   color: rgba(100, 100, 100, 0.5);

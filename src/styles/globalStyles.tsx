@@ -2,6 +2,7 @@
 import { jsx, Global, css } from '@emotion/core';
 import emotionReset from 'emotion-reset';
 import colors from './colors';
+import * as constants from './constants';
 
 const customReset = css`
   html {
@@ -47,7 +48,7 @@ const customReset = css`
   .OwnerBottomSheetWrapper {
     position: fixed;
     top: 0;
-    bottom: env(safe-area-inset-bottom);
+    bottom: ${constants.safeBottom};
     right: 0;
     left: 0;
     margin: auto;

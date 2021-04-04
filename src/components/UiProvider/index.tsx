@@ -103,7 +103,7 @@ function useSetupAlert(ui: UiStore) {
 }
 
 function useOrientation(orientation: 'portrait' | 'landscape') {
-  if(typeof window.screen?.orientation?.lock === 'function') {
+  if(window.screen && window.screen.orientation && typeof window.screen.orientation.lock === 'function') {
     window.screen.orientation.lock(orientation);
   }
 }

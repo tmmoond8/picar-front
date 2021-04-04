@@ -3,8 +3,9 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useCallback } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
+import { constants } from '../../styles';
 import MenuItem from './MenuItem';
 import Icon from '../Icon';
 import { useOpenArticleEditor } from '../Article';
@@ -103,7 +104,7 @@ export default observer(MenuBar);
 
 const MenuBarContainer = styled.div`
   position: fixed;
-  bottom: env(safe-area-inset-bottom);
+  bottom: ${constants.safeBottom};
   left: 0;
   width: 100%;
   height: 56px;

@@ -5,7 +5,7 @@ import { isHybrid } from '../modules/crossPlatform';
 
 export const apiConfig = {
   baseURL: env.NODE_ENV ===  'development'
-    ? `${window.location.origin}/api`.replace(':3000', ':4040')
+    ? `${window.location.origin}/api`.replace(':8100', ':4040')
     : env.REACT_APP_API_URL ,
   withCredentials: true,
 };
