@@ -26,6 +26,7 @@
     "classnames": "^2.2.6",
     "clipboard-copy": "^4.0.1",
     "cordova-plugin-screen-orientation": "^3.0.2",
+    "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
     "emotion-reset": "^2.0.7",
     "es6-promise-plugin": "^4.2.2",

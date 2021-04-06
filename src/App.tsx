@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AppDownloadPopUp from "./components/AppDownloadPopup";
 
 import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
 import Header from './components/Header';
 import { useStore, observer } from './stores';
-import env from './env';
 
 function App() {
   const { ui } = useStore();
   return (
     <React.Fragment>
       <GlobalStyles />
+      <AppDownloadPopUp />
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />

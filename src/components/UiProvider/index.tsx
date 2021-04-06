@@ -10,6 +10,7 @@ import ModalViewer, {
 import { useStore, observer } from '../../stores';
 import 'react-toastify/dist/ReactToastify.css';
 import global from '../../types/global';
+import { crossPlatform } from '../../modules';
 import { Profile as UserProfile } from '../../types/User';
 import { useCheckLogin, useBreakpoint } from '../../hooks';
 import UiStore from '../../stores/uiStore';
@@ -26,7 +27,6 @@ const UiProvider: React.FC<{
   const queryMatch = useBreakpoint();
   React.useEffect(() => {
     ui.queryMatch = queryMatch;
-    console.log(JSON.stringify(queryMatch));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryMatch]);
   React.useEffect(() => {
@@ -103,7 +103,12 @@ function useSetupAlert(ui: UiStore) {
 }
 
 function useOrientation(orientation: 'portrait' | 'landscape') {
-  if(window.screen && window.screen.orientation && typeof window.screen.orientation.lock === 'function') {
-    window.screen.orientation.lock(orientation);
+  if(crossPlatform.isIosAndHybrid() && window.screen && 
+    window.screen.orientation && typeof window.screen.orientation.lock === 'function') {
+    try {
+      window.screen.orientation.lock(orientation);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

@@ -1,3 +1,7 @@
-import * as _crossPlatform from './crossPlatform';
+import * as crossPlatform from './crossPlatform';
+import appDownChecker from './appDownChecker';
 
-export const crossPlatform = _crossPlatform;
+export {
+  crossPlatform,
+  appDownChecker,
+}

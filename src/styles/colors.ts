@@ -26,6 +26,6 @@ export default {
   primaryF: '#f5f6f7',
   greyA08: 'rgba(255, 255, 255, 0.8)',
   notDimmed: 'rgba(47, 52, 55, 0)',
-  dimmed: 'rgba(15, 15, 15, 0.6)',
+  dimmed: 'rgba(15, 15, 15, 0.75)',
   bottomSheetContentWrapper: 'rgb(247, 246, 243)',
 };

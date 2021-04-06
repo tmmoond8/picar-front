@@ -6,9 +6,8 @@ import cx from 'classnames';
 
 import emptyImage from './empty-image.svg';
 
-
-const Image: React.FC<{ src: string; className?: string;  }> = ({
-  src, className
+const Image: React.FC<{ src: string; placeholder?: string; className?: string;  }> = ({
+  src, placeholder = emptyImage, className
 }) => {
   const ref = React.useRef<HTMLImageElement>(null);
   React.useEffect(() => {
@@ -18,7 +17,7 @@ const Image: React.FC<{ src: string; className?: string;  }> = ({
   }, [ref])
   
   return (
-    <StyledImage ref={ref} src={emptyImage} className={cx('Image', className)}/>
+    <StyledImage ref={ref} src={placeholder} className={cx('Image', className)}/>
   );
 };
 
