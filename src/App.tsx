@@ -17,12 +17,6 @@ function App() {
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
-          {env.REACT_APP_DEV && (
-            <Location>
-              <p>{window.location.href}</p>
-            </Location>
-            )
-          }
           <Switch>
             <Route exact path="/myProfile/edit">
               <Pages.MyProfileEditPage />
