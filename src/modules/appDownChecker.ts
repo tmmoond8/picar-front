@@ -1,4 +1,4 @@
-import { differenceInDays } from 'date-fns';
+import differenceInDays from 'date-fns/differenceInSeconds';
 const APP_DOWNLOAD = 'APP_DOWNLOAD';
 
 export default {
