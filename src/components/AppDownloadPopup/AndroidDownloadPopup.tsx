@@ -60,11 +60,6 @@ const ActionButtons = styled.div`
     span {
       margin-right: 2px;
     }
-
-    .Icon.close {
-      position: relative;
-      top: -1px;
-    }
   }
 `;
 
