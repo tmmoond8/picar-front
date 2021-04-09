@@ -18,7 +18,7 @@ const LoginPage = () => {
   const location = useLocation();
   const { code } = queryString.parse(location.search);
   const KakaoLogin = hooks.auth.useKakaoLogin();
-  
+
   ui.setHeaderNone();
 
   React.useEffect(() => {

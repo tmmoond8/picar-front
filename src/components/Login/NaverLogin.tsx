@@ -1,38 +1,50 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { Plugins } from '@capacitor/core';
 import React from 'react';
-import ReactNaverLogin from 'react-naver-login';
-import { toast } from 'react-toastify';
+import storage from '../../modules/localStorage';
 
 import env from '../../env';
 import NaverLoginIcon from './login-naver.svg';
+import { useModal } from '../Modal';
+import { isHybrid } from '../../modules/crossPlatform';
 
-interface NaverProfile {
-  age: string;
-  birthday: string;
-  email: string;
-  gender: string;
-  id: string;
-  name: string;
-  nickname: string;
-  profile_image: string;
-}
+const { Browser } = Plugins;
 
-export default function NaverLogin(): JSX.Element {
-  
+// interface NaverProfile {
+//   age: string;
+//   birthday: string;
+//   email: string;
+//   gender: string;
+//   id: string;
+//   name: string;
+//   nickname: string;
+//   profile_image: string;
+// }
+
+const NaverLogin: React.FC<{
+  onClose: () => void;
+}> = ({ onClose }) => {
+  const modal = useModal();
+
+  const handleNaverLogin = React.useCallback(() => {
+    onClose();
+
+    const uuid = Math.random().toString(32).split('.')[1];
+    storage.setUUID(uuid);
+    setTimeout(() => {
+      if (isHybrid()) {
+        Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'naverLoginPage' });
+      } else {
+        const naverLOginUrl = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
+        window.location.href = `${naverLOginUrl}client_id=${env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${env.REACT_APP_LOGIN_URL}&state=123123`
+      }
+    }, 200);
+  }, [modal])
   return (
-    <img src={NaverLoginIcon}/>
-    // <ReactNaverLogin
-    //   clientId={env.REACT_APP_NAVER_CLIENT_ID}
-    //   callbackUrl={env.REACT_APP_LOGIN_URL}
-    //   render={(props) => (
-    //     <img src={NaverLoginIcon} onClick={() => toast.success('지원 준비중 입니다. ')} />
-    //   )}
-    //   onSuccess={(result) => {
-        
-    //   }}
-    //   onFailure={(err: unknown) => console.error(err)}
-    // />
+    <img src={NaverLoginIcon} onClick={handleNaverLogin} />
   );
 }
+
+export default NaverLogin;

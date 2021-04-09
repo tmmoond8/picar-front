@@ -19,21 +19,21 @@ interface KakaoLoginProps {
 export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
   const { onClose } = props;
   const modal = useModal();
-  
+
   const handleKakaoLogin = React.useCallback(() => {
     onClose();
     const uuid = Math.random().toString(32).split('.')[1];
     storage.setUUID(uuid);
-    setTimeout(() => { 
+    setTimeout(() => {
       if (isHybrid()) {
-        Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'abc'});
+        Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'kakaoLoginPage' });
       } else {
-        window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code`
+        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code`
       }
     }, 200);
   }, [modal])
 
   return (
-    <img src={KakaoLoginIcon} onClick={handleKakaoLogin}/>
+    <img src={KakaoLoginIcon} onClick={handleKakaoLogin} />
   );
 }

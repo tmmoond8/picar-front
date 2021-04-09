@@ -6,8 +6,8 @@ import React from 'react';
 import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
 
-const LoginBox: React.FC<{ onClose: () => void}> = ({ onClose }) => {
-  
+const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+
 
   return (
     <Box>
@@ -21,8 +21,7 @@ const LoginBox: React.FC<{ onClose: () => void}> = ({ onClose }) => {
           />
         </li>
         <li className="naver-login">
-          <NaverLogin
-          />
+          <NaverLogin onClose={onClose} />
         </li>
       </LoginButtons>
     </Box>
@@ -51,10 +50,6 @@ const LoginButtons = styled.ol`
   }
   .naver-login {
     margin-left: 24px;
-    img {
-      filter: grayscale(1) opacity(0.5);
-      cursor: auto;
-    }
   }
 `;
 
