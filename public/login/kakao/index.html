@@ -16,7 +16,7 @@
       width: 100%;
       height: auto;
     }
-    .guide--text {
+    #guide--text {
       position: fixed;
       top: 0;
       left: 0;
@@ -32,16 +32,17 @@
       transform: translateY(140px);
     }
     #dev--log {
-      visibility: hidden;
+      display: none;
       white-space: pre-wrap;
       overflow: hidden;
+      word-break: break-all;
     }
   </style>
 </head>
 <body>
   <img class="loading--image" src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-loading_qrzbog.png">
   <p id="guide--text"></p>
-  <div class="dev--log">
+  <div id="dev--log">
     <h2>Kakao Login Page</h2>
     <p id="locationHref"></p>
     <p id="uuid">uuid</p>
@@ -106,7 +107,7 @@
     function showLog() {
       const isDev = window.location.host !== 'tmmoond8.github.io';
       if (isDev) {
-        document.querySelector('.dev--log').style.visibility = 'visible';
+        document.querySelector('#dev--log').style.display = 'block';
       }
     }
   </script>
