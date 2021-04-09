@@ -31,14 +31,16 @@
       line-height: 24px;
       transform: translateY(140px);
     }
-    .dev--log {
+    #dev--log {
       visibility: hidden;
+      white-space: pre-wrap;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
   <img class="loading--image" src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-loading_qrzbog.png">
-  <p class="guide--text"></p>
+  <p id="guide--text"></p>
   <div class="dev--log">
     <h2>Kakao Login Page</h2>
     <p id="locationHref"></p>
