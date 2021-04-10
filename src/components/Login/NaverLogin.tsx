@@ -12,17 +12,6 @@ import { isHybrid } from '../../modules/crossPlatform';
 
 const { Browser } = Plugins;
 
-// interface NaverProfile {
-//   age: string;
-//   birthday: string;
-//   email: string;
-//   gender: string;
-//   id: string;
-//   name: string;
-//   nickname: string;
-//   profile_image: string;
-// }
-
 const NaverLogin: React.FC<{
   onClose: () => void;
 }> = ({ onClose }) => {
@@ -31,14 +20,14 @@ const NaverLogin: React.FC<{
   const handleNaverLogin = React.useCallback(() => {
     onClose();
 
-    const uuid = Math.random().toString(32).split('.')[1];
+    const uuid = 'naver-' + Math.random().toString(32).split('.')[1];
     storage.setUUID(uuid);
     setTimeout(() => {
       if (isHybrid()) {
         Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'naverLoginPage' });
       } else {
         const naverLOginUrl = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
-        window.location.href = `${naverLOginUrl}client_id=${env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${env.REACT_APP_LOGIN_URL}&state=123123`
+        window.location.href = `${naverLOginUrl}client_id=${env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${env.REACT_APP_LOGIN_URL}&state=naver`
       }
     }, 200);
   }, [modal])

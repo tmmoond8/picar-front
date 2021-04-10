@@ -30,10 +30,10 @@ const SignUpCarousel = styled(Carousel)`
 `;
 
 export default observer(function SignUp(props: SignUpProps): JSX.Element {
-  const { name, email, onClose, onSetUserProfile, uuid } = props;
+  const { name, email, onClose, onSetUserProfile } = props;
   const { util } = useStore();
-  const history  = util.useHistory();
-  const handleChangeStep = React.useCallback((step: number) => {}, []);
+  const history = util.useHistory();
+  const handleChangeStep = React.useCallback((step: number) => { }, []);
   const [step, setStep] = React.useState(0);
   const [lounge, setLounge] = React.useState('');
   const nicknameField = Input.useTextField(name || '');
@@ -50,7 +50,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
 
   const handleSignUp = React.useCallback(async () => {
     try {
-      const { data } = await API.auth.kakaoSignUp({
+      const { data } = await API.auth.signup({
         ...props,
         name: nicknameField[0],
         email: emailField[0],
@@ -113,10 +113,10 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         setLounge,
       }}
     >
-      <Carousel.Header 
-        step={step} 
-        title="회원가입" 
-        onBack={() => setStep(step - 1)} 
+      <Carousel.Header
+        step={step}
+        title="회원가입"
+        onBack={() => setStep(step - 1)}
         onClose={onClose}
       />
       <SignUpCarousel

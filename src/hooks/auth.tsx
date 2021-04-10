@@ -1,24 +1,28 @@
 import React from 'react';
+import axios from 'axios';
 import APIS from '../apis';
 import storage from '../modules/localStorage';
-import { SignUpUser, Profile, KakaoUser } from '../types/User';
+import { SignUpUser, Profile, KakaoUser, NaverUser } from '../types/User';
 import { useModal } from '../components/Modal';
 import { useStore } from '../stores';
 import SignUp from '../components/SignUp';
+import env from '../env';
 
 interface LoginBoxProps {
   onClose: () => void;
   onSetUserProfile: (profile: Profile) => void;
 }
 
-interface KakaoLogin {
+interface LoginParams {
   accessToken: string;
   refreshToken: string;
   handleSignIn: (user: Profile) => void;
   handleSignUp: (d: any) => void;
 }
 
-export const kakaoLogin = async (params: KakaoLogin) => {
+export type LoginType = 'naver' | 'kakao';
+
+export const kakaoLogin = async (params: LoginParams) => {
   const { accessToken, refreshToken, handleSignIn, handleSignUp } = params;
   const tokens = { accessToken, refreshToken };
   storage.clearUUID();
@@ -38,7 +42,7 @@ export const kakaoLogin = async (params: KakaoLogin) => {
       handleSignIn(userProfile);
       return;
     }
-    
+
     const user: Partial<SignUpUser> = {
       email: kakaoUser.kakao_account.email,
       snsId: kakaoUser.id.toString(),
@@ -47,12 +51,46 @@ export const kakaoLogin = async (params: KakaoLogin) => {
       profileImage: kakaoUser.kakao_account.profile.profile_image_url,
       provider: 'kakao',
     };
-  
-    handleSignUp({ ...user, ...tokens});
+
+    handleSignUp({ ...user, ...tokens });
   }
 }
 
-export const useKakaoLogin = () => {
+export const naverLogin = async (params: LoginParams) => {
+  const { accessToken, refreshToken, handleSignIn, handleSignUp } = params;
+  const tokens = { accessToken, refreshToken };
+  storage.clearUUID();
+  const { data } = await APIS.auth.naverLogin(tokens);
+  if ('profile' in data) {
+    storage.setOwwnersToken(data.owwnersToken);
+    return setTimeout(() => {
+      window.location.replace('/');
+    }, 50);
+  }
+  if ('naverUser' in data) {
+    const naverUser = data.naverUser as NaverUser;
+    const {
+      data: { data: userProfile },
+    } = await APIS.auth.check(naverUser.id, 'naver');
+    if (userProfile) {
+      handleSignIn(userProfile);
+      return;
+    }
+
+    const user: Partial<SignUpUser> = {
+      email: naverUser.email,
+      snsId: naverUser.id.toString(),
+      name: naverUser.nickname,
+      thumbnail: naverUser.profile_image,
+      profileImage: naverUser.profile_image,
+      provider: 'naver',
+    };
+
+    handleSignUp({ ...user, ...tokens });
+  }
+}
+
+export const useLogin = (type: 'naver' | 'kakao') => {
   const { user, util } = useStore();
   const modal = useModal();
   const handleClose = React.useCallback(() => {
@@ -96,7 +134,29 @@ export const useKakaoLogin = () => {
     [modal],
   );
 
-  return (accessToken: string, refreshToken: string) => kakaoLogin({
-    accessToken, refreshToken, handleSignUp, handleSignIn
-  })
+  if (type === 'kakao') {
+    return {
+      login: (accessToken: string, refreshToken: string) => kakaoLogin({
+        accessToken, refreshToken, handleSignUp, handleSignIn
+      }),
+      getToken: (code: string) =>
+        axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`)
+    }
+  }
+
+  if (type === 'naver') {
+    return {
+      login: (accessToken: string, refreshToken: string) => naverLogin({
+        accessToken, refreshToken, handleSignUp, handleSignIn
+      }),
+      getToken: async (code: string) => {
+        return APIS.auth.getNaverToken(code);
+      }
+    }
+  }
+
+  return {
+    login: () => { },
+    getToken: () => Promise.resolve({ data: {} }),
+  }
 }

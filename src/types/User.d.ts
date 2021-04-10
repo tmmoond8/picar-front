@@ -31,6 +31,17 @@ export interface KakaoUser {
   id: string;
   kakao_account: {
     email?: string,
-    profile: { nickname: string; profile_image_url: string; thumbnail_image_url: string}
+    profile: {
+      nickname: string;
+      profile_image_url: string;
+      thumbnail_image_url: string
+    }
   }
+}
+
+export interface NaverUser {
+  id: string;
+  nickname: string;
+  profile_image: string;
+  email: string;
 }

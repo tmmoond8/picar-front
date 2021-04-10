@@ -8,10 +8,10 @@ import cx from 'classnames';
 import APIS from '../apis';
 import storage from '../modules/localStorage';
 import { useStore, observer } from '../stores';
-import hooks, { useSetupHistory } from '../hooks';
+import { useSetupHistory, useAndroid } from '../hooks';
 import Layout from '../components/Layout';
 import LoginBox from '../components/Login/LoginBox';
-import { useAndroid } from '../hooks';
+import { useLogin, LoginType } from '../hooks/auth';
 
 const BasePage: React.FC<{
   className?: string;
@@ -19,7 +19,9 @@ const BasePage: React.FC<{
 }> = ({ children, className }) => {
   const { ui, user } = useStore();
   const { App } = Plugins;
-  const KakaoLogin = hooks.auth.useKakaoLogin();
+  const uuid = storage.getUUID();
+  const type = uuid && uuid.split('-')[0]
+  const { login } = useLogin(type as LoginType);
   useSetupHistory();
   useAndroid();
   React.useEffect(() => {
@@ -33,7 +35,7 @@ const BasePage: React.FC<{
             } = await APIS.auth.checkUUID(uuid);
             storage.clearUUID();
             if (tokens) {
-              KakaoLogin(tokens.accessToken, tokens.refreshToken)
+              login(tokens.accessToken, tokens.refreshToken)
               return;
             }
           } catch (error) {
@@ -55,7 +57,7 @@ const BasePage: React.FC<{
         </Page>
       )}
       <HiddenAreay>
-        <LoginBox onClose={() => {}}/>
+        <LoginBox onClose={() => { }} />
       </HiddenAreay>
     </React.Fragment>
   );

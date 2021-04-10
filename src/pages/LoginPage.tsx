@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import axios from 'axios';
 
 import { constants } from '../styles';
-import hooks from '../hooks'
+import { useLogin, LoginType } from '../hooks/auth';
 import env from '../env';
 
 import { useStore } from '../stores';
@@ -16,8 +16,8 @@ import OwwnersLogo from '../resources/images/owwners-logo.png';
 const LoginPage = () => {
   const { ui } = useStore();
   const location = useLocation();
-  const { code } = queryString.parse(location.search);
-  const KakaoLogin = hooks.auth.useKakaoLogin();
+  const { code, state } = queryString.parse(location.search);
+  const { login, getToken } = useLogin(state as LoginType);
 
   ui.setHeaderNone();
 
@@ -25,12 +25,14 @@ const LoginPage = () => {
     (async () => {
       if (code) {
         try {
-          const call = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`;
-          const { data: { access_token, refresh_token } } = await axios.post(call)
-          KakaoLogin(access_token, refresh_token);
+          const { data: {
+            access_token,
+            refresh_token
+          } } = await getToken(code as string)
+          login(access_token, refresh_token);
         } catch (error) {
-          alert('kakao login error' + JSON.stringify(error));
-          console.error('kakao login error', error);
+          alert(`login error ${state} ${JSON.stringify(error)}`);
+          console.error('login error', error);
         }
       }
     })();
