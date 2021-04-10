@@ -58,14 +58,17 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         group: lounge,
       });
       const openerUUID = stroage.getUUID();
-      onSetUserProfile(data);
-      history.replace('/');
-      setTimeout(() => {
+
+      if (data.code) {
+        onSetUserProfile(data);
+        history.replace('/');
         if (openerUUID) {
           stroage.clearUUID();
-          window.location.reload();
         }
-      }, 50)
+        setTimeout(() => {
+          window.location.reload();
+        }, 100)
+      }
     } catch (error) {
     } finally {
       onClose();
