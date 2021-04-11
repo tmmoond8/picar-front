@@ -19,15 +19,14 @@ const BasePage: React.FC<{
 }> = ({ children, className }) => {
   const { ui, user } = useStore();
   const { App } = Plugins;
-  const uuid = storage.getUUID();
-  const type = uuid && uuid.split('-')[0]
-  const { login } = useLogin(type as LoginType);
+  const { login } = useLogin();
   useSetupHistory();
   useAndroid();
   React.useEffect(() => {
     (async () => {
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
         const uuid = storage.getUUID();
+        const provider = uuid && uuid.split('-')[0]
         if (isActive && uuid) {
           try {
             const {
@@ -35,7 +34,7 @@ const BasePage: React.FC<{
             } = await APIS.auth.checkUUID(uuid);
             storage.clearUUID();
             if (tokens) {
-              login(tokens.accessToken, tokens.refreshToken)
+              login(provider as LoginType, tokens.accessToken, tokens.refreshToken)
               return;
             }
           } catch (error) {

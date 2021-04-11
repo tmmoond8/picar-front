@@ -17,7 +17,7 @@ const LoginPage = () => {
   const { ui } = useStore();
   const location = useLocation();
   const { code, state } = queryString.parse(location.search);
-  const { login, getToken } = useLogin(state as LoginType);
+  const { login, getToken } = useLogin();
 
   ui.setHeaderNone();
 
@@ -28,8 +28,8 @@ const LoginPage = () => {
           const { data: {
             access_token,
             refresh_token
-          } } = await getToken(code as string)
-          login(access_token, refresh_token);
+          } } = await getToken(state as LoginType, code as string)
+          login(state as LoginType, access_token, refresh_token);
         } catch (error) {
           alert(`login error ${state} ${JSON.stringify(error)}`);
           console.error('login error', error);

@@ -24,10 +24,10 @@ const NaverLogin: React.FC<{
     storage.setUUID(uuid);
     setTimeout(() => {
       if (isHybrid()) {
-        Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'naverLoginPage' });
+        Browser.open({ url: `${env.REACT_APP_NAVER_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'naverLoginPage' });
       } else {
-        const naverLOginUrl = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
-        window.location.href = `${naverLOginUrl}client_id=${env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${env.REACT_APP_LOGIN_URL}&state=naver`
+        const naverLoginUrl = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&'
+        window.location.href = `${naverLoginUrl}client_id=${env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${env.REACT_APP_LOGIN_URL}&state=naver`
       }
     }, 200);
   }, [modal])

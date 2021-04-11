@@ -90,7 +90,7 @@ export const naverLogin = async (params: LoginParams) => {
   }
 }
 
-export const useLogin = (type: 'naver' | 'kakao') => {
+export const useLogin = () => {
   const { user, util } = useStore();
   const modal = useModal();
   const handleClose = React.useCallback(() => {
@@ -134,29 +134,23 @@ export const useLogin = (type: 'naver' | 'kakao') => {
     [modal],
   );
 
-  if (type === 'kakao') {
-    return {
-      login: (accessToken: string, refreshToken: string) => kakaoLogin({
-        accessToken, refreshToken, handleSignUp, handleSignIn
-      }),
-      getToken: (code: string) =>
-        axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`)
-    }
-  }
-
-  if (type === 'naver') {
-    return {
-      login: (accessToken: string, refreshToken: string) => naverLogin({
-        accessToken, refreshToken, handleSignUp, handleSignIn
-      }),
-      getToken: async (code: string) => {
-        return APIS.auth.getNaverToken(code);
-      }
-    }
-  }
-
   return {
-    login: () => { },
-    getToken: () => Promise.resolve({ data: {} }),
+    login: (provider: 'naver' | 'kakao', accessToken: string, refreshToken: string) => { 
+      if (provider === 'kakao') {
+        kakaoLogin({
+          accessToken, refreshToken, handleSignUp, handleSignIn
+        });
+      }
+      if (provider === 'naver') {
+        naverLogin({
+          accessToken, refreshToken, handleSignUp, handleSignIn
+        });
+      }
+    },
+    getToken: (provider: 'naver' | 'kakao', code: string) => {
+      if (provider === 'kakao') return axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`);
+      if (provider === 'naver') return APIS.auth.getNaverToken(code);
+      return Promise.resolve({ data: {} });
+    },
   }
 }

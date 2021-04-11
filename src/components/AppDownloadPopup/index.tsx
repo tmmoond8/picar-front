@@ -4,7 +4,7 @@ import { appDownChecker, crossPlatform } from '../../modules'
 
 const AppDownloadPopup = () => {
   const [isShown, setIsShown] = React.useState(appDownChecker.needShow());
-  const isAndroidShown = React.useMemo(() => isShown && crossPlatform.isAndroid(), [isShown]);
+  const isAndroidShown = React.useMemo(() => isShown && !crossPlatform.isHybrid() && crossPlatform.isAndroid(), [isShown]);
 
   const handleClickClose = React.useCallback(() => {
     appDownChecker.saveLocal();
