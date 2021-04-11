@@ -6,10 +6,10 @@ const develop = {
 };
 
 const production = {
-  NAVER_CLIENT_ID: 'eaca64fa795006e298e348acc14ab691',
-  NAVER_CLIENT_SECRET: '466b2d4c7394790641047c7226aa9c4b',
+  NAVER_CLIENT_ID: 'AYFbPiVvxLx7bMdJ5VIM',
+  NAVER_CLIENT_SECRET: 'b7eMN1Jjo2',
   NAVER_LOGIN_BRIDGE_URL:
-    'https://tmmoond8.github.io/owner-front/public/login/naver/',
+    'https://tmmoond8.github.io/owner-front/public/login/naver/index.html',
   API_URL: 'https://api.owwners.com/api',
 };
 
