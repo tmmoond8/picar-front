@@ -6,7 +6,9 @@ export const kakaoLogin =
   (body: { accessToken: string; refreshToken: string; uuid?: string }):
     Promise<AxiosResponse<{ profile?: Profile; owwnersToken: string } | { kakaoUser?: KakaoUser }>> =>
     api.post('/auth/login/kakao', body);
-export const signup = (data: SignUpUser) => api.post('/auth/signup', data);
+export const signup = (data: SignUpUser):
+  Promise<AxiosResponse<{ profile: Profile; owwnersToken: string }>> =>
+  api.post('/auth/signup', data);
 export const naverLogin =
   (body: { accessToken: string; refreshToken: string; uuid?: string }):
     Promise<AxiosResponse<{ profile?: Profile; owwnersToken: string } | { naverUser?: NaverUser }>> =>

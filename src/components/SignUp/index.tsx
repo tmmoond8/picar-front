@@ -11,7 +11,7 @@ import AreYouOwnerForm from './AreYouOwnerForm';
 import LoungeForm from './LoungeForm';
 import Input from '../Input';
 import { SignUpUser, Profile } from '../../types/User';
-import stroage from '../../modules/localStorage';
+import { crossPlatform, localStorage } from '../../modules';
 import { CAROUSEL } from '../../types/constants';
 import global from '../../types/global';
 import { observer, useStore } from '../../stores';
@@ -50,20 +50,23 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
 
   const handleSignUp = React.useCallback(async () => {
     try {
-      const { data } = await API.auth.signup({
+      const { data: { profile, owwnersToken } } = await API.auth.signup({
         ...props,
         name: nicknameField[0],
         email: emailField[0],
         isOwner: ownerType === ownerTypes[0].value,
         group: lounge,
       });
-      const openerUUID = stroage.getUUID();
-
-      if (data.code) {
-        onSetUserProfile(data);
-        history.replace('/');
+      const openerUUID = localStorage.getUUID();
+      debugger;
+      if (profile.code) {
         if (openerUUID) {
-          stroage.clearUUID();
+          localStorage.clearUUID();
+        }
+        if (crossPlatform.isHybrid()) {
+          localStorage.setOwwnersToken(owwnersToken);
+        } else {
+          history.replace('/');
         }
         setTimeout(() => {
           window.location.reload();
