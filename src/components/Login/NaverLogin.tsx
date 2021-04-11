@@ -3,6 +3,7 @@
 import { jsx } from '@emotion/core';
 import { Plugins } from '@capacitor/core';
 import React from 'react';
+import { toast } from 'react-toastify';
 import storage from '../../modules/localStorage';
 
 import env from '../../env';
@@ -16,10 +17,16 @@ const NaverLogin: React.FC<{
   onClose: () => void;
 }> = ({ onClose }) => {
   const modal = useModal();
+  const counter = React.useRef(0);
 
   const handleNaverLogin = React.useCallback(() => {
+    if (counter.current < 10) {
+      toast("지원 준비중 입니다.");
+      counter.current++;
+      return;
+    }
     onClose();
-
+    
     const uuid = 'naver-' + Math.random().toString(32).split('.')[1];
     storage.setUUID(uuid);
     setTimeout(() => {

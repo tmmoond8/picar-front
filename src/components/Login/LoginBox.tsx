@@ -50,6 +50,10 @@ const LoginButtons = styled.ol`
   }
   .naver-login {
     margin-left: 24px;
+
+    img {
+      filter: grayScale(1);
+    }
   }
 `;
 
