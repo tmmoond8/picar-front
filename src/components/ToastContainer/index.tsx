@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { ToastContainer, Slide } from 'react-toastify';
 import { useStore, observer } from '../../stores';
-import { colors } from '../../styles';
+import { colors, constants } from '../../styles';
 
 const Container = () => {
   const { ui } = useStore();
@@ -21,16 +21,19 @@ const Container = () => {
 };
 export default observer(Container);
 
-const StyledToastContainer = styled(ToastContainer)<{ desktop: boolean }>`
+const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
   & {
     width: 100%;
     bottom: 66px;
     padding: 0 8px;
+    top: auto;
+    bottom: calc(${constants.safeBottom} + 56px);
     z-index: 10500;
   }
   .Toastify__toast {
     min-height: auto;
     margin: 0;
+    margin-bottom: 8px;
     padding: 12px 18px;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
