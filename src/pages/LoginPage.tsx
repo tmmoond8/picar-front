@@ -4,11 +4,9 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import axios from 'axios';
 
 import { constants } from '../styles';
 import { useLogin, LoginType } from '../hooks/auth';
-import env from '../env';
 
 import { useStore } from '../stores';
 import OwwnersLogo from '../resources/images/owwners-logo.png';
@@ -70,7 +68,9 @@ const FullLoading = styled.div`
   background-color: white;
 
   img {
-    width: 172px;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
   }
 
   h3 {
