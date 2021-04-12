@@ -7,7 +7,8 @@ import cx from 'classnames';
 import Profile from '../Profile';
 import Icon from '../Icon';
 import { colors } from '../../styles';
-import { useCommentContext, observer } from './context';
+import { useStore, observer } from '../../stores';
+import { useCommentContext } from './context';
 import { getDateGoodLook } from '../../modules/string';
 
 interface CommentProps {
@@ -36,6 +37,7 @@ const Comment: React.FC<CommentProps> = (props) => {
     id,
     isDelete,
   } = props;
+  const { user } = useStore();
   const {
     handleClickReply,
     handleRemoveComment,
@@ -58,7 +60,7 @@ const Comment: React.FC<CommentProps> = (props) => {
   return (
     <React.Fragment>
       <StyledComment isFocus={isFocus}>
-        <ProfilePhoto src={thumbnail} onClick={() => handleOpenProfile(commentAuthorCode)}/>
+        <ProfilePhoto src={thumbnail} onClick={() => handleOpenProfile(commentAuthorCode)} />
         <ContentBox>
           <Profile.WhoDot
             name={name}
@@ -76,6 +78,9 @@ const Comment: React.FC<CommentProps> = (props) => {
             <span
               className={cx('reply-btn')}
               onClick={() => {
+                if (user.needLogin()) {
+                  return;
+                }
                 handleClickReply(id);
                 if (editorRef.current && !isFocus) {
                   editorRef.current.focus();
