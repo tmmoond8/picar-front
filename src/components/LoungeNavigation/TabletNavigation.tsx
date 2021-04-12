@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx , css} from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
@@ -22,8 +22,8 @@ const TabletNavigation: React.FC = () => {
     <Navigation className={cx('TabletNavigation')}>
       <Top>
         {NAVIGATIONS.map((name) => (
-          <TopMenu 
-            key={name} 
+          <TopMenu
+            key={name}
             selected={article.selectedGroup === name}
             onClick={() => handleClickTopMenu(name)}
           >{name}</TopMenu>)
@@ -32,18 +32,18 @@ const TabletNavigation: React.FC = () => {
       {article.selectedGroup === LOUNGE && (
         <Bottom>
           <SubMenus>
-          {LOUNGES.map(({name}) => (
-            <BottomMenu
-              key={name} 
-              selected={article.selectedLounge === name}
-              onClick={() => handleClickBottomMenu(name)}
-            >{name}</BottomMenu>
-          ))}
+            {LOUNGES.map(({ name }) => (
+              <BottomMenu
+                key={name}
+                selected={article.selectedLounge === name}
+                onClick={() => handleClickBottomMenu(name)}
+              >{name}</BottomMenu>
+            ))}
           </SubMenus>
-      </Bottom>
+        </Bottom>
       )}
     </Navigation>
-    
+
   )
 }
 
@@ -58,7 +58,7 @@ const Top = styled.ul`
   height: 56px;
   padding: 0 24px;
   cursor: pointer;
-  box-shadow: inset 0 -1px ${colors.blackD9};
+  box-shadow: inset 0 -1px ${colors.blackF5F6F7};
 `;
 const TopMenu = styled.li<{ selected: boolean }>`
   margin-right: 20px;
@@ -102,7 +102,7 @@ const BottomMenu = styled.li<{ selected: boolean }>`
   &:hover {
     color: ${colors.blackAA};
     background-color: ${colors.blackEB};
-    box-shadow: inset 0 0 0 20px ${colors.blackEB}, 0 0 0 8px ${colors.blackEB};
+    box-shadow: inset 0 0 0 20px ${colors.blackF5F6F7}, 0 0 0 8px ${colors.blackF5F6F7};
   }
 
   ${p => p.selected && css`

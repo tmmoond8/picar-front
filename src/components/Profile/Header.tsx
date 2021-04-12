@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
@@ -11,9 +11,9 @@ import { useContextMenu } from '../ContextMenu';
 import { useAlert } from '../Alert';
 import storage from '../../modules/localStorage';
 
-const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
-  const { user, util } = useStore();
-  const [ count, setCount ] = React.useState(0);
+const ProfileHeader: React.FC<{ className?: string }> = ({ className }) => {
+  const { user, ui, util } = useStore();
+  const [count, setCount] = React.useState(0);
   const { code } = user.profile;
   const contextMenu = useContextMenu();
   const alert = useAlert();
@@ -58,7 +58,7 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
                       window.location.reload(false);
                     }, 300)
                   }
-                } catch(error) {
+                } catch (error) {
                   console.error(error);
                 }
               },
@@ -70,16 +70,16 @@ const ProfileHeader: React.FC<{ className?: string}> = ({ className}) => {
   }, [])
 
   return (
-    <Header className={cx('ProfileHeader', className)}>
+    <Header className={cx('ProfileHeader', className)} desktop={ui.queryMatch.Desktop}>
       <Title onClick={handleUnknown}>프로필</Title>
-      <Icon icon="more" size="24px" color={colors.black22} onClick={handleClickMore}/>
+      <Icon icon="more" size="24px" color={colors.black22} onClick={handleClickMore} />
     </Header>
   )
 }
 
 export default observer(ProfileHeader);
 
-export const Header = styled.header`
+export const Header = styled.header<{ desktop: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,6 +92,10 @@ export const Header = styled.header`
     right: 18px;
     cursor: pointer;
   }
+
+  ${p => p.desktop && css`
+  box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
+  `}  
 `;
 
 const Title = styled.h2`

@@ -43,7 +43,7 @@ const PopularArticles: React.FC<{}> = () => {
       <Header>
         <h3>인기 글</h3>
         <Navigations>
-          <NavItem onClick={pagePrev} disabled={page === 0}><Icon icon="arrowLeft"/></NavItem>
+          <NavItem onClick={pagePrev} disabled={page === 0}><Icon icon="arrowLeft" /></NavItem>
           <NavItem onClick={pageNext} disabled={page === Math.floor(popArticles.length / SIZE)}><Icon icon="arrowRight" /></NavItem>
         </Navigations>
       </Header>
@@ -66,13 +66,13 @@ const StyledPopularArticles = styled.div`
   background-color: ${colors.white};
 `;
 
-const Header =  styled.div`
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 56px;
   padding: 0 12px 0 20px;
-  box-shadow: 0 1px 0 0 ${colors.blackD9};
+  box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
 
   h3 {
     font-size: 15px;
@@ -88,7 +88,7 @@ const Navigations = styled.nav`
   border: 1px solid ${colors.blackEB};
 `;
 
-const NavItem = styled.div<{ disabled: boolean}>`
+const NavItem = styled.div<{ disabled: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;

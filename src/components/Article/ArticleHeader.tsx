@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import Icon from '../Icon';
@@ -9,7 +9,7 @@ import { useMoreMenu } from './hooks';
 import { useArticleContext, observer } from './context';
 
 const ArticleHeader: React.FC = () => {
-  const { user, util, article: articleStore } = useStore();
+  const { user, ui, util, article: articleStore } = useStore();
   const {
     article,
   } = useArticleContext();
@@ -34,7 +34,7 @@ const ArticleHeader: React.FC = () => {
   const handleGoBack = () => util.history.goBack();
 
   return (
-    <Header >
+    <Header desktop={ui.queryMatch.Desktop}>
       <Icon icon="back" size="24px" color={colors.black} onClick={handleGoBack} />
       {article && !article.isDelete && (<Right>
         <Icon
@@ -58,13 +58,15 @@ export default observer(ArticleHeader);
 
 const HEIGHT = 56;
 
-const Header = styled.nav`
+const Header = styled.nav<{ desktop: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: ${HEIGHT}px;
   padding: 0 20px;
-  /* box-shadow: 0 1px ${colors.blackEB}; */
+  ${p => p.desktop && css`
+    box-shadow: 0 1px ${colors.blackF5F6F7};
+  `}
 `;
 
 const Right = styled.div`

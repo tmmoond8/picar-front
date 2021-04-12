@@ -76,26 +76,28 @@ const ModificationForm = () => {
     }
   }, [description, group, name, user.profile, profileUrl]);
 
-  const disabled = 
+  const disabled =
     loading || (
       user.profile.profileImage === profileUrl &&
       user.profile.name === name &&
-      user.profile.group === group && 
+      user.profile.group === group &&
       user.profile.description === description
     );
 
   return (
     <React.Fragment>
-      <Header 
-        options={{ title: "프로필 수정", right: (
-          <SubmitButton
-            icon="vCheck"
-            size="24px"
-            color={colors.black22}
-            onClick={handleSubmit}
-            disabled={disabled}
-          />
-        )}} 
+      <Header
+        options={{
+          title: "프로필 수정", right: (
+            <SubmitButton
+              icon="vCheck"
+              size="24px"
+              color={colors.black22}
+              onClick={handleSubmit}
+              disabled={disabled}
+            />
+          )
+        }}
         desktop={!ui.queryMatch.Mobile}
       />
       <Form>
@@ -117,7 +119,7 @@ const ModificationForm = () => {
           label="닉네임"
           maxLength={10}
         />
-        <Selector label="업종" selected={group} setSelected={setGroup} myLounge={user.profile.group}/>
+        <Selector label="업종" selected={group} setSelected={setGroup} myLounge={user.profile.group} />
         <InputBox
           id="ProfileIntoduction"
           onChange={onChangeDescription}
@@ -194,15 +196,16 @@ const Selector = styled(LoungeSelector)`
   }
 `;
 
-const Header = styled(BackHeader)<{ desktop: boolean }>`
+const Header = styled(BackHeader) <{ desktop: boolean }>`
   ${p => p.desktop && css`
     .Icon.back {
       display: none;
     }
+    box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
   `}
 `;
 
-const SubmitButton = styled(Icon)<{ disabled: boolean}>`
+const SubmitButton = styled(Icon) <{ disabled: boolean }>`
   ${p => p.disabled && css`
     pointer-events: none;
     color: ${colors.blackAA};
