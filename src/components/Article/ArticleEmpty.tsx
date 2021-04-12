@@ -26,7 +26,7 @@ const StyledArticleEmpy = styled.div`
   position: relative;
   align-items: center;
   justify-self: center;
-  height: 70vh;
+  height: calc(100% - 56px);
   padding: 18px;
 `;
 

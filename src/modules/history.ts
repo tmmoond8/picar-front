@@ -29,6 +29,8 @@ export default (history: History<LocationState>): CustomHistory<LocationState> =
       const stack = sessionStorage.popStack();
       if (stack !== -1) {
         history.goBack();
+      } else {
+        history.replace('/');
       }
       return stack;
     }

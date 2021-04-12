@@ -8,6 +8,7 @@ import { colors } from '../styles';
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
+import APIS from '../apis';
 import {
   useFetch as useFetchArticle,
 } from '../components/Article/hooks';
@@ -15,13 +16,13 @@ import {
 import CommentArea from '../components/Comment';
 
 const ArticlePage: React.FC = () => {
-  const { articleId } = useParams<{ articleId: string}>();
+  const { articleId } = useParams<{ articleId: string }>();
   const { article: articleStore, user, ui } = useStore();
 
-  const article = articleStore.articles.find(
+  const [article, setArticle] = React.useState(articleStore.articles.find(
     (article) =>
       article.id.toString() === articleId,
-  );
+  ));
   ui.scrollableElementSelector = `.ArticleContainer`;
   useFetchArticle(window.location.pathname.split('/').pop() as string, article);
 
@@ -37,14 +38,24 @@ const ArticlePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article]);
 
+  React.useEffect(() => {
+    (async () => {
+      if (!article) {
+        const { data: { ok, data } } = await APIS.article.get(articleId);
+        if (ok) {
+          setArticle(data);
+        }
+      }
+    })()
+  }, [])
+
   return (
     <Page>
       <ArticleContainer className="ArticleContainer" desktop={!ui.queryMatch.Mobile}>
-        {article && article.isDelete && <Article.Empty />}
-        {article && !article.isDelete && (
+        {article && (
           <React.Fragment>
             <Article article={article} commentCount={commentCount} />
-            {article?.id && (
+            {article?.id && article && !article.isDelete && (
               <CommentArea
                 articleId={article.id}
                 setCommentCount={setCommentCount}
@@ -63,11 +74,8 @@ const ArticlePage: React.FC = () => {
 
 export default observer(ArticlePage);
 
-const ArticleContainer = styled.div<{ desktop: boolean}>`
-  height: calc(100% - 56px);
+const ArticleContainer = styled.div<{ desktop: boolean }>`
+  height: 100%;
   background-color: ${colors.white};
   overflow-y: auto;
-  ${p => p.desktop && css`
-    height: 100%;  
-  `}
 `;

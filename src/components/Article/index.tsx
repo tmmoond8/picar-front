@@ -19,7 +19,7 @@ export { useOpenArticleEditor, useMoreMenu, useFetch } from './hooks';
 const Article: React.FC<{
   article: IArticle;
   commentCount: number;
-}> & { Empty: React.FC; } = ({ article, commentCount }) => {
+}> = ({ article, commentCount }) => {
   const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
 
   return (
@@ -33,17 +33,21 @@ const Article: React.FC<{
       {article && (
         <React.Fragment>
           <ArticleHeader />
-          <ArticleHead />
-          <ArticleBody />
-          <ArticleFooter />
-          <HR />
+          {article.isDelete && <ArticleEmpty />}
+          {!article.isDelete && (
+            <React.Fragment >
+              <ArticleHead />
+              <ArticleBody />
+              <ArticleFooter />
+              <HR />
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
     </ArticleContext.Provider>
   );
 };
 
-Article.Empty = ArticleEmpty;
 export default Article;
 
 const HR = styled.hr`
