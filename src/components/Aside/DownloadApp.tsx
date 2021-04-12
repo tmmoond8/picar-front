@@ -9,14 +9,14 @@ import { colors } from '../../styles';
 const DownloadApp: React.FC<{}> = () => {
   return (
     <StyledDownloadApp>
-      <Header>App 다운로드</Header>
+      <Header>앱 다운로드</Header>
       <Body>
-        <Link onClick={() => toast.success('지원 준비 중 입니다.')}>
-          <Icon icon="appStore" size="18px" color={colors.black66}/>
+        <Link className="AppStoreLink" onClick={() => toast.success('지원 준비 중 입니다.')}>
+          <Icon icon="appStore" size="18px" color={colors.black66} />
           App Store
         </Link>
-        <Link onClick={() => toast.success('지원 준비 중 입니다.')}>
-          <Icon icon="googlePlay" size="18px" color={colors.black66}/>
+        <Link className="PlayStoreLink" href="https://play.google.com/store/apps/details?id=com.tmmoond8.owwners" target="_blank">
+          <Icon icon="googlePlay" size="18px" color={colors.black66} />
           Google Play
         </Link>
       </Body>
@@ -31,7 +31,7 @@ const StyledDownloadApp = styled.div`
   background-color: ${colors.white};
 `;
 
-const Header =  styled.div`
+const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,6 +52,9 @@ const Body = styled.div`
   a + a {
     margin-top: 8px;
   }
+  .Icon.appStore {
+    cursor: pointer;
+  }
 `;
 
 const Link = styled.a`
@@ -64,8 +67,17 @@ const Link = styled.a`
   border-radius: 4px;
   background-color: ${colors.blackF5F6F7};
   cursor: pointer;
+  transition: background-color 0.3s ease-out;
+
+  &:hover {
+    background-color: ${colors.blackD9};
+  }
 
   .Icon {
     margin-right: 12px;
+  }
+  
+  &.AppStoreLink {
+    pointer-events: none;
   }
 `;

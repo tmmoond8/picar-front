@@ -23,14 +23,14 @@ const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) 
       <Body className="TabletBody">
         <Contents className="TabletContents">
           <ButtonGoTop onClick={handleClickGoTop}>
-            <Icon icon="back" size="24px" color={colors.black99}/>
+            <Icon icon="back" size="24px" color={colors.black99} />
           </ButtonGoTop>
           {children}
         </Contents>
         <Right className="TabletRight">
           <Aside.PopularArticles />
           <Aside.Advertisement />
-          {/* <Aside.DownloadApp /> */}
+          <Aside.DownloadApp />
           <Aside.Copyrights />
         </Right>
       </Body>
@@ -58,7 +58,7 @@ const Desktop: React.FC<{ children: React.ReactNode }> = observer(({ children })
         </Left>
         <Contents>
           <ButtonGoTop onClick={handleClickGoTop}>
-            <Icon icon="back" size="24px" color={colors.black99}/>
+            <Icon icon="back" size="24px" color={colors.black99} />
           </ButtonGoTop>
           {children}
         </Contents>
