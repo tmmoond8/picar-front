@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import React from 'react';
 import styled from '@emotion/styled';
 
@@ -22,7 +22,7 @@ const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) 
       <DesktopHeader />
       <Body className="TabletBody">
         <Contents className="TabletContents">
-          <ButtonGoTop onClick={handleClickGoTop}>
+          <ButtonGoTop className="GoTop" onClick={handleClickGoTop} notDesktop={!ui.queryMatch.Desktop}>
             <Icon icon="back" size="24px" color={colors.black99} />
           </ButtonGoTop>
           {children}
@@ -39,7 +39,7 @@ const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) 
 });
 
 const Desktop: React.FC<{ children: React.ReactNode }> = observer(({ children }) => {
-  const { article } = useStore();
+  const { ui, article } = useStore();
   const handleClickGoTop = React.useCallback(() => {
     const currentList = document.querySelector(`.ArticleList[data-id="${article.selectedGroup}"]`);
     if (currentList) {
@@ -57,7 +57,7 @@ const Desktop: React.FC<{ children: React.ReactNode }> = observer(({ children })
           </FixedBox>
         </Left>
         <Contents>
-          <ButtonGoTop onClick={handleClickGoTop}>
+          <ButtonGoTop className="GoTop" onClick={handleClickGoTop} notDesktop={!ui.queryMatch.Desktop}>
             <Icon icon="back" size="24px" color={colors.black99} />
           </ButtonGoTop>
           {children}
@@ -152,7 +152,7 @@ const FixedBox = styled.div`
   position: fixed;
 `;
 
-const ButtonGoTop = styled.div`
+const ButtonGoTop = styled.div<{ notDesktop: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,9 +164,15 @@ const ButtonGoTop = styled.div`
   border-radius: 1px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
   background-color: ${colors.white};
+  transition: left 0.5s ease-in-out, opacity 0.5s ease-in-out;
   cursor: pointer;
+  z-index: 1000;
   .Icon.back {
     transform: rotate(90deg);
     cursor: pointer;
   }
+  ${p => p.notDesktop && css`
+    left: 16px;
+    
+  `}
 `;

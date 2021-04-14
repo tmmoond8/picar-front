@@ -70,7 +70,7 @@ const Link = styled.a`
   transition: background-color 0.3s ease-out;
 
   &:hover {
-    background-color: ${colors.blackF5F6F7};
+    background-color: ${colors.blackD9};
   }
 
   .Icon {
