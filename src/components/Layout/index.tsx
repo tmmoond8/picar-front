@@ -173,6 +173,5 @@ const ButtonGoTop = styled.div<{ notDesktop: boolean }>`
   }
   ${p => p.notDesktop && css`
     left: 16px;
-    
   `}
 `;

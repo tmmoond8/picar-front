@@ -24,19 +24,18 @@ interface CommentProps {
   isDelete: boolean;
 }
 
-const Comment: React.FC<CommentProps> = (props) => {
-  const {
-    articleAuthorCode,
-    commentAuthorCode,
-    thumbnail,
-    content,
-    name,
-    group,
-    createAt,
-    children,
-    id,
-    isDelete,
-  } = props;
+const Comment: React.FC<CommentProps> = ({
+  articleAuthorCode,
+  commentAuthorCode,
+  thumbnail,
+  content,
+  name,
+  group,
+  createAt,
+  children,
+  id,
+  isDelete,
+}) => {
   const { user } = useStore();
   const {
     handleClickReply,
