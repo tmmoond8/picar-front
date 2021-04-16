@@ -50,6 +50,9 @@ const ArticleFooter = () => {
 
   const handleClickComment = React.useCallback(() => {
     // selector로 가져오는 것이 항상 나쁠까?
+    if (user.needLogin()) {
+      return;
+    }
     const commentEditor = document.querySelector<HTMLDivElement>(
       '.CommentEditor',
     );
@@ -86,7 +89,7 @@ const ArticleFooter = () => {
           <Icon icon="chatOutline" size="20px" /> 댓글쓰기
         </Interaction>
         <Interaction
-        hasInteraction={false}
+          hasInteraction={false}
           onClick={() => {
             if (windowNavigator.share) {
               windowNavigator.share({
