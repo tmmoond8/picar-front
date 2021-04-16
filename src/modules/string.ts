@@ -19,7 +19,8 @@ export const getDateGoodLook = (lastModifiedDate: string) => {
     const d = Math.floor(diffTime / unit);
     if (d !== 0) {
       if (diffTime > 1296000000) {
-        return new Date(lastDateTime).toLocaleDateString();
+        const date = new Date(lastDateTime).toLocaleDateString().match(/.+(?=.)/);
+        return date ? date[0] : '';
       }
       return `${d}${postfix} 전`;
     }
