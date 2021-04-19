@@ -31,11 +31,7 @@ const PopularArticles: React.FC<{}> = () => {
   });
 
   const handleClickLink = React.useCallback((articleId: number) => {
-    if (window.location.pathname.includes('/article')) {
-      util.history.replace(`/article/${articleId}`);
-    } else {
-      util.history.push(`/article/${articleId}`);
-    }
+    util.history.push(`/article/${articleId}`);
   }, [util.history, util])
 
   return (

@@ -40,14 +40,12 @@ const ArticlePage: React.FC = () => {
 
   React.useEffect(() => {
     (async () => {
-      if (!article) {
-        const { data: { ok, data } } = await APIS.article.get(articleId);
-        if (ok) {
-          setArticle(data);
-        }
+      const { data: { ok, data } } = await APIS.article.get(articleId);
+      if (ok) {
+        setArticle(data);
       }
     })()
-  }, [])
+  }, [articleId])
 
   return (
     <Page>

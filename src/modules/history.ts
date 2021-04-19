@@ -10,6 +10,7 @@ export default (history: History<LocationState>): CustomHistory<LocationState> =
     ...history,
     push: (path: Path, state?: LocationState) => {
       const currentStack = sessionStorage.top();
+      console.log('custom push');
       if (path === history.location.pathname) {
         console.log('match', path, history.location.pathname);
         history.replace(path, state);
