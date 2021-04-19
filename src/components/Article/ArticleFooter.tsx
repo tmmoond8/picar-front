@@ -23,7 +23,7 @@ const ArticleFooter = () => {
     commentCount,
     emotionCounts,
   } = useArticleContext();
-  const { user } = useStore();
+  const { user, util } = useStore();
   const modal = useModal();
   const [views, setViews] = React.useState(0);
   const [emotionCount, setEmotionCount] = React.useState(
@@ -65,7 +65,9 @@ const ArticleFooter = () => {
     if (article?.id) {
       (async () => {
         const views = await APIS.firebase.increaseView(String(article?.id));
-        setViews(views);
+        if (views > 0 && util.history.location.pathname.includes('/article/')) {
+          setViews(views);
+        }
       })();
     }
   }, [article?.id])

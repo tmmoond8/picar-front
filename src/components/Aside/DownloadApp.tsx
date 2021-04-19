@@ -78,6 +78,7 @@ const Link = styled.a`
   }
   
   &.AppStoreLink {
-    pointer-events: none;
+    cursor: auto;
+    background-color: ${colors.blackF5F6F7};
   }
 `;
