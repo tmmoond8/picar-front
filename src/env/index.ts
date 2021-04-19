@@ -21,4 +21,5 @@ export default {
   REACT_APP_FB_APP_ID: process.env.REACT_APP_FB_APP_ID ?? '',
   REACT_APP_FB_MEASUREMENT_ID: process.env.REACT_APP_FB_MEASUREMENT_ID ?? '',
   REACT_APP_DEV: process.env.REACT_APP_DEV ?? '',
+  REACT_APP_GA_TRACKING_ID: process.env.REACT_APP_GA_TRACKING_ID ?? '',
 }

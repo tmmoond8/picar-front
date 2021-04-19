@@ -9,6 +9,7 @@ import APIS from '../apis';
 import storage from '../modules/localStorage';
 import { useStore, observer } from '../stores';
 import { useSetupHistory, useAndroid } from '../hooks';
+import GA from '../modules/ga';
 import Layout from '../components/Layout';
 import LoginBox from '../components/Login/LoginBox';
 import { useLogin, LoginType } from '../hooks/auth';
@@ -17,7 +18,7 @@ const BasePage: React.FC<{
   className?: string;
   children: React.ReactNode;
 }> = ({ children, className }) => {
-  const { ui, user } = useStore();
+  const { ui, util } = useStore();
   const { App } = Plugins;
   const { login } = useLogin();
   useSetupHistory();
@@ -44,6 +45,15 @@ const BasePage: React.FC<{
       });
     })();
   }, [App])
+
+  React.useEffect(() => {
+    const { pathname, search, hash } = util.history.location;
+    GA.trackPageView({ path: `${pathname}${search}${hash}` });
+  }, [
+    util.history.location.pathname,
+    util.history.location.search,
+    util.history.location.hash
+  ]);
 
   return (
     <React.Fragment>
