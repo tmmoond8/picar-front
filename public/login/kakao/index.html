@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +17,7 @@
       width: 100%;
       height: auto;
     }
+
     #guide--text {
       position: fixed;
       top: 0;
@@ -31,6 +33,7 @@
       line-height: 24px;
       transform: translateY(140px);
     }
+
     #dev--log {
       display: none;
       white-space: pre-wrap;
@@ -39,8 +42,10 @@
     }
   </style>
 </head>
+
 <body>
-  <img class="loading--image" src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-loading_qrzbog.png">
+  <img class="loading--image"
+    src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-loading_qrzbog.png">
   <p id="guide--text"></p>
   <div id="dev--log">
     <h2>Kakao Login Page</h2>
@@ -50,32 +55,28 @@
     <p id="checkToken">checkToken</p>
     <p id="test1">test1</p>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+    integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
+    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
   <script src="env.js"></script>
   <script>
-    const locationHref = document.querySelector('#locationHref');
-    locationHref.textContent = location.href;
     const { uuid, code } = getQuery();
     const { KAKAO_LOGIN_KEY, KAKAO_USER_API_KEY, KAKAO_LOGIN_BRIDGE_URL, API_URL } = window.__OWWNERS__;
     if (uuid) {
       // start
-      const uuidEl = document.querySelector('#uuid');
-      uuidEl.textContent = uuid;
       localStorage.setItem('uuid', uuid);
-      window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&response_type=code`
+      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&response_type=code`
     }
     if (code) {
-      const codeEl = document.querySelector('#code');
-      codeEl.textContent = code;
       const checkToken = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_USER_API_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&code=${code}`;
-      const tokenEl = document.querySelector('#checkToken');
-      tokenEl.textContent = checkToken;
       axios.get(checkToken)
         .then(({ data }) => {
+          // 개발용
           document.querySelector('#test1').textContent = JSON.stringify(data);
           return loginKakao(data).then(({ data }) => {
             if (data) {
+              // 개발용
               document.querySelector("#guide--text").innerHTML = "카카로 인증 성공!<br> 창이 닫히면 로그인이 완료됩니다."
               window.close();
             }
@@ -83,7 +84,7 @@
         })
     }
     showLog();
-    
+
     function getQuery() {
       return window.location.search.replace('?', '').split('&').reduce((accum, item) => {
         const [key, value] = item.split('=');
@@ -92,7 +93,7 @@
       }, {});
     }
 
-    function loginKakao({ access_token, refresh_token}) {
+    function loginKakao({ access_token, refresh_token }) {
       const uuid = localStorage.getItem('uuid');
       if (uuid) {
         const body = {
@@ -105,6 +106,19 @@
     }
 
     function showLog() {
+      const { uuid, code } = getQuery();
+      const locationHref = document.querySelector('#locationHref');
+      locationHref.textContent = location.href;
+      if (uuid) {
+        const uuidEl = document.querySelector('#uuid');
+        uuidEl.textContent = uuid;
+      }
+      if (code) {
+        const codeEl = document.querySelector('#code');
+        codeEl.textContent = code;
+        const tokenEl = document.querySelector('#checkToken');
+        tokenEl.textContent = checkToken;
+      }
       const isDev = window.location.host !== 'tmmoond8.github.io';
       if (isDev) {
         document.querySelector('#dev--log').style.display = 'block';
@@ -112,4 +126,5 @@
     }
   </script>
 </body>
+
 </html>
