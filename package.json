@@ -59,13 +59,15 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.0"
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "react-snap": "^1.23.0"
   },
   "scripts": {
     "dev": "ionic serve",
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",
     "build": "CI= react-scripts build",
+    "postbuild": "react-snap",
     "build:mobile": "dotenv -e .env.production.env yarn build && capacitor copy ios && capacitor copy android",
     "build:local": "react-scripts build && capacitor copy ios && capacitor copy android",
     "resources": "cordova-res ios && cordova-res android && node resources/script.js",
