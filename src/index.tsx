@@ -1,15 +1,16 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import { hydrate, render } from 'react-dom';
 import App from './App';
 import { MobxProvider } from './stores';
 import * as serviceWorker from './serviceWorker';
 import UiProvider from './components/UiProvider';
 
-const OwwnersApp = () => (
+const OwwnersApp: React.FC<{ isPreRender?: boolean }> = ({ isPreRender = false }) => (
   <React.StrictMode>
     <MobxProvider>
       <UiProvider>
-        <App />
+        <App isPreRender={isPreRender} />
       </UiProvider>
     </MobxProvider>
   </React.StrictMode>
@@ -19,7 +20,7 @@ const rootElement = document.getElementById("root");
 if (rootElement!.hasChildNodes()) {
   hydrate(<OwwnersApp />, rootElement);
 } else {
-  render(<OwwnersApp />, rootElement);
+  render(<OwwnersApp isPreRender />, rootElement);
 }
 
 // If you want your app to work offline and load faster, you can change

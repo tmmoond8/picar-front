@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AppDownloadPopUp from "./components/AppDownloadPopup";
-
+import AppDownloadPopUp from './components/AppDownloadPopup';
+import Splash from './components/Splash';
+import env from './env';
 import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
 import Header from './components/Header';
 import { useStore, observer } from './stores';
 
-function App() {
+const App: React.FC<{ isPreRender: boolean }> = ({ isPreRender }) => {
   const { ui } = useStore();
+  console.log(env.REACT_APP_DEV)
   return (
     <React.Fragment>
       <GlobalStyles />
       <AppDownloadPopUp />
+      <Splash shown={isPreRender && env.REACT_APP_DEV !== 'develop'} />
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
@@ -23,13 +26,13 @@ function App() {
               <Pages.MyProfileEditPage />
             </Route>
             <Route exact path="/notice">
-              <Pages.NotionEmbedPage {...notionPages.notice}/>
+              <Pages.NotionEmbedPage {...notionPages.notice} />
             </Route>
             <Route path="/notion/:id">
               <Pages.NotionEmbedPage />
             </Route>
             <Route path="/qna">
-              <Pages.NotionEmbedPage {...notionPages.qna}/>
+              <Pages.NotionEmbedPage {...notionPages.qna} />
             </Route>
             <Route exact path="/myProfile">
               <Pages.MyProfilePage />
@@ -73,8 +76,8 @@ const Page = styled.div<{ headerHeight: number }>`
 `;
 
 const notionPages = {
-  notice: { title: '공지사항', pageId: 'd7e6d7a18ec849b3b543e7389b0bd5fe'},
-  qna: { title: '자주 묻는 질문', pageId: '2fbdb025be1c45748504f74d33eda2d3'}
+  notice: { title: '공지사항', pageId: 'd7e6d7a18ec849b3b543e7389b0bd5fe' },
+  qna: { title: '자주 묻는 질문', pageId: '2fbdb025be1c45748504f74d33eda2d3' }
 }
 
 const Location = styled.div`
