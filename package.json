@@ -67,7 +67,7 @@
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",
     "build": "CI= react-scripts build",
-    "postbuild": "react-snap",
+    "build:static": "dotenv -e .env.production.env yarn build && react-snap",
     "build:mobile": "dotenv -e .env.production.env yarn build && capacitor copy ios && capacitor copy android",
     "build:local": "react-scripts build && capacitor copy ios && capacitor copy android",
     "resources": "cordova-res ios && cordova-res android && node resources/script.js",
@@ -80,7 +80,8 @@
       "/notice",
       "/qna",
       "/search",
-      "/article/1"
+      "/article/1",
+      "/article/3"
     ]
   },
   "eslintConfig": {
