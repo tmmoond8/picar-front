@@ -8,6 +8,7 @@ import ArticleHeader from './ArticleHeader';
 import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 import ArticleEmpty from './ArticleEmpty';
+import OwwnersHelmet from '../OwwnersHelmet';
 
 import IArticle from '../../types/Article';
 import { colors } from '../../styles';
@@ -21,7 +22,6 @@ const Article: React.FC<{
   commentCount: number;
 }> = ({ article, commentCount }) => {
   const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
-
   return (
     <ArticleContext.Provider
       value={{
@@ -32,6 +32,11 @@ const Article: React.FC<{
     >
       {article && (
         <React.Fragment>
+          <OwwnersHelmet.Article
+            title={article.title}
+            description={article.content}
+            image={article.photos}
+          />
           <ArticleHeader />
           {article.isDelete && <ArticleEmpty />}
           {!article.isDelete && (

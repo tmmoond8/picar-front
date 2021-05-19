@@ -15,7 +15,6 @@ const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
   }, [shown])
   return (
     <>
-      {!isDev && <HydrateLog>{shown ? 'preRender' : 'no'}</HydrateLog>}
       {!isDev && <SvgWrapper hide={hide}>
         <img src={splashSVG} />
       </SvgWrapper>}
