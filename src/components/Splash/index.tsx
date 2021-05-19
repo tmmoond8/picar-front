@@ -6,20 +6,19 @@ import env from '../../env';
 
 const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
   const [hide, setHide] = React.useState(false);
+  const isDev = env.REACT_APP_DEV === 'develop';
+
   React.useEffect(() => {
-    if (env.REACT_APP_DEV === 'develop') {
-      setHide(true);
-    }
     setTimeout(() => {
       setHide(!shown);
     }, 1000)
   }, [shown])
   return (
     <>
-      <HydrateLog>{shown ? 'preRender' : 'no'}</HydrateLog>
-      <SvgWrapper hide={hide}>
+      {!isDev && <HydrateLog>{shown ? 'preRender' : 'no'}</HydrateLog>}
+      {!isDev && <SvgWrapper hide={hide}>
         <img src={splashSVG} />
-      </SvgWrapper>
+      </SvgWrapper>}
     </>
   )
 }
