@@ -9,10 +9,23 @@ const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
   const isDev = env.REACT_APP_DEV === 'develop';
 
   React.useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setHide(!shown);
-    }, 1000)
-  }, [shown])
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [shown]);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setHide(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [])
+
   return (
     <>
       {!isDev && <SvgWrapper hide={hide}>
