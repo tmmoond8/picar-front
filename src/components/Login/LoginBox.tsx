@@ -7,8 +7,6 @@ import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
 
 const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-
-
   return (
     <Box>
       <GuideText>

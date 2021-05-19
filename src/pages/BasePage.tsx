@@ -57,6 +57,9 @@ const BasePage: React.FC<{
 
   return (
     <React.Fragment>
+      <HiddenAreay>
+        <LoginBox onClose={() => { }} />
+      </HiddenAreay>
       {ui.queryMatch.Mobile && (
         <Page className={cx(className, 'MobilePage')}>{children}</Page>
       )}
@@ -65,9 +68,6 @@ const BasePage: React.FC<{
           <Layout.Tablet>{children}</Layout.Tablet>
         </Page>
       )}
-      <HiddenAreay>
-        <LoginBox onClose={() => { }} />
-      </HiddenAreay>
     </React.Fragment>
   );
 };
@@ -89,6 +89,6 @@ const Page = styled.div`
 
 const HiddenAreay = styled.div`
   position: fixed;
-  top: -1000px;
-  left: -10000px;
+  z-index: -10000000;
+  opacity: 0;
 `;

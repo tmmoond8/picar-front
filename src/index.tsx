@@ -18,9 +18,11 @@ const OwwnersApp: React.FC<{ isPreRender?: boolean }> = ({ isPreRender = false }
 
 const rootElement = document.getElementById("root");
 if (rootElement!.hasChildNodes()) {
-  hydrate(<OwwnersApp />, rootElement);
+  // 일반 렌더
+  hydrate(<OwwnersApp isPreRender={false} />, rootElement);
 } else {
-  render(<OwwnersApp isPreRender />, rootElement);
+  // 프리렌더
+  render(<OwwnersApp isPreRender={true} />, rootElement);
 }
 
 // If you want your app to work offline and load faster, you can change

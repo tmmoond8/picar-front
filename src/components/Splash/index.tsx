@@ -1,32 +1,53 @@
+import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import splashSVG from './splash-owwners.svg';
+import env from '../../env';
 
 const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
-
+  const [hide, setHide] = React.useState(false);
+  React.useEffect(() => {
+    if (env.REACT_APP_DEV === 'develop') {
+      setHide(true);
+    }
+    setTimeout(() => {
+      setHide(!shown);
+    }, 1000)
+  }, [shown])
   return (
     <>
-      {shown && (
-        <SvgWrapper>
-          <img src={splashSVG} />
-        </SvgWrapper>
-      )}
+      <HydrateLog>{shown ? 'preRender' : 'no'}</HydrateLog>
+      <SvgWrapper hide={hide}>
+        <img src={splashSVG} />
+      </SvgWrapper>
     </>
   )
 }
 
 export default Spash;
 
-const SvgWrapper = styled.div`
+const SvgWrapper = styled.div<{ hide: boolean }>`
   position: fixed;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: 100000;
+  background-color: white;
+  z-index: 1000000;
+  opacity: 1;
+  ${p => p.hide && css`
+    z-index: -100000;
+    opacity: 0;
+  `}
 
-  svg {
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 `
+
+const HydrateLog = styled.p`
+  position: fixed;
+  right: 20px;
+  z-index: 1000002;
+`;

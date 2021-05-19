@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppDownloadPopUp from './components/AppDownloadPopup';
 import Splash from './components/Splash';
-import env from './env';
 import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
@@ -12,12 +11,11 @@ import { useStore, observer } from './stores';
 
 const App: React.FC<{ isPreRender: boolean }> = ({ isPreRender }) => {
   const { ui } = useStore();
-  console.log(env.REACT_APP_DEV)
   return (
     <React.Fragment>
       <GlobalStyles />
       <AppDownloadPopUp />
-      <Splash shown={isPreRender && env.REACT_APP_DEV !== 'develop'} />
+      <Splash shown={isPreRender} />
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />
