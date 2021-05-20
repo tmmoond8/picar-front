@@ -19,8 +19,8 @@ const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      setHide(false);
-    }, 3000);
+      setHide(true);
+    }, 1500);
     return () => {
       clearTimeout(timer);
     }
@@ -56,9 +56,3 @@ const SvgWrapper = styled.div<{ hide: boolean }>`
     object-fit: cover;
   }
 `
-
-const HydrateLog = styled.p`
-  position: fixed;
-  right: 20px;
-  z-index: 1000002;
-`;
