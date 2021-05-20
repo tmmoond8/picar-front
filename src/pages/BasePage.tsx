@@ -23,6 +23,7 @@ const BasePage: React.FC<{
   const { login } = useLogin();
   useSetupHistory();
   useAndroid();
+
   React.useEffect(() => {
     (async () => {
       const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
@@ -54,6 +55,17 @@ const BasePage: React.FC<{
     util.history.location.search,
     util.history.location.hash
   ]);
+
+  React.useEffect(() => {
+    // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
+    if (typeof window.applicationCache === 'undefined') {
+      const splashEl = document.querySelector<HTMLDivElement>('.splash');
+      if (!!splashEl) {
+        console.log('display none')
+        splashEl.style.display = 'none';
+      }
+    }
+  }, [])
 
   return (
     <React.Fragment>

@@ -63,11 +63,13 @@
     "react-snap": "^1.23.0"
   },
   "scripts": {
+    "rm": "rm -rf build public && cp -r src/public public",
+    "copyStatic": "cp -r build/article build/static public/",
     "dev": "ionic serve",
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",
-    "build": "CI= react-scripts build",
-    "build:static": "dotenv -e .env.production.env yarn build && react-snap",
+    "build": "yarn rm && CI= react-scripts build",
+    "build:static": "dotenv -e .env.production.env yarn build && react-snap && yarn copyStatic",
     "build:mobile": "dotenv -e .env.production.env yarn build && capacitor copy ios && capacitor copy android",
     "build:local": "react-scripts build && capacitor copy ios && capacitor copy android",
     "resources": "cordova-res ios && cordova-res android && node resources/script.js",
@@ -76,13 +78,7 @@
   },
   "reactSnap": {
     "include": [
-      "/article/1",
-      "/article/2",
-      "/article/3",
-      "/article/4",
-      "/article/5",
-      "/article/6",
-      "/article/7"
+      "/article/1"
     ]
   },
   "eslintConfig": {

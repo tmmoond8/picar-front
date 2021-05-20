@@ -9,13 +9,12 @@ import * as Pages from './pages';
 import Header from './components/Header';
 import { useStore, observer } from './stores';
 
-const App: React.FC<{ isPreRender: boolean }> = ({ isPreRender }) => {
+const App: React.FC = () => {
   const { ui } = useStore();
   return (
     <React.Fragment>
       <GlobalStyles />
       <AppDownloadPopUp />
-      <Splash shown={isPreRender} />
       <Router>
         <Page headerHeight={ui.header.height}>
           <Header {...ui.header} />

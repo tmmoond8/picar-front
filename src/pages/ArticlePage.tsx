@@ -39,6 +39,9 @@ const ArticlePage: React.FC = () => {
   }, [article]);
 
   React.useEffect(() => {
+    if (!articleId) {
+      return;
+    }
     (async () => {
       const { data: { ok, data } } = await APIS.article.get(articleId);
       if (ok) {
@@ -46,6 +49,7 @@ const ArticlePage: React.FC = () => {
       }
     })()
   }, [articleId])
+  console.log('ArticlePage');
 
   return (
     <Page>

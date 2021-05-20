@@ -21,9 +21,9 @@ export const useFetch = (
           data: { data },
         } = await APIS.article.get(articleId);
         setArticle(data);
-      } catch (error) {}
+      } catch (error) { }
     };
-    if (!existingArticle) {
+    if (!existingArticle && articleId) {
       fetch();
     }
   }, [articleId, existingArticle]);
@@ -71,11 +71,11 @@ export const useOpenArticleEditor = () => {
   );
 
   return (exitingArticle?: Article) =>
-  modal.open({
-    title: exitingArticle ? ' 글 수정' : '글 작성',
-    noHeader: true,
-    isFull: true,
-    noBlur: true,
+    modal.open({
+      title: exitingArticle ? ' 글 수정' : '글 작성',
+      noHeader: true,
+      isFull: true,
+      noBlur: true,
       contents: (
         <Editor
           article={exitingArticle}
@@ -97,7 +97,7 @@ export const useMoreMenu = (article?: Article) => {
       if (!article) {
         return;
       }
-      
+
       contextMenu.open({
         targetElement: e.target as HTMLElement,
         menus: [

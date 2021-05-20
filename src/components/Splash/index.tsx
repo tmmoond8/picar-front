@@ -3,24 +3,17 @@ import styled from '@emotion/styled';
 import React from 'react';
 import splashSVG from './splash-owwners.svg';
 import env from '../../env';
+import { useStore, observer } from '../../stores';
 
-const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
+const Spash: React.FC = () => {
   const [hide, setHide] = React.useState(false);
+  const { ui } = useStore();
   const isDev = env.REACT_APP_DEV === 'develop';
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      setHide(!shown);
-    }, 1000);
-    return () => {
-      clearTimeout(timer);
-    }
-  }, [shown]);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
       setHide(true);
-    }, 1500);
+    }, 2000);
     return () => {
       clearTimeout(timer);
     }
@@ -35,7 +28,7 @@ const Spash: React.FC<{ shown: boolean }> = ({ shown }) => {
   )
 }
 
-export default Spash;
+export default observer(Spash);
 
 const SvgWrapper = styled.div<{ hide: boolean }>`
   position: fixed;

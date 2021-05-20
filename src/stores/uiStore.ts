@@ -8,20 +8,21 @@ import { CommonStore, Stores } from '.';
 
 type BreakPointKeys = keyof typeof BreakPoints;
 
-export interface UiStoreInterface extends CommonStore{
+export interface UiStoreInterface extends CommonStore {
   header: HeaderProps;
   keyboardMargin: number;
+  contextMenus: (ContextMenuData | CustomContextMenuData)[];
+  modals: ModalData[];
+  alerts: AlertData[];
+  queryMatch: Record<BreakPointKeys, boolean>;
+  scrollableElementSelector: string;
+  preRendering: boolean;
   setHeaderNavigation: () => void;
   setHeaderNone: () => void;
   setHeaderBack: (options: Record<string, any>) => void;
   setHeaderClose: (options: Record<string, any>) => void;
   setKeyboardMargin: (height: number) => void;
   useTopButton: () => () => void;
-  contextMenus: (ContextMenuData | CustomContextMenuData)[];
-  modals: ModalData[];
-  alerts: AlertData[];
-  queryMatch: Record<BreakPointKeys, boolean>;
-  scrollableElementSelector: string;
 }
 
 class UiStore implements UiStoreInterface {
@@ -32,6 +33,7 @@ class UiStore implements UiStoreInterface {
   @observable alerts: AlertData[];
   @observable queryMatch: Record<BreakPointKeys, boolean>;
   @observable scrollableElementSelector: string;
+  @observable preRendering: boolean = false;
   rootStore: Stores | null;
 
   constructor() {
@@ -100,7 +102,7 @@ class UiStore implements UiStoreInterface {
     return () => {
       let scrollableElement: HTMLElement | null = null;
       if (typeof this.scrollableElementSelector === 'string') {
-        scrollableElement =  document.querySelector(this.scrollableElementSelector);
+        scrollableElement = document.querySelector(this.scrollableElementSelector);
       }
       if (scrollableElement !== null) {
         scrollableElement.style.scrollBehavior = 'smooth';
