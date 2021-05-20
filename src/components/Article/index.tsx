@@ -12,6 +12,7 @@ import OwwnersHelmet from '../OwwnersHelmet';
 
 import IArticle from '../../types/Article';
 import { colors } from '../../styles';
+import { useOG } from '../../hooks'
 import ArticleContext from './context';
 
 import { useFetch as useFetchEmotion } from '../Emotion/hooks';
@@ -22,6 +23,7 @@ const Article: React.FC<{
   commentCount: number;
 }> = ({ article, commentCount }) => {
   const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
+  useOG(article);
   return (
     <ArticleContext.Provider
       value={{

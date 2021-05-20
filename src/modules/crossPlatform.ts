@@ -31,7 +31,7 @@ const getPlatform = () => {
 
 const getBrowserizr = () => {
     if (!brwoserizr) {
-        brwoserizr =  Browserizr.detect();
+        brwoserizr = Browserizr.detect();
     }
     return brwoserizr;
 }
@@ -54,6 +54,10 @@ export const isHybrid = () => {
 
 export const isIosAndHybrid = () => {
     return isIos() && isHybrid();
+}
+
+export const isPreRendering = () => {
+    return typeof window.applicationCache === 'undefined';
 }
 
 export const hasHomeBar = () => {
