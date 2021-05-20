@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+    <defs>
+        <filter id="jyvl3k4f7b" width="116.7%" height="116.7%" x="-8.3%" y="-8.3%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="3"/>
+            <feOffset dy="-2" in="shadowBlurInner1" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0.76452106 0 0 0 0 0.248180456 0 0 0 0 0.049720091 0 0 0 0.45 0"/>
+        </filter>
+        <circle id="mlvi8sq04a" cx="24" cy="24" r="24"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(-1103 -603) translate(990 515) translate(113 88)">
+            <g fill-rule="nonzero">
+                <g transform="translate(5.813 5.813)">
+                    <use fill="#FFDA46" xlink:href="#mlvi8sq04a"/>
+                    <use fill="#000" filter="url(#jyvl3k4f7b)" xlink:href="#mlvi8sq04a"/>
+                </g>
+            </g>
+            <ellipse cx="21.563" cy="28.688" fill="#59391F" rx="3.188" ry="5.063" transform="rotate(10 21.563 28.688)"/>
+            <ellipse cx="38.063" cy="28.688" fill="#59391F" rx="3.188" ry="5.063" transform="rotate(-10 38.062 28.687)"/>
+            <path fill="#308AFC" fill-rule="nonzero" d="M8.782 45.244c-1.814-1.814-1.814-4.755 0-6.57 2.708-2.707 8.391-3.927 10.305-4.272.317-.057.594.22.537.537-.345 1.914-1.565 7.597-4.272 10.305-1.814 1.814-4.756 1.814-6.57 0z" transform="rotate(-20 13.527 40.5)"/>
+            <path stroke="#59391F" stroke-linecap="round" stroke-width="2.25" d="M25.125 14.063L18 18.938"/>
+            <path stroke="#59391F" stroke-linecap="round" stroke-width="2.25" d="M41.625 14.063L34.5 18.938" transform="matrix(-1 0 0 1 76.125 0)"/>
+            <path stroke="#59391F" stroke-linecap="round" stroke-width="2.25" d="M22.5 40.5c1.999-3.625 4.521-5.438 7.567-5.438 3.046 0 5.711 1.813 7.995 5.438"/>
+        </g>
+    </g>
+</svg>
