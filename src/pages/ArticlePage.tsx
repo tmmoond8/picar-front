@@ -49,7 +49,6 @@ const ArticlePage: React.FC = () => {
       }
     })()
   }, [articleId])
-  console.log('ArticlePage');
 
   return (
     <Page>

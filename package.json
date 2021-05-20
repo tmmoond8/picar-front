@@ -78,7 +78,7 @@
   },
   "reactSnap": {
     "include": [
-      "/article/1"
+      "/prerendering"
     ]
   },
   "eslintConfig": {
