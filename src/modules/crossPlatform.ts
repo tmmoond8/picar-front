@@ -57,7 +57,7 @@ export const isIosAndHybrid = () => {
 }
 
 export const isPreRendering = () => {
-    return typeof window.applicationCache === 'undefined';
+    return window.navigator.userAgent === 'ReactSnap';
 }
 
 export const hasHomeBar = () => {

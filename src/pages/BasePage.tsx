@@ -59,7 +59,7 @@ const BasePage: React.FC<{
 
   React.useEffect(() => {
     // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
-    if (crossPlatform.isPreRendering()) {
+    if (!crossPlatform.isPreRendering()) {
       const splashEl = document.querySelector<HTMLDivElement>('.splash');
       if (!!splashEl) {
         splashEl.style.display = 'none';
