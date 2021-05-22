@@ -63,13 +63,14 @@
     "react-snap": "^1.23.0"
   },
   "scripts": {
-    "rm": "rm -rf build public && cp -r src/public public",
-    "copyStatic": "cp -r build/article build/static build/notion build/notice build/qna build/search public/",
+    "zip:prerender": "cd build && zip -r ../public/prerender static article notion notice qna search",
+    "unzip:prerender": "unzip -n public/prerender.zip -d build/",
     "dev": "ionic serve",
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",
     "build": "CI= react-scripts build",
-    "build:static": "yarn rm && dotenv -e .env.production.env yarn build && react-snap && yarn copyStatic",
+    "build:netlify": "yarn build && yarn unzip:prerender",
+    "build:prerender": "dotenv -e .env.production.env yarn build && react-snap && yarn zip:prerender",
     "build:mobile": "dotenv -e .env.production.env yarn build && capacitor copy ios && capacitor copy android",
     "build:local": "react-scripts build && capacitor copy ios && capacitor copy android",
     "resources": "cordova-res ios && cordova-res android && node resources/script.js",

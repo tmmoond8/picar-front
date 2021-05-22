@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
-    <g fill="none" fill-rule="evenodd">
-        <path d="M0 0H36V36H0z" transform="translate(-56 -381) translate(18 362) translate(38 19)"/>
-        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M6 5L22 5 22 13 30 13 30 29 6 29z" transform="translate(-56 -381) translate(18 362) translate(38 19)"/>
-        <path stroke="currentColor" stroke-width="2" d="M22 5L30 13" transform="translate(-56 -381) translate(18 362) translate(38 19)"/>
-    </g>
-</svg>
