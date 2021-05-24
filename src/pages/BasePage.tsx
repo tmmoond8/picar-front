@@ -9,7 +9,6 @@ import APIS from '../apis';
 import storage from '../modules/localStorage';
 import { useStore, observer } from '../stores';
 import { useSetupHistory, useAndroid } from '../hooks';
-import { crossPlatform } from '../modules'
 import GA from '../modules/ga';
 import Layout from '../components/Layout';
 import LoginBox from '../components/Login/LoginBox';
@@ -56,16 +55,6 @@ const BasePage: React.FC<{
     util.history.location.search,
     util.history.location.hash
   ]);
-
-  React.useEffect(() => {
-    // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
-    if (!crossPlatform.isPreRendering()) {
-      const splashEl = document.querySelector<HTMLDivElement>('.splash');
-      if (!!splashEl) {
-        splashEl.style.display = 'none';
-      }
-    }
-  }, [])
 
   return (
     <React.Fragment>

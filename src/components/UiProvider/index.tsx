@@ -34,6 +34,18 @@ const UiProvider: React.FC<{
       ui.contextMenus = [];
     })
   }, [])
+  React.useEffect(() => {
+    window.addEventListener('load', () => {
+      // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
+      if (!crossPlatform.isPreRendering()) {
+        const splashEl = document.querySelector<HTMLDivElement>('.splash');
+        if (!!splashEl) {
+          console.log('display none')
+          splashEl.style.display = 'none';
+        }
+      }
+    })
+  }, [])
 
   user.needLogin = () => needLogin(user.profile.code);
 
@@ -41,7 +53,7 @@ const UiProvider: React.FC<{
   useSetupModal(ui);
   useSetupAlert(ui);
   useOrientation('portrait');
-  
+
   return (
     <React.Fragment>
       {ui.contextMenus.map((contextMenu) => (
@@ -103,7 +115,7 @@ function useSetupAlert(ui: UiStore) {
 }
 
 function useOrientation(orientation: 'portrait' | 'landscape') {
-  if(crossPlatform.isIosAndHybrid() && window.screen && 
+  if (crossPlatform.isIosAndHybrid() && window.screen &&
     window.screen.orientation && typeof window.screen.orientation.lock === 'function') {
     try {
       window.screen.orientation.lock(orientation);

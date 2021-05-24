@@ -58,7 +58,6 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         group: lounge,
       });
       const openerUUID = localStorage.getUUID();
-      debugger;
       if (profile.code) {
         if (openerUUID) {
           localStorage.clearUUID();
