@@ -8,7 +8,7 @@ import ArticleHeader from './ArticleHeader';
 import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
 import ArticleEmpty from './ArticleEmpty';
-import OwwnersHelmet from '../OwwnersHelmet';
+import PicarHelmet from '../PicarHelmet';
 
 import IArticle from '../../types/Article';
 import { colors } from '../../styles';
@@ -34,7 +34,7 @@ const Article: React.FC<{
     >
       {article && (
         <React.Fragment>
-          <OwwnersHelmet.Article
+          <PicarHelmet.Article
             title={article.title}
             description={article.content}
             image={article.photos}

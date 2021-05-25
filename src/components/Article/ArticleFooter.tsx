@@ -95,7 +95,7 @@ const ArticleFooter = () => {
           onClick={() => {
             if (windowNavigator.share) {
               windowNavigator.share({
-                title: 'owwners',
+                title: 'picar',
                 text: article?.title,
                 url: window.location.href,
               })

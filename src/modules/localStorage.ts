@@ -1,33 +1,33 @@
 import { isHybrid } from '../modules/crossPlatform';
 const STORAGE_KEYS = {
-    OWWNERS_UUID: 'OWWNERS_UUID',
-    OWWNERS_TOKEN: 'OWWNERS_TOKEN',
+    PICAR_UUID: 'PICAR_UUID',
+    PICAR_TOKEN: 'PICAR_TOKEN',
 } as const;
 
 const storage = {
     getUUID: () => {
-        return localStorage.getItem(STORAGE_KEYS.OWWNERS_UUID) || null;
+        return localStorage.getItem(STORAGE_KEYS.PICAR_UUID) || null;
     },
     setUUID: (uuid: string) => {
-        localStorage.setItem(STORAGE_KEYS.OWWNERS_UUID, uuid);
+        localStorage.setItem(STORAGE_KEYS.PICAR_UUID, uuid);
     },
     clearUUID: () => {
-        localStorage.setItem(STORAGE_KEYS.OWWNERS_UUID, '');
+        localStorage.setItem(STORAGE_KEYS.PICAR_UUID, '');
     },
-    getOwwnersToken: () => {
+    getToken: () => {
         if (isHybrid()) {
-            return localStorage.getItem(STORAGE_KEYS.OWWNERS_TOKEN) || null;
+            return localStorage.getItem(STORAGE_KEYS.PICAR_TOKEN) || null;
         }
         return null;
     },
-    setOwwnersToken: (uuid: string) => {
+    setToken: (uuid: string) => {
         if (isHybrid()) {
-            localStorage.setItem(STORAGE_KEYS.OWWNERS_TOKEN, uuid);
+            localStorage.setItem(STORAGE_KEYS.PICAR_TOKEN, uuid);
         }
     },
-    clearOwwnersToken: () => {
+    clearToken: () => {
         if (isHybrid()) {
-            localStorage.setItem(STORAGE_KEYS.OWWNERS_TOKEN, '');
+            localStorage.setItem(STORAGE_KEYS.PICAR_TOKEN, '');
         }
     },
 }

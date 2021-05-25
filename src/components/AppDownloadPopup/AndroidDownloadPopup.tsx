@@ -66,21 +66,21 @@ const ActionButtons = styled.div`
 
 const thumbnail = 'https://static.owwners.com/dhfi7dxpu/image/upload/c_thumb,w_200,g_face/v1617705694/owner/contents_3x_tdbye5.png';
 const src = 'https://static.owwners.com/dhfi7dxpu/image/upload/v1617705694/owner/contents_3x_tdbye5.png';
-const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.tmmoond8.owwners';
+const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.tmmoond8.picar';
 
 const AndroidDownloadPopup: React.FC<{
   onClose: () => void;
   onClickNoShow: () => void;
-}> = ({ onClose, onClickNoShow}) => {
+}> = ({ onClose, onClickNoShow }) => {
   return (
     <Shadower>
       <Box>
-        <a href={playStoreUrl} target="_blank"><StyledImage src={src} placeholder={thumbnail}/></a>
+        <a href={playStoreUrl} target="_blank"><StyledImage src={src} placeholder={thumbnail} /></a>
         <ActionButtons>
           <button className="NoShow" onClick={onClickNoShow}>3일간 보지 않기</button>
           <button className="CloseButton" onClick={onClose}>
             <span>닫기</span>
-            <Icon icon="close" size="24px"/>
+            <Icon icon="close" size="24px" />
           </button>
         </ActionButtons>
       </Box>

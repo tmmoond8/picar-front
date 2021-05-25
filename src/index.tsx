@@ -5,7 +5,7 @@ import { MobxProvider } from './stores';
 import * as serviceWorker from './serviceWorker';
 import UiProvider from './components/UiProvider';
 
-const OwwnersApp: React.FC = () => (
+const Root: React.FC = () => (
   <React.StrictMode>
     <MobxProvider>
       <UiProvider>
@@ -17,9 +17,9 @@ const OwwnersApp: React.FC = () => (
 
 const rootElement = document.getElementById("root");
 if (rootElement!.hasChildNodes()) {
-  hydrate(<OwwnersApp />, rootElement);
+  hydrate(<Root />, rootElement);
 } else {
-  render(<OwwnersApp />, rootElement);
+  render(<Root />, rootElement);
 }
 
 // If you want your app to work offline and load faster, you can change

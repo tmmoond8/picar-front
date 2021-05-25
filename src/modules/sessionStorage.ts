@@ -1,5 +1,5 @@
 const STORAGE_KEYS = {
-    STACK: 'OWWNERS_STACK',
+    STACK: 'APP_STACK',
 } as const;
 
 const storage = {

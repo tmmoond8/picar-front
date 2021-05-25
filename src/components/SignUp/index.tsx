@@ -50,7 +50,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
 
   const handleSignUp = React.useCallback(async () => {
     try {
-      const { data: { profile, owwnersToken } } = await API.auth.signup({
+      const { data: { profile, token } } = await API.auth.signup({
         ...props,
         name: nicknameField[0],
         email: emailField[0],
@@ -63,7 +63,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
           localStorage.clearUUID();
         }
         if (crossPlatform.isHybrid()) {
-          localStorage.setOwwnersToken(owwnersToken);
+          localStorage.setToken(token);
         } else {
           history.replace('/');
         }

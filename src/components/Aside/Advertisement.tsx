@@ -8,7 +8,7 @@ const Advertisement: React.FC<{}> = () => {
 
   return (
     <AdLink target="_blank">
-      <Img src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-ad_log4vn.png" alt="owwners banner"/>
+      <Img src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-ad_log4vn.png" alt="picar banner" />
     </AdLink>
   );
 };

@@ -4,9 +4,9 @@ import storage from '../modules/localStorage';
 import { isHybrid } from '../modules/crossPlatform';
 
 export const apiConfig = {
-  baseURL: env.NODE_ENV ===  'development'
-    ? `${window.location.origin}/api`.replace(':8100', ':4040')
-    : env.REACT_APP_API_URL ,
+  baseURL: env.NODE_ENV === 'development'
+    ? `${window.location.origin}/api`.replace(':8200', ':6060')
+    : env.REACT_APP_API_URL,
   withCredentials: true,
 };
 
@@ -14,10 +14,10 @@ const api: AxiosInstance = axios.create(apiConfig);
 if (isHybrid()) {
   api.interceptors.request.use(
     (config) => {
-      const owwnersToken = storage.getOwwnersToken();
+      const token = storage.getToken();
       config.headers = {
         ...config.headers,
-        ['X-Custom-Token']: owwnersToken,
+        ['X-Custom-Token']: token,
       }
       return config;
     },
@@ -28,7 +28,7 @@ if (isHybrid()) {
   api.interceptors.response.use(
     (response) => {
       if ('X-Custom-Token' in response.headers) {
-        storage.setOwwnersToken(response.headers['X-Custom-Token']);
+        storage.setToken(response.headers['X-Custom-Token']);
       }
       return response;
     },

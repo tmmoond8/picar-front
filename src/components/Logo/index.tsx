@@ -10,11 +10,11 @@ const Logo: React.FC<{
   size?: string;
   onClick?: (e: React.MouseEvent) => void;
 }> = ({ className, onClick }) => {
-  return <StyledLogo className={cx('Logo', className)} src={logo} alt="owwners, icon" onClick={(e) => {
+  return <StyledLogo className={cx('Logo', className)} src={logo} alt="picar, icon" onClick={(e) => {
     if (typeof onClick === 'function') {
       onClick(e);
     }
-  }}/>
+  }} />
 }
 
 export default Logo;

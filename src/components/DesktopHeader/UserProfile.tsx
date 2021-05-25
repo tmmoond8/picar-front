@@ -19,7 +19,7 @@ const UserProfile = () => {
     <React.Fragment>
       {user.isLogined && (
         <ProfilePhoto onClick={handleClickProfile}>
-          <Profile.Photo src={user.profile.profileImage} size={36}/>
+          <Profile.Photo src={user.profile.profileImage} size={36} />
         </ProfilePhoto>
       )}
       {!user.isLogined && <LoginButton onClick={user.needLogin}>로그인</LoginButton>}
@@ -105,12 +105,12 @@ function useProfile() {
                   try {
                     const { data: { ok } } = await APIS.auth.logout();
                     if (ok) {
-                      storage.clearOwwnersToken();
+                      storage.clearToken();
                       setTimeout(() => {
                         window.location.reload(false);
                       }, 300)
                     }
-                  } catch(error) {
+                  } catch (error) {
                     console.error(error);
                   }
                 },

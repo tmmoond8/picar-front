@@ -1,8 +1,8 @@
 {
-  "name": "owner-front",
+  "name": "picar-front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4040",
+  "proxy": "http://localhost:6060",
   "dependencies": {
     "@capacitor/android": "^2.4.5",
     "@capacitor/core": "^2.4.5",
@@ -65,7 +65,7 @@
   "scripts": {
     "zip:prerender": "cd build && zip -r ../public/prerender static article notion notice qna search",
     "unzip:prerender": "unzip -n public/prerender.zip -d build/",
-    "dev": "ionic serve",
+    "dev": "ionic serve --port=8200",
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",
     "build": "CI= react-scripts build",

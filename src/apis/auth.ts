@@ -4,14 +4,14 @@ import { AxiosResponse } from 'axios';
 import { SignUpUser, KakaoUser, NaverUser, Profile } from '../types/User';
 export const kakaoLogin =
   (body: { accessToken: string; refreshToken: string; uuid?: string }):
-    Promise<AxiosResponse<{ profile?: Profile; owwnersToken: string } | { kakaoUser?: KakaoUser }>> =>
+    Promise<AxiosResponse<{ profile?: Profile; token: string } | { kakaoUser?: KakaoUser }>> =>
     api.post('/auth/login/kakao', body);
 export const signup = (data: SignUpUser):
-  Promise<AxiosResponse<{ profile: Profile; owwnersToken: string }>> =>
+  Promise<AxiosResponse<{ profile: Profile; token: string }>> =>
   api.post('/auth/signup', data);
 export const naverLogin =
   (body: { accessToken: string; refreshToken: string; uuid?: string }):
-    Promise<AxiosResponse<{ profile?: Profile; owwnersToken: string } | { naverUser?: NaverUser }>> =>
+    Promise<AxiosResponse<{ profile?: Profile; token: string } | { naverUser?: NaverUser }>> =>
     api.post('/auth/login/naver', body);
 
 export const getNaverToken = (code: string):

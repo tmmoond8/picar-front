@@ -15,7 +15,7 @@ const DownloadApp: React.FC<{}> = () => {
           <Icon icon="appStore" size="18px" color={colors.black66} />
           App Store
         </Link>
-        <Link className="PlayStoreLink" href="https://play.google.com/store/apps/details?id=com.tmmoond8.owwners" target="_blank">
+        <Link className="PlayStoreLink" href="https://play.google.com/store/apps/details?id=com.tmmoond8.picar" target="_blank">
           <Icon icon="googlePlay" size="18px" color={colors.black66} />
           Google Play
         </Link>

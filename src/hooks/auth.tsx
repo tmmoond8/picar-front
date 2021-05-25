@@ -28,7 +28,7 @@ export const kakaoLogin = async (params: LoginParams) => {
   storage.clearUUID();
   const { data } = await APIS.auth.kakaoLogin(tokens);
   if ('profile' in data) {
-    storage.setOwwnersToken(data.owwnersToken);
+    storage.setToken(data.token);
     return setTimeout(() => {
       window.location.replace('/');
     }, 50);
@@ -62,7 +62,7 @@ export const naverLogin = async (params: LoginParams) => {
   storage.clearUUID();
   const { data } = await APIS.auth.naverLogin(tokens);
   if ('profile' in data) {
-    storage.setOwwnersToken(data.owwnersToken);
+    storage.setToken(data.token);
     return setTimeout(() => {
       window.location.replace('/');
     }, 50);
@@ -135,7 +135,7 @@ export const useLogin = () => {
   );
 
   return {
-    login: (provider: 'naver' | 'kakao', accessToken: string, refreshToken: string) => { 
+    login: (provider: 'naver' | 'kakao', accessToken: string, refreshToken: string) => {
       if (provider === 'kakao') {
         kakaoLogin({
           accessToken, refreshToken, handleSignUp, handleSignIn

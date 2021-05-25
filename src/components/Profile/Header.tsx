@@ -53,7 +53,7 @@ const ProfileHeader: React.FC<{ className?: string }> = ({ className }) => {
                 try {
                   const { data: { ok } } = await APIS.auth.logout();
                   if (ok) {
-                    storage.clearOwwnersToken();
+                    storage.clearToken();
                     setTimeout(() => {
                       window.location.reload(false);
                     }, 300)
