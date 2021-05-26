@@ -39,6 +39,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
   const nicknameField = Input.useTextField(name || '');
   const emailField = Input.useTextField(email || '');
   const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
+  const [vendor, setVendor] = React.useState('');
 
   React.useEffect(() => {
     global.__OWNER__.signupFlickingMoveTo(step);
@@ -99,7 +100,11 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
       bottomCTA: null,
     },
     {
-      Form: LoungeForm,
+      Form: LoungeForm.VendorForm,
+      bottomCTA: null,
+    },
+    {
+      Form: LoungeForm.ModelForm,
       bottomCTA: <LoungeForm.BottomCTA onClick={handleSignUp} />,
     },
   ];
@@ -113,6 +118,8 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         emailField,
         ownerType,
         setOwnerType,
+        vendor,
+        setVendor,
         onClose,
         lounge,
         setLounge,
@@ -120,7 +127,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
     >
       <Carousel.Header
         step={step}
-        title="회원가입"
+        title=""
         onBack={() => setStep(step - 1)}
         onClose={onClose}
       />
@@ -131,7 +138,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         gesture={false}
       >
         {signUpSteps.map(({ Form }) => (
-          <Form key={Form.name} handleNext={handleNext} />
+          <Form key={Form.name} handleNext={handleNext} setVendor={setVendor} vendor={vendor} />
         ))}
       </SignUpCarousel>
       {signUpSteps[step].bottomCTA}

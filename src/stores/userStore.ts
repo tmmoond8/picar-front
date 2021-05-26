@@ -4,7 +4,7 @@ import { Profile } from '../types/User';
 import { Notification } from '../types/Notification';
 import Comment from '../types/Comment';
 import { EmotionType } from '../types/Emotion';
-import { Stores, CommonStore} from '.';
+import { Stores, CommonStore } from '.';
 
 const initalProfile = {
   code: 'guest',
@@ -12,7 +12,7 @@ const initalProfile = {
   thumbnail: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
   profileImage: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
   description: '',
-  group: '요식업',
+  group: '테슬라 모델Y',
   isOwner: true,
   email: 'test@gmail.com',
 }
@@ -40,7 +40,7 @@ class UserStore implements UserStoreInterface {
   @observable notifications: Notification[];
   @observable needLogin: () => boolean;
   rootStore: Stores | null;
-  
+
   constructor() {
     this.profile = initalProfile;
     this.bookmarks = new Set();
@@ -92,7 +92,7 @@ class UserStore implements UserStoreInterface {
             accum[comment.articleId] = [];
           }
           accum[comment.articleId].push(comment);
-          return accum; 
+          return accum;
         }, {} as Record<number, Comment[]>)
       }
     } catch (error) {
@@ -108,7 +108,7 @@ class UserStore implements UserStoreInterface {
       if (ok) {
         this.emotions = emotions.reduce((accum, emotion) => {
           accum[emotion.articleId] = emotion.type;
-          return accum; 
+          return accum;
         }, {} as Record<number, EmotionType>)
       }
     } catch (error) {
@@ -119,7 +119,7 @@ class UserStore implements UserStoreInterface {
   @action
   async setEmotion(articleId: number, emotionType: EmotionType) {
     if (this.emotions[articleId] === emotionType) {
-      const nextEmotion = {...this.emotions};
+      const nextEmotion = { ...this.emotions };
       delete nextEmotion[articleId];
       this.emotions = nextEmotion;
     } else {
@@ -193,7 +193,7 @@ class UserStore implements UserStoreInterface {
   get isLogined() {
     return this.profile.code !== 'guest';
   }
-  
+
   bindRoot(rootStore: Stores) {
     this.rootStore = rootStore;
   }

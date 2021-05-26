@@ -3,7 +3,6 @@ import { TextFieldHandler } from '../Input';
 
 export { observer } from 'mobx-react';
 
-
 const SignUpContext = React.createContext<{
   step: number;
   setStep: (v: number) => void;
@@ -11,19 +10,23 @@ const SignUpContext = React.createContext<{
   emailField: TextFieldHandler;
   ownerType: 'owner' | 'preOwner' | '';
   setOwnerType: (v: 'owner' | 'preOwner' | '') => void;
+  vendor: string;
+  setVendor: (v: string) => void;
   onClose: () => void;
   lounge: string;
   setLounge: (v: string) => void;
 }>({
   step: 0,
-  setStep: () => {},
-  nicknameField: ['', () => {}, () => {}],
-  emailField: ['', () => {}, () => {}],
+  setStep: () => { },
+  nicknameField: ['', () => { }, () => { }],
+  emailField: ['', () => { }, () => { }],
   ownerType: '',
-  setOwnerType: () => {},
-  onClose: () => {},
+  setOwnerType: () => { },
+  vendor: '',
+  setVendor: () => { },
+  onClose: () => { },
   lounge: '',
-  setLounge: () => {},
+  setLounge: () => { },
 });
 
 SignUpContext.displayName = 'SignUpContext';

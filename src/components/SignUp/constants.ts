@@ -1,6 +1,6 @@
 export const ownerTypes = [
-  { value: 'owner', displayName: '오너' },
-  { value: 'preOwner', displayName: '예비오너' },
+  { value: 'owner', displayName: '보유 중' },
+  { value: 'preOwner', displayName: '아직은 아니에요' },
 ] as const;
 
 export type OwnerTypes = typeof ownerTypes;

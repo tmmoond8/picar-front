@@ -1,17 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
 import React from 'react';
-import APIS from '../apis';
-import ActivationsContainer from '../components/Profile/ActivationsContainer';
+import LoungeForm from '../components/SignUp/LoungeForm';
 
 export default (function TestPage(): JSX.Element {
-
-  React.useEffect(() => {
-    (async () => {
-      const data = await APIS.spreadSheet.get();
-    })();
-  }, [])
-
-  return <ActivationsContainer tab="article" userCode="phupdv3yb"/>;
+  const [vendor, setVendor] = React.useState('');
+  const handleNext = () => console.log('next');
+  return <LoungeForm.VendorForm setVendor={setVendor} vendor={vendor} handleNext={handleNext} />;
 });

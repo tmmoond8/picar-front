@@ -124,7 +124,7 @@ const Item = styled.li<{ selected: boolean }>`
   cursor: pointer;
 `;
 
-const LougeSelector = styled(Item)<{ selected: boolean }>`
+const LougeSelector = styled(Item) <{ selected: boolean }>`
   display: flex;
   svg {
     color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};

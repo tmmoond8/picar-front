@@ -21,8 +21,8 @@ const AreYouOwner: React.FC<{ handleNext: () => void }> = ({ handleNext }) => {
   return (
     <Form>
       <Input.Label
-        label="오너(사장님)이신가요? "
-        subLabel="예비오너는 관심업종을 선택해주세요"
+        label="전기차 보유중이신가요?"
+        subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
       />
       {ownerTypes.map((ownerType) => (
         <SelectButton
@@ -45,10 +45,10 @@ export default observer(AreYouOwner);
 const Form = styled.form`
   width: 100%;
   height: 100%;
-  padding: 16px;
+  padding: 18px;
 `;
 
-const SelectButton = styled(Button.Full)<{ selected: boolean }>`
+const SelectButton = styled(Button.Full) <{ selected: boolean }>`
   justify-content: left;
   padding: 16px 20px;
   background-color: ${(p) =>
