@@ -2,25 +2,16 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-
 import { useSignUpContext, observer } from './context';
 import Button from '../Button';
 import Content from '../Content';
 import Input from '../Input';
 import Icon from '../Icon';
-import LoungeGrid from '../LoungeGrid';
 import { colors } from '../../styles';
 import { VENDOR } from '../../types/constants';
 
-const VendorForm = observer(({
-  vendor,
-  setVendor,
-  handleNext,
-}: {
-  vendor: string;
-  setVendor: (vendor: string) => void;
-  handleNext: () => void;
-}) => {
+const VendorForm = observer(({ handleNext }: { handleNext: () => void; }) => {
+  const { setVendor, } = useSignUpContext();
 
   return (
     <Form>
@@ -43,7 +34,7 @@ const VendorForm = observer(({
             <Icon icon="arrowRight" color={colors.black33} />
           </SelectItem>
         ))}
-        <SelectItem onClick={() => (setVendor('etc'))}>
+        <SelectItem onClick={() => (setVendor('ETC'))}>
           기타 제조사
         </SelectItem>
       </SelectList>
@@ -52,7 +43,10 @@ const VendorForm = observer(({
 });
 
 const ModelForm = observer(() => {
-  const { lounge, setLounge } = useSignUpContext();
+  const { step, setStep, vendor, model, setModel } = useSignUpContext();
+  const models = React.useMemo(() => {
+    return VENDOR.find(({ name }) => name === vendor)?.children ?? [];
+  }, [vendor])
 
   return (
     <Form>
@@ -61,23 +55,35 @@ const ModelForm = observer(() => {
         subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
       />
       <Content.Spacing size={30} />
-      <LoungeGrid
-        selectedLounge={lounge}
-        onClick={(lounge: string) => {
-          setLounge(lounge);
-        }}
-      />
+
+      <SelectList >
+        <SelectItem onClick={() => (setStep(step - 1), setModel(''))}>
+          이전으로
+        </SelectItem>
+        {models.length > 0 && models.map((vendor) => (
+          <SelectItem
+            key={vendor.name}
+            onClick={() => setModel(vendor.name)}
+            selected={model === vendor.name}
+          >
+            <VendorName>
+              <span>{vendor.displayName}</span>
+            </VendorName>
+          </SelectItem>
+        ))}
+      </SelectList>
+      <IsModel404>내가 원하는 클럽이 없나요?</IsModel404>
     </Form>
   );
 });
 
 const BottomCTA = observer((props: { onClick: () => void }) => {
   const { onClick } = props;
-  const { lounge } = useSignUpContext();
-  const disabled = React.useMemo(() => lounge === '', [lounge]);
+  const { model } = useSignUpContext();
+  const disabled = React.useMemo(() => model === '', [model]);
   return (
     <Button.BottomCTA onClick={onClick} disabled={disabled}>
-      가입하기
+      가입완료
     </Button.BottomCTA>
   );
 });
@@ -112,7 +118,7 @@ const SelectList = styled.ul`
   }
 `;
 
-const SelectItem = styled.li<{ hasRightArrow?: boolean }>`
+const SelectItem = styled.li<{ hasRightArrow?: boolean; selected?: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -123,12 +129,22 @@ const SelectItem = styled.li<{ hasRightArrow?: boolean }>`
   color: ${colors.black33};
   font-size: 16px; 
 
-  &:active {
-    background-color: ${colors.blackEB};
-  }
+  ${p => p.selected && css`
+    border: solid 1px ${colors.black22};
+    background-color: ${colors.transparent};
+  `}
 `;
 
 const VendorName = styled.div`
   display: flex;
   flex: 1;
 `;
+
+const IsModel404 = styled.p`
+  && {
+    font-size: 14px;
+    font-weight: 400;
+    color: ${colors.primary2};
+    margin: 18px 0 0 0;
+  }
+`

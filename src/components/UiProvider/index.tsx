@@ -40,7 +40,6 @@ const UiProvider: React.FC<{
       if (!crossPlatform.isPreRendering()) {
         const splashEl = document.querySelector<HTMLDivElement>('.splash');
         if (!!splashEl) {
-          console.log('display none')
           splashEl.style.display = 'none';
         }
       }

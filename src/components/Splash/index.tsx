@@ -20,11 +20,11 @@ const Spash: React.FC = () => {
   }, [])
 
   return (
-    <>
+    <React.Fragment>
       {!isDev && <SvgWrapper hide={hide}>
         <img src={splashSVG} />
       </SvgWrapper>}
-    </>
+    </React.Fragment>
   )
 }
 

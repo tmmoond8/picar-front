@@ -3,13 +3,12 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import Carousel from '../Carousel';
-import SignupContext from './context';
+import { useSignUpContext, SignUpContextProvider } from './context';
 import { ownerTypes } from './constants';
 import NicknameForm from './NicknameForm';
 import EmailForm from './EmailForm';
 import AreYouOwnerForm from './AreYouOwnerForm';
 import LoungeForm from './LoungeForm';
-import Input from '../Input';
 import { SignUpUser, Profile } from '../../types/User';
 import { crossPlatform, localStorage } from '../../modules';
 import { CAROUSEL } from '../../types/constants';
@@ -29,17 +28,11 @@ const SignUpCarousel = styled(Carousel)`
   height: 100%;
 `;
 
-export default observer(function SignUp(props: SignUpProps): JSX.Element {
-  const { name, email, onClose, onSetUserProfile } = props;
+const SignUp: React.FC<SignUpProps> = (props) => {
+  const { step, setStep, nicknameField, emailField, ownerType, model, onClose } = useSignUpContext();
   const { util } = useStore();
   const history = util.useHistory();
   const handleChangeStep = React.useCallback((step: number) => { }, []);
-  const [step, setStep] = React.useState(0);
-  const [lounge, setLounge] = React.useState('');
-  const nicknameField = Input.useTextField(name || '');
-  const emailField = Input.useTextField(email || '');
-  const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
-  const [vendor, setVendor] = React.useState('');
 
   React.useEffect(() => {
     global.__OWNER__.signupFlickingMoveTo(step);
@@ -56,7 +49,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         name: nicknameField[0],
         email: emailField[0],
         isOwner: ownerType === ownerTypes[0].value,
-        group: lounge,
+        group: model,
       });
       const openerUUID = localStorage.getUUID();
       if (profile.code) {
@@ -78,10 +71,10 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
     }
   }, [
     emailField,
-    lounge,
+    model,
     nicknameField,
+    props.onSetUserProfile,
     onClose,
-    onSetUserProfile,
     ownerType,
     props,
   ]);
@@ -110,21 +103,7 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
   ];
 
   return (
-    <SignupContext.Provider
-      value={{
-        step,
-        setStep,
-        nicknameField,
-        emailField,
-        ownerType,
-        setOwnerType,
-        vendor,
-        setVendor,
-        onClose,
-        lounge,
-        setLounge,
-      }}
-    >
+    <React.Fragment>
       <Carousel.Header
         step={step}
         title=""
@@ -138,10 +117,25 @@ export default observer(function SignUp(props: SignUpProps): JSX.Element {
         gesture={false}
       >
         {signUpSteps.map(({ Form }) => (
-          <Form key={Form.name} handleNext={handleNext} setVendor={setVendor} vendor={vendor} />
+          <Form key={Form.name} handleNext={handleNext} />
         ))}
       </SignUpCarousel>
       {signUpSteps[step].bottomCTA}
-    </SignupContext.Provider>
+    </React.Fragment>
   );
-});
+};
+
+const SignUpWithProvider: React.FC<SignUpProps> = (props) => {
+  const { email, name, onClose } = props;
+  return (
+    <SignUpContextProvider
+      email={email}
+      name={name}
+      onClose={onClose}
+    >
+      <SignUp {...props} />
+    </SignUpContextProvider>
+  )
+}
+
+export default observer(SignUpWithProvider);
