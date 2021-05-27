@@ -7,6 +7,7 @@ export { ReactComponent as articleNew } from './article-new.svg';
 export { ReactComponent as arrowLeft } from './arrow-left.svg';
 export { ReactComponent as arrowRight } from './arrow-right.svg';
 export { ReactComponent as arrowDown } from './arrow-down.svg';
+export { ReactComponent as arrowUp } from './arrow-up.svg';
 export { ReactComponent as bookmark } from './bookmark.svg';
 export { ReactComponent as bookmarkOutline } from './bookmark-outline.svg';
 export { ReactComponent as dropdown } from './dropdown.svg';

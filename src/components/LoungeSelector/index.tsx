@@ -6,7 +6,8 @@ import cx from 'classnames';
 
 import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
-import { NAVIGATIONS, LOUNGES, LOUNGE, Models } from '../../types/constants';
+import AllLoungeListComponent from './AllLoungeList';
+import { LOUNGES, Models } from '../../types/constants';
 import { useModal } from '../Modal';
 
 const lounges = Models.map(({ name }) => name);
@@ -33,7 +34,7 @@ const LoungeSelector: React.FC<{
         title: '라운지 선택',
         contents: (
           <React.Fragment>
-            {all && <AllLoungeList handleSelect={handleSelect} myLounge={myLounge} />}
+            {all && <AllLoungeListComponent handleSelect={handleSelect} myLounge={myLounge} />}
             {!all && <LoungeList handleSelect={handleSelect} myLounge={myLounge} />}
           </React.Fragment>
         ),
@@ -56,33 +57,7 @@ const LoungeSelector: React.FC<{
 
 export default LoungeSelector;
 
-export const AllLoungeList: React.FC<{
-  handleSelect: (value: string) => void;
-  className?: string;
-  myLounge?: string;
-}> = ({ handleSelect, className, myLounge }) => {
-
-  return (
-    <List className={cx('AllLoungeList', className)}>
-      <Lounge lounge="업종라운지" icon="add" disabled />
-      {NAVIGATIONS.map((name) => (
-        name === LOUNGE ? (
-          LOUNGES.map(({ name }) => (
-            <Lounge
-              key={name}
-              lounge={name}
-              icon="arrowRight"
-              isSubMenu
-              onClick={() => handleSelect(name)}
-              isMyLounge={myLounge === name}
-            />
-          ))
-        ) :
-          <Lounge key={name} lounge={name} icon="arrowRight" onClick={() => handleSelect(name)} />
-      ))}
-    </List>
-  )
-}
+export const AllLoungeList = AllLoungeListComponent;
 
 export const LoungeList: React.FC<{
   handleSelect: (value: string) => void
