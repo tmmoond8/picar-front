@@ -50,12 +50,12 @@ const Desktop: React.FC<{ children: React.ReactNode }> = observer(({ children })
     <Layout>
       <StyledMenuBar />
       <Body>
-        <Left>
+        {false && <Left>
           <FixedBox>
             <LoungeSelector />
             <MyActivity />
           </FixedBox>
-        </Left>
+        </Left>}
         <Contents>
           <ButtonGoTop className="GoTop" onClick={handleClickGoTop} notDesktop={!ui.queryMatch.Desktop}>
             <Icon icon="back" size="24px" color={colors.black99} />

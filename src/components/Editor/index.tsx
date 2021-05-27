@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useStore } from '../../stores';
-import { AllLoungeList, useSelector } from '../LoungeSelector';
+import { LoungeList, useSelector } from '../LoungeSelector';
 
 import HR from '../HR';
 import EditorContext from './context';
@@ -25,18 +25,18 @@ const Editor: React.FC<{
   onClose: () => void;
 }> = ({ article, group, syncArticle, onClose }) => {
   const { user } = useStore();
-  const [ selected, setSelected ] = useSelector(article?.group ?? group);
-  const [ step, setStep ] = React.useState(0);
-  const [ title, setTitle ] = React.useState(article?.title ?? '');
-  const [ content, setContent ] = React.useState(article?.content ?? '');
-  const [ photos, setPhotos ] = React.useState(article?.photos ?? '');
-  const [ thumbnail, setThumbnail ] = React.useState(article?.thumbnail ?? '');
-  
+  const [selected, setSelected] = useSelector(article?.group ?? group);
+  const [step, setStep] = React.useState(0);
+  const [title, setTitle] = React.useState(article?.title ?? '');
+  const [content, setContent] = React.useState(article?.content ?? '');
+  const [photos, setPhotos] = React.useState(article?.photos ?? '');
+  const [thumbnail, setThumbnail] = React.useState(article?.thumbnail ?? '');
+
   const handleGoBack = React.useCallback(() => {
     setStep(step - 1);
     (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
   }, [step])
-  
+
   const handleSelect = React.useCallback((selected: string) => {
     setSelected(selected);
     handleGoBack();
@@ -62,11 +62,11 @@ const Editor: React.FC<{
         setThumbnail,
       }}>
         <Header />
-        <Carousel 
+        <Carousel
           id={CAROUSEL.EDITOR}
           index={step}
           gesture={false}
-          onChangeIndex={() => {}}
+          onChangeIndex={() => { }}
         >
           <Styled.Form className="Form">
             <Selector />
@@ -75,7 +75,7 @@ const Editor: React.FC<{
             <Content />
             <PhotoSection />
           </Styled.Form>
-          <AllLounges handleSelect={handleSelect} myLounge={user.profile.group}/>
+          <Lounges handleSelect={handleSelect} myLounge={user.profile.group} all />
         </Carousel>
       </EditorContext.Provider>
     </Styled.Page>
@@ -84,7 +84,7 @@ const Editor: React.FC<{
 
 export default Editor;
 
-const AllLounges = styled(AllLoungeList)`
+const Lounges = styled(LoungeList)`
   width: 100%;
   height: 100%;
 `;

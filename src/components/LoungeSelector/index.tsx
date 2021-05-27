@@ -5,9 +5,9 @@ import React from 'react';
 import cx from 'classnames';
 
 import { colors } from '../../styles';
-import Icon, { IconKey } from '../Icon';
-import AllLoungeListComponent from './AllLoungeList';
-import { LOUNGES, Models } from '../../types/constants';
+import Icon from '../Icon';
+import LoungeListComponent from './LoungeList';
+import { Models } from '../../types/constants';
 import { useModal } from '../Modal';
 
 const lounges = Models.map(({ name }) => name);
@@ -34,8 +34,7 @@ const LoungeSelector: React.FC<{
         title: '라운지 선택',
         contents: (
           <React.Fragment>
-            {all && <AllLoungeListComponent handleSelect={handleSelect} myLounge={myLounge} />}
-            {!all && <LoungeList handleSelect={handleSelect} myLounge={myLounge} />}
+            <LoungeListComponent handleSelect={handleSelect} myLounge={myLounge} all={all} />
           </React.Fragment>
         ),
         isFull: true,
@@ -57,27 +56,7 @@ const LoungeSelector: React.FC<{
 
 export default LoungeSelector;
 
-export const AllLoungeList = AllLoungeListComponent;
-
-export const LoungeList: React.FC<{
-  handleSelect: (value: string) => void
-  myLounge?: string;
-}> = ({ handleSelect, myLounge }) => {
-
-  return (
-    <List>
-      {LOUNGES.map(({ name }) => (
-        <Lounge
-          key={name}
-          lounge={name}
-          icon="arrowRight"
-          onClick={() => handleSelect(name)}
-          isMyLounge={myLounge === name}
-        />
-      ))}
-    </List>
-  )
-}
+export const LoungeList = LoungeListComponent;
 
 const Box = styled.div``;
 
@@ -107,66 +86,6 @@ const StyledSelector = styled.button`
     cursor: pointer;
   }
 `;
-
-const List = styled.ol`
-  overflow-y: auto;
-  font-size: 17px;
-  color: ${colors.black22};
-
-  .Lounge {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 13px 15px 14px 18px;
-    cursor: pointer;
-
-    .Name {
-      display: flex;
-      align-items: center;
-    }
-
-    .Badge { 
-      height: 16px;
-      line-height: 13px;
-      margin: 0 0 0 12px;
-      padding: 0 5px;
-      border-radius: 2px;
-      font-size: 10px;
-      font-weight: 500;
-      background-color: ${colors.black22};
-      color: ${colors.blackF7};
-    }
-  }
-
-  .subMenu {
-    background-color: ${colors.blackF5F6F7};
-    padding-left: 36px;
-  }
-
-  .disabled {
-    cursor: auto;
-  }
-`;
-
-const Lounge: React.FC<{
-  lounge: string;
-  icon: IconKey;
-  isSubMenu?: boolean;
-  isMyLounge?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-}> = ({
-  lounge, icon, onClick = () => { }, isSubMenu = false, disabled = false, isMyLounge = false,
-}) => {
-    return (
-      <li
-        onClick={onClick}
-        className={cx('Lounge', disabled ? 'disabled' : '', isSubMenu ? 'subMenu' : '')}>
-        <p className="Name">{lounge}{isMyLounge && <span className="Badge">my</span>}</p>
-        <Icon icon={icon} size="16px" color={colors.blackBF} />
-      </li>
-    )
-  }
 
 export const useSelector = (defaultValue?: string) => {
   return React.useState<string>(() =>

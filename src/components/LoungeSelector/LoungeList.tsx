@@ -8,11 +8,12 @@ import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
 import { LOUNGE_NAMES, VENDOR } from '../../types/constants';
 
-const AllLoungeList: React.FC<{
+const LoungeList: React.FC<{
   handleSelect: (value: string) => void;
   className?: string;
   myLounge?: string;
-}> = ({ handleSelect, className, myLounge }) => {
+  all?: boolean;
+}> = ({ handleSelect, className, myLounge, all = false }) => {
 
   const [opend, setOpend] = React.useState({});
   const handleToggle = (name: string) => {
@@ -20,7 +21,7 @@ const AllLoungeList: React.FC<{
   }
 
   return (
-    <List className={cx('AllLoungeList', className)}>
+    <List className={cx('LoungeList', className)}>
       {VENDOR.map((vendor) => (
         <React.Fragment>
           <Lounge lounge={vendor.name} icon={opend[vendor.name as keyof typeof opend] ? 'arrowUp' : 'arrowDown'} onClick={() => handleToggle(vendor.name)} />
@@ -37,8 +38,14 @@ const AllLoungeList: React.FC<{
           </React.Fragment>
         </React.Fragment>
       ))}
-      <Spacing size={8} />
-      {Object.values(LOUNGE_NAMES).map((name) => (
+      <Lounge
+        lounge='기타 제조사'
+        onClick={() => handleSelect('기타 제조사')}
+        isMyLounge={myLounge === ('기타 제조사')}
+      />
+
+      {all && <Spacing size={8} />}
+      {all && Object.values(LOUNGE_NAMES).map((name) => (
         <Lounge
           key={name}
           lounge={name}
@@ -50,7 +57,7 @@ const AllLoungeList: React.FC<{
   )
 }
 
-export default AllLoungeList;
+export default LoungeList;
 
 const List = styled.ol`
   overflow-y: auto;
