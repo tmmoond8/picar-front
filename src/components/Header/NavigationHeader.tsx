@@ -6,31 +6,73 @@ import React from 'react';
 import { useStore, observer } from '../../stores';
 import { useModal } from '../Modal';
 import Icon from '../Icon';
+import Carousel from '../Carousel';
 
 import { colors } from '../../styles';
 import { CAROUSEL } from '../../types/constants';
-
 import { NAVIGATIONS, LOUNGE } from '../../types/constants';
-import LoungeGrid from '../LoungeGrid';
+import LoungeForm from '../SignUp/LoungeForm';
+
+const SelectModel: React.FC<{
+  selectedItem: string;
+  handleSelect: (v: string) => void;
+}> = ({
+  handleSelect,
+  selectedItem,
+}) => {
+    const step = React.useRef(0);
+    const [vendor, setVendor] = React.useState('');
+    const handleNext = () => {
+      (window as any).__OWNER__[CAROUSEL.LOUNGE_SELECTOR](step.current + 1);
+      step.current = step.current + 1;
+    }
+    const handlePrev = () => {
+      (window as any).__OWNER__[CAROUSEL.LOUNGE_SELECTOR](step.current - 1);
+      step.current = step.current - 1;
+      setVendor('');
+    }
+
+    return (
+      <CarouselWrapper>
+        <Carousel
+          id={CAROUSEL.LOUNGE_SELECTOR}
+          index={step.current}
+          onChangeIndex={() => { }}
+          gesture={false}
+        >
+          <LoungeForm.VendorForm
+            handleNext={handleNext}
+            setVendor={setVendor}
+            setModel={handleSelect}
+            hideHead
+          />
+          <LoungeForm.ModelForm
+            vendor={vendor}
+            model={selectedItem}
+            hideHead
+            setModel={handleSelect}
+            handlePrev={handlePrev}
+          />
+        </Carousel>
+      </CarouselWrapper>
+
+    )
+  }
 
 const NavigationHeader = () => {
   const { article } = useStore();
   const modal = useModal();
+  const handleSelect = (model: string) => {
+    article.selectedLounge = model;
+    article.selectedGroup = LOUNGE;
+    setTimeout(() => {
+      modal.close();
+    }, 300);
+  }
   const handleOpenBottomSheet = React.useCallback(() => {
     modal.open({
-      title: '업종 라운지를 선택해 주세요',
-      contents: (
-        <LoungeGrid
-          selectedLounge={article.selectedLounge}
-          onClick={(group: string) => {
-            article.selectedLounge = group;
-            article.selectedGroup = LOUNGE;
-            setTimeout(() => {
-              modal.close();
-            }, 300);
-          }}
-        />
-      ),
+      title: '오너클럽을 선택하세요',
+      contents: <SelectModel selectedItem={article.selectedLounge} handleSelect={handleSelect} />,
     });
   }, [article.selectedGroup, article.selectedLounge, modal]);
 
@@ -130,4 +172,10 @@ const LougeSelector = styled(Item) <{ selected: boolean }>`
     color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};
     margin-left: 4px;
   }
+`;
+
+const CarouselWrapper = styled.div`
+  height: 408px;
+  padding: 18px 0;
+  overflow-y: auto;
 `;

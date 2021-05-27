@@ -29,10 +29,20 @@ const SignUpCarousel = styled(Carousel)`
 `;
 
 const SignUp: React.FC<SignUpProps> = (props) => {
-  const { step, setStep, nicknameField, emailField, ownerType, model, onClose } = useSignUpContext();
+  const {
+    step,
+    setStep,
+    nicknameField,
+    emailField,
+    ownerType,
+    vendor,
+    setVendor,
+    model,
+    setModel,
+    onClose
+  } = useSignUpContext();
   const { util } = useStore();
   const history = util.useHistory();
-  const handleChangeStep = React.useCallback((step: number) => { }, []);
 
   React.useEffect(() => {
     global.__OWNER__.signupFlickingMoveTo(step);
@@ -40,6 +50,10 @@ const SignUp: React.FC<SignUpProps> = (props) => {
 
   const handleNext = React.useCallback(() => {
     setStep(step + 1);
+  }, [step, setStep]);
+  const handlePrev = React.useCallback(() => {
+    setStep(step - 1);
+    setModel('');
   }, [step, setStep]);
 
   const handleSignUp = React.useCallback(async () => {
@@ -79,27 +93,12 @@ const SignUp: React.FC<SignUpProps> = (props) => {
     props,
   ]);
 
-  const signUpSteps = [
-    {
-      Form: NicknameForm,
-      bottomCTA: <NicknameForm.BottomCTA onClick={handleNext} />,
-    },
-    {
-      Form: EmailForm,
-      bottomCTA: <EmailForm.BottomCTA onClick={handleNext} />,
-    },
-    {
-      Form: AreYouOwnerForm,
-      bottomCTA: null,
-    },
-    {
-      Form: LoungeForm.VendorForm,
-      bottomCTA: null,
-    },
-    {
-      Form: LoungeForm.ModelForm,
-      bottomCTA: <LoungeForm.BottomCTA onClick={handleSignUp} />,
-    },
+  const BottomCTA = [
+    <NicknameForm.BottomCTA onClick={handleNext} />,
+    <EmailForm.BottomCTA onClick={handleNext} />,
+    <React.Fragment />,
+    <React.Fragment />,
+    <LoungeForm.BottomCTA onClick={handleSignUp} />,
   ];
 
   return (
@@ -113,14 +112,21 @@ const SignUp: React.FC<SignUpProps> = (props) => {
       <SignUpCarousel
         id={CAROUSEL.SIGNUP}
         index={step}
-        onChangeIndex={handleChangeStep}
+        onChangeIndex={(i) => { }}
         gesture={false}
       >
-        {signUpSteps.map(({ Form }) => (
-          <Form key={Form.name} handleNext={handleNext} />
-        ))}
+        <NicknameForm />
+        <EmailForm />
+        <AreYouOwnerForm handleNext={handleNext} />
+        <LoungeForm.VendorForm handleNext={handleNext} setVendor={setVendor} setModel={setModel} />
+        <LoungeForm.ModelForm
+          handlePrev={handlePrev}
+          vendor={vendor}
+          model={model}
+          setModel={setModel}
+        />
       </SignUpCarousel>
-      {signUpSteps[step].bottomCTA}
+      {BottomCTA[step]}
     </React.Fragment>
   );
 };

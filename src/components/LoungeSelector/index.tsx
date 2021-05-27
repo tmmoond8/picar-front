@@ -6,13 +6,10 @@ import cx from 'classnames';
 
 import { colors } from '../../styles';
 import Icon, { IconKey } from '../Icon';
-import { NAVIGATIONS, LOUNGES, LOUNGE, Lounge as LoungeKeys } from '../../types/constants';
+import { NAVIGATIONS, LOUNGES, LOUNGE, Models } from '../../types/constants';
 import { useModal } from '../Modal';
 
-const lounges = [
-  ...NAVIGATIONS.filter((name) => name!== LOUNGE),
-  ...LOUNGES.map((lounge) => lounge.name),
-];
+const lounges = Models.map(({ name }) => name);
 
 const LoungeSelector: React.FC<{
   className?: string;
@@ -24,38 +21,38 @@ const LoungeSelector: React.FC<{
 }> = ({
   selected, setSelected, className, label, all = false, myLounge,
 }) => {
-  const modal = useModal();
-  const handleSelect = React.useCallback((value: string) => {
-    modal.close();
-    setSelected(value);
-  }, [setSelected, modal])
+    const modal = useModal();
+    const handleSelect = React.useCallback((value: string) => {
+      modal.close();
+      setSelected(value);
+    }, [setSelected, modal])
 
-  const handleOpenSelects = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    modal.open({
-      title: '라운지 선택',
-      contents: (
-        <React.Fragment>
-          {all && <AllLoungeList handleSelect={handleSelect} myLounge={myLounge}/> }
-          {!all && <LoungeList handleSelect={handleSelect} myLounge={myLounge}/>}
-        </React.Fragment>
-      ),
-      isFull: true,
-      hasTitleLine: false,
-    })
-  }, [modal])
+    const handleOpenSelects = React.useCallback((e: React.MouseEvent) => {
+      e.preventDefault();
+      modal.open({
+        title: '라운지 선택',
+        contents: (
+          <React.Fragment>
+            {all && <AllLoungeList handleSelect={handleSelect} myLounge={myLounge} />}
+            {!all && <LoungeList handleSelect={handleSelect} myLounge={myLounge} />}
+          </React.Fragment>
+        ),
+        isFull: true,
+        hasTitleLine: false,
+      })
+    }, [modal])
 
-  return (
-    <Box className={cx('SelectBox', className)}>
-      {label && <Label>{label}</Label>}
-      <StyledSelector className={'Selector'} onClick={handleOpenSelects}>
-        {selected}
-        <Icon icon="arrowDown" color={colors.black22} size="16px"/>
-      </StyledSelector>
-    </Box>
-    
-  )
-}
+    return (
+      <Box className={cx('SelectBox', className)}>
+        {label && <Label>{label}</Label>}
+        <StyledSelector className={'Selector'} onClick={handleOpenSelects}>
+          {selected}
+          <Icon icon="arrowDown" color={colors.black22} size="16px" />
+        </StyledSelector>
+      </Box>
+
+    )
+  }
 
 export default LoungeSelector;
 
@@ -71,17 +68,17 @@ export const AllLoungeList: React.FC<{
       {NAVIGATIONS.map((name) => (
         name === LOUNGE ? (
           LOUNGES.map(({ name }) => (
-            <Lounge 
-              key={name} 
-              lounge={name} 
-              icon="arrowRight" 
-              isSubMenu 
+            <Lounge
+              key={name}
+              lounge={name}
+              icon="arrowRight"
+              isSubMenu
               onClick={() => handleSelect(name)}
               isMyLounge={myLounge === name}
             />
           ))
         ) :
-        <Lounge key={name} lounge={name} icon="arrowRight" onClick={() => handleSelect(name)}/>
+          <Lounge key={name} lounge={name} icon="arrowRight" onClick={() => handleSelect(name)} />
       ))}
     </List>
   )
@@ -95,10 +92,10 @@ export const LoungeList: React.FC<{
   return (
     <List>
       {LOUNGES.map(({ name }) => (
-        <Lounge 
-          key={name} 
-          lounge={name} 
-          icon="arrowRight" 
+        <Lounge
+          key={name}
+          lounge={name}
+          icon="arrowRight"
           onClick={() => handleSelect(name)}
           isMyLounge={myLounge === name}
         />
@@ -176,7 +173,7 @@ const List = styled.ol`
   }
 `;
 
-const Lounge: React.FC<{ 
+const Lounge: React.FC<{
   lounge: string;
   icon: IconKey;
   isSubMenu?: boolean;
@@ -184,17 +181,17 @@ const Lounge: React.FC<{
   disabled?: boolean;
   onClick?: () => void;
 }> = ({
-  lounge, icon, onClick = () => {}, isSubMenu = false, disabled = false, isMyLounge = false,
+  lounge, icon, onClick = () => { }, isSubMenu = false, disabled = false, isMyLounge = false,
 }) => {
-  return (
-    <li 
-      onClick={onClick} 
-      className={cx('Lounge', disabled ? 'disabled' : '', isSubMenu ? 'subMenu' : '')}>
-      <p className="Name">{lounge}{isMyLounge && <span className="Badge">my</span>}</p>
-      <Icon icon={icon} size="16px" color={colors.blackBF}/>
-    </li>
-  )
-}
+    return (
+      <li
+        onClick={onClick}
+        className={cx('Lounge', disabled ? 'disabled' : '', isSubMenu ? 'subMenu' : '')}>
+        <p className="Name">{lounge}{isMyLounge && <span className="Badge">my</span>}</p>
+        <Icon icon={icon} size="16px" color={colors.blackBF} />
+      </li>
+    )
+  }
 
 export const useSelector = (defaultValue?: string) => {
   return React.useState<string>(() =>

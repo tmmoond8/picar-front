@@ -1,10 +1,10 @@
 import { observable, computed } from 'mobx';
 import Article from '../types/Article';
 import APIS from '../apis';
-import { NAVIGATIONS, LOUNGE, LOUNGES } from '../types/constants';
+import { NAVIGATIONS, LOUNGE, Models } from '../types/constants';
 import { Stores, CommonStore } from '.';
 
-export interface ArticleStoreInterface extends CommonStore{
+export interface ArticleStoreInterface extends CommonStore {
   bestArticles: Article[];
   articles: Article[];
   selectedGroup: string;
@@ -12,9 +12,8 @@ export interface ArticleStoreInterface extends CommonStore{
   selectedLounge: string;
   loungeArticles: Article[];
   freeArticles: Article[];
-  humorArticles: Article[];
-  feedbackArticles: Article[];
-  govermentSupportArticles: Article[];
+  chargementArticles: Article[];
+  showOffArticles: Article[];
 }
 
 class ArticleStore implements ArticleStoreInterface {
@@ -28,7 +27,7 @@ class ArticleStore implements ArticleStoreInterface {
     this.bestArticles = [];
     this.articles = [];
     this.selectedGroup = LOUNGE;
-    this.selectedLounge = LOUNGES[0].name;
+    this.selectedLounge = Models[0].name;
     this.fetchList();
     this.rootStore = null;
   }
@@ -55,7 +54,7 @@ class ArticleStore implements ArticleStoreInterface {
   set groupIndex(index: number) {
     this.selectedGroup = NAVIGATIONS[index];
   }
-  
+
   @computed
   get loungeArticles() {
     return this.articles.filter(
@@ -69,21 +68,16 @@ class ArticleStore implements ArticleStoreInterface {
   }
 
   @computed
-  get humorArticles() {
-    return this.articles.filter((article) => article.group === '유머');
+  get chargementArticles() {
+    return this.articles.filter((article) => article.group === '충전');
   }
 
   @computed
-  get govermentSupportArticles() {
-    return this.articles.filter((article) => article.group === '정부지원');
+  get showOffArticles() {
+    return this.articles.filter((article) => article.group === '뽐뿌');
   }
 
-  @computed
-  get feedbackArticles() {
-    return this.articles.filter((article) => article.group === '피드백');
-  }
-
-  bindRoot(rootStore: Stores ) {
+  bindRoot(rootStore: Stores) {
     this.rootStore = rootStore;
   }
 }

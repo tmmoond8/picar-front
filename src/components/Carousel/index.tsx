@@ -18,7 +18,7 @@ interface CraouselProps {
   onChangeIndex: (i: number) => void;
 }
 
-type CarouselComponent = React.FC<CraouselProps > & { Header: React.FC<CarouselHeaderProps>};
+type CarouselComponent = React.FC<CraouselProps> & { Header: React.FC<CarouselHeaderProps> };
 
 const Carousel: CarouselComponent = ({
   id,

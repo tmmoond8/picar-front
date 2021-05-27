@@ -10,54 +10,76 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import { VENDOR } from '../../types/constants';
 
-const VendorForm = observer(({ handleNext }: { handleNext: () => void; }) => {
-  const { setVendor, } = useSignUpContext();
+const VendorForm = observer(({ handleNext, setVendor, hideHead = false }: {
+  handleNext: () => void;
+  setVendor: (v: string) => void;
+  setModel: (v: string) => void;
+  hideHead?: boolean;
+}) => {
 
   return (
     <Form>
-      <Input.Label
-        label="오너클럽을 선택하세요"
-        subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
-      />
-      <Content.Spacing size={30} />
+      {!hideHead && (
+        <React.Fragment>
+          <Input.Label
+            label="오너클럽을 선택하세요"
+            subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
+          />
+          <Content.Spacing size={30} />
+        </React.Fragment>
+      )}
       <SelectList >
         {VENDOR.map((vendor) => (
           <SelectItem
             key={vendor.name}
-            onClick={() => (setVendor(vendor.name), handleNext())}
+            onClick={() => {
+              setVendor(vendor.name);
+              handleNext();
+            }}
             hasRightArrow
           >
             <VendorName>
               {vendor.icon && <Icon icon={vendor.icon as any} />}
-              <span>{vendor.displayName}</span>
+              <span>{vendor.name}</span>
             </VendorName>
             <Icon icon="arrowRight" color={colors.black33} />
           </SelectItem>
         ))}
-        <SelectItem onClick={() => (setVendor('ETC'))}>
+        <SelectItem onClick={() => {
+          setVendor('기타 제조사');
+        }}>
           기타 제조사
         </SelectItem>
       </SelectList>
-    </Form>
+    </Form >
   );
 });
 
-const ModelForm = observer(() => {
-  const { step, setStep, vendor, model, setModel } = useSignUpContext();
+const ModelForm = observer(({ vendor, model, setModel, hideHead = false, handlePrev }: {
+  vendor: string;
+  model: string;
+  hideHead?: boolean;
+  handlePrev: () => void;
+  setModel: (v: string) => void;
+}) => {
   const models = React.useMemo(() => {
     return VENDOR.find(({ name }) => name === vendor)?.children ?? [];
   }, [vendor])
 
   return (
     <Form>
-      <Input.Label
-        label="오너클럽을 선택하세요"
-        subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
-      />
-      <Content.Spacing size={30} />
+      {!hideHead && (
+        <React.Fragment>
+          <Input.Label
+            label="오너클럽을 선택하세요"
+            subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
+          />
+          <Content.Spacing size={30} />
+        </React.Fragment>
+      )}
 
       <SelectList >
-        <SelectItem onClick={() => (setStep(step - 1), setModel(''))}>
+        <SelectItem onClick={handlePrev}>
           이전으로
         </SelectItem>
         {models.length > 0 && models.map((vendor) => (
@@ -67,12 +89,12 @@ const ModelForm = observer(() => {
             selected={model === vendor.name}
           >
             <VendorName>
-              <span>{vendor.displayName}</span>
+              <span>{vendor.name}</span>
             </VendorName>
           </SelectItem>
         ))}
       </SelectList>
-      <IsModel404>내가 원하는 클럽이 없나요?</IsModel404>
+      {/* <IsModel404>내가 원하는 클럽이 없나요?</IsModel404> */}
     </Form>
   );
 });
