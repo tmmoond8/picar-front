@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -59,7 +59,7 @@ const SelectModel: React.FC<{
     )
   }
 
-const NavigationHeader = () => {
+const NavigationHeader: React.FC<{ underline?: boolean; }> = ({ underline = false }) => {
   const { article } = useStore();
   const modal = useModal();
   const handleSelect = (model: string) => {
@@ -92,7 +92,7 @@ const NavigationHeader = () => {
   const isFreezed = () => Date.now() - delayCondition.current < 500;
 
   return (
-    <Header>
+    <Header underline={underline}>
       <List>
         {NAVIGATIONS.map((name) => (
           <React.Fragment key={name}>
@@ -133,18 +133,21 @@ const NavigationHeader = () => {
   );
 };
 
-NavigationHeader.type = 'Navition';
+// NavigationHeader.type = 'Navition';
 
 export default observer(NavigationHeader);
 
 const HEIGHT = 56;
 
-const Header = styled.nav`
+const Header = styled.nav<{ underline: boolean; }>`
   display: flex;
   align-items: center;
   height: ${HEIGHT}px;
   width: 100%;
   background: ${colors.white};
+  ${p => p.underline && css`
+    border-bottom: 1px solid ${colors.blackEB};
+  `}
 `;
 
 const List = styled.ol`

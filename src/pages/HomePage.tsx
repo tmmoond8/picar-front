@@ -8,7 +8,6 @@ import { observer, useStore } from '../stores';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
 import MenuBar from '../components/MenuBar';
-import LoungeNavigation from '../components/LoungeNavigation';
 import NavigationHeader from '../components/Header/NavigationHeader';
 import { CAROUSEL, LOUNGE, LOUNGE_NAMES } from '../types/constants';
 
@@ -92,7 +91,7 @@ const TabletHome = observer(() => {
   ui.scrollableElementSelector = `.ArticleList[data-id="${article.selectedGroup}"]`;
   return (
     <React.Fragment>
-      <LoungeNavigation.Tablet />
+      <NavigationHeader underline />
       {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE} />}
       {article.selectedGroup === '전체' && <ArticleList articles={article.articles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.ALL} />}
       {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.FREE} />}
