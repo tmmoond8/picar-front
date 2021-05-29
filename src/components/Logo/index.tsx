@@ -21,6 +21,7 @@ export default Logo;
 
 const StyledLogo = styled.img`
   cursor: pointer;;
-  width: 154px;
-  height: 48px;
+  width: auto;
+  height: 28px;
+  object-fit: contain;
 `;
