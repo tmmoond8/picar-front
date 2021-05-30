@@ -34,6 +34,9 @@ const App: React.FC = () => {
             <Route exact path="/myProfile">
               <Pages.MyProfilePage />
             </Route>
+            <Route path="/news">
+              <Pages.NewsPage />
+            </Route>
             <Route exact path="/myActivations">
               <Pages.MyActivationsPage />
             </Route>

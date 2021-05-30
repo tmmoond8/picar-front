@@ -16,6 +16,7 @@ import { colors } from '../../styles';
 const activeMap = {
   '/': 'Community',
   '/search': 'Search',
+  '/news': 'News',
   '/notification': 'Notification',
   '/myProfile': 'MyProfile',
 } as const;
@@ -46,12 +47,13 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
     }
     openArticleEditor();
   }, [openArticleEditor, user]);
-  const handleClickNotification = useCallback(() => {
-    if (user.needLogin()) {
-      return;
-    }
-    moveTo('/notification')
-  }, [moveTo]);
+  const handleClickNews = useCallback(() => moveTo('/news'), [moveTo]);
+  // const handleClickNotification = useCallback(() => {
+  //   if (user.needLogin()) {
+  //     return;
+  //   }
+  //   moveTo('/notification')
+  // }, [moveTo]);
   const handleClickProfile = useCallback(() => {
     if (user.needLogin()) {
       return;
@@ -82,13 +84,19 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
           name="글쓰기"
           onClick={handleClickWrite}
         />
-        <NotificationMenuItem
+        <MenuItem
+          className="News"
+          icon={<Icon icon="stitchedRectangle" size="24px" color={colors.black33} />}
+          name="뉴스"
+          onClick={handleClickNews}
+        />
+        {/* <NotificationMenuItem
           className="Notification"
           hasNoti={hasNotfi}
           icon={<Icon icon="notification" size="24px" color={colors.black33} />}
           name="알림"
           onClick={handleClickNotification}
-        />
+        /> */}
         <MenuItem
           className="MyProfile"
           icon={<Icon icon="user" size="24px" color={colors.black33} />}
@@ -112,7 +120,7 @@ const MenuBarContainer = styled.div`
   box-shadow: inset 0 0.5px 0 0 #e6e6e6;
 `;
 
-const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap]}>`
+const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap] }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -130,19 +138,19 @@ const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap]}>`
   }
 `;
 
-const NotificationMenuItem = styled(MenuItem)<{ hasNoti: boolean}>`
-  position: relative;
-  &::after {
-    content: ${p => p.hasNoti ? "''" : 'none'};
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    width: 6px;
-    height: 6px;
-    margin: 0 auto;
-    transform: translateX(12px);
-    background-color: ${colors.primary};
-    border-radius: 6px;
-  }
-`;
+// const NotificationMenuItem = styled(MenuItem) <{ hasNoti: boolean }>`
+//   position: relative;
+//   &::after {
+//     content: ${p => p.hasNoti ? "''" : 'none'};
+//     position: absolute;
+//     top: 0;
+//     right: 0;
+//     left: 0;
+//     width: 6px;
+//     height: 6px;
+//     margin: 0 auto;
+//     transform: translateX(12px);
+//     background-color: ${colors.primary};
+//     border-radius: 6px;
+//   }
+// `;
