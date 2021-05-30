@@ -8,7 +8,7 @@ const Advertisement: React.FC<{}> = () => {
 
   return (
     <AdLink target="_blank">
-      <Img src="https://static.owwners.com/dhfi7dxpu/image/upload/v1614515292/owner/owwners-ad_log4vn.png" alt="picar banner" />
+      <Img src="https://static.picar.kr/dhfi7dxpu/image/upload/v1622347340/picar/pc-card-r-ad_tbsfyv.png" alt="picar banner" />
     </AdLink>
   );
 };
@@ -18,7 +18,7 @@ export default Advertisement;
 const AdLink = styled.a`
   display: block;
   width: 264px;
-  height: 128px;
+  height: 77px;
   margin-top: 16px;
   cursor: pointer;
 `;
