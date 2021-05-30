@@ -9,73 +9,73 @@ const Uploader: React.FC<{
   className?: string;
   children: React.ReactNode;
   isLoading?: boolean;
-  setProfileUrl?: (url: string) => void; 
-  setThumbnailUrl?: (url: string) => void; 
+  setProfileUrl?: (url: string) => void;
+  setThumbnailUrl?: (url: string) => void;
   setUploadedUrl?: (url: string) => void;
   setPreUploadUrl: (preUploadUrl: string) => void;
-}> = ({ 
-    className, 
-    children, 
-    isLoading = false,
-    setUploadedUrl, 
-    setPreUploadUrl, 
-    setThumbnailUrl, 
-    setProfileUrl 
-  }) => {
-  const hiddenInputRef = React.useRef<HTMLInputElement>(null);
-  
-  const handleClick = React.useCallback(() => {
-    if(hiddenInputRef.current) {
-      hiddenInputRef.current.click();
-    }
-  }, [])
-  const handleChangeFile = async (event: React.ChangeEvent) => {
-    event.preventDefault();
-    const fileElement = event.target as HTMLInputElement;
-    const files = fileElement.files;
+}> = ({
+  className,
+  children,
+  isLoading = false,
+  setUploadedUrl,
+  setPreUploadUrl,
+  setThumbnailUrl,
+  setProfileUrl
+}) => {
+    const hiddenInputRef = React.useRef<HTMLInputElement>(null);
 
-    if (files && files.length > 0) {
-      try {
-        const reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload = () => setPreUploadUrl(reader!.result!.toString());
-
-        if (setProfileUrl) {
-          API.imageUpload(files[0], 'owwners_profile').then(profileUrl => setProfileUrl(profileUrl.imgUrl));
-        }
-        
-        if (setThumbnailUrl) {
-          API.imageUpload(files[0], 'owwners_thumbnail').then(thumbnailUrl => setThumbnailUrl(thumbnailUrl.imgUrl));
-        }
-        if (setUploadedUrl) {
-          API.imageUpload(files[0], 'owwners_post').then(photoUrl => setUploadedUrl(photoUrl.imgUrl));
-        }
-      } catch (error) {
-        console.log(error);
+    const handleClick = React.useCallback(() => {
+      if (hiddenInputRef.current) {
+        hiddenInputRef.current.click();
       }
-    }
-  };
+    }, [])
+    const handleChangeFile = async (event: React.ChangeEvent) => {
+      event.preventDefault();
+      const fileElement = event.target as HTMLInputElement;
+      const files = fileElement.files;
 
-  return (
-    <StyledUploader className={className} onClick={handleClick} isLoading={isLoading}>
-      {isLoading && <Loader icon="loading" size="24px" />}
-      {children}
-      <HiddenInput
-        type="file"
-        ref={hiddenInputRef}
-        onChange={handleChangeFile}
-        onError={(e) => {
-          (e.target as HTMLInputElement).value = '';
-          console.log('Error: ', e);
-        }}
-      />
-    </StyledUploader>
-  );
-};
+      if (files && files.length > 0) {
+        try {
+          const reader = new FileReader();
+          reader.readAsDataURL(files[0]);
+          reader.onload = () => setPreUploadUrl(reader!.result!.toString());
+
+          if (setProfileUrl) {
+            API.imageUpload(files[0], 'picar_profile').then(profileUrl => setProfileUrl(profileUrl.imgUrl));
+          }
+
+          if (setThumbnailUrl) {
+            API.imageUpload(files[0], 'picar_thumbnail').then(thumbnailUrl => setThumbnailUrl(thumbnailUrl.imgUrl));
+          }
+          if (setUploadedUrl) {
+            API.imageUpload(files[0], 'picar_post').then(photoUrl => setUploadedUrl(photoUrl.imgUrl));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    return (
+      <StyledUploader className={className} onClick={handleClick} isLoading={isLoading}>
+        {isLoading && <Loader icon="loading" size="24px" />}
+        {children}
+        <HiddenInput
+          type="file"
+          ref={hiddenInputRef}
+          onChange={handleChangeFile}
+          onError={(e) => {
+            (e.target as HTMLInputElement).value = '';
+            console.log('Error: ', e);
+          }}
+        />
+      </StyledUploader>
+    );
+  };
 
 export default Uploader;
 
-const StyledUploader = styled.div<{isLoading: boolean}>`
+const StyledUploader = styled.div<{ isLoading: boolean }>`
   display: inline-block;
   position: relative;
   ${p => p.isLoading && css`

@@ -12,8 +12,8 @@ import { useEditorContext, observer } from './context';
 
 const PhotoSection: React.FC = () => {
   const { photos, setPhotos, setThumbnail } = useEditorContext();
-  const [ postImages, setPostImages ] = React.useState<(string | undefined)[]>(photos.split(','));
-  const [ preUploads, setPreUploades ] = React.useState<(string | undefined)[]>(photos.split(','));
+  const [postImages, setPostImages] = React.useState<(string | undefined)[]>(photos.split(','));
+  const [preUploads, setPreUploades] = React.useState<(string | undefined)[]>(photos.split(','));
   const nextIndex = React.useMemo(() => {
     return Math.max(postImages.filter(p => !!p).length, preUploads.filter(p => !!p).length)
   }, [postImages, preUploads])
@@ -39,7 +39,7 @@ const PhotoSection: React.FC = () => {
   React.useEffect(() => {
     const firstImage = photos.split(',')[0];
     if (firstImage) {
-      API.imageUpload(firstImage, 'owwners_thumbnail').then(thumbnail => setThumbnail(thumbnail.imgUrl));
+      API.imageUpload(firstImage, 'picar_thumbnail').then(thumbnail => setThumbnail(thumbnail.imgUrl));
     }
   }, [photos.split(',')[0]])
 
@@ -48,15 +48,15 @@ const PhotoSection: React.FC = () => {
       <PhotoRow>
         {preUploads.filter(img => !!img).map((_, index) => (
           <li key={`${preUploads[index]}`} >
-            <Image 
+            <Image
               photoUrl={postImages[index]}
-              preUploadUrl={preUploads[index]} 
+              preUploadUrl={preUploads[index]}
               clear={() => handleClear(index)}
             />
           </li>
         ))}
       </PhotoRow>
-      <HR full marginTop={15}/>
+      <HR full marginTop={15} />
       <Tools>
         <PhotoUploader.Uploader
           setPreUploadUrl={(preloadingUrl: string) => setPreUploadUrl(nextIndex, preloadingUrl)}
