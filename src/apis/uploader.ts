@@ -1,4 +1,5 @@
 import axios from 'axios';
+import env from '../env';
 
 type Presets = 'picar_thumbnail' | 'picar_post' | 'picar_profile';
 
@@ -18,12 +19,19 @@ export default async function (
       process.env.REACT_APP_CLOUDINARY_UPLOAD_URL || '',
       form,
     );
+
+    const imgUrl = env.REACT_APP_STATIC_DOMAIN
+      ? data.secure_url.replace('res.cloudinary.com', env.REACT_APP_STATIC_DOMAIN)
+      : data.secure_url;
+
+    console.log('imgUrl', imgUrl);
+
     return {
       id: data.public_id,
-      imgUrl: data.secure_url,
+      imgUrl,
       format: data.format,
     };
   } catch (error) {
-    throw new Error('UPLOAD ERROR');
+    throw new Error(`UPLOAD ERROR ${error}`);
   }
 }

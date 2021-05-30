@@ -1,7 +1,7 @@
-import { useState} from 'react';
+import { useState } from 'react';
 
 export const usePhotoUPloader = (defaultImage: string) => {
-  const [uploadedUrl, setUploadedUrl ] = useState(defaultImage);
+  const [uploadedUrl, setUploadedUrl] = useState(defaultImage);
   const [preUploadUrl, setPreUploadUrl] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState(defaultImage);
   const [profileUrl, setProfileUrl] = useState(defaultImage);
