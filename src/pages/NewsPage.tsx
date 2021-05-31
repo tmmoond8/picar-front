@@ -4,35 +4,28 @@ import styled from '@emotion/styled';
 import React from 'react';
 import Page from './BasePage';
 import { colors } from '../styles';
-import NewsType from '../types/News';
 import News from '../components/News';
-
-const news: NewsType[] = [
-  {
-    id: 12323,
-    title: 'asddsad',
-    content: 'asdffdsaf',
-    publisher: '연합뉴스',
-    thumbnail: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622186006/noticon/qwvot1hwgwh0shnzumww.png',
-    createAt: '2021-05-30T04:43:26.964Z',
-  },
-  {
-    id: 12344,
-    title: 'asddsad',
-    content: 'asdffdsaf',
-    publisher: '연합뉴스',
-    thumbnail: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622186006/noticon/qwvot1hwgwh0shnzumww.png',
-    createAt: '2021-05-30T04:43:26.964Z',
-  }
-];
+import Loader from '../components/Loader';
+import APIS from '../apis';
 
 const NewsPage: React.FC = () => {
+  const [news, setNews] = React.useState([]);
+  React.useEffect(() => {
+    (async () => {
+      const { data: { ok, news } } = await APIS.news.list();
+      if (ok) {
+        setNews(news);
+      }
+    })();
+  }, [])
+
   return (
     <Page>
       <Header >뉴스룸</Header>
-      <News.List
-        news={news}
-      />
+      {news.length > 0 && (
+        <News news={news} />
+      )}
+      {news.length === 0 && <Loader size="32px" />}
     </Page>
   )
 }

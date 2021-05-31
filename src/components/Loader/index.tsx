@@ -13,7 +13,7 @@ interface WrapperSize {
   height: number;
   width: number;
 }
-const Loader: React.FC<{ className?: string; size?: string;}> = ({ className, size="16px"}) => {
+const Loader: React.FC<{ className?: string; size?: string; }> = ({ className, size = "16px" }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { top, left, width, height } = useParentSize(ref);
 

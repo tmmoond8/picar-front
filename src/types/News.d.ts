@@ -1,8 +1,10 @@
-export default interface News {
-  id: number;
+export interface NewsFeed {
+  publisher: string;
+  author?: string;
   title: string;
   content: string;
-  publisher: Profile;
+  link: string;
+  pubDate: string;
+  id: string;
   thumbnail?: string;
-  createAt: string;
 }

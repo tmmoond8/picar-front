@@ -8,6 +8,7 @@ import * as user from './user';
 import * as notification from './notification';
 import * as spreadSheet from './spreadSheet';
 import * as notion from './notion';
+import * as news from './news';
 import firebase from './firebaseDB';
 
 export default {
@@ -22,4 +23,5 @@ export default {
   spreadSheet,
   firebase,
   notion,
+  news,
 };

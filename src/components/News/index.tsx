@@ -4,42 +4,43 @@ import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
 
-import News from '../../types/News';
+import { NewsFeed } from '../../types/News';
 import Profile from '../Profile';
 import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 
 const NewsList: React.FC<{
   className?: string;
-  news: News[];
+  news: NewsFeed[];
 }> = ({
   className, news,
 }) => {
 
     return (
       <List className={cx("NewsList", className)}>
-        {news.map((article) => (
+        {news.map((feed) => (
           <Card
-            key={article.id}
-            onClick={() => console.log('clicked')}
+            key={feed.id}
+            onClick={() => window.open(feed.link)}
           >
             <CardHead>
               <Profile.Photo
                 src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1594648084/noticon/qfg5idw99fyq2b4ry6wn.png"
                 size={24}
               />
-              <Profile.WhoDot name={article.publisher} />
-              <p className="article-time">{getDateGoodLook(article.createAt)}</p>
+              <Profile.WhoDot name={feed.publisher} />
+              <p className="feed-time">{getDateGoodLook(feed.pubDate)}</p>
             </CardHead>
             <CardBody >
               <div className="NewsCardContentWrapper">
-                <p className="NewsCardTitle">{article.title}</p>
-                <p className="NewsCardContent">{article.content}</p>
+                <p className="NewsCardTitle">{feed.title}</p>
+                <p className="NewsCardContent">{feed.content}</p>
               </div>
             </CardBody>
           </Card>
-        ))}
-      </List>
+        ))
+        }
+      </List >
     );
   }
 
@@ -47,7 +48,7 @@ export default React.memo(NewsList);
 
 const List = styled.ol`
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px);
   overflow-y: auto;
   li {
     margin-top: 8px;
@@ -65,7 +66,7 @@ const CardHead = styled.div`
   align-items: center;
   height: 24px;
 
-  .article-time {
+  .feed-time {
     flex: 1;
     text-align: right;
     font-size: 13px;
