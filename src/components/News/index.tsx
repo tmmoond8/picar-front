@@ -9,6 +9,13 @@ import Profile from '../Profile';
 import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 
+const newLogs = {
+  'Herald News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478402/noticon/rxsm1xn9galey5ic6mcy.png',
+  'HyundaiMotorGroup': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478573/noticon/jxbxgoljfpkz2rwt9knc.png',
+  'NewsWire': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478607/noticon/ywdda0kpuhk1nnxzg8ju.png',
+  'ET News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478884/noticon/i7bne3kuq9df4er4jz9i.png',
+} as const;
+
 const NewsList: React.FC<{
   className?: string;
   news: NewsFeed[];
@@ -24,8 +31,8 @@ const NewsList: React.FC<{
             onClick={() => window.open(feed.link)}
           >
             <CardHead>
-              <Profile.Photo
-                src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1594648084/noticon/qfg5idw99fyq2b4ry6wn.png"
+              <PublisherLogo
+                src={newLogs[feed.publisher as keyof typeof newLogs]}
                 size={24}
               />
               <Profile.WhoDot name={feed.publisher} />
@@ -36,6 +43,7 @@ const NewsList: React.FC<{
                 <p className="NewsCardTitle">{feed.title}</p>
                 <p className="NewsCardContent">{feed.content}</p>
               </div>
+              <Thumbnail src={feed.thumbnail} />
             </CardBody>
           </Card>
         ))
@@ -108,4 +116,17 @@ const CardBody = styled.div`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+`;
+
+const Thumbnail = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 2px;
+  object-fit: cover;
+  object-position: top;
+  margin-left: 16px;
+`;
+
+const PublisherLogo = styled(Profile.Photo)`
+  margin: 0 8px 0 0;
 `;
