@@ -56,7 +56,7 @@ export default React.memo(NewsList);
 
 const List = styled.ol`
   width: 100%;
-  height: calc(100% - 60px);
+  height: 100%;
   overflow-y: auto;
   li {
     margin-top: 8px;

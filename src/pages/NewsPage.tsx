@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import _Page from './BasePage';
-import { colors } from '../styles';
+import { colors, constants } from '../styles';
 import News from '../components/News';
 import _MenuBar from '../components/MenuBar';
 import Loader from '../components/Loader';
@@ -25,10 +25,12 @@ const NewsPage: React.FC = () => {
   return (
     <Page>
       <Header >뉴스룸</Header>
-      {news.length > 0 && (
-        <News news={news} />
-      )}
-      {news.length === 0 && <Loader size="32px" />}
+      <Content isMobile={ui.queryMatch.Mobile}>
+        {news.length > 0 && (
+          <News news={news} />
+        )}
+        {news.length === 0 && <Loader size="32px" />}
+      </Content>
       {ui.queryMatch.Mobile && <MenuBar />}
     </Page>
   )
@@ -44,7 +46,7 @@ const Page = styled(_Page)`
 const Header = styled.header`
   display: flex;
   align-items: center;
-  height: 60px;
+  min-height: 60px;
   padding: 0 20px;
   font-size: 19px;
   font-weight: bold;
@@ -52,6 +54,16 @@ const Header = styled.header`
   background-color: ${colors.white};
 `;
 
+const Content = styled.div<{ isMobile: boolean }>`
+  flex: 1;
+  overflow-y: auto;
+  ${p => p.isMobile && css`
+    padding: 0 0 56px 0;
+  `};
+`
+
 const MenuBar = styled(_MenuBar)`
-  position: relative;
+  position: fixed;
+  bottom: ${constants.safeBottom};
+  left: 0;
 `;
