@@ -52,3 +52,4 @@ export { ReactComponent as more } from './more.svg';
 export { ReactComponent as time } from './time.svg';
 export { ReactComponent as trending } from './trending.svg';
 export { ReactComponent as cross } from './cross.svg';
+export { ReactComponent as news } from './news.svg';
