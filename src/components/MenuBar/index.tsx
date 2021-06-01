@@ -5,8 +5,8 @@ import React from 'react';
 import { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { constants } from '../../styles';
 import MenuItem from './MenuItem';
+import FloatingButon from './FloatingButton';
 import Icon from '../Icon';
 import { useOpenArticleEditor } from '../Article';
 
@@ -78,12 +78,6 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
           name="검색"
           onClick={handleClickSearch}
         />
-        {/* <MenuItem
-          className="Write"
-          icon={<Icon icon="addRound" size="24px" color={colors.black33} />}
-          name="글쓰기"
-          onClick={handleClickWrite}
-        /> */}
         <MenuItem
           className="Notification"
           hasNoti={hasNotfi}
@@ -104,6 +98,7 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
           onClick={handleClickProfile}
         />
       </Menus>
+      <FloatingButon onClick={handleClickWrite} />
     </MenuBarContainer>
   );
 };
@@ -111,13 +106,12 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
 export default observer(MenuBar);
 
 const MenuBarContainer = styled.div`
-  position: fixed;
-  bottom: ${constants.safeBottom};
-  left: 0;
+  position: relative;
   width: 100%;
   height: 56px;
   background-color: ${colors.white};
   box-shadow: inset 0 0.5px 0 0 #e6e6e6;
+  z-index: 2000;
 `;
 
 const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap] }>`

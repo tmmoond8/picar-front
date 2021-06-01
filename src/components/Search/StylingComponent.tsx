@@ -46,7 +46,7 @@ export const RemoveRecentSearchs = styled(Button)`
 `;
 
 export const MenuBar = styled(MenuBarComponent)`
-  position: static;
+  position: relative;
   top: none;
   left: none;
   right: none;

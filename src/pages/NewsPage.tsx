@@ -53,5 +53,5 @@ const Header = styled.header`
 `;
 
 const MenuBar = styled(_MenuBar)`
-  position: static;
+  position: relative;
 `;

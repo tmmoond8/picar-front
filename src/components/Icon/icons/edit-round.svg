@@ -1,10 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-    <g fill="none" fill-rule="evenodd">
-        <path d="M0 0H16V16H0z" transform="translate(-203 -246) translate(0 -67) translate(0 297) translate(18) translate(84 14) translate(101 2)"/>
-        <g transform="translate(-203 -246) translate(0 -67) translate(0 297) translate(18) translate(84 14) translate(101 2)">
-            <circle cx="8" cy="8" r="8" fill="#147BF9"/>
-            <path fill="#FFF" d="M4.5 11H11.5V12H4.5z"/>
-            <path fill="#FFF" fill-rule="nonzero" d="M9 3.5L11 5.5 6.5 9.5 4.5 9.5 4.5 7.5z"/>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" fill="none" viewBox="0 0 66 66">
+	<g filter="url(#filter0_d)">
+		<circle cx="33" cy="28" r="28" fill="#F7BD0C" />
+		<path fill="#fff" d="M38.648 15.351l6 6c.47.47.47 1.229 0 1.698l-15.6 15.6c-.224.225-.53.351-.848.351h-6c-.663 0-1.2-.537-1.2-1.2v-6c0-.318.126-.623.352-.849l15.6-15.6c.468-.468 1.228-.468 1.697 0z" />
+	</g>
+	<defs>
+		<filter id="filter0_d" width="65.333" height="65.333" x=".333" y="0" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+			<feFlood flood-opacity="0" result="BackgroundImageFix" />
+			<feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+			<feOffset dy="4.667" />
+			<feGaussianBlur stdDeviation="2.333" />
+			<feColorMatrix values="0 0 0 0 0.804451 0 0 0 0 0.605969 0 0 0 0 0.000256956 0 0 0 0.2 0" />
+			<feBlend in2="BackgroundImageFix" result="effect1_dropShadow" />
+			<feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+		</filter>
+	</defs>
 </svg>

@@ -13,8 +13,8 @@ const NotificationPage: React.FC = () => {
   const { user } = useStore();
   return (
     <StyledPage>
-      <Header onClose={() => console.log('close')} options={{ title: '알림'}}/>
-      <NotificationList notifications={user.notifications}/>
+      <Header onClose={() => console.log('close')} options={{ title: '알림' }} />
+      <NotificationList notifications={user.notifications} />
       <StyledMenu />
     </StyledPage>
   )
@@ -34,9 +34,5 @@ const Header = styled(CloseHeader)`
 `;
 
 const StyledMenu = styled(MenuBar)`
-  position: static;
-`;
-
-const Body = styled.div`
-  flex: 1;
+  position: relative;
 `;

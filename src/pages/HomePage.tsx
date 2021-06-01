@@ -5,9 +5,10 @@ import styled from '@emotion/styled';
 
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
+import { constants } from '../styles';
 import ArticleList from '../components/ArticleList';
 import Carousel from '../components/Carousel';
-import MenuBar from '../components/MenuBar';
+import _MenuBar from '../components/MenuBar';
 import NavigationHeader from '../components/Header/NavigationHeader';
 import { CAROUSEL, LOUNGE, LOUNGE_NAMES } from '../types/constants';
 
@@ -100,3 +101,9 @@ const TabletHome = observer(() => {
     </React.Fragment>
   );
 });
+
+const MenuBar = styled(_MenuBar)`
+  position: fixed;
+  bottom: ${constants.safeBottom};
+  left: 0;
+`

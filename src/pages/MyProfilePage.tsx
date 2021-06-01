@@ -29,7 +29,7 @@ const Mobile = () => {
       util.history.replace('/');
     }
   }, [])
-  
+
   return (
     <React.Fragment>
       <Profile.Header />
@@ -52,7 +52,7 @@ const Mobile = () => {
         </Profile.UserHistoryMenus>
         <HR height={1} color={colors.blackF5F6F7} />
         <Profile.AppMenus>
-        <li onClick={() => window.open('https://bit.ly/3bHRJMd', '_blank')}>
+          <li onClick={() => window.open('https://bit.ly/3bHRJMd', '_blank')}>
             공지사항
             <Icon icon="arrowRight" size="16px" />
           </li>
@@ -69,7 +69,7 @@ const Mobile = () => {
 
 const Tablet = () => {
   const { user, ui } = useStore();
-  const [contentHeight, setContentHeight ] = React.useState('0px');
+  const [contentHeight, setContentHeight] = React.useState('0px');
   const { profileImage, name, group, description, code } = user.profile;
   const handleChangeActication = React.useCallback((index: number) => {
     const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
@@ -88,7 +88,7 @@ const Tablet = () => {
     }, 500);
     return () => clearTimeout(timer);
   }, [])
- 
+
   return (
     <TabletWrapper className="MyProfileWrapper">
       <Profile.Header />
@@ -101,9 +101,9 @@ const Tablet = () => {
           code={code}
         />
       </Body>
-      <Activations 
-        userCode={user.profile.code} 
-        tab={'article'} 
+      <Activations
+        userCode={user.profile.code}
+        tab={'article'}
         onChange={handleChangeActication}
         height={contentHeight}
       />
@@ -135,7 +135,7 @@ const Body = styled.div`
 `;
 
 const StyledMenuBar = styled(MenuBar)`
-  position: static;
+  position: relative;
 `;
 
 const TabletWrapper = styled.div`
@@ -154,7 +154,7 @@ const TabletWrapper = styled.div`
   }
 `;
 
-const Activations = styled(ActivationsContainer)<{height: string}>`
+const Activations = styled(ActivationsContainer) <{ height: string }>`
   margin: 16px 0 0 0;
   .Tabs {
     height: 56px;
