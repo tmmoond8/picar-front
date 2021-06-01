@@ -1,16 +1,23 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
+const SCHEME = process.env.REACT_APP_DEV === 'develop' ? 'http' : 'https';
+const HOST = process.env.REACT_APP_DEV
+  ? `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
+  : `www.picar.kr`
+const API_URL = process.env.REACT_APP_DEV === 'develop'
+  ? `${SCHEME}://${process.env.REACT_APP_HOST}:6060/api`
+  : `${SCHEME}://api.picar.kr/api`;
 
 export default {
   NODE_ENV: process.env.NODE_ENV,
-  REACT_APP_API_URL: process.env.REACT_APP_API_URL ?? '',
+  REACT_APP_API_URL: API_URL,
   REACT_APP_STATIC_DOMAIN: process.env.REACT_APP_STATIC_DOMAIN ?? '',
   REACT_APP_NAVER_CLIENT_ID: process.env.REACT_APP_NAVER_CLIENT_ID ?? '',
   REACT_APP_NAVER_CLIENT_SECRET: process.env.REACT_APP_NAVER_CLIENT_SECRET ?? '',
-  REACT_APP_NAVER_LOGIN_BRIDGE_URL: process.env.REACT_APP_NAVER_LOGIN_BRIDGE_URL ?? '',
-  REACT_APP_LOGIN_URL: process.env.REACT_APP_LOGIN_URL ?? '',
-  REACT_APP_KAKAO_LOGIN_BRIDGE_URL: process.env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL ?? '',
+  REACT_APP_NAVER_LOGIN_BRIDGE_URL: `${SCHEME}://${HOST}/lgoin/naver`,
+  REACT_APP_LOGIN_URL: `${SCHEME}://${HOST}/login`,
+  REACT_APP_KAKAO_LOGIN_BRIDGE_URL: `${SCHEME}://${HOST}/lgoin/kakao`,
   REACT_APP_KAKAO_LOGIN_KEY: process.env.REACT_APP_KAKAO_LOGIN_KEY ?? '',
   REACT_APP_KAKAO_USER_API_KEY: process.env.REACT_APP_KAKAO_USER_API_KEY ?? '',
   REACT_APP_FB_API_KEY: process.env.REACT_APP_FB_API_KEY ?? '',
