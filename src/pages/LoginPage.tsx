@@ -71,6 +71,7 @@ const FullLoading = styled.div`
   background-color: white;
 
   svg {
-    width: 200px;
+    width: 108px;
+    height: auto;
   }
 `;

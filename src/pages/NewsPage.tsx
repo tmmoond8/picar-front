@@ -2,13 +2,16 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import Page from './BasePage';
+import _Page from './BasePage';
 import { colors } from '../styles';
 import News from '../components/News';
+import _MenuBar from '../components/MenuBar';
 import Loader from '../components/Loader';
 import APIS from '../apis';
+import { useStore, observer } from '../stores';
 
 const NewsPage: React.FC = () => {
+  const { ui } = useStore();
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
     (async () => {
@@ -26,11 +29,17 @@ const NewsPage: React.FC = () => {
         <News news={news} />
       )}
       {news.length === 0 && <Loader size="32px" />}
+      {ui.queryMatch.Mobile && <MenuBar />}
     </Page>
   )
 }
 
-export default NewsPage;
+export default observer(NewsPage);
+
+const Page = styled(_Page)`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Header = styled.header`
   display: flex;
@@ -41,4 +50,8 @@ const Header = styled.header`
   font-weight: bold;
   color: ${colors.black22};
   background-color: ${colors.white};
+`;
+
+const MenuBar = styled(_MenuBar)`
+  position: static;
 `;
