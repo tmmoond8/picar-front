@@ -17,7 +17,7 @@ const Selector: React.FC = () => {
   return (
     <StyledSelector onClick={handleNext}>
       {selected}
-      <Icon icon="arrowDown" size="16px"/>
+      <Icon icon="selectorDown" size="16px" />
     </StyledSelector>
   )
 }
