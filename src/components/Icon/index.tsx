@@ -35,7 +35,7 @@ function Icon(props: IconProps): JSX.Element {
   } = props;
   const customStyle = styles.customStyle({
     color,
-    cursor: typeof onClick === 'function' ? 'pointer' : 'auto',
+    cursor: typeof onClick === 'function' ? 'pointer' : 'inherit',
   });
   const handleClick = (e: React.MouseEvent) => {
     if (typeof onClick === 'function') onClick(e);

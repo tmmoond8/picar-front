@@ -63,6 +63,7 @@ const List = styled.ol`
   overflow-y: auto;
   font-size: 17px;
   color: ${colors.black22};
+  padding: 0 0 64px 0;
 
   .Lounge {
     display: flex;

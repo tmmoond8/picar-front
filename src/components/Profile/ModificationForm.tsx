@@ -148,6 +148,7 @@ const PHotoUploaderButton = styled.div`
   position: relative;
   padding: 6px 0;
   text-align: center;
+  cursor: pointer;
 `;
 
 const ProfilePhoto = styled(Squircle)`

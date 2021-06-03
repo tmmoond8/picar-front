@@ -11,13 +11,14 @@ interface WhoProps {
   group?: string;
   nameColor?: string;
   right?: React.ReactNode;
+  onClickName: () => void;
 }
 
 export const WhoDot: React.FC<WhoProps> = (props) => {
-  const { name, group, className, nameColor, right } = props;
+  const { name, group, className, nameColor, right, onClickName } = props;
   return (
     <StyledWhotDot className={cx(className, 'Who')} nameColor={nameColor}>
-      <p className="user-name">{name}</p>
+      <p className="user-name" onClick={onClickName}>{name}</p>
       {group && <p className="user-group">{group}</p>}
       {right && right}
     </StyledWhotDot>
@@ -25,10 +26,10 @@ export const WhoDot: React.FC<WhoProps> = (props) => {
 }
 
 export const Who: React.FC<WhoProps> = (props) => {
-  const { name, group, className } = props;
+  const { name, group, className, onClickName } = props;
   return (
     <StyledWho className={cx(className, 'Who')}>
-      <p className="user-name">{name}</p>
+      <p className="user-name" onClick={onClickName}>{name}</p>
       <p className="user-group">{group}</p>
     </StyledWho>
   );
@@ -41,9 +42,10 @@ const StyledWhotDot = styled.div<{ nameColor?: string }>`
   .user-name {
     font-size: 14px;
     color: ${colors.black50};
+    cursor: pointer;
     ${(p) =>
-      p.nameColor &&
-      css`
+    p.nameColor &&
+    css`
         color: ${colors.primary};
       `}
   }

@@ -17,7 +17,7 @@ const Squircle: React.FC<{
   }, [onClick]);
   const { shapeSquircle, clipSquircle } = useUUID();
   return (
-    <Wrapper width={size} className={cx('UserProfilePhoto', className)} onClick={handleClick} clickable={!!handleClick}>
+    <Wrapper width={size} className={cx('UserProfilePhoto', className)} onClick={handleClick} clickable={!!onClick}>
       <svg viewBox="0 0 88 88">
         <defs>
           <path id={shapeSquircle} d="M44,0 C76.0948147,0 88,11.9051853 88,44 C88,76.0948147 76.0948147,88 44,88 C11.9051853,88 0,76.0948147 0,44 C0,11.9051853 11.9051853,0 44,0 Z"></path>

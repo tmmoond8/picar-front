@@ -8,22 +8,22 @@ import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
 import { Profile as TProfile } from '../../types/User';
 
-const Profile: React.FC<Pick<TProfile, 'name' | 'group' | 'profileImage' | 'description' | 'code'> & { className?: string }> = ({ 
-  name, 
-  group, 
-  description, 
-  profileImage, 
+const Profile: React.FC<Pick<TProfile, 'name' | 'group' | 'profileImage' | 'description' | 'code'> & { className?: string }> = ({
+  name,
+  group,
+  description,
+  profileImage,
   className,
   code,
 }) => {
   const { util, user } = useStore();
   const handleClickEditIntroduction = React.useCallback(() => {
-    util.history.push('/myProfile/edit', { focus: 'ProfileIntoduction'});
+    util.history.push('/myProfile/edit', { focus: 'ProfileIntoduction' });
   }, [])
 
   return (
     <UserProfile className={cx('Profile', className)}>
-      <Squircle className="Photo" src={profileImage} size={96} />
+      <Squircle className="Photo" src={profileImage} size={96} onClick={handleClickEditIntroduction} />
       <h2 className="Name">{name}</h2>
       <h4 className="Group">{group}</h4>
       {description && <p className="Introduction">{description}</p>}

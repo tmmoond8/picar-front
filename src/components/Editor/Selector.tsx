@@ -37,7 +37,8 @@ const StyledSelector = styled.button`
   border-radius: 8px;
   cursor: pointer;
 
-  .Icon.arrowDown {
+  .Icon.selectorDown {
     margin: 0 0 0 6px;
+    cursor: pointer;
   }
 `

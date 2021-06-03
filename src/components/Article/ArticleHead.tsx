@@ -19,7 +19,7 @@ const ArticleHead = () => {
   return (
     <Head>
       <ProfilePhoto src={thumbnail} onClick={() => handleOpenProfile(code)} />
-      <Profile.WhoDot name={name} group={group} />
+      <Profile.WhoDot name={name} group={group} onClickName={() => handleOpenProfile(code)} />
       <p className="article-time">{getDateGoodLook(article!.createAt)}</p>
     </Head>
   );

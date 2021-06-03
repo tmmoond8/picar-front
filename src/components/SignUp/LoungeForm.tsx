@@ -150,6 +150,7 @@ const SelectItem = styled.li<{ hasRightArrow?: boolean; selected?: boolean }>`
   background-color: ${colors.blackF7};
   color: ${colors.black33};
   font-size: 16px; 
+  cursor: pointer;
 
   ${p => p.selected && css`
     border: solid 1px ${colors.black22};
