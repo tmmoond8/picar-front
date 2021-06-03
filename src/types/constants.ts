@@ -48,34 +48,46 @@ export const VENDOR: Vendor[] = [
   {
     name: '테슬라', icon: '', children: [
       {
-        name: '테슬라 모델 Y',
+        name: '테슬라 모델3',
       },
       {
-        name: '테슬라 모델 3',
+        name: '테슬라 모델Y',
       },
       {
-        name: '테슬라 모델 X',
+        name: '테슬라 모델X',
+      },
+      {
+        name: '테슬라 모델S',
       },
     ],
   }, {
     name: '현대', icon: '', children: [
       {
-        name: '현대 아이오닉 5',
+        name: '아이오닉5',
       },
       {
-        name: '현대 아이오닉 4',
+        name: '더뉴아이오닉 EV',
       },
       {
-        name: '현대 아이오닉 3',
+        name: '아이오닉 EV',
+      },
+      {
+        name: '코나 EV',
+      },
+      {
+        name: '포터 EV',
       },
     ],
   }, {
     name: '기아', icon: '', children: [
       {
-        name: '기아 니로',
+        name: 'EV6',
       },
       {
-        name: '기아 니로 EV',
+        name: '쏘울 EV',
+      },
+      {
+        name: '봉고 EV',
       },
     ],
   },
