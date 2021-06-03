@@ -101,7 +101,8 @@ class UiStore implements UiStoreInterface {
   useTopButton() {
     return () => {
       let scrollableElement: HTMLElement | null = null;
-      if (typeof this.scrollableElementSelector === 'string') {
+      debugger;
+      if (typeof this.scrollableElementSelector === 'string' && this.scrollableElementSelector) {
         scrollableElement = document.querySelector(this.scrollableElementSelector);
       }
       if (scrollableElement !== null) {

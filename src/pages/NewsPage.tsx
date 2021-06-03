@@ -22,6 +22,8 @@ const NewsPage: React.FC = () => {
     })();
   }, [])
 
+  React.useEffect(() => { ui.scrollableElementSelector = `.NewsList`; }, [])
+
   return (
     <Page>
       <Header >뉴스룸</Header>
