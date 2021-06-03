@@ -166,7 +166,7 @@ const IsModel404 = styled.p`
   && {
     font-size: 14px;
     font-weight: 400;
-    color: ${colors.primary2};
+    color: ${colors.primary3};
     margin: 18px 0 0 0;
   }
 `

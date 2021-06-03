@@ -130,7 +130,7 @@ const StyledComment = styled.li<{ isFocus: boolean }>`
   ${(p) =>
     p.isFocus &&
     css`
-      background-color: ${colors.blackF5F6F7};
+      background-color: ${colors.primaryE};
       .reply-btn.reply-btn {
         color: ${colors.primary};
       }

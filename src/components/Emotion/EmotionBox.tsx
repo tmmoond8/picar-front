@@ -100,7 +100,7 @@ const EmotionItem = styled.li<{ selected: boolean }>`
     p.selected
       ? css`
           background-color: ${colors.primaryE};
-          color: ${colors.primary2};
+          color: ${colors.primary3};
         `
       : ''};
 

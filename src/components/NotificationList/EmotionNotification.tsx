@@ -12,15 +12,15 @@ import { getDateGoodLook } from '../../modules/string';
 import { EMOTION_TYPE } from '../../types/Emotion';
 import { Notification } from '../../types/Notification';
 
-const emotionMap: Record<keyof typeof  EMOTION_TYPE, string> = {
+const emotionMap: Record<keyof typeof EMOTION_TYPE, string> = {
   [EMOTION_TYPE.LOVE]: '좋아요',
   [EMOTION_TYPE.SAD]: '슬퍼요',
   [EMOTION_TYPE.LAUGHING]: '재밌어요',
   [EMOTION_TYPE.ANGRY]: '화나요',
 }
 
-const EmotionNotification: React.FC<Notification & { className?: string}> = ({ 
-  className, 
+const EmotionNotification: React.FC<Notification & { className?: string }> = ({
+  className,
   user,
   targetContent,
   createAt,
@@ -36,8 +36,8 @@ const EmotionNotification: React.FC<Notification & { className?: string}> = ({
       try {
         await APIS.notification.checkView(id);
         userStore.checkNotifications([id]);
-        
-      } catch(error) {
+
+      } catch (error) {
         console.error(error);
       }
     }
@@ -48,11 +48,11 @@ const EmotionNotification: React.FC<Notification & { className?: string}> = ({
 
   return (
     <NotificationItem className={className} isViewd={isViewd} onClick={handleCheckView}>
-      <Profile.Photo src={user.profileImage} size={48}/>
+      <Profile.Photo src={user.profileImage} size={48} />
       <Contents>
         <Title>{`${user.name} 님이 당신의 댓글에 ‘${emotionMap[emotion as keyof typeof EMOTION_TYPE]}’로 공감하였어요.`}</Title>
         <ArticleTitle>
-          <Icon icon="articleNew" size="16px"/>
+          <Icon icon="articleNew" size="16px" />
           {targetContent}
         </ArticleTitle>
         <Date>{getDateGoodLook(createAt)}</Date>
@@ -66,7 +66,7 @@ export default observer(EmotionNotification);
 const NotificationItem = styled.li<{ isViewd: boolean }>`
   display: flex;
   padding: 10px 18px 12px 18px;
-  background-color: ${p => p.isViewd ? colors.transparent : colors.primaryF};
+  background-color: ${p => p.isViewd ? colors.transparent : colors.primaryE};
   cursor: pointer;
   .UserProfilePhoto {
     margin: 0 12px 0 0;

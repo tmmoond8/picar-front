@@ -63,29 +63,29 @@ const CommentEditor = () => {
       return;
     }
   }, [user, handleClose])
-  
+
 
   return (
     <Editor hasContent={content.length > 0} className="CommentWrapper" >
       {user.isLogined && (
         <React.Fragment>
           <Content
-          className="CommentEditor"
-          ref={textEditableRef as React.RefObject<HTMLDivElement>}
-          contentEditable
-          placeholder={placeholder}
-          onInput={handleChangeContent}
-        />
-        {user.isLogined && <UserPhoto src={profilePhoto} />}
-        {ui.queryMatch.Mobile && <SendIconButton
-          disabled={disabled}
-          icon="send"
-          size="24px"
-          onClick={handleClickSend}
-        />}
-        {!ui.queryMatch.Mobile && <SendButton disabled={disabled} onClick={handleClickSend}>댓글작성</SendButton>}
+            className="CommentEditor"
+            ref={textEditableRef as React.RefObject<HTMLDivElement>}
+            contentEditable
+            placeholder={placeholder}
+            onInput={handleChangeContent}
+          />
+          {user.isLogined && <UserPhoto src={profilePhoto} />}
+          {ui.queryMatch.Mobile && <SendIconButton
+            disabled={disabled}
+            icon="send"
+            size="24px"
+            onClick={handleClickSend}
+          />}
+          {!ui.queryMatch.Mobile && <SendButton disabled={disabled} onClick={handleClickSend}>댓글작성</SendButton>}
         </React.Fragment>
-      ) }
+      )}
       {!user.isLogined && (
         <NeedLogin onClick={clickNeedLogin}>로그인이 필요합니다.</NeedLogin>
       )}
@@ -95,7 +95,7 @@ const CommentEditor = () => {
 
 export default observer(CommentEditor);
 
-const Editor = styled.div<{ hasContent: boolean;}>`
+const Editor = styled.div<{ hasContent: boolean; }>`
   display: flex;
   position: fixed;
   left: 0;
@@ -108,7 +108,7 @@ const Editor = styled.div<{ hasContent: boolean;}>`
   z-index: 10;
 
   button {
-    color: ${colors.primary4};
+    color: ${colors.primaryE};
     font-weight: 500;
     font-size: 15px;
     cursor: pointer;
@@ -174,7 +174,7 @@ const UserPhoto = styled(Profile.Photo)`
   animation: ${pop} 0.3s ease-in-out;
 `;
 
-const SendIconButton = styled(Icon)<{ disabled: boolean }>`
+const SendIconButton = styled(Icon) <{ disabled: boolean }>`
   order: 2;
   transform: color 0.3s ease-in-out;
   pointer-events: none;
@@ -186,7 +186,7 @@ const SendIconButton = styled(Icon)<{ disabled: boolean }>`
     `}
 `;
 
-const SendButton = styled(Button)<{disabled: boolean}>`
+const SendButton = styled(Button) <{ disabled: boolean }>`
   && {
     position: absolute;
     bottom: 18px;
@@ -196,7 +196,7 @@ const SendButton = styled(Button)<{disabled: boolean}>`
     color: ${colors.blackBF};
     border: none;
     outline: none;
-    pointer-events: ${p => p.disabled ? 'none': 'pointer'};
+    pointer-events: ${p => p.disabled ? 'none' : 'pointer'};
   }
 `
 

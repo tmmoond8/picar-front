@@ -14,8 +14,8 @@ import Notification from './Notification';
 const DesktopHeader: React.FC = () => {
   const { user, util } = useStore();
   const openArticleEditor = useOpenArticleEditor();
-  
-  
+
+
   const handleClickLogo = React.useCallback(() => {
     util.history.push('/');
   }, [])
@@ -30,13 +30,13 @@ const DesktopHeader: React.FC = () => {
   return (
     <Header>
       <Container>
-        <Logo color={colors.black40} onClick={handleClickLogo}/>
-          <Search />
-          <UserBox >
-            <Notification />
-            <UserProfile />
-            <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
-          </UserBox>
+        <Logo color={colors.black40} onClick={handleClickLogo} />
+        <Search />
+        <UserBox >
+          <Notification />
+          <UserProfile />
+          <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
+        </UserBox>
       </Container>
     </Header>
   );
@@ -72,11 +72,11 @@ const UserBox = styled.div`
 const WriteButton = styled(Button)`
   height: 44px;
   padding: 6px 20px;
-  background-color: ${colors.primary};
+  background-color: ${colors.primary3};
   
   span {
     margin: 0;
     font-size: 15px;
-    color: ${colors.white};
+    color: ${colors.black22};
   }
 `;
