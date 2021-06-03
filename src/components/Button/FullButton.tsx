@@ -37,8 +37,8 @@ const StyledFullButton = styled.button<{ disabled: boolean }>`
   justify-content: center;
   height: 56px;
   width: 100%;
-  background-color: ${colors.primary};
-  color: ${colors.white};
+  background-color: ${colors.primary3};
+  color: ${colors.black22};
   border-radius: 7px;
 
   span {

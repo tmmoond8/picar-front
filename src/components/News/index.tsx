@@ -10,10 +10,10 @@ import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 
 const newLogs = {
-  'Herald News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478402/noticon/rxsm1xn9galey5ic6mcy.png',
-  'HyundaiMotorGroup': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478573/noticon/jxbxgoljfpkz2rwt9knc.png',
-  'NewsWire': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478607/noticon/ywdda0kpuhk1nnxzg8ju.png',
-  'ET News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622478884/noticon/i7bne3kuq9df4er4jz9i.png',
+  'Herald News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726879/noticon/jtbkem1oqk1ro1yrpuls.png',
+  'HyundaiMotorGroup': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726833/noticon/dlq88x31qrnbd5c3wtkp.png',
+  'NewsWire': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726900/noticon/exjodth7nm0ffv8q1zvo.png',
+  'ET News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726863/noticon/kakndsc5wpxxlopsw0f8.png',
 } as const;
 
 const NewsList: React.FC<{
