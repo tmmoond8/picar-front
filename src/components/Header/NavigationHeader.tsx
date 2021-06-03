@@ -166,6 +166,7 @@ const Item = styled.li<{ selected: boolean }>`
   font-weight: 600;
   color: ${(p) => (p.selected ? colors.black33 : colors.blackBF)};
   word-break: keep-all;
+  white-space: nowrap;
   cursor: pointer;
 `;
 
