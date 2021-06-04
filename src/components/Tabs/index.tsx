@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 import { colors } from '../../styles';
 
-export const Tabs: React.FC<{ children: React.ReactNode; className?: string; }> = ({children, className}) => {
+export const Tabs: React.FC<{ children: React.ReactNode; className?: string; }> = ({ children, className }) => {
   return (
     <StyledTabs className={cx('Tabs', className)}>
       {children}
@@ -14,12 +14,12 @@ export const Tabs: React.FC<{ children: React.ReactNode; className?: string; }> 
   )
 }
 
-export const TabItem: React.FC<{ 
+export const TabItem: React.FC<{
   children: React.ReactNode,
   handleClick: () => void,
   className?: string;
   selected: boolean;
-}> = ({className, children, selected, handleClick}) => {
+}> = ({ className, children, selected, handleClick }) => {
   return (
     <StyledTabItem className={cx('TabItem', className)} selected={selected} onClick={handleClick}>
       {children}
@@ -38,9 +38,10 @@ const StyledTabs = styled.ol`
   }
 `;
 
-const StyledTabItem = styled.li<{selected: boolean}>`
+const StyledTabItem = styled.li<{ selected: boolean }>`
   flex: 1;
   line-height: 44px;
+  height: 100%;
   font-size: 15px;
   font-weight: 400;
   text-align: center;

@@ -27,7 +27,7 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
   menus,
   handleClose,
 }) => {
-  const [ width, setWidth ] = React.useState(0);
+  const [width, setWidth] = React.useState(0);
   const { x, y } = usePosition(targetElement, width, alignX);
   const ref = React.useRef<HTMLUListElement>(null);
   React.useEffect(() => {
@@ -91,10 +91,11 @@ const StyledContextMenus = styled.ul<{ x: string; y: string }>`
   animation: ${popup} 0.1s ease-out;
 `;
 
-const Menu = styled.li<{underline: boolean}>`
+const Menu = styled.li<{ underline: boolean }>`
+  display: flex;
+  align-items: center;
   width: 160px;
   height: 48px;
-  line-height: 48px;
   padding: 0 20px;
   ${p => p.underline && css`
     border-bottom: 1px solid ${colors.blackF5F6F7};

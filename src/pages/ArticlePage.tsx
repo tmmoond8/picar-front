@@ -78,5 +78,14 @@ export default observer(ArticlePage);
 const ArticleContainer = styled.div<{ desktop: boolean }>`
   height: 100%;
   background-color: ${colors.white};
+  padding: 56px 0 0 0;
   overflow-y: auto;
+
+  & > [class*="ArticleHeader"] {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: ${colors.white};
+    z-index: 1000;
+  }
 `;

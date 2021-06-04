@@ -58,9 +58,9 @@ const BasePage: React.FC<{
 
   return (
     <React.Fragment>
-      <HiddenAreay>
+      <HiddenArea>
         <LoginBox onClose={() => { }} />
-      </HiddenAreay>
+      </HiddenArea>
       {ui.queryMatch.Mobile && (
         <Page className={cx(className, 'MobilePage')}>{children}</Page>
       )}
@@ -88,7 +88,7 @@ const Page = styled.div`
   }
 `;
 
-const HiddenAreay = styled.div`
+const HiddenArea = styled.div`
   position: fixed;
   z-index: -10000000;
   opacity: 0;
