@@ -64,42 +64,45 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
   const hasNotfi = React.useMemo(() => user.notifications.some(noti => !noti.isViewd), [user.notifications])
 
   return (
-    <MenuBarContainer className={className}>
-      <Menus selected={selectedMenu}>
-        <MenuItem
-          className="Community"
-          icon={<Icon icon="chat" size="24px" color={colors.black33} />}
-          name="커뮤니티"
-          onClick={handleClickCommunity}
-        />
-        <MenuItem
-          className="Search"
-          icon={<Icon icon="search" size="24px" color={colors.black33} />}
-          name="검색"
-          onClick={handleClickSearch}
-        />
-        <MenuItem
-          className="Notification"
-          hasNoti={hasNotfi}
-          icon={<Icon icon="notification" size="24px" color={colors.black33} />}
-          name="알림"
-          onClick={handleClickNotification}
-        />
-        <MenuItem
-          className="News"
-          icon={<Icon icon="news" size="24px" color={colors.black33} />}
-          name="뉴스"
-          onClick={handleClickNews}
-        />
-        <MenuItem
-          className="MyProfile"
-          icon={<Icon icon="user" size="24px" color={colors.black33} />}
-          name="프로필"
-          onClick={handleClickProfile}
-        />
-      </Menus>
+    <React.Fragment>
+      <MenuBarContainer className={className}>
+        <Menus selected={selectedMenu}>
+          <MenuItem
+            className="Community"
+            icon={<Icon icon="chat" size="24px" color={colors.black33} />}
+            name="커뮤니티"
+            onClick={handleClickCommunity}
+          />
+          <MenuItem
+            className="Search"
+            icon={<Icon icon="search" size="24px" color={colors.black33} />}
+            name="검색"
+            onClick={handleClickSearch}
+          />
+          <MenuItem
+            className="Notification"
+            hasNoti={hasNotfi}
+            icon={<Icon icon="notification" size="24px" color={colors.black33} />}
+            name="알림"
+            onClick={handleClickNotification}
+          />
+          <MenuItem
+            className="News"
+            icon={<Icon icon="news" size="24px" color={colors.black33} />}
+            name="뉴스"
+            onClick={handleClickNews}
+          />
+          <MenuItem
+            className="MyProfile"
+            icon={<Icon icon="user" size="24px" color={colors.black33} />}
+            name="프로필"
+            onClick={handleClickProfile}
+          />
+        </Menus>
+      </MenuBarContainer>
       <FloatingButon onClick={handleClickWrite} />
-    </MenuBarContainer>
+    </React.Fragment>
+
   );
 };
 
@@ -111,7 +114,7 @@ const MenuBarContainer = styled.div`
   height: 56px;
   background-color: ${colors.white};
   box-shadow: inset 0 0.5px 0 0 #e6e6e6;
-  z-index: 2000;
+  z-index: 2200;
 `;
 
 const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap] }>`

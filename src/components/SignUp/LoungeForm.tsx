@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import { useSignUpContext, observer } from './context';
 import Button from '../Button';
 import Content from '../Content';
@@ -18,7 +19,7 @@ const VendorForm = observer(({ handleNext, setVendor, hideHead = false }: {
 }) => {
 
   return (
-    <Form>
+    <Form className={cx('LoungeForm')}>
       {!hideHead && (
         <React.Fragment>
           <Input.Label
@@ -28,7 +29,7 @@ const VendorForm = observer(({ handleNext, setVendor, hideHead = false }: {
           <Content.Spacing size={30} />
         </React.Fragment>
       )}
-      <SelectList >
+      <SelectList className={cx('LoungeSelector')}>
         {VENDOR.map((vendor) => (
           <SelectItem
             key={vendor.name}

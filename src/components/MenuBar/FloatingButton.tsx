@@ -17,9 +17,10 @@ const FloatingButton: React.FC<{ onClick: () => void; }> = ({
 export default FloatingButton;
 
 const Button = styled.button`
-  position: absolute;
+  position: fixed;
   right: 10px;
-  top: -60px;
+  bottom: 60px;
   padding: 0;
   cursor: pointer;
+  z-index: 2000;
 `;

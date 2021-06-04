@@ -28,7 +28,7 @@ const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
     padding: 0 8px;
     top: auto;
     bottom: calc(${constants.safeBottom} + 56px);
-    z-index: 10500;
+    z-index: 2100;
   }
   .Toastify__toast {
     min-height: auto;
