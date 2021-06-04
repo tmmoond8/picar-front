@@ -11,11 +11,11 @@ interface WhoProps {
   group?: string;
   nameColor?: string;
   right?: React.ReactNode;
-  onClickName: () => void;
+  onClickName?: () => void;
 }
 
 export const WhoDot: React.FC<WhoProps> = (props) => {
-  const { name, group, className, nameColor, right, onClickName } = props;
+  const { name, group, className, nameColor, right, onClickName = () => { } } = props;
   return (
     <StyledWhotDot className={cx(className, 'Who')} nameColor={nameColor}>
       <p className="user-name" onClick={onClickName}>{name}</p>

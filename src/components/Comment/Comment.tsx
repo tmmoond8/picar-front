@@ -64,6 +64,7 @@ const Comment: React.FC<CommentProps> = ({
           <Profile.WhoDot
             name={name}
             group={group}
+            onClickName={() => handleOpenProfile(commentAuthorCode)}
             nameColor={isArticleAuthorsComment ? colors.primary : undefined}
             right={
               isArticleAuthorsComment ? (
