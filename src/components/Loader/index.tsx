@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { useRef, useLayoutEffect, useEffect, useState, RefObject } from 'react';
 import cx from 'classnames';
 import { debounce } from 'throttle-debounce';
-import { colors } from '../../styles';
 import Icon from '../Icon';
 
 interface WrapperSize {

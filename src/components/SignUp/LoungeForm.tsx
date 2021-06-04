@@ -3,6 +3,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
+import { throttle } from 'throttle-debounce';
 import { useSignUpContext, observer } from './context';
 import Button from '../Button';
 import Content from '../Content';
@@ -11,12 +12,25 @@ import Icon from '../Icon';
 import { colors } from '../../styles';
 import { VENDOR } from '../../types/constants';
 
-const VendorForm = observer(({ handleNext, setVendor, hideHead = false }: {
+const VendorForm = observer(({ handleNext, setVendor, setModel, hideHead = false }: {
   handleNext: () => void;
   setVendor: (v: string) => void;
   setModel: (v: string) => void;
   hideHead?: boolean;
 }) => {
+
+  const handleClickVendor = React.useMemo(() => {
+    return throttle(1000, true, (vendor?: string) => {
+      console.log('called');
+      if (vendor) {
+        setVendor(vendor);
+        handleNext();
+      } else {
+        setVendor('기타 제조사');
+        setModel('기타 제조사')
+      }
+    })
+  }, [])
 
   return (
     <Form className={cx('LoungeForm')}>
@@ -33,10 +47,7 @@ const VendorForm = observer(({ handleNext, setVendor, hideHead = false }: {
         {VENDOR.map((vendor) => (
           <SelectItem
             key={vendor.name}
-            onClick={() => {
-              setVendor(vendor.name);
-              handleNext();
-            }}
+            onClick={() => handleClickVendor(vendor.name)}
             hasRightArrow
           >
             <VendorName>
@@ -46,9 +57,7 @@ const VendorForm = observer(({ handleNext, setVendor, hideHead = false }: {
             <Icon icon="arrowRight" color={colors.black33} />
           </SelectItem>
         ))}
-        <SelectItem onClick={() => {
-          setVendor('기타 제조사');
-        }}>
+        <SelectItem onClick={() => handleClickVendor()}>
           기타 제조사
         </SelectItem>
       </SelectList>
