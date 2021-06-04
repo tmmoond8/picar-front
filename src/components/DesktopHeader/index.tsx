@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import { useStore, observer } from '../../stores';
 import Logo from '../Logo';
 import Button from '../Button';
@@ -28,11 +29,11 @@ const DesktopHeader: React.FC = () => {
   }, [openArticleEditor, user]);
 
   return (
-    <Header>
+    <Header className={cx('DesktopHeader')}>
       <Container>
         <Logo color={colors.black40} onClick={handleClickLogo} />
         <Search />
-        <UserBox >
+        <UserBox className={cx('UserBox')}>
           <Notification />
           <UserProfile />
           <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>

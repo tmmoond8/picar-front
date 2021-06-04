@@ -22,7 +22,6 @@ const NewsList: React.FC<{
 }> = ({
   className, news,
 }) => {
-
     return (
       <List className={cx("NewsList", className)}>
         {news.map((feed) => (

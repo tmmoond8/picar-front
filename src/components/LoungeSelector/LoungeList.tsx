@@ -23,7 +23,7 @@ const LoungeList: React.FC<{
   return (
     <List className={cx('LoungeList', className)}>
       {VENDOR.map((vendor) => (
-        <React.Fragment>
+        <React.Fragment key={vendor.name}>
           <Lounge lounge={vendor.name} icon={opend[vendor.name as keyof typeof opend] ? 'arrowUp' : 'arrowDown'} onClick={() => handleToggle(vendor.name)} />
           <React.Fragment>
             {opend[vendor.name as keyof typeof opend] && vendor.children.map((model) => (

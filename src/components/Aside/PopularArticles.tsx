@@ -45,7 +45,7 @@ const PopularArticles: React.FC<{}> = () => {
       </Header>
       <List>
         {articles.map(article => (
-          <Article key={article.title} onClick={() => handleClickLink(article.id)}>
+          <Article key={article.id} onClick={() => handleClickLink(article.id)}>
             <h4>{article.title}</h4>
             <h6>{article.group}</h6>
           </Article>

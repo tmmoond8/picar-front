@@ -10,12 +10,12 @@ import NotificationList from '../NotificationList';
 
 const Notification = () => {
   const handleClickNotification = useNotification();
-  
+
   return (
     <StyledNotification onClick={handleClickNotification}>
-      <Icon 
-        icon="notification" 
-        size="24px" 
+      <Icon
+        icon="notification"
+        size="24px"
         color={colors.black33}
       />
     </StyledNotification>
@@ -54,7 +54,7 @@ function useNotification() {
       contextMenu.open({
         targetElement: e.target as HTMLElement,
         alignX: 'right',
-        contents: <NotificationList onClick={contextMenu.close} notifications={user.notifications}/>
+        contents: <NotificationList onClick={contextMenu.close} notifications={user.notifications} />
       });
     },
     [contextMenu],

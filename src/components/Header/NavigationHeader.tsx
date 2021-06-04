@@ -133,8 +133,6 @@ const NavigationHeader: React.FC<{ underline?: boolean; }> = ({ underline = fals
   );
 };
 
-// NavigationHeader.type = 'Navition';
-
 export default observer(NavigationHeader);
 
 const HEIGHT = 56;
