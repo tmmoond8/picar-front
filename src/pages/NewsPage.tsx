@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { NewsFeed } from '../types/News';
 import _Page from './BasePage';
 import { colors, constants } from '../styles';
 import News from '../components/News';
@@ -12,12 +13,15 @@ import { useStore, observer } from '../stores';
 
 const NewsPage: React.FC = () => {
   const { ui } = useStore();
-  const [news, setNews] = React.useState([]);
+  const [news, setNews] = React.useState<NewsFeed[]>([]);
   React.useEffect(() => {
     (async () => {
       const { data: { ok, news } } = await APIS.news.list();
       if (ok) {
-        setNews(news);
+        const newsFeed = news.reduce((accum: NewsFeed[], item) => {
+          return accum.find(({ id, title }) => item.id === id || title === item.title) ? accum : accum.concat(item);
+        }, [])
+        setNews(newsFeed);
       }
     })();
   }, [])
