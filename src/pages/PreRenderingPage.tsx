@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-const article = 7;
+const article = 10;
 
 const PreRenderingPage: React.FC = () => {
   return (
