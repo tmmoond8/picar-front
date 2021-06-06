@@ -52,11 +52,11 @@ const Mobile = () => {
         </Profile.UserHistoryMenus>
         <HR height={1} color={colors.blackF5F6F7} />
         <Profile.AppMenus>
-          <li onClick={() => window.open('https://bit.ly/3bHRJMd', '_blank')}>
+          <li onClick={() => window.open('https://bit.ly/3clTlMq', '_blank')}>
             공지사항
             <Icon icon="arrowRight" size="16px" />
           </li>
-          <li onClick={() => window.open('https://bit.ly/2O3MHBd', '_blank')}>
+          <li onClick={() => window.open('https://bit.ly/3ilnfEp', '_blank')}>
             자주 묻는 질문
             <Icon icon="arrowRight" size="16px" />
           </li>

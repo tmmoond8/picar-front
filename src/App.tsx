@@ -79,8 +79,8 @@ const Page = styled.div<{ headerHeight: number }>`
 `;
 
 const notionPages = {
-  notice: { title: '공지사항', pageId: 'd7e6d7a18ec849b3b543e7389b0bd5fe' },
-  qna: { title: '자주 묻는 질문', pageId: '2fbdb025be1c45748504f74d33eda2d3' }
+  notice: { title: '공지사항', pageId: 'ae9ae015c5504dd886d3cc2af088c6f5' },
+  qna: { title: '자주 묻는 질문', pageId: 'b070f0090c2f4391a002e49cb65a7a6d' }
 }
 
 const Location = styled.div`
