@@ -31,7 +31,6 @@ export const CAROUSEL = {
   SEARCH: 'searchFlickingMoveTo',
   PROFILE: 'profileFlickingMoveTo',
   EDITOR: 'editorFlickingMoveTo',
-  ARTICLE_ALBUM: 'articleAlbumFlickingMoveTo',
   LOUNGE_SELECTOR: 'loungeSelectorFlickingMoveTo',
 } as const;
 
