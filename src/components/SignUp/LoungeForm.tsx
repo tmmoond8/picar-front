@@ -30,7 +30,7 @@ const VendorForm = observer(({ handleNext, setVendor, setModel, hideHead = false
         setModel('기타 제조사')
       }
     })
-  }, [])
+  }, [handleNext])
 
   return (
     <Form className={cx('LoungeForm')}>
