@@ -19,7 +19,7 @@ const PopularArticleList: React.FC = () => {
   return (
     <List className="PopularArticleList">
       {popArticles.map(article => (
-        <Item 
+        <Item
           key={article.id}
           {...article}
         />
@@ -72,17 +72,18 @@ const Thumbnail = styled.img`
 `;
 
 const Item = observer((article: Article) => {
-  const { util }  = useStore();
+  const { util } = useStore();
   const handleLink = React.useCallback(() => {
     util.history.push(`/article/${article.id}`)
   }, [article])
+  console.log(article.photos);
   return (
     <ArticleItem onClick={handleLink}>
       <TextContent className="TextContent">
         <h3 className="articleTitle">{article.title}</h3>
         <p className="articleGroup">{article.group}</p>
       </TextContent>
-      {article.photos && <Thumbnail src={article.thumbnail}/>}
+      {article.thumbnail && <Thumbnail src={article.thumbnail} />}
     </ArticleItem>
   )
 })
