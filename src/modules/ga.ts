@@ -26,7 +26,6 @@ class GATracker {
   private env: "development" | "production" | "test";
 
   constructor() {
-    console.log(env.REACT_APP_GA_TRACKING_ID);
     if (!env.REACT_APP_GA_TRACKING_ID) {
       throw new Error("GA_TRACKING_ID must be provided.");
     }

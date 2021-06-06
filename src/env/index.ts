@@ -32,6 +32,4 @@ const config = {
   REACT_APP_GA_TRACKING_ID: process.env.REACT_APP_GA_TRACKING_ID ?? '',
 }
 
-console.log(config);
-
 export default config;
