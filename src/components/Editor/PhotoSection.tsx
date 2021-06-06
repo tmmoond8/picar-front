@@ -11,9 +11,10 @@ import PhotoUploader from '../PhotoUploader';
 import { useEditorContext, observer } from './context';
 
 const PhotoSection: React.FC = () => {
-  const { photos, setPhotos, setThumbnail } = useEditorContext();
-  const [postImages, setPostImages] = React.useState<(string | undefined)[]>(photos.split(','));
-  const [preUploads, setPreUploades] = React.useState<(string | undefined)[]>(photos.split(','));
+  const { photos, setPhotos, setThumbnail, setIsOnImageUpload } = useEditorContext();
+  const [postImages, setPostImages] = React.useState<(string)[]>(photos ? photos.split(',') : []);
+  const [preUploads, setPreUploades] = React.useState<(string)[]>(photos ? photos.split(',') : []);
+  const [isOnThumnbailUpload, setIsOnThumnbailUpload] = React.useState(false);
   const nextIndex = React.useMemo(() => {
     return Math.max(postImages.filter(p => !!p).length, preUploads.filter(p => !!p).length)
   }, [postImages, preUploads])
@@ -39,9 +40,18 @@ const PhotoSection: React.FC = () => {
   React.useEffect(() => {
     const firstImage = photos.split(',')[0];
     if (firstImage) {
-      API.imageUpload(firstImage, 'picar_thumbnail').then(thumbnail => setThumbnail(thumbnail.imgUrl));
+      setIsOnThumnbailUpload(true);
+      API.imageUpload(firstImage, 'picar_thumbnail')
+        .then(thumbnail => {
+          setThumbnail(thumbnail.imgUrl);
+          setIsOnThumnbailUpload(false);
+        })
     }
-  }, [photos.split(',')[0]])
+  }, [photos.split(',')[0]]);
+
+  React.useEffect(() => {
+    setIsOnImageUpload(isOnThumnbailUpload || (postImages.length !== preUploads.length))
+  }, [postImages, preUploads, isOnThumnbailUpload]);
 
   return (
     <React.Fragment>
@@ -49,6 +59,7 @@ const PhotoSection: React.FC = () => {
         {preUploads.filter(img => !!img).map((_, index) => (
           <li key={`${preUploads[index]}`} >
             <Image
+              isOnThumnbailUpload={index === 0 && isOnThumnbailUpload}
               photoUrl={postImages[index]}
               preUploadUrl={preUploads[index]}
               clear={() => handleClear(index)}

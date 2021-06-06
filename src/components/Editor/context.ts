@@ -11,6 +11,7 @@ const EditorContext = React.createContext<{
   selected: string;
   photos: string;
   thumbnail: string;
+  isOnImageUpload: boolean;
   onClose: () => void;
   setStep: (step: number) => void;
   setTitle: (title: string) => void;
@@ -19,6 +20,7 @@ const EditorContext = React.createContext<{
   syncArticle: (article: Article) => void;
   setPhotos: (photos: string) => void;
   setThumbnail: (thumbnail: string) => void;
+  setIsOnImageUpload: (isOn: boolean) => void;
 }>({
   title: '',
   content: '',
@@ -26,14 +28,16 @@ const EditorContext = React.createContext<{
   selected: '',
   photos: '',
   thumbnail: '',
-  setStep: () => {},
-  setTitle: () => {},
-  setContent: () => {},
-  setSelected: () => {},
-  onClose: () => {},
-  syncArticle: () => {},
-  setPhotos: () => {},
-  setThumbnail: () => {},
+  isOnImageUpload: false,
+  setStep: () => { },
+  setTitle: () => { },
+  setContent: () => { },
+  setSelected: () => { },
+  onClose: () => { },
+  syncArticle: () => { },
+  setPhotos: () => { },
+  setThumbnail: () => { },
+  setIsOnImageUpload: () => { },
 });
 
 EditorContext.displayName = 'EditorContext';

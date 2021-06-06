@@ -31,6 +31,7 @@ const Editor: React.FC<{
   const [content, setContent] = React.useState(article?.content ?? '');
   const [photos, setPhotos] = React.useState(article?.photos ?? '');
   const [thumbnail, setThumbnail] = React.useState(article?.thumbnail ?? '');
+  const [isOnImageUpload, setIsOnImageUpload] = React.useState(false);
 
   const handleGoBack = React.useCallback(() => {
     setStep(step - 1);
@@ -52,6 +53,7 @@ const Editor: React.FC<{
         step,
         photos,
         thumbnail,
+        isOnImageUpload,
         onClose,
         setStep,
         setTitle,
@@ -60,6 +62,7 @@ const Editor: React.FC<{
         syncArticle,
         setPhotos,
         setThumbnail,
+        setIsOnImageUpload,
       }}>
         <Header />
         <Carousel

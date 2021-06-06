@@ -13,15 +13,16 @@ import { useAlert } from '../Alert';
 import { useStore, observer } from '../../stores';
 
 const Header: React.FC = () => {
-  const { 
-    title, 
-    content, 
-    selected, 
-    article, 
-    step, 
+  const {
+    title,
+    content,
+    selected,
+    article,
+    step,
     photos,
     thumbnail,
-    onClose, 
+    isOnImageUpload,
+    onClose,
     setStep,
     syncArticle,
   } = useEditorContext();
@@ -33,7 +34,7 @@ const Header: React.FC = () => {
     (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
   }, [step])
   const alert = useAlert();
-  
+
   const validate = React.useCallback(() => {
     if (title.length === 0) {
       toast.success('제목을 입력하세요.');
@@ -90,8 +91,8 @@ const Header: React.FC = () => {
   }, [article, handleClickPost, handleClickUpdate]);
 
   const disabledWrite = React.useMemo(() => {
-    return title.length === 0 || content.length === 0;
-  }, [content.length, title.length]);
+    return title.length === 0 || content.length === 0 || isOnImageUpload;
+  }, [content.length, title.length, isOnImageUpload]);
 
   const handleClose = React.useCallback(() => {
     if (
@@ -103,24 +104,24 @@ const Header: React.FC = () => {
     }
     alert.open({
       title: `작성중인 글쓰기를 삭제하고
-이전페이지로 돌아갑니다`, 
+이전페이지로 돌아갑니다`,
       subtitle: `작성중인 글쓰기를 삭제하고 이전페이지로 돌아갑니다이전페이지로 돌아갑니다이전페이지로 돌아갑니다`,
       handleConfirm: onClose
     })
   }, [title, content, photos])
 
   const HeaderRight = (
-    <SendButton onClick={handleSubmit}>
-      <Icon 
-        icon="vCheck" 
-        size="24px" 
+    <SendButton onClick={handleSubmit} disabled={disabledWrite}>
+      <Icon
+        icon="vCheck"
+        size="24px"
         color={disabledWrite ? colors.blackEB : colors.black22}
       />
     </SendButton>
   )
 
   return (
-    <StyledHeader 
+    <StyledHeader
       title={article ? '글 수정' : '글 작성'}
       onBack={handleGoBack}
       onClose={handleClose}
@@ -133,7 +134,7 @@ const Header: React.FC = () => {
 
 export default observer(Header);
 
-const StyledHeader = styled(Carousel.Header)<{ hideRight: boolean}>`
+const StyledHeader = styled(Carousel.Header) <{ hideRight: boolean }>`
   ${p => p.hideRight && css`
     .right {
       display: none;
@@ -141,11 +142,16 @@ const StyledHeader = styled(Carousel.Header)<{ hideRight: boolean}>`
   `}
 `;
 
-const SendButton = styled.button`
+const SendButton = styled.button<{ disabled: boolean }>`
   position: fixed;
   right: 18px;
   top: 18px;
   font-size: 16px;
   color: ${colors.primary};
   cursor: pointer;
+
+  ${p => p.disabled && css`
+    cursor: none;
+    pointer-events: none;
+  `}
 `;

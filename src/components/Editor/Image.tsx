@@ -9,16 +9,23 @@ const Image: React.FC<{
   photoUrl?: string;
   thumbnailUrl?: string;
   preUploadUrl?: string;
+  isOnThumnbailUpload?: boolean;
   clear: () => void;
-}> = ({ preUploadUrl, photoUrl, clear }) => {
-  const isLoading = React.useMemo(() => {
-    return !photoUrl;
+}> = ({ preUploadUrl, photoUrl, isOnThumnbailUpload = false, clear }) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(!photoUrl);
+    }, 500)
+    return () => {
+      clearTimeout(timer);
+    }
   }, [photoUrl]);
 
   return (
-    <Wrapper isLoading={isLoading}>
+    <Wrapper isLoading={isLoading || isOnThumnbailUpload}>
       <img src={preUploadUrl} alt="image for article" />
-      {isLoading && <Loader icon="loading" size="24px" />}
+      {(isLoading || isOnThumnbailUpload) && <Loader icon="loading" size="24px" />}
       <ClearButton onClick={clear}>
         <Icon icon="close" size="16px" />
       </ClearButton>

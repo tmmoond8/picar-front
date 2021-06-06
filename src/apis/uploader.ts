@@ -24,8 +24,6 @@ export default async function (
       ? data.secure_url.replace('res.cloudinary.com', env.REACT_APP_STATIC_DOMAIN)
       : data.secure_url;
 
-    console.log('imgUrl', imgUrl);
-
     return {
       id: data.public_id,
       imgUrl,
