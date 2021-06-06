@@ -64,9 +64,13 @@ const ArticleFooter = () => {
   React.useEffect(() => {
     if (article?.id) {
       (async () => {
-        const views = await APIS.firebase.increaseView(String(article?.id));
-        if (views > 0 && util.history.location.pathname.includes('/article/')) {
-          setViews(views);
+        try {
+          const views = await APIS.firebase.increaseView(String(article?.id));
+          if (views > 0) {
+            setViews(views);
+          }
+        } catch (error) {
+          console.error(error);
         }
       })();
     }
