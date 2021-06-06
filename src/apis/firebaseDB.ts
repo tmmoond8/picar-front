@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import env from '../env';
 
 const firebaseConfig = {
-  apiKey: env.REACT_APP_API_URL,
+  apiKey: env.REACT_APP_FB_API_KEY,
   authDomain: env.REACT_APP_FB_AUTH_DOMAIN,
   databaseURL: env.REACT_APP_FB_URL,
   projectId: env.REACT_APP_FB_PROJECT_ID,
