@@ -101,8 +101,9 @@ const Editor = styled.div<{ hasContent: boolean; }>`
   left: 0;
   bottom: ${constants.safeBottom};
   width: 100%;
+  height: 60px;
   align-items: center;
-  padding: 18px;
+  padding: 0 18px;
   background: ${colors.white};
   border-top: 1px solid ${colors.blackF5F6F7};
   z-index: 10;
@@ -175,15 +176,18 @@ const UserPhoto = styled(Profile.Photo)`
 `;
 
 const SendIconButton = styled(Icon) <{ disabled: boolean }>`
-  order: 2;
-  transform: color 0.3s ease-in-out;
-  pointer-events: none;
-  ${(p) =>
-    !p.disabled &&
+  && {
+    order: 2;
+    transform: color 0.3s ease-in-out;
+    color: ${colors.primary};
+    cursor: pointer;
+    ${(p) =>
+    p.disabled &&
     css`
-      color: ${colors.primary};
-      pointer-events: all;
-    `}
+        color: ${colors.primaryE};
+        pointer-events: none;
+      `}
+  }
 `;
 
 const SendButton = styled(Button) <{ disabled: boolean }>`

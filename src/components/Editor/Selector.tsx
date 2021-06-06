@@ -27,6 +27,7 @@ export default observer(Selector);
 const StyledSelector = styled.button`
   display: flex;
   align-items: center;
+  height: 32px;
   margin-right: auto;
   padding: 0 10px;
   font-size: 13px;
