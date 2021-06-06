@@ -15,7 +15,7 @@ const NotificationPage: React.FC = () => {
     <StyledPage>
       <Header onClose={() => console.log('close')} options={{ title: '알림' }} />
       <NotificationList notifications={user.notifications} />
-      <StyledMenu />
+      <MenuBar />
     </StyledPage>
   )
 }
@@ -31,8 +31,4 @@ const Header = styled(CloseHeader)`
   .Icon.close {
     display: none;
   }
-`;
-
-const StyledMenu = styled(MenuBar)`
-  position: relative;
 `;

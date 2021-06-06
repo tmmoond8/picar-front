@@ -77,7 +77,7 @@ const MobileHome = observer(() => {
           />
         </Carousel>
       </Wrapper>
-      <MenuBar />
+      <MenuBar floatingButton />
     </React.Fragment>
   );
 });

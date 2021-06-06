@@ -21,7 +21,10 @@ const activeMap = {
   '/myProfile': 'MyProfile',
 } as const;
 
-const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
+const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
+  className,
+  floatingButton = false,
+}) => {
   const { user, util } = useStore();
   const location = useLocation();
   const { pathname } = location;
@@ -100,7 +103,7 @@ const MenuBar: React.FC<{ className?: string }> = ({ className }) => {
           />
         </Menus>
       </MenuBarContainer>
-      <FloatingButon onClick={handleClickWrite} />
+      {floatingButton && <FloatingButon onClick={handleClickWrite} />}
     </React.Fragment>
 
   );

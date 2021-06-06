@@ -62,7 +62,7 @@ const Mobile = () => {
           </li>
         </Profile.AppMenus>
       </Body>
-      <StyledMenuBar />
+      <MenuBar />
     </React.Fragment>
   );
 }
@@ -132,10 +132,6 @@ const Body = styled.div`
   padding: 0 18px 20px;
   overflow-y: auto;
   background-color: ${colors.white};
-`;
-
-const StyledMenuBar = styled(MenuBar)`
-  position: relative;
 `;
 
 const TabletWrapper = styled.div`

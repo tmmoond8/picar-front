@@ -9,7 +9,7 @@ import CommentEditor from './CommentEditor';
 import { useStore } from '../../stores';
 import { useCommentContext, observer } from './context';
 
-const CommentViewer: React.FC<{className?: string; showCount: boolean}> = ({ className, showCount }) => {
+const CommentViewer: React.FC<{ className?: string; showCount: boolean }> = ({ className, showCount }) => {
   const { ui } = useStore();
   const { comments, articleAuthorCode } = useCommentContext();
   return (
@@ -70,7 +70,7 @@ const StyledComments = styled.div`
 const CommentList = styled.ul`
   min-height: 240px;
   overflow: hidden;
-  padding: 0 0 17px;
+  padding: 0 0 73px;
 `;
 
 const ReplyList = styled.ol`

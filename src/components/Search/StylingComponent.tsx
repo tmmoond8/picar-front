@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../styles';
 import Button from '../Button';
-import MenuBarComponent from '../MenuBar';
 import BasePage from '../../pages/BasePage';
 
 export const Page = styled(BasePage)`
@@ -43,12 +42,4 @@ export const RemoveRecentSearchs = styled(Button)`
   & > span {
     color: ${colors.primary};
   }
-`;
-
-export const MenuBar = styled(MenuBarComponent)`
-  position: relative;
-  top: none;
-  left: none;
-  right: none;
-  bottom: none;
 `;
