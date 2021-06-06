@@ -10,11 +10,11 @@ export type Header = {
 }
 
 const headerData: Header = {
-  title: 'owwners',
-  description: '사장님 커뮤니티, 오너스',
-  image: 'https://res.cloudinary.com/dhfi7dxpu/image/upload/v1615506675/owner/opengraph_img_800_eonjnd.png',
+  title: 'picar',
+  description: '전기차 커뮤니티, 피카',
+  image: 'https://static.picar.kr/dhfi7dxpu/image/upload/v1622550782/picar/opengraph-img_tgpbno.png',
   favicon: '/favicon.ico',
-  url: 'https://www.owwners.com',
+  url: 'https://www.picar.kr',
 }
 
 const OwwnersHelmet = (props: Partial<Header>) => {

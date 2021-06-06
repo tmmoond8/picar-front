@@ -75,9 +75,11 @@
     "dev:android": "ionic capacitor run android -l --external",
     "build": "CI= react-app-rewired build",
     "build:netlify": "yarn build && yarn unzip:prerender",
-    "build:prerender": "dotenv -e .env.production.env yarn build && react-snap && yarn zip:prerender",
     "build:mobile": "dotenv -e .env.production.env yarn build && capacitor copy ios && capacitor copy android",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
+    "pre:prerender": "rm .env && cp .env.production.env .env",
+    "prerender": "yarn pre:prerender && yarn build && react-snap && yarn zip:prerender yarn post:prerender",
+    "post:prerender": "rm .env && mv .env_b .env",
     "resources": "cordova-res ios && cordova-res android && node resources/script.js",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
