@@ -53,6 +53,9 @@ class UiStore implements UiStoreInterface {
 
   @action
   setHeaderNavigation() {
+    if (this.header.type === headerType.Navigation) {
+      return;
+    }
     this.header = {
       type: headerType.Navigation,
       height: 56,
@@ -61,6 +64,9 @@ class UiStore implements UiStoreInterface {
 
   @action
   setHeaderNone() {
+    if (this.header.type === headerType.None) {
+      return;
+    }
     this.header = {
       type: headerType.None,
       height: 0,
@@ -69,6 +75,9 @@ class UiStore implements UiStoreInterface {
 
   @action
   setHeaderBack(options: Record<string, any>) {
+    if (this.header.type === headerType.Back) {
+      return;
+    }
     this.header = {
       type: headerType.Back,
       height: 56,
@@ -78,6 +87,9 @@ class UiStore implements UiStoreInterface {
 
   @action
   setHeaderClose(options: Record<string, any>) {
+    if (this.header.type === headerType.Close) {
+      return;
+    }
     this.header = {
       type: headerType.Close,
       height: 56,

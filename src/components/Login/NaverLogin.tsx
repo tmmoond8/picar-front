@@ -39,7 +39,7 @@ const NaverLogin: React.FC<{
           <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0" />
         </filter>
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <path fill="#1EC800" d="M0 0L60 0 60 60 0 60z" transform="translate(-200 -659) translate(0 462) translate(200 197)" />
         <g filter="url(#nl3reommma)" transform="translate(-200 -659) translate(0 462) translate(200 197)">
           <path fill="#1EC800" d="M19.553 0.875L19.553 14.118 10.479 0.875 0.674 0.875 0.674 27.125 10.448 27.125 10.448 13.882 19.521 27.125 29.327 27.125 29.327 0.875z" transform="translate(15 16)" />

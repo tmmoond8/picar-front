@@ -9,7 +9,6 @@ import { constants } from '../styles';
 import { useLogin, LoginType } from '../hooks/auth';
 
 import { useStore } from '../stores';
-import OwwnersLogo from '../resources/images/owwners-logo.png';
 
 const LoginPage = () => {
   const { ui } = useStore();
