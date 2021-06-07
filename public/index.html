@@ -54,7 +54,7 @@
       }); var f = d.getElementsByTagName(s)[0],
         j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
           'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', '%REACT_APP_GA_TRACKING_ID%');</script>
+    })(window, document, 'script', 'dataLayer', '%REACT_APP_GTM_ID%');</script>
   <!-- End Google Tag Manager -->
   <style>
     .splash {
@@ -85,7 +85,11 @@
   </style>
 </head>
 
-<body class="owner">
+<body class="picar">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%REACT_APP_GTM_ID%" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <!--
