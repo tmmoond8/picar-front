@@ -52,6 +52,7 @@ const Page = styled(_Page)`
 const Header = styled.header`
   display: flex;
   align-items: center;
+  justify-content: center;
   min-height: 60px;
   padding: 0 20px;
   font-size: 19px;

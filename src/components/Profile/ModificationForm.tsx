@@ -119,7 +119,7 @@ const ModificationForm = () => {
           label="닉네임"
           maxLength={10}
         />
-        <Selector label="업종" selected={group} setSelected={setGroup} myLounge={user.profile.group} />
+        <Selector label="오너클럽" selected={group} setSelected={setGroup} myLounge={user.profile.group} />
         <InputBox
           id="ProfileIntoduction"
           onChange={onChangeDescription}

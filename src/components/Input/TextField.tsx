@@ -33,9 +33,9 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     onChange,
     errorMessage,
     className,
-    onBlur = () => {},
-    onFocus = () => {},
-    onKeyDown = () => {},
+    onBlur = () => { },
+    onFocus = () => { },
+    onKeyDown = () => { },
     onClear,
     autocomplete = true,
     type = 'text',
@@ -128,7 +128,8 @@ const Field = styled.div<{ error: boolean; focus: boolean }>`
     border: none;
   }
   input::placeholder {
-    color: ${colors.blackCC};
+    color: ${colors.black99};
+    font-weight: 400;
   }
 
   ${(p) =>

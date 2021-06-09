@@ -17,15 +17,15 @@ const ModalHeader: React.FC<{
 }> = ({
   className, title, handleClose, noRadius = false, hasTitleLine = true
 }) => {
-  return (
-    <Head className={cx('ModalHeader', className)} noRadius={noRadius} hasTitleLine={hasTitleLine}>
-      <Title>{title}</Title>
-      <CloseButton onClick={handleClose}>
-        <Icon icon="close" size="24px" color={colors.black33} />
-      </CloseButton>
-    </Head>
-  );
-}
+    return (
+      <Head className={cx('ModalHeader', className)} noRadius={noRadius} hasTitleLine={hasTitleLine}>
+        <Title>{title}</Title>
+        <CloseButton onClick={handleClose}>
+          <Icon icon="close" size="24px" color={colors.black33} />
+        </CloseButton>
+      </Head>
+    );
+  }
 
 export default React.memo(ModalHeader);
 
@@ -45,7 +45,7 @@ const Head = styled.div<{ noRadius: boolean; hasTitleLine: boolean }>`
 const Title = styled.h2`
   flex: 1;
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 500;
   color: ${colors.black22};
   text-align: center;
 `;

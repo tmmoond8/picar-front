@@ -67,7 +67,7 @@ const Thumbnail = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 4px;
-  object-fit: contain;
+  object-fit: cover;
   margin-left: 16px;
 `;
 

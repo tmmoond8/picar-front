@@ -148,6 +148,7 @@ const SendButton = styled.button<{ disabled: boolean }>`
   top: 18px;
   font-size: 16px;
   color: ${colors.primary};
+    padding: 0;
   cursor: pointer;
 
   ${p => p.disabled && css`

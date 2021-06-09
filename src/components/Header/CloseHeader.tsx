@@ -51,6 +51,8 @@ const StyledClose = styled.nav`
   .title {
     line-height: ${HEIGHT}px;
     text-align: center;
+    font-size: 17px;
+    font-weight: 500;
   }
 
   .right {

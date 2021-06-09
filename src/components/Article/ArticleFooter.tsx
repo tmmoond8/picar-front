@@ -147,11 +147,11 @@ const InteractionCounter = styled.div`
 `;
 const InteractionPanel = styled.ul`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   height: 54px;
   width: 100%;
   max-width: 464px;
-  padding: 0 18px;
+  /* padding: 0 18px; */
   margin: 0 auto;
   color: ${colors.black66};
 

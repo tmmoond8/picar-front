@@ -35,7 +35,7 @@ export default observer(BackHeader);
 
 const HEIGHT = 56;
 
-const StyledBack = styled.nav<{noBottomLine: boolean}>`
+const StyledBack = styled.nav<{ noBottomLine: boolean }>`
   position: relative;
   height: ${HEIGHT}px;
   min-height: ${HEIGHT}px;
@@ -53,6 +53,8 @@ const StyledBack = styled.nav<{noBottomLine: boolean}>`
   .title {
     line-height: ${HEIGHT}px;
     text-align: center;
+    font-size: 17px;
+    font-weight: 500;
   }
 
   .right {
