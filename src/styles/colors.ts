@@ -19,6 +19,7 @@ export default {
   blackF5F6F7: '#f5f6f7',
   blackF7: '#f7f7f7',
   primary: '#f7bd0c',
+  primary2: '#ffae0c',
   primary3: '#ffd633',
   primaryE: '#f7f4eb',
   greyA08: 'rgba(255, 255, 255, 0.8)',

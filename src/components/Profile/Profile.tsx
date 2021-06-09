@@ -68,7 +68,7 @@ const UserProfile = styled.div`
   }
 
   .EditIntrodution {
-    color: ${colors.primary};
+    color: ${colors.primary2};
     cursor: pointer;
   }
 `;

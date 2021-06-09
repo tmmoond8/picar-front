@@ -168,9 +168,9 @@ const Interaction = styled.li<{ hasInteraction: boolean }>`
   }
 
   ${p => p.hasInteraction && css`
-    color: ${colors.primary};
+    color: ${colors.primary2};
     .Icon {
-      color: ${colors.primary};
+      color: ${colors.primary2};
     }
   `}
 `;

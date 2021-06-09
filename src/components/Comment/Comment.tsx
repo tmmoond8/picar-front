@@ -133,7 +133,7 @@ const StyledComment = styled.li<{ isFocus: boolean }>`
     css`
       background-color: ${colors.primaryE};
       .reply-btn.reply-btn {
-        color: ${colors.primary};
+        color: ${colors.primary2};
       }
     `}
   label: Comment;

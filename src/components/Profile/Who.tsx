@@ -46,7 +46,7 @@ const StyledWhotDot = styled.div<{ nameColor?: string }>`
     ${(p) =>
     p.nameColor &&
     css`
-        color: ${colors.primary};
+        color: ${colors.primary2};
       `}
   }
   .user-group {
