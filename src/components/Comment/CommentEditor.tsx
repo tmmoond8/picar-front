@@ -76,7 +76,7 @@ const CommentEditor = () => {
             placeholder={placeholder}
             onInput={handleChangeContent}
           />
-          {user.isLogined && <UserPhoto src={profilePhoto} />}
+          <UserPhoto src={profilePhoto} />
           {ui.queryMatch.Mobile && <SendIconButton
             disabled={disabled}
             icon="send"
@@ -101,12 +101,14 @@ const Editor = styled.div<{ hasContent: boolean; }>`
   left: 0;
   bottom: ${constants.safeBottom};
   width: 100%;
-  height: 60px;
+  min-height: 60px;
+  height: auto;
   align-items: center;
   padding: 0 18px;
   background: ${colors.white};
   border-top: 1px solid ${colors.blackF5F6F7};
   z-index: 10;
+  transition: height 0.3s ease-out;
 
   button {
     color: ${colors.primaryE};
@@ -133,7 +135,7 @@ const Content = styled.div<{ placeholder?: string }>`
   height: auto;
   min-height: 22px;
   max-height: 70px;
-  margin: 0 16px;
+  margin: 18px 16px;
   order: 1;
   font-size: 16px;
   font-weight: normal;
@@ -171,14 +173,18 @@ const pop = keyframes`
 
 const UserPhoto = styled(Profile.Photo)`
   display: none;
+  align-self: flex-start;
+  margin: 14px 0 0 0;
   order: 0;
   animation: ${pop} 0.3s ease-in-out;
 `;
 
 const SendIconButton = styled(Icon) <{ disabled: boolean }>`
   && {
+    align-self: flex-end;
     order: 2;
     transform: color 0.3s ease-in-out;
+    margin: 0 0 16px 0;
     color: ${colors.primary};
     cursor: pointer;
     ${(p) =>
