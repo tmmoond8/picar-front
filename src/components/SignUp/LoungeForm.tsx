@@ -8,7 +8,7 @@ import { useSignUpContext, observer } from './context';
 import Button from '../Button';
 import Content from '../Content';
 import Input from '../Input';
-import Icon from '../Icon';
+import Icon, { IconKey } from '../Icon';
 import { colors } from '../../styles';
 import { VENDOR } from '../../types/constants';
 
@@ -51,7 +51,7 @@ const VendorForm = observer(({ handleNext, setVendor, setModel, hideHead = false
             hasRightArrow
           >
             <VendorName>
-              {vendor.icon && <Icon icon={vendor.icon as any} />}
+              {vendor.icon && <Icon icon={vendor.icon as IconKey} size="40px" />}
               <span>{vendor.name}</span>
             </VendorName>
             <Icon icon="arrowRight" color={colors.black33} />
@@ -170,14 +170,10 @@ const SelectItem = styled.li<{ hasRightArrow?: boolean; selected?: boolean }>`
 
 const VendorName = styled.div`
   display: flex;
+  align-items: center;
   flex: 1;
-`;
 
-const IsModel404 = styled.p`
-  && {
-    font-size: 14px;
-    font-weight: 400;
-    color: ${colors.primary3};
-    margin: 18px 0 0 0;
+  span {
+    margin-left: 8px;
   }
-`
+`;

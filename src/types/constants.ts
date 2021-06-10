@@ -45,7 +45,7 @@ interface Vendor {
 
 export const VENDOR: Vendor[] = [
   {
-    name: '테슬라', icon: '', children: [
+    name: '테슬라', icon: 'logoTesla', children: [
       {
         name: '테슬라 모델3',
       },
@@ -60,7 +60,7 @@ export const VENDOR: Vendor[] = [
       },
     ],
   }, {
-    name: '현대', icon: '', children: [
+    name: '현대', icon: 'logoHyundai', children: [
       {
         name: '아이오닉5',
       },
@@ -78,7 +78,7 @@ export const VENDOR: Vendor[] = [
       },
     ],
   }, {
-    name: '기아', icon: '', children: [
+    name: '기아', icon: 'logoKia', children: [
       {
         name: 'EV6',
       },
