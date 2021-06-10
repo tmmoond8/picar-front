@@ -153,7 +153,7 @@ const TabletWrapper = styled.div`
 const Activations = styled(ActivationsContainer) <{ height: string }>`
   margin: 16px 0 0 0;
   .Tabs {
-    height: 56px;
+    height: 60x;
     .TabItem {
       flex: none;
       line-height: 56px;

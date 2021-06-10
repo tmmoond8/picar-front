@@ -32,6 +32,7 @@ const StyledTabs = styled.ol`
   align-items: center;
   height: 44px;
   padding: 0 18px;
+  background-color: ${colors.white};
   box-shadow: inset 0 -1px 0 0 ${colors.blackF5F6F7};
   .tab + .tab {
     margin: 0 0 0 18px;

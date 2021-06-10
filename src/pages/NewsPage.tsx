@@ -55,7 +55,7 @@ const Header = styled.header`
   justify-content: center;
   min-height: 60px;
   padding: 0 20px;
-  font-size: 19px;
+  font-size: 17px;
   font-weight: bold;
   color: ${colors.black22};
   background-color: ${colors.white};

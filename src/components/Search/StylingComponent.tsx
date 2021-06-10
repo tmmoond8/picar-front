@@ -10,7 +10,6 @@ export const Page = styled(BasePage)`
 
   .PopularArticleList {
     flex: 1;
-    overflow-y: auto;
   }
 `;
 
@@ -24,15 +23,6 @@ export const Title = styled.h2`
 
 export const ShadowTitle = styled(Title)`
   background-color: ${colors.white};
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -18px;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.1),  rgba(255, 255, 255, 0.9));
-  }
 `;
 
 export const RemoveRecentSearchs = styled(Button)`
@@ -42,4 +32,11 @@ export const RemoveRecentSearchs = styled(Button)`
   & > span {
     color: ${colors.primary};
   }
+`;
+
+export const SearchContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
 `;

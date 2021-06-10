@@ -47,17 +47,20 @@ const SearchPage: React.FC = () => {
         />
       )}
       {isOnSearch && !search && (
-        <React.Fragment>
+        <SearchComponents.SearchContent>
           <SearchComponents.Title>검색어 추천</SearchComponents.Title>
           <SearchComponents.Recommendations recommendations={recommendations} handleClickRecommendation={handleClickRecommendation} />
-        </React.Fragment>
+        </SearchComponents.SearchContent>
       )}
       {!isOnSearch && (
         <React.Fragment>
-          <SearchComponents.ShadowTitle>인기 글</SearchComponents.ShadowTitle>
-          <SearchComponents.PopArticles />
+          <SearchComponents.SearchContent>
+            <SearchComponents.ShadowTitle>인기 글</SearchComponents.ShadowTitle>
+            <SearchComponents.PopArticles />
+          </SearchComponents.SearchContent>
           <MenuBar />
         </React.Fragment>
+
       )}
       {isOnSearch && search && (
         <React.Fragment>

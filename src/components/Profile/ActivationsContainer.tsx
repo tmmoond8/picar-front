@@ -3,9 +3,7 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
-import Profile from './Profile';
 import APIS from '../../apis';
-import { colors } from '../../styles';
 import ArticleList from '../ArticleList';
 import CommentList from '../ProfileCommentList';
 import Article from '../../types/Article';
@@ -15,23 +13,23 @@ import { Tabs, TabItem } from '../Tabs';
 import { CAROUSEL } from '../../types/constants';
 import { useStore, observer } from '../../stores';
 
-const tabs = [ 
-  { id: 'article', display: '게시글' }, 
+const tabs = [
+  { id: 'article', display: '게시글' },
   { id: 'comment', display: '댓글' },
   { id: 'bookmark', display: '북마크' },
 ];
 
-const UserActivations: React.FC<{ 
-  userCode: string; 
-  tab: string; 
+const UserActivations: React.FC<{
+  userCode: string;
+  tab: string;
   className?: string;
   onChange?: (index: number) => void;
 }> = ({ userCode, tab, className, onChange }) => {
-  const [ articles, setArticles] = React.useState<Article[]>([]);
-  const [ comments, setComments] = React.useState<Comment[]>([]);
-  const [ bookmarks, setBookmarks] = React.useState<Article[]>([]);
+  const [articles, setArticles] = React.useState<Article[]>([]);
+  const [comments, setComments] = React.useState<Comment[]>([]);
+  const [bookmarks, setBookmarks] = React.useState<Article[]>([]);
   const { user } = useStore();
-  const [tabIndex, setTabIndex] = React.useState(tabs.findIndex(({id}) => id === tab));
+  const [tabIndex, setTabIndex] = React.useState(tabs.findIndex(({ id }) => id === tab));
   const handleClickTab = React.useCallback((tab) => {
     const tabIndex = tabs.findIndex(({ id }) => id === tab.id);
     (window as any).__OWNER__[CAROUSEL.PROFILE](tabIndex);
@@ -86,7 +84,7 @@ const UserActivations: React.FC<{
             articles={articles}
             bookmarks={user.bookmarks}
           />
-          <CommentList comments={comments}/>
+          <CommentList comments={comments} />
           <ArticleList
             articles={bookmarks}
             bookmarks={user.bookmarks}
@@ -103,7 +101,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: ${colors.white};
 `;
 
 const StyledCarousel = styled(Carousel)`
