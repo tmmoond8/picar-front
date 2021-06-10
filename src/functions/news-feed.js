@@ -1,5 +1,5 @@
 import RssParser from 'rss-parser';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 const rssParser = new RssParser();
 

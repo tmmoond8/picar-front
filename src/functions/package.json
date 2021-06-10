@@ -1,0 +1,9 @@
+{
+  "name": "picar-functions",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "date-fns": "^2.22.1",
+    "rss-parser": "^3.12.0"
+  }
+}
