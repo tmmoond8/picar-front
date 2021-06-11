@@ -1,10 +1,57 @@
+import axios from 'axios';
 import RssParser from 'rss-parser';
 import format from 'date-fns/format';
+import dotenv from 'dotenv';
+import cheerio from 'cheerio';
+
+dotenv.config();
 
 const rssParser = new RssParser();
-
 const keywords = ['전기차'];
 const reg = new RegExp(`(${keywords.join('|')})`, 'g');
+
+const sheetsApi = {
+  get: async () =>
+    await axios.get(
+      `${process.env.SHEET_URL}?sheetName=${process.env.NEWS_FEEDS}`,
+    ),
+  append: async (feed) =>
+    await axios.get(
+      `${process.env.SHEET_URL}?sheetName=${process.env.NEWS_FEEDS}`,
+      { params: feed },
+    ),
+};
+
+let existedSet = new Set();
+
+const getOgImage = async (url) => {
+  const { data } = await axios.get(url);
+  const $ = cheerio.load(data);
+  const $meta = $('meta[property="og:image"]');
+  if ($meta && $meta.length > 0) {
+    return $meta[0].attribs.content;
+  }
+  return '';
+};
+
+async function append(feed) {
+  if (!existedSet.has(feed.id)) {
+    try {
+      const image = await getOgImage(feed.link);
+      feed.thumbnail = image;
+      await sheetsApi.append(feed);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+}
+
+async function appendAll(feeds) {
+  const queues = [...feeds];
+  for (let i = 0; i < queues.length; i++) {
+    await append(queues[i]);
+  }
+}
 
 const filter = (feeds) =>
   feeds.filter((feed) => feed.title.match(reg)) ||
@@ -87,18 +134,21 @@ const parseENews = async () => {
 };
 
 const parseAll = async () => {
-  return Promise.all([
+  const rawFeeds = await Promise.all([
     parseENews(),
     parseNewsWire(),
     parseHMG(),
     parseHeraldNews(),
-  ]).then((results) => {
-    const feeds = results.reduce((accum, r) => accum.concat(r), []);
-    feedManager.appendAll(feeds);
-  });
+  ]);
+  const feeds = rawFeeds.reduce((accum, r) => accum.concat(r), []);
+  return await appendAll(feeds);
 };
 
 exports.handler = async function (event, context) {
+  const {
+    data: { data },
+  } = await sheetsApi.get();
+  existedSet = new Set(data.map(({ id }) => id));
   await parseAll();
   return {
     statusCode: 200,

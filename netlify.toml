@@ -5,8 +5,8 @@
 directory = "lambda/"
 
 # [build]
- # command = "npm run build:netlify"
-  # functions = "lambda" #  netlify-lambda reads this
+  # command = "npm run build:netlify"
+  # functions = "lambda"
   # publish = "build"
 
 [[redirects]]
