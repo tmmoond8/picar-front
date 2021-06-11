@@ -13,9 +13,6 @@ const PreRenderingPage: React.FC = () => {
       {new Array(article).fill(null).map((_, index) => (
         <Link to={`/article/${index + 1}`}>{`/article/${index + 1}`}</Link>
       ))}
-      <Link to={`/notice`}>/notice</Link>
-      <Link to={`/qna`}>/qna</Link>
-      <Link to={`/search`}>/search</Link>
     </ol>
   )
 }
