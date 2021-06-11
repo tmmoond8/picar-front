@@ -2,7 +2,7 @@ import axios from 'axios';
 import RssParser from 'rss-parser';
 import format from 'date-fns/format';
 import dotenv from 'dotenv';
-import cheerio from 'cheerio';
+import ogs from 'open-graph-scraper';
 
 dotenv.config();
 
@@ -25,17 +25,17 @@ const sheetsApi = {
 let existedSet = new Set();
 
 const getOgImage = async (url) => {
-  const { data } = await axios.get(url);
-  const $ = cheerio.load(data);
-  const $meta = $('meta[property="og:image"]');
-  if ($meta && $meta.length > 0) {
-    return $meta[0].attribs.content;
+  try {
+    const { result } = await ogs({ url });
+    return (result && result.ogImage && result.ogImage.url) || '';
+  } catch (error) {
+    console.log(error);
+    return '';
   }
-  return '';
 };
 
 async function append(feed) {
-  if (!existedSet.has(feed.id)) {
+  if (!existedSet.has(feed.link)) {
     try {
       const image = await getOgImage(feed.link);
       feed.thumbnail = image;
@@ -148,7 +148,7 @@ exports.handler = async function (event, context) {
   const {
     data: { data },
   } = await sheetsApi.get();
-  existedSet = new Set(data.map(({ id }) => id));
+  existedSet = new Set(data.map(({ link }) => link));
   await parseAll();
   return {
     statusCode: 200,
