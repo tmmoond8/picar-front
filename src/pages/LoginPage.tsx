@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
@@ -22,10 +23,12 @@ const LoginPage = () => {
     (async () => {
       if (code) {
         try {
+          console.log('before getToken');
           const { data: {
             access_token,
             refresh_token
           } } = await getToken(state as LoginType, code as string)
+          console.log('before login');
           login(state as LoginType, access_token, refresh_token);
         } catch (error) {
           alert(`login error ${state} ${JSON.stringify(error)}`);
@@ -33,6 +36,7 @@ const LoginPage = () => {
         }
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code])
 
   return (

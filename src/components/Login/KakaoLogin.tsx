@@ -32,6 +32,7 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
         window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code&state=kakao`
       }
     }, 200);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modal])
 
   return (

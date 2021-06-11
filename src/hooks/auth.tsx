@@ -44,11 +44,11 @@ export const kakaoLogin = async (params: LoginParams) => {
     }
 
     const user: Partial<SignUpUser> = {
-      email: kakaoUser.kakao_account.email,
+      email: kakaoUser.kakao_account?.email,
       snsId: kakaoUser.id.toString(),
-      name: kakaoUser.kakao_account.profile.nickname,
-      thumbnail: kakaoUser.kakao_account.profile.thumbnail_image_url,
-      profileImage: kakaoUser.kakao_account.profile.profile_image_url,
+      name: kakaoUser.kakao_account?.profile?.nickname,
+      thumbnail: kakaoUser.kakao_account?.profile?.thumbnail_image_url,
+      profileImage: kakaoUser.kakao_account?.profile?.profile_image_url,
       provider: 'kakao',
     };
 

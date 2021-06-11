@@ -6,7 +6,7 @@ export interface NaverUser {
   email: string;
   name: string;
   id: string;
-  profile_image: string;
+  profile_image?: string;
   age?: string;
   birthday?: string;
   gender?: string;
@@ -47,9 +47,9 @@ const initLoginButton = (props: ReactNaverLoginProps) => {
   } else {
     naverLogin.getLoginStatus((status: any) => {
       if (status) {
-        window.opener.naver.successCallback(naverLogin.user);
+        (window.opener as any).naver.successCallback(naverLogin.user);
       } else {
-        window.opener.failureCallback();
+        (window.opener as any).failureCallback();
       }
       window.close();
     });
