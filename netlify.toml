@@ -4,10 +4,10 @@
   # or the root directory if a base hasn’t been set.
 directory = "lambda/"
 
-# [build]
-  # command = "npm run build:netlify"
-  # functions = "lambda"
-  # publish = "build"
+[build]
+  command = "npm run build:netlify"
+  functions = "lambda"
+  publish = "build"
 
 [[redirects]]
   from = "/*"

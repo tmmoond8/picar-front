@@ -149,9 +149,12 @@ exports.handler = async function (event, context) {
     data: { data },
   } = await sheetsApi.get();
   existedSet = new Set(data.map(({ link }) => link));
-  await parseAll();
+  // await parseAll();
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: 'news feed' }),
+    body: JSON.stringify({
+      message: 'news feed',
+      a: JSON.stringify(existedSet),
+    }),
   };
 };
