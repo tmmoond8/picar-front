@@ -9,6 +9,7 @@
         "labelFormat": "[filename]",
         "cssPropOptimization": true
       }
-    ]
+    ],
+    "@babel/plugin-proposal-decorators"
   ]
 }
