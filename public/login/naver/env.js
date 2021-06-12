@@ -1,20 +1,20 @@
 const develop = {
-  NAVER_CLIENT_ID: 'LWsulM1ypIGrWgaquH5F',
-  NAVER_CLIENT_SECRET: 'E8beWKyFva',
-  NAVER_LOGIN_BRIDGE_URL: 'http://192.168.1.165:8100/login/naver/index.html',
-  API_URL: 'http://192.168.1.165:4040/api',
+  NAVER_CLIENT_ID: 'd3dL6VA0QQaGHiVMswZ2',
+  NAVER_CLIENT_SECRET: 'eXGhuyO9QK',
+  NAVER_LOGIN_BRIDGE_URL: 'http://192.168.1.165:8200/login/naver/index.html',
+  API_URL: 'http://192.168.1.165:6060/api',
 };
 
 const production = {
-  NAVER_CLIENT_ID: 'AYFbPiVvxLx7bMdJ5VIM',
-  NAVER_CLIENT_SECRET: 'b7eMN1Jjo2',
+  NAVER_CLIENT_ID: 'vFqCamXUUg2N8fsuScEE',
+  NAVER_CLIENT_SECRET: 'nC9nDXXnLk',
   NAVER_LOGIN_BRIDGE_URL:
-    'https://tmmoond8.github.io/owner-front/public/login/naver/index.html',
-  API_URL: 'https://api.owwners.com/api',
+    'https://tmmoond8.github.io/picar-front/public/login/naver/index.html',
+  API_URL: 'https://api.picar.kr/api',
 };
 
 if (window.location.host === 'tmmoond8.github.io') {
-  window.__OWWNERS__ = production;
+  window.__PICAR__ = production;
 } else {
-  window.__OWWNERS__ = develop;
+  window.__PICAR__ = develop;
 }
