@@ -31,6 +31,7 @@ const NaverLogin: React.FC<{
         window.location.href = `${naverLoginUrl}client_id=${env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${env.REACT_APP_LOGIN_URL}&state=naver`
       }
     }, 200);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modal])
   return (
     <NaverIcon onClick={handleNaverLogin} xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">

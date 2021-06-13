@@ -9,6 +9,7 @@ const HOST = isDev
 const API_URL = isDev
   ? `${SCHEME}://${process.env.REACT_APP_HOST}:6060/api`
   : `${SCHEME}://api.picar.kr/api`;
+
 const config = {
   NODE_ENV: process.env.NODE_ENV,
   REACT_APP_API_URL: API_URL,
@@ -16,8 +17,8 @@ const config = {
   REACT_APP_NAVER_CLIENT_ID: process.env.REACT_APP_NAVER_CLIENT_ID ?? '',
   REACT_APP_NAVER_CLIENT_SECRET: process.env.REACT_APP_NAVER_CLIENT_SECRET ?? '',
   REACT_APP_NAVER_LOGIN_BRIDGE_URL: `${SCHEME}://${HOST}/login/naver`,
-  REACT_APP_LOGIN_URL: `${SCHEME}://${HOST}/login`,
-  REACT_APP_KAKAO_LOGIN_BRIDGE_URL: `${SCHEME}://${HOST}/login/kakao`,
+  REACT_APP_LOGIN_URL: `${SCHEME}://${HOST}/login/`,
+  REACT_APP_KAKAO_LOGIN_BRIDGE_URL: `${SCHEME}://${HOST}/login/kakao/`,
   REACT_APP_KAKAO_LOGIN_KEY: process.env.REACT_APP_KAKAO_LOGIN_KEY ?? '',
   REACT_APP_KAKAO_USER_API_KEY: process.env.REACT_APP_KAKAO_USER_API_KEY ?? '',
   REACT_APP_FB_API_KEY: process.env.REACT_APP_FB_API_KEY ?? '',
