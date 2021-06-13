@@ -8,12 +8,11 @@ const develop = {
 const production = {
   NAVER_CLIENT_ID: 'vFqCamXUUg2N8fsuScEE',
   NAVER_CLIENT_SECRET: 'nC9nDXXnLk',
-  NAVER_LOGIN_BRIDGE_URL:
-    'https://tmmoond8.github.io/picar-front/public/login/naver/index.html',
+  NAVER_LOGIN_BRIDGE_URL: 'https://www.picar.kr/login/naver/index.html',
   API_URL: 'https://api.picar.kr/api',
 };
 
-if (window.location.host === 'tmmoond8.github.io') {
+if (window.location.host === 'www.picar.kr') {
   window.__PICAR__ = production;
 } else {
   window.__PICAR__ = develop;
