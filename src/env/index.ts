@@ -4,10 +4,11 @@ dotenv.config();
 const SCHEME = process.env.REACT_APP_DEV === 'develop' ? 'http' : 'https';
 const HOST = process.env.REACT_APP_DEV
   ? `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
-  : `www.picar.kr`
+  : 'www.picar.kr'
 const API_URL = process.env.REACT_APP_DEV === 'develop'
   ? `${SCHEME}://${process.env.REACT_APP_HOST}:6060/api`
   : `${SCHEME}://api.picar.kr/api`;
+
 
 const config = {
   NODE_ENV: process.env.NODE_ENV,

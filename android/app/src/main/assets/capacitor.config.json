@@ -1,6 +1,6 @@
 {
   "appId": "com.tmmoond8.picar",
-  "appName": "오너스",
+  "appName": "피카",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

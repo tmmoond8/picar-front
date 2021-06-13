@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppDownloadPopUp from './components/AppDownloadPopup';
-import Splash from './components/Splash';
 import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
 import * as Pages from './pages';
