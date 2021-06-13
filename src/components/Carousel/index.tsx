@@ -8,7 +8,7 @@ import { FlickingEvent } from '@egjs/flicking';
 import Flicking from '@egjs/react-flicking';
 import global from '../../types/global';
 import { CAROUSEL } from '../../types/constants';
-
+import { observer, useStore } from '../../stores';
 interface CraouselProps {
   id: typeof CAROUSEL[keyof typeof CAROUSEL];
   className?: string;
@@ -29,6 +29,7 @@ const Carousel: CarouselComponent = ({
   gesture = true,
 }) => {
   const flickingRef = React.useRef<HTMLElement>(null);
+  const { ui } = useStore();
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -82,7 +83,7 @@ const Carousel: CarouselComponent = ({
         inputType={['touch', 'mouse']}
         thresholdAngle={45}
         bounce={10}
-        autoResize={true}
+        autoResize={ui.queryMatch.Desktop}
         adaptive={true}
         zIndex={2000}
         bound={false}
@@ -101,7 +102,7 @@ const Carousel: CarouselComponent = ({
 }
 
 Carousel.Header = CarouselHeader;
-export default Carousel;
+export default observer(Carousel);
 
 const Self = styled.div`
   height: 100%;

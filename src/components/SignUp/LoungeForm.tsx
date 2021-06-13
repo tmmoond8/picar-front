@@ -30,6 +30,7 @@ const VendorForm = observer(({ handleNext, setVendor, setModel, hideHead = false
         setModel('기타 제조사')
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleNext])
 
   return (
