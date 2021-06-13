@@ -6,7 +6,6 @@ import { Plugins } from '@capacitor/core';
 import React from 'react';
 import storage from '../../modules/localStorage';
 
-import KakaoLoginIcon from './login-kakao.svg';
 import { useModal } from '../Modal';
 import env from '../../env';
 import { isHybrid } from '../../modules/crossPlatform';

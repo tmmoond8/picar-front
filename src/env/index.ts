@@ -1,15 +1,14 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
-const SCHEME = process.env.REACT_APP_DEV === 'develop' ? 'http' : 'https';
-const HOST = process.env.REACT_APP_DEV
+const isDev = process.env.REACT_APP_DEV === 'develop';
+const SCHEME = isDev ? 'http' : 'https';
+const HOST = isDev
   ? `${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}`
   : 'www.picar.kr'
-const API_URL = process.env.REACT_APP_DEV === 'develop'
+const API_URL = isDev
   ? `${SCHEME}://${process.env.REACT_APP_HOST}:6060/api`
   : `${SCHEME}://api.picar.kr/api`;
-
-
 const config = {
   NODE_ENV: process.env.NODE_ENV,
   REACT_APP_API_URL: API_URL,
