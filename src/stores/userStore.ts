@@ -5,6 +5,7 @@ import { Notification } from '../types/Notification';
 import Comment from '../types/Comment';
 import { EmotionType } from '../types/Emotion';
 import { Stores, CommonStore } from '.';
+import { LOUNGE } from '../types/constants';
 
 const initalProfile = {
   code: 'guest',
@@ -79,6 +80,7 @@ class UserStore implements UserStoreInterface {
     this.profile = profile;
     this.fetchUserData();
     this.rootStore!.article.selectedLounge = profile.group ?? this.rootStore!.article.selectedGroup;
+    this.rootStore!.article.selectedGroup = LOUNGE;
   }
 
   async fetchComment() {

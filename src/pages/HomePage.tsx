@@ -38,7 +38,7 @@ const MobileHome = observer(() => {
 
   return (
     <React.Fragment>
-      <NavigationHeader />
+      <NavigationHeader underline />
       <Wrapper ref={ref}>
         <Carousel
           id={CAROUSEL.HOME}

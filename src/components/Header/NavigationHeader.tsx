@@ -37,7 +37,7 @@ const SelectModel: React.FC<{
         <Carousel
           id={CAROUSEL.LOUNGE_SELECTOR}
           index={step.current}
-          onChangeIndex={() => { }}
+          onChangeIndex={() => ''}
           gesture={false}
         >
           <LoungeForm.VendorForm
@@ -59,7 +59,7 @@ const SelectModel: React.FC<{
     )
   }
 
-const NavigationHeader: React.FC<{ underline?: boolean; }> = ({ underline = false }) => {
+const NavigationHeader: React.FC<{ underline?: boolean }> = ({ underline = false }) => {
   const { article } = useStore();
   const modal = useModal();
   const handleSelect = (model: string) => {
@@ -74,6 +74,7 @@ const NavigationHeader: React.FC<{ underline?: boolean; }> = ({ underline = fals
       title: '오너클럽을 선택하세요',
       contents: <SelectModel selectedItem={article.selectedLounge} handleSelect={handleSelect} />,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article.selectedGroup, article.selectedLounge, modal]);
 
   const handleSetGroup = React.useCallback(
@@ -137,14 +138,14 @@ export default observer(NavigationHeader);
 
 const HEIGHT = 56;
 
-const Header = styled.nav<{ underline: boolean; }>`
+const Header = styled.nav<{ underline: boolean }>`
   display: flex;
   align-items: center;
   height: ${HEIGHT}px;
   width: 100%;
   background: ${colors.white};
   ${p => p.underline && css`
-    border-bottom: 1px solid ${colors.blackEB};
+    box-shadow: inset 0 -1.5px 0 0 ${colors.blackEB};
   `}
 `;
 

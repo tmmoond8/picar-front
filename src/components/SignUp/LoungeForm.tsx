@@ -167,6 +167,10 @@ const SelectItem = styled.li<{ hasRightArrow?: boolean; selected?: boolean }>`
     border: solid 1px ${colors.black22};
     background-color: ${colors.transparent};
   `}
+
+  &:active {
+    background-color: ${colors.blackEB};
+  }
 `;
 
 const VendorName = styled.div`
