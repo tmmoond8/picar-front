@@ -10,15 +10,15 @@ import { colors } from '../../styles';
 import { useInitBefore } from '../../hooks';
 
 const PopularArticleList: React.FC = () => {
-  const [popArticles, setPopArticles] = React.useState<Article[]>([]);
+  const { article } = useStore();
   useInitBefore(async () => {
     const { data } = await APIS.article.listPop();
-    setPopArticles(data.articles)
+    article.popArticles = data.articles;
   });
 
   return (
     <List className="PopularArticleList">
-      {popArticles.map(article => (
+      {article.popArticles.map(article => (
         <Item
           key={article.id}
           {...article}
@@ -75,7 +75,8 @@ const Item = observer((article: Article) => {
   const { util } = useStore();
   const handleLink = React.useCallback(() => {
     util.history.push(`/article/${article.id}`)
-  }, [article])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article.id])
   console.log(article.photos);
   return (
     <ArticleItem onClick={handleLink}>

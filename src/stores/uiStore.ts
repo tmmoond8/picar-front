@@ -16,7 +16,6 @@ export interface UiStoreInterface extends CommonStore {
   alerts: AlertData[];
   queryMatch: Record<BreakPointKeys, boolean>;
   scrollableElementSelector: string;
-  preRendering: boolean;
   setHeaderNavigation: () => void;
   setHeaderNone: () => void;
   setHeaderBack: (options: Record<string, any>) => void;
@@ -33,7 +32,6 @@ class UiStore implements UiStoreInterface {
   @observable alerts: AlertData[];
   @observable queryMatch: Record<BreakPointKeys, boolean>;
   @observable scrollableElementSelector: string;
-  @observable preRendering: boolean = false;
   rootStore: Stores | null;
 
   constructor() {

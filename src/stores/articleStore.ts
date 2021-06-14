@@ -13,6 +13,7 @@ export interface ArticleStoreInterface extends CommonStore {
   loungeArticles: Article[];
   freeArticles: Article[];
   chargementArticles: Article[];
+  popArticles: Article[];
   showOffArticles: Article[];
 }
 
@@ -21,6 +22,7 @@ class ArticleStore implements ArticleStoreInterface {
   @observable articles: Article[];
   @observable selectedGroup: string;
   @observable selectedLounge: string;
+  @observable popArticles: Article[] = [];
   rootStore: Stores | null;
 
   constructor() {
