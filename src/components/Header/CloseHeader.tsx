@@ -32,7 +32,7 @@ export default function CloseHeader(props: CloseHeaderProps): JSX.Element {
   );
 }
 
-const HEIGHT = 56;
+const HEIGHT = 60;
 
 const StyledClose = styled.nav`
   position: relative;

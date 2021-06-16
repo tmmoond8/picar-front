@@ -80,7 +80,7 @@ const ResponsibleComment = styled(CommentViewer) <{ desktop: boolean }>`
     .CommentWrapper {
       position: relative;
       height: auto;
-      padding: 16px 24px 56px 24px;
+      padding: 16px 24px 60px 24px;
       .CommentEditor {
         min-height: 68px;
         max-height: 156px;

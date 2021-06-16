@@ -102,7 +102,7 @@ const Empty = styled.div`
 `;
 
 const CommentHeader = styled.div`
-  height: 56px;
+  height: 60px;
   padding: 15px 20px;
   font-size: 17px;
   font-weight: bold;

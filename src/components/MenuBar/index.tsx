@@ -114,7 +114,7 @@ export default observer(MenuBar);
 const MenuBarContainer = styled.div`
   position: relative;
   width: 100%;
-  min-height: 56px;
+  min-height: 60px;
   background-color: ${colors.white};
   box-shadow: inset 0 1px 0 0 ${colors.blackEB};
   z-index: 2200;
@@ -124,7 +124,7 @@ const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap] }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 56px;
+  min-height: 60px;
   margin: 0 auto;
   .MenuBarItem, .Icon {
     color: ${colors.black99};

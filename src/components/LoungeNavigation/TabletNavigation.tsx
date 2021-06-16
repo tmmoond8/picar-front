@@ -55,7 +55,7 @@ const Navigation = styled.nav`
 const Top = styled.ul`
   display: flex;
   align-items: center;
-  height: 56px;
+  height: 60px;
   padding: 0 24px;
   cursor: pointer;
   box-shadow: inset 0 -1px ${colors.blackF5F6F7};
@@ -76,7 +76,7 @@ const TopMenu = styled.li<{ selected: boolean }>`
 const Bottom = styled.div`
   display: flex;
   align-items: center;
-  height: 56px;
+  height: 60px;
   width: 100%;
   overflow-x: auto;
   border-bottom: 1px solid ${colors.blackEB};

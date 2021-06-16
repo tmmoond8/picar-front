@@ -35,7 +35,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 56px;
+  height: 60px;
   padding: 0 12px 0 18px;
   box-shadow: 0 1px 0 0 ${colors.blackEB};
 

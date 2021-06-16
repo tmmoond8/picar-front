@@ -56,7 +56,7 @@ const ArticleHeader: React.FC = () => {
 
 export default observer(ArticleHeader);
 
-const HEIGHT = 56;
+const HEIGHT = 60;
 
 const Header = styled.nav<{ desktop: boolean }>`
   display: flex;

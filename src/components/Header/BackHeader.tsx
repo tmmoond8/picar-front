@@ -33,7 +33,7 @@ const BackHeader: React.FC<{
 
 export default observer(BackHeader);
 
-const HEIGHT = 56;
+const HEIGHT = 60;
 
 const StyledBack = styled.nav<{ noBottomLine: boolean }>`
   position: relative;

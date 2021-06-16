@@ -30,7 +30,7 @@ const NewsPage: React.FC = () => {
 
   return (
     <Page>
-      <Header >뉴스룸</Header>
+      <Header >뉴스</Header>
       <Content isMobile={ui.queryMatch.Mobile}>
         {news.length > 0 && (
           <News news={news} />
@@ -56,7 +56,7 @@ const Header = styled.header`
   min-height: 60px;
   padding: 0 20px;
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 500;
   color: ${colors.black22};
   background-color: ${colors.white};
 `;

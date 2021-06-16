@@ -136,7 +136,7 @@ const NavigationHeader: React.FC<{ underline?: boolean }> = ({ underline = false
 
 export default observer(NavigationHeader);
 
-const HEIGHT = 56;
+const HEIGHT = 60;
 
 const Header = styled.nav<{ underline: boolean }>`
   display: flex;
