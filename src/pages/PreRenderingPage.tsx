@@ -2,10 +2,8 @@
 import { jsx } from '@emotion/core';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import env from '../env';
-const URL = 'https://www.picar.kr';
 
-const article = 10;
+const article = 21;
 
 const PreRenderingPage: React.FC = () => {
   return (
