@@ -79,7 +79,7 @@
     "dev:android": "ionic capacitor run android -l --external",
     "dev:lambda": "netlify-lambda serve src/functions",
     "build": "CI= react-app-rewired build",
-    "build:netlify": "yarn build && yarn unzip:prerender",
+    "build:netlify": "yarn build:lambda && yarn build && yarn unzip:prerender",
     "build:mobile": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:lambda": "netlify-lambda build src/functions",

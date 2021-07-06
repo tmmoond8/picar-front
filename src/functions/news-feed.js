@@ -13,11 +13,11 @@ const reg = new RegExp(`(${keywords.join('|')})`, 'g');
 const sheetsApi = {
   get: async () =>
     await axios.get(
-      `${process.env.SHEET_URL}?sheetName=${process.env.NEWS_FEEDS}`,
+      `${process.env.REACT_APP_GOOGLE_SHEET_URL}?sheetName=${process.env.REACT_APP_NEWS_FEEDS}`,
     ),
   append: async (feed) =>
     await axios.get(
-      `${process.env.SHEET_URL}?sheetName=${process.env.NEWS_FEEDS}`,
+      `${process.env.REACT_APP_GOOGLE_SHEET_URL}?sheetName=${process.env.REACT_APP_NEWS_FEEDS}`,
       { params: feed },
     ),
 };
@@ -35,21 +35,33 @@ const getOgImage = async (url) => {
 };
 
 async function append(feed) {
+  console.log('append');
   if (!existedSet.has(feed.link)) {
+    console.log('not has');
     try {
       const image = await getOgImage(feed.link);
       feed.thumbnail = image;
+      console.log('feed', feed);
       await sheetsApi.append(feed);
+      return true;
     } catch (error) {
       console.warn(error);
     }
   }
+  return false;
 }
 
 async function appendAll(feeds) {
+  let count = 0;
   const queues = [...feeds];
   for (let i = 0; i < queues.length; i++) {
-    await append(queues[i]);
+    if (await append(queues[i])) {
+      console.log('aaa');
+      if (count === 0) {
+        i = queues.length;
+      }
+      count++;
+    }
   }
 }
 
@@ -57,7 +69,10 @@ const filter = (feeds) =>
   feeds.filter((feed) => feed.title.match(reg)) ||
   feeds.filter((feed) => feed.content.match(reg)).length > 2;
 
-const generateID = (dateStr) => format(new Date(dateStr), 'yyyy-MM-dd:hh');
+const generateID = (dateStr, title) =>
+  `${format(new Date(dateStr), 'yyyy-MM-dd:hh')}_${encodeURIComponent(title)
+    .replace(/[E%]/gi, '')
+    .substr(0, 5)}`;
 
 const parseHeraldNews = async () => {
   const publisher = 'Herald News';
@@ -71,7 +86,7 @@ const parseHeraldNews = async () => {
     content: rawData.contentSnippet,
     link: rawData.link,
     pubDate: rawData.pubDate,
-    id: `${publisher}_${generateID(rawData.pubDate)}`,
+    id: `${publisher}_${generateID(rawData.pubDate, rawData.title)}}`,
   }));
   return filter(feeds);
 };
@@ -93,7 +108,7 @@ const parseHMG = async () => {
     content: rawData.contentSnippet,
     link: rawData.link,
     pubDate: rawData.pubDate,
-    id: `${publisher}_${generateID(rawData.pubDate)}`,
+    id: `${publisher}_${generateID(rawData.pubDate, rawData.title)}`,
   }));
   return filter(feeds);
 };
@@ -113,7 +128,7 @@ const parseNewsWire = async () => {
     content: rawData.contentSnippet,
     link: rawData.link,
     pubDate: rawData.pubDate,
-    id: `${publisher}_${generateID(rawData.pubDate)}`,
+    id: `${publisher}_${generateID(rawData.pubDate, rawData.title)}`,
   }));
   return filter(feeds);
 };
@@ -128,7 +143,7 @@ const parseENews = async () => {
     content: rawData.contentSnippet,
     link: rawData.link,
     pubDate: rawData.pubDate,
-    id: `${publisher}_${generateID(rawData.pubDate)}`,
+    id: `${publisher}_${generateID(rawData.pubDate, rawData.title)}`,
   }));
   return filter(feeds);
 };
@@ -140,7 +155,10 @@ const parseAll = async () => {
     parseHMG(),
     parseHeraldNews(),
   ]);
-  const feeds = rawFeeds.reduce((accum, r) => accum.concat(r), []);
+  const feeds = rawFeeds
+    .flat()
+    .sort((a, b) => (a.pubDate > b.pubDate ? 1 : -1));
+  console.log('feeds', rawFeeds.flat());
   return await appendAll(feeds);
 };
 
@@ -149,12 +167,12 @@ exports.handler = async function (event, context) {
     data: { data },
   } = await sheetsApi.get();
   existedSet = new Set(data.map(({ link }) => link));
-  // await parseAll();
+  await parseAll();
   return {
     statusCode: 200,
     body: JSON.stringify({
       message: 'news feed',
-      a: JSON.stringify(existedSet),
+      // a: JSON.stringify(Array.from(existedSet)),
     }),
   };
 };
