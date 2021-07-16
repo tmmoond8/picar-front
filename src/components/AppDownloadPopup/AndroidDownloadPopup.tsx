@@ -65,7 +65,7 @@ const ActionButtons = styled.div`
 
 
 const thumbnail = 'https://static.owwners.com/dhfi7dxpu/image/upload/c_thumb,w_200,g_face/v1617705694/owner/contents_3x_tdbye5.png';
-const src = 'https://static.owwners.com/dhfi7dxpu/image/upload/v1617705694/owner/contents_3x_tdbye5.png';
+const src = 'https://static.picar.kr/dhfi7dxpu/image/upload/v1626445430/picar/contents_j2xorw.png';
 const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.tmmoond8.picar';
 
 const AndroidDownloadPopup: React.FC<{
