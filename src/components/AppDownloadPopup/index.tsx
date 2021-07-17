@@ -18,9 +18,9 @@ const AppDownloadPopup = () => {
 
   return (
     <React.Fragment>
-      {isAndroidShown && (
-        <AndroidDownloadPopup 
-          onClose={handleClickClose} 
+      {(false && isAndroidShown) && (
+        <AndroidDownloadPopup
+          onClose={handleClickClose}
           onClickNoShow={handleClickNoShow}
         />
       )}
