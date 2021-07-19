@@ -96,7 +96,7 @@ export const useLogin = () => {
   const handleClose = React.useCallback(() => {
     modal.close();
     setTimeout(() => {
-      util.history.replace('/', false);
+      location.href = '/';
     }, 200)
   }, [])
 
