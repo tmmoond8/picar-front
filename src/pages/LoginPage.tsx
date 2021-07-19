@@ -24,11 +24,12 @@ const LoginPage = () => {
       if (code) {
         try {
           console.log('before getToken');
-          const { data: {
+          const { data } = await getToken(state as LoginType, code as string)
+          const {
             access_token,
             refresh_token
-          } } = await getToken(state as LoginType, code as string)
-          console.log('before login');
+          } = data;
+          console.log('before login', data);
           login(state as LoginType, access_token, refresh_token);
         } catch (error) {
           alert(`login error ${state} ${JSON.stringify(error)}`);
