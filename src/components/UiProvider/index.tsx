@@ -46,6 +46,19 @@ const UiProvider: React.FC<{
         }
       }
     })
+
+    const events = [
+      'DOMContentLoaded', 'pagehide', 'pageshow',
+      'unload', 'load'
+    ];
+
+    events.forEach(eventName =>
+      window.addEventListener(eventName, () => { console.log('-event', eventName) })
+    );
+
+    document.onreadystatechange = function () {
+      console.log('document.readyState', document.readyState);
+    }
   }, [])
 
   user.needLogin = () => needLogin(user.profile.code);
