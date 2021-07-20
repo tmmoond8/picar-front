@@ -48,7 +48,8 @@ function useNotification() {
 
   return React.useCallback(
     (e: React.MouseEvent) => {
-      if (!user.isLogined) {
+      console.log(user);
+      if (!user.needLogin()) {
         return;
       }
       contextMenu.open({
