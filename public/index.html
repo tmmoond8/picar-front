@@ -120,6 +120,18 @@
     </svg>
 
   </div>
+  <script>
+    window.addEventListener('pageshow', () => {
+      const scripts = document.querySelectorAll('script');
+      const staticScript = Array.from(scripts).find(({ src }) => src && src.includes('/static/js'));
+      fetch(staticScript.src).then(({ status }) => {
+        if (status !== 200) {
+          console.log('script load error', staticScript.src);
+          location.href = '/'
+        }
+      })
+    });
+  </script>
 </body>
 
 </html>
