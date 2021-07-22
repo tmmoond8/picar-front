@@ -1,11 +1,13 @@
+import { AxiosResponse } from 'axios';
 import api from './config';
+import Article from '../types/Article';
 
 export const list = () => api.get(`/article/list`);
 export const getUserArticles = (code: string) => api.get(`/article/list/${code}`);
 export const search = (search: string) => api.get(`/article/search?search=${search}`);
 export const listBookmark = (articleIds: number[]) => api.get(`/article/list/bookmark?articleIds=[${articleIds.toString()}]`);
 export const listPop = () => api.get('/article/list/pop');
-export const get = (articleId: number | string) =>
+export const get = (articleId: number | string): Promise<AxiosResponse<{ data: Article; ok: boolean }>> =>
   api.get(`/article/${articleId}`);
 export const write = (data: {
   title: string;

@@ -5,7 +5,9 @@ import React from 'react';
 import { colors } from '../../styles';
 import Icon from '../Icon';
 
-const ArticleEmpy: React.FC<{}> = () => {
+const ArticleEmpy: React.FC<{
+  message: string;
+}> = ({ message }) => {
   return (
     <StyledArticleEmpy>
       <Box />
@@ -14,7 +16,7 @@ const ArticleEmpy: React.FC<{}> = () => {
         size="55px"
         color={colors.blackD9}
       />
-      <NotificationText>앗! 삭제된 게시물입니다.</NotificationText>
+      <NotificationText>{message}</NotificationText>
     </StyledArticleEmpy>
   );
 };

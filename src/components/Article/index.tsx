@@ -7,7 +7,6 @@ import ArticleHead from './ArticleHead';
 import ArticleHeader from './ArticleHeader';
 import ArticleBody from './ArticleBody';
 import ArticleFooter from './ArticleFooter';
-import ArticleEmpty from './ArticleEmpty';
 import PicarHelmet from '../PicarHelmet';
 
 import IArticle from '../../types/Article';
@@ -40,7 +39,6 @@ const Article: React.FC<{
             image={article.photos}
           />
           <ArticleHeader />
-          {article.isDelete && <ArticleEmpty />}
           {!article.isDelete && (
             <React.Fragment >
               <ArticleHead />
