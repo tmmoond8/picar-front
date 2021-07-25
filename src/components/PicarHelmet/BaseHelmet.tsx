@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import env from '../../env';
 
 export type Header = {
   title: string;
@@ -12,7 +13,7 @@ export type Header = {
 const headerData: Header = {
   title: 'picar',
   description: '전기차 커뮤니티, 피카',
-  image: 'https://static.picar.kr/dhfi7dxpu/image/upload/v1622550782/picar/opengraph-img_tgpbno.png',
+  image: `${env.APP_URL}/opengraph.png`,
   favicon: '/favicon.ico',
   url: 'https://www.picar.kr',
 }

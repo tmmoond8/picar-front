@@ -10,6 +10,10 @@ const API_URL = isDev
   ? `${SCHEME}://${process.env.REACT_APP_HOST}:6060/api`
   : `${SCHEME}://api.picar.kr/api`;
 
+const APP_URL = isDev
+  ? `${SCHEME}://${process.env.REACT_APP_HOST}:8200`
+  : `${SCHEME}://api.picar.kr`;
+
 const config = {
   NODE_ENV: process.env.NODE_ENV,
   REACT_APP_API_URL: API_URL,
@@ -31,6 +35,7 @@ const config = {
   REACT_APP_FB_MEASUREMENT_ID: process.env.REACT_APP_FB_MEASUREMENT_ID ?? '',
   REACT_APP_DEV: process.env.REACT_APP_DEV ?? '',
   REACT_APP_GA_TRACKING_ID: process.env.REACT_APP_GA_TRACKING_ID ?? '',
+  APP_URL,
 }
 
 export default config;
