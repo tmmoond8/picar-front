@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import Article from '../../types/Article';
 import APIS from '../../apis';
 
@@ -6,6 +7,7 @@ import { useStore } from '../../stores';
 import { useContextMenu } from '../ContextMenu';
 import { useModal } from '../Modal';
 import Editor from '../Editor';
+import { useAlert } from '../Alert';
 
 export const useFetch = (
   articleId: number | string,
@@ -32,22 +34,36 @@ export const useFetch = (
 };
 
 const useArticleRemove = (handleClose: () => void) => {
+  const { util } = useStore();
+  const alert = useAlert();
+
   return React.useCallback(
     async (articleId?: number) => {
-      if (!articleId) {
-        return;
-      }
-      try {
-        const {
-          data: { ok },
-        } = await APIS.article.remove(articleId);
-        if (ok) {
-          window.location.reload(false);
+
+      alert.open({
+        title: '현재 글을 삭제하시겠습니까?',
+        subtitle: '현재 글을 삭제하고 이전페이지로 돌아갑니다.',
+        handleConfirm: async () => {
+          if (!articleId) {
+            return;
+          }
+          try {
+            const {
+              data: { ok },
+            } = await APIS.article.remove(articleId);
+            if (ok) {
+              toast.success('글이 삭제 되었습니다.')
+              util.history.goBack();
+              // TODO 삭제된 글을 리스트에서도 삭제.
+            }
+          } catch (error) {
+            console.log(error);
+          }
         }
-      } catch (error) {
-        console.log(error);
-      }
+      })
       handleClose();
+
+
     },
     [handleClose],
   );
