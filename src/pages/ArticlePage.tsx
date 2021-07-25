@@ -9,7 +9,7 @@ import Page from './BasePage';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
-import ArticleEmpty from '../components/Article/ArticleEmpty';
+import ArticleErrorMessage from '../components/Article/ArticleErrorMessage';
 import APIS from '../apis';
 import {
   useFetch as useFetchArticle,
@@ -67,7 +67,7 @@ const ArticlePage: React.FC = () => {
   return (
     <Page>
       <ArticleContainer className="ArticleContainer" desktop={!ui.queryMatch.Mobile}>
-        {errorMessage && <ArticleEmpty message={errorMessage} />}
+        {errorMessage && <ArticleErrorMessage message={errorMessage} />}
         {article && (
           <React.Fragment>
             <Article article={article} commentCount={commentCount} />
