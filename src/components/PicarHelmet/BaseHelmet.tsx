@@ -13,12 +13,12 @@ export type Header = {
 const headerData: Header = {
   title: 'picar',
   description: '전기차 커뮤니티, 피카',
-  image: `${env.APP_URL}/opengraph.png`,
+  image: 'https://static.picar.kr/dhfi7dxpu/image/upload/v1627224649/picar/opengraph_p7rf2v.png',
   favicon: '/favicon.ico',
   url: 'https://www.picar.kr',
 }
 
-const OwwnersHelmet = (props: Partial<Header>) => {
+const PicarHelmet = (props: Partial<Header>) => {
   return (
     <Helmet>
       <meta charSet="utf-8" />
@@ -44,4 +44,4 @@ const OwwnersHelmet = (props: Partial<Header>) => {
   )
 }
 
-export default OwwnersHelmet;
+export default PicarHelmet;
