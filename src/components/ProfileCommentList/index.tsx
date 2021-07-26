@@ -7,8 +7,9 @@ import Comment from '../../types/Comment';
 import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 import Icon from '../Icon';
+import Center from '../Center';
 
-const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
+const ProfileCommentList: React.FC<{ comments: Comment[] }> = ({ comments }) => {
   const { util } = useStore();
 
   const handleClickArticle = React.useCallback((id: number) => {
@@ -20,7 +21,7 @@ const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
       {comments.map((comment) => (
         <Item key={comment.id} className="Comment" onClick={() => handleClickArticle(comment.articleId)}>
           <h2 className="CommentContent">{comment.content}</h2>
-          <h3 className="ArticleTitle"><Icon icon="articleNew" size="16px"/>{comment.article!.title}</h3>
+          <h3 className="ArticleTitle"><Icon icon="articleNew" size="16px" />{comment.article!.title}</h3>
           <div className="CommentFooter">
             <span>{getDateGoodLook(comment.createAt)}</span>
             {!!comment.replies!.length && <span>답글 {comment.replies!.length}</span>}
@@ -28,6 +29,7 @@ const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
           </div>
         </Item>
       ))}
+      {comments.length === 0 && <EmptyText >작성하신 댓글이 없습니다.</EmptyText>}
     </List>
   )
 }
@@ -35,6 +37,7 @@ const ProfileCommentList: React.FC<{ comments: Comment[]}> = ({ comments }) => {
 export default observer(ProfileCommentList);
 
 const List = styled.ol`
+  position: relative;
   height: 100%;
   width: 100%;
   overflow-y: auto;
@@ -94,4 +97,8 @@ const Item = styled.li`
       font-weight: 500;
     }
   }
+`;
+
+const EmptyText = styled(Center)`
+  color: ${colors.black99};
 `;

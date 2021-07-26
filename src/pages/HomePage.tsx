@@ -49,31 +49,31 @@ const MobileHome = observer(() => {
             name={LOUNGE}
             articles={article.loungeArticles}
             bookmarks={user.bookmarks}
-            showEmpty
+            emptyString='첫 글을 작성해보세요.'
           />
           <ArticleList
             name={LOUNGE_NAMES.ALL}
             articles={article.articles}
             bookmarks={user.bookmarks}
-            showEmpty
+            emptyString='첫 글을 작성해보세요.'
           />
           <ArticleList
             name={LOUNGE_NAMES.FREE}
             articles={article.freeArticles}
             bookmarks={user.bookmarks}
-            showEmpty
+            emptyString='첫 글을 작성해보세요.'
           />
           <ArticleList
             name={LOUNGE_NAMES.CHARGMENT}
             articles={article.chargementArticles}
             bookmarks={user.bookmarks}
-            showEmpty
+            emptyString='첫 글을 작성해보세요.'
           />
           <ArticleList
             name={LOUNGE_NAMES.SHOW_OFF}
             articles={article.showOffArticles}
             bookmarks={user.bookmarks}
-            showEmpty
+            emptyString='첫 글을 작성해보세요.'
           />
         </Carousel>
       </Wrapper>
@@ -93,11 +93,11 @@ const TabletHome = observer(() => {
   return (
     <React.Fragment>
       <NavigationHeader underline />
-      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE} />}
-      {article.selectedGroup === '전체' && <ArticleList articles={article.articles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.ALL} />}
-      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.FREE} />}
-      {article.selectedGroup === '충전' && <ArticleList articles={article.chargementArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.CHARGMENT} />}
-      {article.selectedGroup === '뽐뿌' && <ArticleList articles={article.showOffArticles} bookmarks={user.bookmarks} showEmpty name={LOUNGE_NAMES.SHOW_OFF} />}
+      {article.selectedGroup === LOUNGE && <ArticleList articles={article.loungeArticles} bookmarks={user.bookmarks} emptyString='첫 글을 작성해보세요.' name={LOUNGE} />}
+      {article.selectedGroup === '전체' && <ArticleList articles={article.articles} bookmarks={user.bookmarks} emptyString='첫 글을 작성해보세요.' name={LOUNGE_NAMES.ALL} />}
+      {article.selectedGroup === '자유' && <ArticleList articles={article.freeArticles} bookmarks={user.bookmarks} emptyString='첫 글을 작성해보세요.' name={LOUNGE_NAMES.FREE} />}
+      {article.selectedGroup === '충전' && <ArticleList articles={article.chargementArticles} bookmarks={user.bookmarks} emptyString='첫 글을 작성해보세요.' name={LOUNGE_NAMES.CHARGMENT} />}
+      {article.selectedGroup === '뽐뿌' && <ArticleList articles={article.showOffArticles} bookmarks={user.bookmarks} emptyString='첫 글을 작성해보세요.' name={LOUNGE_NAMES.SHOW_OFF} />}
     </React.Fragment>
   );
 });

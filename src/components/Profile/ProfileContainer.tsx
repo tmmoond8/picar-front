@@ -73,6 +73,7 @@ const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3y
             <ArticleList
               articles={articles}
               bookmarks={user.bookmarks}
+              emptyString='작성한 게시글이 없습니다.'
             />
             <CommentList comments={comments} />
           </StyledCarousel>

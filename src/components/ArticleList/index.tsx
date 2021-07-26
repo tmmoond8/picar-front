@@ -18,64 +18,64 @@ const ArticleList: React.FC<{
   articles: Article[];
   bookmarks: Set<number>;
   name?: string;
-  showEmpty?: boolean;
+  emptyString?: string;
 }> = ({
-  articles, bookmarks, className, showEmpty = false, name,
+  articles, bookmarks, className, emptyString, name,
 }) => {
-  const { user } = useStore();
-  const openArticleEditor = useOpenArticleEditor();
+    const { user } = useStore();
+    const openArticleEditor = useOpenArticleEditor();
 
-  const handleClickBookmark = React.useCallback(
-    (articleId: number) => () => {
+    const handleClickBookmark = React.useCallback(
+      (articleId: number) => () => {
+        if (user.needLogin()) {
+          return;
+        }
+        if (bookmarks.has(articleId)) {
+          toast('북마크에서 제거했습니다.');
+          user.removeBookmark(articleId);
+        } else {
+          toast('북마크에 추가했습니다.');
+          user.addBookmark(articleId);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      },
+      [bookmarks, user],
+    );
+    const handleEmotionUpdate = (articleId: number) => (
+      emotionType: EmotionType,
+    ) => {
+      user.setEmotion(articleId, emotionType);
+    };
+
+    const handleClickWrite = React.useCallback(() => {
       if (user.needLogin()) {
         return;
       }
-      if (bookmarks.has(articleId)) {
-        toast('북마크에서 제거했습니다.');
-        user.removeBookmark(articleId);
-      } else {
-        toast('북마크에 추가했습니다.');
-        user.addBookmark(articleId);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    [bookmarks, user],
-  );
-  const handleEmotionUpdate = (articleId: number) => (
-    emotionType: EmotionType,
-  ) => {
-    user.setEmotion(articleId, emotionType);
-  };
+      openArticleEditor();
+    }, [openArticleEditor, user]);
 
-  const handleClickWrite = React.useCallback(() => {
-    if (user.needLogin()) {
-      return;
-    }
-    openArticleEditor();
-  }, [openArticleEditor, user]);
-
-  return (
-    <StyledArticleList data-id={name} className={cx("ArticleList", className)}>
-      {articles.map((article) => (
-        <ArticleCard
-          key={article.id}
-          {...article}
-          handleClickBookmark={handleClickBookmark(article.id)}
-          handleEmotionUpdate={handleEmotionUpdate(article.id)}
-          hasBookmark={bookmarks.has(article.id)}
-          hasComment={article.id in user.comments}
-          myEmotion={user.emotions[article.id]}
-        />
-      ))}
-      {showEmpty && articles.length === 0 && (
-        <Empty >
-          <Icon icon="cross" size="56px" onClick={handleClickWrite}/>
-          첫 글을 남겨보세요.
-        </Empty>
-      )}
-    </StyledArticleList>
-  );
-}
+    return (
+      <StyledArticleList data-id={name} className={cx("ArticleList", className)}>
+        {articles.map((article) => (
+          <ArticleCard
+            key={article.id}
+            {...article}
+            handleClickBookmark={handleClickBookmark(article.id)}
+            handleEmotionUpdate={handleEmotionUpdate(article.id)}
+            hasBookmark={bookmarks.has(article.id)}
+            hasComment={article.id in user.comments}
+            myEmotion={user.emotions[article.id]}
+          />
+        ))}
+        {emptyString && articles.length === 0 && (
+          <Empty >
+            {emptyString.includes('첫 글을') && <Icon icon="cross" size="56px" onClick={handleClickWrite} />}
+            {emptyString}
+          </Empty>
+        )}
+      </StyledArticleList>
+    );
+  }
 
 export default observer(ArticleList);
 

@@ -84,11 +84,13 @@ const UserActivations: React.FC<{
             <ArticleList
               articles={articles}
               bookmarks={user.bookmarks}
+              emptyString='작성한 게시글이 없습니다.'
             />
             <CommentList comments={comments} />
             <ArticleList
               articles={bookmarks}
               bookmarks={user.bookmarks}
+              emptyString='북마크한 게시글이 없습니다.'
             />
           </StyledCarousel>
         </Container>
