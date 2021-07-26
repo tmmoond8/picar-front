@@ -67,30 +67,32 @@ const UserActivations: React.FC<{
 
   return (
     <React.Fragment>
-      {articles && comments && <Container className={cx('ActivationsContainer', className)}>
-        <Tabs>
-          {tabs.map((tab, index) => (
-            <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
-              {tab.display}
-            </TabItem>)
-          )}
-        </Tabs>
-        <StyledCarousel
-          id={CAROUSEL.PROFILE}
-          index={tabIndex}
-          onChangeIndex={handleOnChange}
-        >
-          <ArticleList
-            articles={articles}
-            bookmarks={user.bookmarks}
-          />
-          <CommentList comments={comments} />
-          <ArticleList
-            articles={bookmarks}
-            bookmarks={user.bookmarks}
-          />
-        </StyledCarousel>
-      </Container>}
+      {articles && comments && (
+        <Container className={cx('ActivationsContainer', className)}>
+          <Tabs>
+            {tabs.map((tab, index) => (
+              <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
+                {tab.display}
+              </TabItem>)
+            )}
+          </Tabs>
+          <StyledCarousel
+            id={CAROUSEL.PROFILE}
+            index={tabIndex}
+            onChangeIndex={handleOnChange}
+          >
+            <ArticleList
+              articles={articles}
+              bookmarks={user.bookmarks}
+            />
+            <CommentList comments={comments} />
+            <ArticleList
+              articles={bookmarks}
+              bookmarks={user.bookmarks}
+            />
+          </StyledCarousel>
+        </Container>
+      )}
     </React.Fragment>
   )
 }
