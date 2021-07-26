@@ -7,18 +7,18 @@ import CommentNotification from './CommentNotification';
 import EmotionNotification from './EmotionNotification';
 import { colors } from '../../styles';
 
-const NotificationList: React.FC<{ 
-  className?: string; 
+const NotificationList: React.FC<{
+  className?: string;
   notifications: Notification[];
   onClick?: () => void;
- }> = ({ className, notifications, onClick = () => {} }) => {
+}> = ({ className, notifications, onClick = () => { } }) => {
   return (
     <List className={className} onClick={onClick}>
       {notifications.map((notification) => (
         <React.Fragment key={notification.id}>
-          {notification.type === 'comment' && <CommentNotification {...notification}/>}
-          {notification.type === 'emotion' && <EmotionNotification {...notification}/>}
-          {notification.type === 'reply' && <CommentNotification {...notification}/>}
+          {notification.type === 'comment' && <CommentNotification {...notification} />}
+          {notification.type === 'emotion' && <EmotionNotification {...notification} />}
+          {notification.type === 'reply' && <CommentNotification {...notification} />}
         </React.Fragment>
       ))}
     </List>
@@ -28,8 +28,7 @@ const NotificationList: React.FC<{
 export default NotificationList;
 
 const List = styled.ul`
-  background-color: ${colors.white};
   overflow-y: auto;
   flex: 1;
-  padding: 4px 0;
+  padding: 8px 0;
 `;

@@ -53,6 +53,7 @@ const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
   const handleClickNews = useCallback(() => moveTo('/news'), [moveTo]);
   const handleClickNotification = useCallback(() => {
     if (user.needLogin()) {
+      console.log('need');
       return;
     }
     moveTo('/notification')

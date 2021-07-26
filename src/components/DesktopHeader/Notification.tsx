@@ -9,6 +9,7 @@ import { colors } from '../../styles';
 import NotificationList from '../NotificationList';
 
 const Notification = () => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const handleClickNotification = useNotification();
 
   return (
@@ -48,8 +49,7 @@ function useNotification() {
 
   return React.useCallback(
     (e: React.MouseEvent) => {
-      console.log(user);
-      if (!user.needLogin()) {
+      if (user.needLogin()) {
         return;
       }
       contextMenu.open({

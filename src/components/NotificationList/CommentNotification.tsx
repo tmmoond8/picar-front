@@ -58,7 +58,7 @@ export default observer(CommentNotification);
 const NotificationItem = styled.li<{ isViewd: boolean }>`
   display: flex;
   padding: 10px 18px 12px 18px;
-  background-color: ${p => p.isViewd ? colors.transparent : colors.primaryE};
+  background-color: ${p => p.isViewd ? colors.white : colors.primaryE};
   cursor: pointer;
   .UserProfilePhoto {
     margin: 0 12px 0 0;
