@@ -29,19 +29,16 @@ const getOgImage = async (url) => {
     const { result } = await ogs({ url });
     return (result && result.ogImage && result.ogImage.url) || '';
   } catch (error) {
-    console.log(error);
+    console.warn(error);
     return '';
   }
 };
 
 async function append(feed) {
-  console.log('append');
   if (!existedSet.has(feed.link)) {
-    console.log('not has');
     try {
       const image = await getOgImage(feed.link);
       feed.thumbnail = image;
-      console.log('feed', feed);
       await sheetsApi.append(feed);
       return true;
     } catch (error) {
@@ -52,15 +49,10 @@ async function append(feed) {
 }
 
 async function appendAll(feeds) {
-  let count = 0;
   const queues = [...feeds];
   for (let i = 0; i < queues.length; i++) {
     if (await append(queues[i])) {
-      console.log('aaa');
-      if (count === 0) {
-        i = queues.length;
-      }
-      count++;
+      return queues[i];
     }
   }
 }
@@ -149,17 +141,20 @@ const parseENews = async () => {
 };
 
 const parseAll = async () => {
-  const rawFeeds = await Promise.all([
-    parseENews(),
-    parseNewsWire(),
-    parseHMG(),
-    parseHeraldNews(),
-  ]);
+  const feedsList = [parseENews, parseNewsWire, parseHMG, parseHeraldNews];
+  const feedsNameList = ['ENews', 'NewsWire', 'HMG', 'HeraldNews'];
+  const random = Date.now() % feedsList.length;
+  const fetchFeed = feedsList[random];
+  const rawFeeds = await fetchFeed();
+
   const feeds = rawFeeds
     .flat()
     .sort((a, b) => (a.pubDate > b.pubDate ? 1 : -1));
-  console.log('feeds', rawFeeds.flat());
-  return await appendAll(feeds);
+  const addedFeed = await appendAll(feeds);
+  return {
+    addedFeed,
+    feedName: feedsNameList[random],
+  };
 };
 
 exports.handler = async function (event, context) {
@@ -167,12 +162,12 @@ exports.handler = async function (event, context) {
     data: { data },
   } = await sheetsApi.get();
   existedSet = new Set(data.map(({ link }) => link));
-  await parseAll();
+  const result = await parseAll();
   return {
     statusCode: 200,
     body: JSON.stringify({
       message: 'news feed',
-      // a: JSON.stringify(Array.from(existedSet)),
+      ...result,
     }),
   };
 };
