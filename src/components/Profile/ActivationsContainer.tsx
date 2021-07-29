@@ -104,7 +104,7 @@ export default observer(UserActivations);
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: auto;
+  height: 100%;
 `;
 
 const StyledCarousel = styled(Carousel)`

@@ -128,13 +128,15 @@ const StyledPage = styled(Page)`
 `;
 
 const Body = styled.div`
-  flex: 1;
   padding: 0 18px 20px;
   overflow-y: auto;
   background-color: ${colors.white};
 `;
 
 const TabletWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow-y: auto;
 
   .TabletBody {
@@ -151,6 +153,7 @@ const TabletWrapper = styled.div`
 `;
 
 const Activations = styled(ActivationsContainer) <{ height: string }>`
+  flex: 1;
   margin: 16px 0 0 0;
   .Tabs {
     height: 60x;
@@ -168,13 +171,13 @@ const Activations = styled(ActivationsContainer) <{ height: string }>`
     overflow: auto;
     height: auto;
     > div {
-      height: auto; 
+      height: 100%; 
       .eg-flick-panel {
-        height: auto;
+        height: 100%;
       }
     }
     .eg-flick-camera, .eg-flick-viewport {
-      height: ${p => p.height} !important;
+      height: 100% !important;
     }
   }
 `;
