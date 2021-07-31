@@ -33,35 +33,37 @@ const Mobile = () => {
   return (
     <React.Fragment>
       <Profile.Header />
-      <Body>
-        <Profile.Profile
-          name={name}
-          group={group}
-          profileImage={profileImage}
-          description={description}
-          code={code}
-        />
-        <HR height={1} color={colors.blackF5F6F7} marginTop={12} />
-        <Profile.UserHistoryMenus>
-          {menus.map(({ menu, icon, key }) => (
-            <Profile.UserHistoryMenu key={key} onClick={() => handleOpenUserActivations(key)}>
-              <Icon icon={icon as IconKey} size="36px" />
-              <span>{menu}</span>
-            </Profile.UserHistoryMenu>
-          ))}
-        </Profile.UserHistoryMenus>
-        <HR height={1} color={colors.blackF5F6F7} />
-        <Profile.AppMenus>
-          <li onClick={() => window.open('https://bit.ly/3clTlMq', '_blank')}>
-            공지사항
-            <Icon icon="arrowRight" size="16px" />
-          </li>
-          <li onClick={() => window.open('https://bit.ly/3ilnfEp', '_blank')}>
-            자주 묻는 질문
-            <Icon icon="arrowRight" size="16px" />
-          </li>
-        </Profile.AppMenus>
-      </Body>
+      <BodyContainer>
+        <Body>
+          <Profile.Profile
+            name={name}
+            group={group}
+            profileImage={profileImage}
+            description={description}
+            code={code}
+          />
+          <HR height={1} color={colors.blackF5F6F7} marginTop={12} />
+          <Profile.UserHistoryMenus>
+            {menus.map(({ menu, icon, key }) => (
+              <Profile.UserHistoryMenu key={key} onClick={() => handleOpenUserActivations(key)}>
+                <Icon icon={icon as IconKey} size="36px" />
+                <span>{menu}</span>
+              </Profile.UserHistoryMenu>
+            ))}
+          </Profile.UserHistoryMenus>
+          <HR height={1} color={colors.blackF5F6F7} />
+          <Profile.AppMenus>
+            <li onClick={() => window.open('https://bit.ly/3clTlMq', '_blank')}>
+              공지사항
+              <Icon icon="arrowRight" size="16px" />
+            </li>
+            <li onClick={() => window.open('https://bit.ly/3ilnfEp', '_blank')}>
+              자주 묻는 질문
+              <Icon icon="arrowRight" size="16px" />
+            </li>
+          </Profile.AppMenus>
+        </Body>
+      </BodyContainer>
       <MenuBar />
     </React.Fragment>
   );
@@ -131,6 +133,11 @@ const Body = styled.div`
   padding: 0 18px 20px;
   overflow-y: auto;
   background-color: ${colors.white};
+`;
+
+const BodyContainer = styled.div`
+  flex: 1;
+  background: ${colors.white};
 `;
 
 const TabletWrapper = styled.div`
