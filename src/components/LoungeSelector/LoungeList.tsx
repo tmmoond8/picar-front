@@ -45,7 +45,7 @@ const LoungeList: React.FC<{
       />
 
       {all && <Spacing size={8} />}
-      {all && Object.values(LOUNGE_NAMES).map((name) => (
+      {all && Object.values(LOUNGE_NAMES).filter(value => value !== LOUNGE_NAMES.ALL).map((name) => (
         <Lounge
           key={name}
           lounge={name}

@@ -34,34 +34,20 @@ const UiProvider: React.FC<{
       ui.contextMenus = [];
     })
   }, [])
+
+  user.needLogin = () => needLogin(user.profile.code);
+
   React.useEffect(() => {
     window.addEventListener('load', () => {
-      console.log('load event');
       // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
       if (!crossPlatform.isPreRendering()) {
-        console.log('pre render');
         const splashEl = document.querySelector<HTMLDivElement>('.splash');
         if (!!splashEl) {
           splashEl.style.display = 'none';
         }
       }
     })
-
-    const events = [
-      'DOMContentLoaded', 'pagehide', 'pageshow',
-      'unload', 'load'
-    ];
-
-    events.forEach(eventName =>
-      window.addEventListener(eventName, () => { console.log('-event', eventName) })
-    );
-
-    document.onreadystatechange = function () {
-      console.log('document.readyState', document.readyState);
-    }
   }, [])
-
-  user.needLogin = () => needLogin(user.profile.code);
 
   useSetupContextMenu(ui);
   useSetupModal(ui);
@@ -115,7 +101,6 @@ function useSetupContextMenu(ui: UiStore) {
   }, []);
 }
 
-
 function useSetupAlert(ui: UiStore) {
   React.useEffect(() => {
     global.__OWNER__.openAlert = (data: AlertData) => {
@@ -137,4 +122,33 @@ function useOrientation(orientation: 'portrait' | 'landscape') {
       console.error(error);
     }
   }
+}
+
+function useLoadLog() {
+  React.useEffect(() => {
+    window.addEventListener('load', () => {
+      console.log('load event');
+      // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
+      if (!crossPlatform.isPreRendering()) {
+        console.log('pre render');
+        const splashEl = document.querySelector<HTMLDivElement>('.splash');
+        if (!!splashEl) {
+          splashEl.style.display = 'none';
+        }
+      }
+    })
+
+    const events = [
+      'DOMContentLoaded', 'pagehide', 'pageshow',
+      'unload', 'load'
+    ];
+
+    events.forEach(eventName =>
+      window.addEventListener(eventName, () => { console.log('-event', eventName) })
+    );
+
+    document.onreadystatechange = function () {
+      console.log('document.readyState', document.readyState);
+    }
+  }, [])
 }

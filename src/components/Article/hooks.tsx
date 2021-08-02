@@ -1,6 +1,7 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import Article from '../../types/Article';
+import { LOUNGE, LOUNGE_NAMES } from '../../types/constants';
 import APIS from '../../apis';
 
 import { useStore } from '../../stores';
@@ -62,15 +63,13 @@ const useArticleRemove = (handleClose: () => void) => {
         }
       })
       handleClose();
-
-
     },
     [handleClose],
   );
 };
 
 export const useOpenArticleEditor = () => {
-  const { article } = useStore();
+  const { article, user } = useStore();
   const modal = useModal();
 
   const updateArticle = React.useCallback(
@@ -86,6 +85,16 @@ export const useOpenArticleEditor = () => {
     [article.articles],
   );
 
+  const group = React.useMemo(() => {
+    if (article.selectedGroup === LOUNGE) {
+      return article.selectedLounge;
+    }
+    if (article.selectedGroup === LOUNGE_NAMES.ALL && user.profile.group) {
+      return user.profile.group;
+    }
+    return article.selectedGroup;
+  }, [article.selectedGroup, article.selectedLounge, user.profile.group]);
+
   return (exitingArticle?: Article) =>
     modal.open({
       title: exitingArticle ? ' 글 수정' : '글 작성',
@@ -95,7 +104,7 @@ export const useOpenArticleEditor = () => {
       contents: (
         <Editor
           article={exitingArticle}
-          group={article.selectedGroup === '라운지' ? article.selectedLounge : article.selectedGroup}
+          group={group}
           syncArticle={exitingArticle ? updateArticle : appendArticle}
           onClose={modal.close}
         />
