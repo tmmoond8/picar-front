@@ -85,6 +85,7 @@ export const Header = styled.header<{ desktop: boolean }>`
   justify-content: center;
   position: relative;
   height: 60px;
+  min-height: 60px;
   background-color: ${colors.white};
 
   .Icon.more {
@@ -94,7 +95,7 @@ export const Header = styled.header<{ desktop: boolean }>`
   }
 
   ${p => p.desktop && css`
-  box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
+    box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
   `}  
 `;
 
