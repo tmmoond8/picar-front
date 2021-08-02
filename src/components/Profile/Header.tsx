@@ -55,7 +55,7 @@ const ProfileHeader: React.FC<{ className?: string }> = ({ className }) => {
                   if (ok) {
                     storage.clearToken();
                     setTimeout(() => {
-                      window.location.reload(false);
+                      window.location.href = '/';
                     }, 300)
                   }
                 } catch (error) {

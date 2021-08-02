@@ -107,7 +107,7 @@ function useProfile() {
                     if (ok) {
                       storage.clearToken();
                       setTimeout(() => {
-                        window.location.reload(false);
+                        window.location.href = '/';
                       }, 300)
                     }
                   } catch (error) {
