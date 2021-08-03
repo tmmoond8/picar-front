@@ -79,21 +79,21 @@ function useProfile() {
             },
             underline: true,
           },
-          {
-            name: '공지사항',
-            onClick: () => {
-              window.open('https://bit.ly/3clTlMq', '_blank')
-              contextMenu.close();
-            },
-          },
-          {
-            name: '자주 묻는 질문',
-            onClick: () => {
-              window.open('https://bit.ly/3ilnfEp', '_blank')
-              contextMenu.close();
-            },
-            underline: true,
-          },
+          // {
+          //   name: '공지사항',
+          //   onClick: () => {
+          //     window.open('https://bit.ly/3clTlMq', '_blank')
+          //     contextMenu.close();
+          //   },
+          // },
+          // {
+          //   name: '자주 묻는 질문',
+          //   onClick: () => {
+          //     window.open('https://bit.ly/3ilnfEp', '_blank')
+          //     contextMenu.close();
+          //   },
+          //   underline: true,
+          // },
           {
             name: '로그아웃',
             onClick: async () => {
