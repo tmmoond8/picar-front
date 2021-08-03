@@ -52,7 +52,7 @@ const Mobile = () => {
             ))}
           </Profile.UserHistoryMenus>
           <HR height={1} color={colors.blackF5F6F7} />
-          <Profile.AppMenus>
+          {/* <Profile.AppMenus>
             <li onClick={() => window.open('https://bit.ly/3clTlMq', '_blank')}>
               공지사항
               <Icon icon="arrowRight" size="16px" />
@@ -61,7 +61,7 @@ const Mobile = () => {
               자주 묻는 질문
               <Icon icon="arrowRight" size="16px" />
             </li>
-          </Profile.AppMenus>
+          </Profile.AppMenus> */}
         </Body>
       </BodyContainer>
       <MenuBar />
@@ -71,25 +71,8 @@ const Mobile = () => {
 
 const Tablet = () => {
   const { user, ui } = useStore();
-  const [contentHeight, setContentHeight] = React.useState('0px');
   const { profileImage, name, group, description, code } = user.profile;
-  const handleChangeActication = React.useCallback((index: number) => {
-    const cameraElement = document.querySelector(`#${CAROUSEL.PROFILE} .eg-flick-camera`);
-    if (cameraElement) {
-      if (cameraElement && cameraElement.childNodes && cameraElement.childNodes.length > index) {
-        const childHeight = (cameraElement.childNodes[index] as any).scrollHeight;
-        setContentHeight(`${childHeight}px`);
-      }
-    }
-  }, []);
   ui.scrollableElementSelector = `.MyProfileWrapper`;
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      handleChangeActication(0);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [])
 
   return (
     <TabletWrapper className="MyProfileWrapper">
@@ -106,8 +89,7 @@ const Tablet = () => {
       <Activations
         userCode={user.profile.code}
         tab={'article'}
-        onChange={handleChangeActication}
-        height={contentHeight}
+        onChange={() => { }}
       />
     </TabletWrapper>
   );
@@ -159,11 +141,10 @@ const TabletWrapper = styled.div`
   }
 `;
 
-const Activations = styled(ActivationsContainer) <{ height: string }>`
+const Activations = styled(ActivationsContainer)`
   flex: 1;
-  margin: 16px 0 0 0;
   .Tabs {
-    height: 60x;
+    height: 56px;
     .TabItem {
       flex: none;
       line-height: 56px;
@@ -187,9 +168,19 @@ const Activations = styled(ActivationsContainer) <{ height: string }>`
       height: 100% !important;
     }
   }
+
+  .ProfileCommentList {
+    padding-bottom: 24px;
+    li {
+      background-color: ${colors.white};
+      .CenterContainer {
+        height: calc(100% - 24px);
+      }
+    }
+  }
 `;
 
-const useProfileHandler = () => {
+function useProfileHandler() {
   const { util } = useStore();
 
   const handleModifyProfile = React.useCallback(() => {

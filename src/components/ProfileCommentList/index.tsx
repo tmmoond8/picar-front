@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import cx from 'classnames';
 import { useStore, observer } from '../../stores';
 import Comment from '../../types/Comment';
 import { colors } from '../../styles';
@@ -9,7 +10,7 @@ import { getDateGoodLook } from '../../modules/string';
 import Icon from '../Icon';
 import Center from '../Center';
 
-const ProfileCommentList: React.FC<{ comments: Comment[] }> = ({ comments }) => {
+const ProfileCommentList: React.FC<{ comments: Comment[]; className?: string }> = ({ comments, className }) => {
   const { util } = useStore();
 
   const handleClickArticle = React.useCallback((id: number) => {
@@ -17,7 +18,7 @@ const ProfileCommentList: React.FC<{ comments: Comment[] }> = ({ comments }) => 
   }, [util.history]);
 
   return (
-    <List>
+    <List className={cx('ProfileCommentList', className)}>
       {comments.map((comment) => (
         <Item key={comment.id} className="Comment" onClick={() => handleClickArticle(comment.articleId)}>
           <h2 className="CommentContent">{comment.content}</h2>
@@ -29,7 +30,13 @@ const ProfileCommentList: React.FC<{ comments: Comment[] }> = ({ comments }) => 
           </div>
         </Item>
       ))}
-      {comments.length === 0 && <EmptyText >작성하신 댓글이 없습니다.</EmptyText>}
+      {comments.length === 0 && (
+        <EmptyText >
+          <Center>
+            작성하신 댓글이 없습니다.
+          </Center>
+        </EmptyText>
+      )}
     </List>
   )
 }
@@ -99,6 +106,7 @@ const Item = styled.li`
   }
 `;
 
-const EmptyText = styled(Center)`
+const EmptyText = styled.li`
+  height: 100%;
   color: ${colors.black99};
 `;
