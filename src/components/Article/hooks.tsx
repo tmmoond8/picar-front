@@ -35,7 +35,7 @@ export const useFetch = (
 };
 
 const useArticleRemove = (handleClose: () => void) => {
-  const { util } = useStore();
+  const { util, article } = useStore();
   const alert = useAlert();
 
   return React.useCallback(
@@ -54,6 +54,7 @@ const useArticleRemove = (handleClose: () => void) => {
             } = await APIS.article.remove(articleId);
             if (ok) {
               toast.success('글이 삭제 되었습니다.')
+              article.articles = article.articles.filter(({ id }) => articleId !== id);
               util.history.goBack();
               // TODO 삭제된 글을 리스트에서도 삭제.
             }
