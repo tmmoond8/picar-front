@@ -9,6 +9,7 @@ import Page from './BasePage';
 
 import { observer, useStore } from '../stores';
 import Article from '../components/Article';
+import ArticleModel from '../types/Article';
 import ArticleErrorMessage from '../components/Article/ArticleErrorMessage';
 import APIS from '../apis';
 import {
@@ -20,13 +21,11 @@ import CommentArea from '../components/Comment';
 const ArticlePage: React.FC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { article: articleStore, user, ui, util } = useStore();
+
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   const history = util.useHistory();
 
-  const [article, setArticle] = React.useState(articleStore.articles.find(
-    (article) =>
-      article.id.toString() === articleId,
-  ));
+  const [article, setArticle] = React.useState<ArticleModel | undefined>(undefined);
   ui.scrollableElementSelector = `.ArticleContainer`;
   useFetchArticle(window.location.pathname.split('/').pop() as string, article);
 
@@ -63,6 +62,14 @@ const ArticlePage: React.FC = () => {
       }
     })()
   }, [articleId])
+
+  React.useEffect(() => {
+    const found = articleStore.articles.find(
+      (article) =>
+        article.id.toString() === articleId,
+    );
+    setArticle(found);
+  }, [articleStore.articles])
 
   return (
     <Page>
