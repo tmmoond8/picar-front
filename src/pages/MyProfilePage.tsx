@@ -178,6 +178,10 @@ const Activations = styled(ActivationsContainer)`
       }
     }
   }
+
+  .ArticleList, .ProfileCommentList {
+    overflow-y: auto;
+  }
 `;
 
 function useProfileHandler() {
