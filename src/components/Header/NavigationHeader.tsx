@@ -67,7 +67,7 @@ const NavigationHeader: React.FC<{ underline?: boolean }> = ({ underline = false
     article.selectedGroup = LOUNGE;
     setTimeout(() => {
       modal.close();
-    }, 300);
+    }, 100);
   }
   const handleOpenBottomSheet = React.useCallback(() => {
     modal.open({

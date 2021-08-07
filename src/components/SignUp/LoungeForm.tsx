@@ -22,7 +22,6 @@ const VendorForm = observer(({ handleNext, handleSignUp, setVendor, setModel, hi
 
   const handleClickVendor = React.useMemo(() => {
     return throttle(1000, true, (vendor?: string) => {
-      console.log('called');
       if (vendor) {
         setVendor(vendor);
         handleNext();
