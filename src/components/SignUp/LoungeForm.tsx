@@ -12,8 +12,9 @@ import Icon, { IconKey } from '../Icon';
 import { colors } from '../../styles';
 import { VENDOR } from '../../types/constants';
 
-const VendorForm = observer(({ handleNext, setVendor, setModel, hideHead = false }: {
+const VendorForm = observer(({ handleNext, handleSignUp, setVendor, setModel, hideHead = false }: {
   handleNext: () => void;
+  handleSignUp?: (group?: string) => void;
   setVendor: (v: string) => void;
   setModel: (v: string) => void;
   hideHead?: boolean;
@@ -27,7 +28,10 @@ const VendorForm = observer(({ handleNext, setVendor, setModel, hideHead = false
         handleNext();
       } else {
         setVendor('기타 제조사');
-        setModel('기타 제조사')
+        setModel('기타 제조사');
+        if (handleSignUp) {
+          handleSignUp('기타 제조사');
+        }
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

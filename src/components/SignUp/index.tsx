@@ -56,14 +56,14 @@ const SignUp: React.FC<SignUpProps> = (props) => {
     setModel('');
   }, [step, setStep]);
 
-  const handleSignUp = React.useCallback(async () => {
+  const handleSignUp = React.useCallback(async (group?: string) => {
     try {
       const { data: { profile, token } } = await API.auth.signup({
         ...props,
         name: nicknameField[0],
         email: emailField[0],
         isOwner: ownerType === ownerTypes[0].value,
-        group: model,
+        group: group ?? model,
       });
       const openerUUID = localStorage.getUUID();
       if (profile.code) {
@@ -77,7 +77,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
         }
         setTimeout(() => {
           window.location.reload();
-        }, 100)
+        }, 600)
       }
     } catch (error) {
     } finally {
@@ -118,7 +118,12 @@ const SignUp: React.FC<SignUpProps> = (props) => {
         <NicknameForm />
         <EmailForm />
         <AreYouOwnerForm handleNext={handleNext} />
-        <LoungeForm.VendorForm handleNext={handleNext} setVendor={setVendor} setModel={setModel} />
+        <LoungeForm.VendorForm
+          handleNext={handleNext}
+          setVendor={setVendor}
+          setModel={setModel}
+          handleSignUp={handleSignUp}
+        />
         <LoungeForm.ModelForm
           handlePrev={handlePrev}
           vendor={vendor}
