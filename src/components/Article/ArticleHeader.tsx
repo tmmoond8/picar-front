@@ -2,6 +2,7 @@
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { toast } from 'react-toastify';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useStore } from '../../stores';
@@ -24,8 +25,10 @@ const ArticleHeader: React.FC = () => {
     }
     if (bookmark) {
       user.removeBookmark(article.id);
+      toast('북마크에서 제거했습니다.');
     } else {
       user.addBookmark(article.id);
+      toast('북마크에 추가했습니다.');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookmark, article]);

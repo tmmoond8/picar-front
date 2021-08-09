@@ -33,11 +33,11 @@ const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
   .Toastify__toast {
     min-height: auto;
     margin: 0;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     padding: 12px 18px;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(16, 16, 16, 0.8);
+    background-color: ${colors.black22};
   }
   .Toastify__toast-body {
     font-size: 14px;
