@@ -17,7 +17,7 @@ export default Advertisement;
 
 const AdLink = styled.a`
   display: block;
-  width: 264px;
+  width: 328px;
   height: 77px;
   margin-top: 16px;
   cursor: pointer;

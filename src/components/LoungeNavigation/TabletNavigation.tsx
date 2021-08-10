@@ -87,7 +87,7 @@ const SubMenus = styled.ul`
   justify-content:space-between;
   position: relative;
   top: -1px;
-  min-width: 540px;
+  min-width: 600px;
   padding: 0 20px;
 `;
 const BottomMenu = styled.li<{ selected: boolean }>`

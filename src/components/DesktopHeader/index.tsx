@@ -61,7 +61,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1024px;
+  max-width: 952px;
   margin: 0 auto;
 `;
 

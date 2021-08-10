@@ -58,7 +58,7 @@ const PopularArticles: React.FC<{}> = () => {
 export default observer(PopularArticles);
 
 const StyledPopularArticles = styled.div`
-  width: 264px;
+  width: 328px;
   background-color: ${colors.white};
 `;
 

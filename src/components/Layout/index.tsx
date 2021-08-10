@@ -97,7 +97,7 @@ const Left = styled.aside`
 `;
 
 const Right = styled.div`
-  width: 264px;
+  width: 328px;
   height: 100%;
   margin: 0 0 0 ${GAP}px;
   overflow-y: auto;
@@ -132,7 +132,7 @@ const Contents = styled.div`
   position: relative;
   flex: 1;
   min-width: 320px;
-  max-width: 540px;
+  max-width: 600px;
   .ArticleList {
     background: ${colors.white};
     padding-bottom: ${GAP}px;
