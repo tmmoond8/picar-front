@@ -29,8 +29,8 @@ const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) 
         </Contents>
         <Right className="TabletRight">
           <Aside.PopularArticles />
-          <Aside.Advertisement />
-          <Aside.DownloadApp />
+          {/* <Aside.Advertisement /> */}
+          {/* <Aside.DownloadApp /> */}
           <Aside.Copyrights />
         </Right>
       </Body>

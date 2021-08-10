@@ -161,7 +161,7 @@ const List = styled.ol`
 `;
 
 const Item = styled.li<{ selected: boolean }>`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: ${(p) => (p.selected ? colors.black33 : colors.blackBF)};
   word-break: keep-all;

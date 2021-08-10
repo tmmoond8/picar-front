@@ -9,7 +9,7 @@ import ArticleType from '../../types/Article';
 import { useInitBefore } from '../../hooks';
 import { useStore, observer } from '../../stores';
 
-const SIZE = 5;
+const SIZE = 8;
 
 const PopularArticles: React.FC<{}> = () => {
   const { util } = useStore();
@@ -66,12 +66,12 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 56px;
   padding: 0 12px 0 20px;
   box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
 
   h3 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: -0.25px;
     color: #222222;
@@ -109,7 +109,8 @@ const NavItem = styled.div<{ disabled: boolean }>`
 `;
 
 const List = styled.ul`
-  height: 393px;
+  /* height: 393px; */
+  height: 624px;
   padding: 4px 0;
 `;
 

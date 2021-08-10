@@ -36,7 +36,7 @@ const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
     margin-bottom: 12px;
     padding: 12px 18px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: none;
     background-color: ${colors.black22};
   }
   .Toastify__toast-body {
@@ -59,7 +59,6 @@ const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
       font-size: 15px;
       border-radius: 0;
       background-color: ${colors.primaryE};
-      box-shadow: 0 1px rgba(8, 48, 98, 0.2);
     }
   `}
   }

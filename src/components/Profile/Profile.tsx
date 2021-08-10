@@ -52,7 +52,7 @@ const UserProfile = styled.div`
   }
 
   .Group {
-    margin: 2px 0 0 0;
+    margin: 8px 0 0 0;
     color: ${colors.black77};
     font-size: 14px;
   }

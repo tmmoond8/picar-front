@@ -3,16 +3,18 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
+import { useStore, observer } from '../../stores';
 
 import { colors } from '../../styles';
 
-export const Tabs: React.FC<{ children: React.ReactNode; className?: string; }> = ({ children, className }) => {
+export const Tabs: React.FC<{ children: React.ReactNode; className?: string; }> = observer(({ children, className }) => {
+  const { ui } = useStore();
   return (
-    <StyledTabs className={cx('Tabs', className)}>
+    <StyledTabs className={cx('Tabs', className)} desktop={ui.queryMatch.Desktop}>
       {children}
     </StyledTabs>
   )
-}
+});
 
 export const TabItem: React.FC<{
   children: React.ReactNode,
@@ -27,7 +29,7 @@ export const TabItem: React.FC<{
   )
 }
 
-const StyledTabs = styled.ol`
+const StyledTabs = styled.ol<{ desktop: boolean }>`
   display: flex;
   align-items: center;
   height: 44px;
@@ -37,11 +39,16 @@ const StyledTabs = styled.ol`
   .tab + .tab {
     margin: 0 0 0 18px;
   }
+  ${p => p.desktop && css`
+    height: 56px;
+  `}
 `;
 
 const StyledTabItem = styled.li<{ selected: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
-  line-height: 44px;
   height: 100%;
   font-size: 15px;
   font-weight: 400;

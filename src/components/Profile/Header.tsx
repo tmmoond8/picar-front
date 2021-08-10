@@ -95,6 +95,8 @@ export const Header = styled.header<{ desktop: boolean }>`
   }
 
   ${p => p.desktop && css`
+    height: 56px;
+    min-height: 56px;
     box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
   `}  
 `;

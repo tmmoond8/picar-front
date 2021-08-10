@@ -9,7 +9,9 @@ import { colors } from '../../styles';
 const DownloadApp: React.FC<{}> = () => {
   return (
     <StyledDownloadApp>
-      <Header>앱 다운로드</Header>
+      <Header>
+        <h3>앱 다운로드</h3>
+      </Header>
       <Body>
         <Link className="AppStoreLink" onClick={() => toast.success('지원 준비 중 입니다.')}>
           <Icon icon="appStore" size="18px" color={colors.black66} />
@@ -41,7 +43,7 @@ const Header = styled.div`
   box-shadow: 0 1px 0 0 ${colors.blackEB};
 
   h3 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: -0.25px;
     color: #222222;

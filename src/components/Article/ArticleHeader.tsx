@@ -59,16 +59,15 @@ const ArticleHeader: React.FC = () => {
 
 export default observer(ArticleHeader);
 
-const HEIGHT = 60;
-
 const Header = styled.nav<{ desktop: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: ${HEIGHT}px;
+  height: 60px;
   padding: 0 20px;
   ${p => p.desktop && css`
     box-shadow: 0 1px ${colors.blackF5F6F7};
+    height: 56px;
   `}
 `;
 
