@@ -76,13 +76,13 @@ const ModificationForm = () => {
     }
   }, [description, group, name, user.profile, profileUrl]);
 
+  const notChanged = user.profile.profileImage === profileUrl &&
+    user.profile.name === name &&
+    user.profile.group === group &&
+    user.profile.description === description
+
   const disabled =
-    loading || (
-      user.profile.profileImage === profileUrl &&
-      user.profile.name === name &&
-      user.profile.group === group &&
-      user.profile.description === description
-    );
+    loading || notChanged || name.length === 0;
 
   return (
     <React.Fragment>
@@ -207,8 +207,10 @@ const Header = styled(BackHeader) <{ desktop: boolean }>`
 `;
 
 const SubmitButton = styled(Icon) <{ disabled: boolean }>`
-  ${p => p.disabled && css`
-    pointer-events: none;
-    color: ${colors.blackAA};
-  `}
+  && {
+    ${p => p.disabled && css`
+      pointer-events: none;
+      color: ${colors.blackD9};
+    `}
+  }
 `;
