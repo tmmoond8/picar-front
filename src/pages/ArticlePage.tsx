@@ -98,7 +98,6 @@ const ArticlePage: React.FC = () => {
 export default observer(ArticlePage);
 
 const ArticleContainer = styled.div<{ desktop: boolean }>`
-  height: 100%;
   background-color: ${colors.white};
   padding: 60px 0 0 0;
   overflow-y: auto;
