@@ -62,6 +62,7 @@ const Uploader: React.FC<{
         {children}
         <HiddenInput
           type="file"
+          accept="image/png, image/jpeg, image/jpg, image/gif"
           ref={hiddenInputRef}
           onChange={handleChangeFile}
           onError={(e) => {
