@@ -135,7 +135,7 @@ const Article = styled.li`
   }
 
   h6 {
-    margin-top: 3px;
+    margin-top: 6px;
     font-size: 12px;
     color: ${colors.black84};
     word-break: break-all;
