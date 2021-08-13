@@ -11,14 +11,14 @@ interface WhoProps {
   group?: string;
   nameColor?: string;
   right?: React.ReactNode;
-  onClickName?: () => void;
+  onClick?: () => void;
 }
 
 export const WhoDot: React.FC<WhoProps> = (props) => {
-  const { name, group, className, nameColor, right, onClickName = () => { } } = props;
+  const { name, group, className, nameColor, right, onClick = () => { } } = props;
   return (
     <StyledWhotDot className={cx(className, 'Who')} nameColor={nameColor}>
-      <p className="user-name" onClick={onClickName}>{name}</p>
+      <p className="user-name" onClick={onClick}>{name}</p>
       {group && <p className="user-group">{group}</p>}
       {right && right}
     </StyledWhotDot>
@@ -26,10 +26,10 @@ export const WhoDot: React.FC<WhoProps> = (props) => {
 }
 
 export const Who: React.FC<WhoProps> = (props) => {
-  const { name, group, className, onClickName } = props;
+  const { name, group, className, onClick } = props;
   return (
     <StyledWho className={cx(className, 'Who')}>
-      <p className="user-name" onClick={onClickName}>{name}</p>
+      <p className="user-name" onClick={onClick}>{name}</p>
       <p className="user-group">{group}</p>
     </StyledWho>
   );

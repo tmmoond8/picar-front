@@ -4,16 +4,17 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { Profile as ProfileType } from '../../types/User';
-import { colors } from '../../styles';
 import Profile from '../Profile';
 
 const UserList: React.FC<{ users: ProfileType[] }> = ({ users }) => {
+  const handleOpenProfile = Profile.useOpenProfile();
+
   return (
     <List className="UserList">
       {users.map(({ code, profileImage, name, group }) => (
-        <User key={code}>
-          <Profile.Photo src={profileImage} size={48} />
-          <Profile.Who name={name} group={group} />
+        <User key={code} >
+          <Profile.Photo src={profileImage} size={48} onClick={() => handleOpenProfile(code)}/>
+          <Profile.Who name={name} group={group} onClick={() => handleOpenProfile(code)}/>
         </User>
       ))}
     </List>
@@ -29,6 +30,7 @@ const List = styled.ol`
 
 const User = styled.li`
   display: flex;
+  width: fit-content;
   height: 80px;
   padding: 16px 18px;
   cursor: pointer;

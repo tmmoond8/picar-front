@@ -27,7 +27,7 @@ const ArticleCardHead: React.FC<ArticleCardHeadProps> = ({
   return (
     <Head>
       <ProfilePhoto src={profileImage} size={24} onClick={() => handleOpenProfile(userCode)} />
-      <Profile.WhoDot name={name} group={group} onClickName={() => handleOpenProfile(userCode)} />
+      <Profile.WhoDot name={name} group={group} onClick={() => handleOpenProfile(userCode)} />
       <p className="article-time">{getDateGoodLook(createAt)}</p>
     </Head>
   );
