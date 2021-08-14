@@ -1,0 +1,14 @@
+{
+    "gitmoji.additionalEmojis": [
+        {
+            "emoji": "🤖",
+            "code": ":android:",
+            "description": "android build updated",
+        },
+        {
+            "emoji": "🍎",
+            "code": ":ios:",
+            "description": "iOS build updated",
+        }
+    ]
+}
