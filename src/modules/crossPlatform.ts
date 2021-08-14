@@ -56,10 +56,6 @@ export const isIosAndHybrid = () => {
     return isIos() && isHybrid();
 }
 
-export const isPreRendering = () => {
-    return window.navigator.userAgent === 'ReactSnap';
-}
-
 export const hasHomeBar = () => {
     const b = getBrowserizr();
     const hasPhysicalButton = b.isIPhone4() || b.isIPhone5() && b.isIPhone678() && b.isIPhone678plus();

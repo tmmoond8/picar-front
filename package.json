@@ -68,32 +68,21 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "open-graph-scraper": "^4.9.0",
-    "react-app-rewired": "^2.1.8",
-    "react-snap": "^1.23.0"
+    "react-app-rewired": "^2.1.8"
   },
   "scripts": {
-    "zip:prerender": "cd build && zip -r ../public/prerender static article notion notice qna search",
-    "unzip:prerender": "unzip -n public/prerender.zip -d build/",
     "dev": "PORT=8200 react-app-rewired start",
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",
     "dev:lambda": "netlify-lambda serve src/functions",
     "build": "CI= react-app-rewired build",
-    "build:netlify": "yarn build:lambda && yarn build && yarn unzip:prerender",
+    "build:netlify": "yarn build:lambda && yarn build",
     "build:mobile": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:lambda": "netlify-lambda build src/functions",
-    "pre:prerender": "rm .env && cp .env.production.env .env",
-    "prerender": "yarn pre:prerender && yarn build && react-snap && yarn zip:prerender yarn post:prerender",
-    "post:prerender": "rm .env && mv .env_b .env",
     "resources": "cordova-res ios && cordova-res android && node resources/script.js",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
-  },
-  "reactSnap": {
-    "include": [
-      "/prerendering"
-    ]
   },
   "eslintConfig": {
     "extends": "react-app"

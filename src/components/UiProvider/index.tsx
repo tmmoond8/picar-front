@@ -39,13 +39,10 @@ const UiProvider: React.FC<{
 
   React.useEffect(() => {
     window.addEventListener('load', () => {
-      // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
-      if (!crossPlatform.isPreRendering()) {
-        const splashEl = document.querySelector<HTMLDivElement>('.splash');
+      const splashEl = document.querySelector<HTMLDivElement>('.splash');
         if (!!splashEl) {
           splashEl.style.display = 'none';
         }
-      }
     })
   }, [])
 
@@ -128,13 +125,9 @@ function useLoadLog() {
   React.useEffect(() => {
     window.addEventListener('load', () => {
       console.log('load event');
-      // react-snap 으로 프리렌더 시 window.applicationCache 파일이 생성됨
-      if (!crossPlatform.isPreRendering()) {
-        console.log('pre render');
-        const splashEl = document.querySelector<HTMLDivElement>('.splash');
-        if (!!splashEl) {
-          splashEl.style.display = 'none';
-        }
+      const splashEl = document.querySelector<HTMLDivElement>('.splash');
+      if (!!splashEl) {
+        splashEl.style.display = 'none';
       }
     })
 

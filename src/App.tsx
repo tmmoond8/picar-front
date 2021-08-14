@@ -42,9 +42,6 @@ const App: React.FC = () => {
             <Route exact path="/test">
               <Pages.TestPage />
             </Route>
-            <Route exact path="/prerendering">
-              <Pages.PreRenderingPage />
-            </Route>
             <Route exact path="/owwner">
               <Pages.OwwnerPage />
             </Route>

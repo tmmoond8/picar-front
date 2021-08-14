@@ -9,5 +9,4 @@ export { default as NotificationPage } from './NotificationPage';
 export { default as OwwnerPage } from './OwwnerPage';
 export { default as MyActivationsPage } from './MyActivationsPage';
 export { default as NotionEmbedPage } from './NotionEmbedPage';
-export { default as PreRenderingPage } from './PreRenderingPage';
 export { default as NewsPage } from './NewsPage';
