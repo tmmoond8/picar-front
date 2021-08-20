@@ -34,3 +34,7 @@ const config = {
 }
 
 export default config;
+
+if (globalThis) {
+  (globalThis as any).__git__ = process.env.REACT_APP_GIT_HASH;
+}
