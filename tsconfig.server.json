@@ -1,0 +1,18 @@
+// 20210818230844
+// https://raw.githubusercontent.com/tmmoond8/netlify-react-serverlesss/master/tsconfig.server.json
+
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "lambda",
+    "jsx": "react",
+    "noEmit": false
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
