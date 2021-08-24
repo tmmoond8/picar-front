@@ -1,4 +1,3 @@
-import { getPlatforms } from '@ionic/react';
 import Browserizr from 'browserizr'
 
 const PLATFORMS = {
@@ -24,7 +23,10 @@ let platform: (keyof typeof PLATFORMS)[];
 
 const getPlatform = () => {
     if (!platform) {
-        platform = getPlatforms();
+        import('@ionic/react').then(({ getPlatforms }) => {
+            platform = getPlatforms()
+        })
+        return [];
     }
     return platform;
 }

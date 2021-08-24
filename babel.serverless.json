@@ -8,6 +8,7 @@
     }]
   ],
   "plugins": [
+    "@babel/plugin-transform-modules-commonjs",
     "@babel/plugin-proposal-decorators",
     "@babel/plugin-proposal-class-properties",
     "@babel/proposal-object-rest-spread"
