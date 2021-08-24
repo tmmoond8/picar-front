@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "@babel/typescript",
+    "@babel/preset-react",
+    "@babel/preset-env",
+    ["@dr.pogodin/babel-preset-svgr", {
+      "mimicCreateReactApp": true
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-decorators",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/proposal-object-rest-spread"
+  ]
+}

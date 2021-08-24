@@ -11,9 +11,12 @@ const hash = process.env.COMMIT_REF ? `.${process.env.COMMIT_REF}` : '';
 const output = () => (config) => {
   config.output.filename = `static/js/[name]${hash}.js`
   config.output.chunkFilename = `static/js/[name]${hash}.chunk.js`
+  config.plugins[0].options.filename = 'server.html'
   const miniCssExtractPlugin = config.plugins.find((plugin) => plugin instanceof MiniCssExtractPlugin);
-  miniCssExtractPlugin.options.filename = `static/css/[name]${hash}.css`;
-  miniCssExtractPlugin.options.chunkFilename = `static/css/[name]${hash}.chunk.css`;
+  if (miniCssExtractPlugin) {
+    miniCssExtractPlugin.options.filename = `static/css/[name]${hash}.css`;
+    miniCssExtractPlugin.options.chunkFilename = `static/css/[name]${hash}.chunk.css`;
+  }
   return config;
 }
 
