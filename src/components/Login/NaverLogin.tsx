@@ -7,7 +7,6 @@ import React from 'react';
 import storage from '../../modules/localStorage';
 
 import env from '../../env';
-import NaverLoginIcon from './login-naver.svg';
 import { useModal } from '../Modal';
 import { isHybrid } from '../../modules/crossPlatform';
 
