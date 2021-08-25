@@ -10,6 +10,7 @@ export default (history: History<LocationState>): CustomHistory<LocationState> =
     ...history,
     push: (path: Path, state?: LocationState) => {
       const currentStack = sessionStorage.top();
+      if (!currentStack) return;
       console.log('custom push');
       if (path === history.location.pathname) {
         console.log('match', path, history.location.pathname);
@@ -28,6 +29,7 @@ export default (history: History<LocationState>): CustomHistory<LocationState> =
     },
     goBack: () => {
       const stack = sessionStorage.popStack();
+      if (!stack) return 0;
       if (stack !== -1) {
         history.goBack();
       } else {

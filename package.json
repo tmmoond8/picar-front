@@ -98,7 +98,7 @@
     "dev:lambda": "netlify-lambda serve src/functions",
     "babel:serverless": "yarn babel --config-file ./babel.serverless.json --out-dir lambda ./src --extensions \".ts,.tsx,.svg\"",
     "build": "CI= react-app-rewired build && mv build/index.html build/server.html",
-    "build:netlify": "REACT_APP_GIT_HASH=$COMMIT_REF yarn build && yarn build:lambda",
+    "build:netlify": "REACT_APP_GIT_HASH=$COMMIT_REF yarn build && yarn build:serverless",
     "build:mobile": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:serverless": "yarn babel:serverless && yarn tool:replace-svg-to-js && yarn tool:remove-env-d-js",
