@@ -10,6 +10,11 @@ directory = "lambda/"
   publish = "build"
 
 [[redirects]]
+  from = "/build/*"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/serverless"
   status = 200

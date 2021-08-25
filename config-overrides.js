@@ -17,6 +17,7 @@ const output = () => (config) => {
       const { filename } = plugin.options;
       // html 파일 명 번경
       if (filename === 'index.html') {
+        // js가 안박히길래 일단..
         // plugin.options.filename = 'server.html';
       }
       // 기본 css 파일명 변경
