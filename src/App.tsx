@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, StaticRouter, Switch, Route } from 'react-router-dom';
 import AppDownloadPopUp from './components/AppDownloadPopup';
 import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
@@ -10,24 +10,24 @@ import Header from './components/Header';
 import UiProvider from './components/UiProvider';
 import { useStore, observer } from './stores';
 
-const App: React.FC = () => {
+const App: React.FC<{ isSSR?: boolean }> = ({ isSSR = false}) => {
   return (
     <React.StrictMode>
       <MobxProvider>
         <UiProvider>
           <GlobalStyles />
           <AppDownloadPopUp />
-          <Routes />
+          <Routes isSSR={isSSR}/>
         </UiProvider>
       </MobxProvider>
     </React.StrictMode>
   );
 }
 
-
-function Routes() {
+function Routes({ isSSR }: { isSSR: boolean}) {
   const { ui } = useStore();
-
+  const Router: typeof StaticRouter | BrowserRouter = isSSR ? StaticRouter : BrowserRouter;
+  
   return (
     <Router>
       <Page headerHeight={ui.header.height}>

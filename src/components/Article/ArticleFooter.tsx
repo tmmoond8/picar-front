@@ -15,7 +15,7 @@ import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
 import APIS from '../../apis';
 
-const windowNavigator = (navigator as any);
+const windowNavigator = (globalThis?.navigator as any);
 
 const ArticleFooter = () => {
   const {

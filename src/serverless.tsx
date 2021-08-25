@@ -23,7 +23,7 @@ app.get('*', (req, res) => {
     from: 'server',
   };
   
-  const renderString = renderToString(<App />);
+  const renderString = renderToString(<App isSSR/>);
   const result = template
     .replace('<div id="root"></div>', `<div id="root">${renderString}</div>`)
     .replace('__DATA_FROM_SERVER__', JSON.stringify(serverData));
