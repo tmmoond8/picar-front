@@ -9,8 +9,8 @@ const hash = process.env.COMMIT_REF ? `.${process.env.COMMIT_REF}` : '';
 
 const output = () => (config) => {
   // 기본 js 파일명 변경
-  config.output.filename = `static/js/[name]${hash}.js`
-  config.output.chunkFilename = `static/js/[name]${hash}.chunk.js`;
+  // config.output.filename = `static/js/[name]${hash}.js`
+  // config.output.chunkFilename = `static/js/[name]${hash}.chunk.js`;
   config.plugins.forEach(plugin => {
     if (plugin && plugin.options) {
       const { filename } = plugin.options;

@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import { createBrowserHistory, LocationState } from 'history';
+import { createMemoryHistory, LocationState } from 'history';
 import { CustomHistory } from '../modules/history';
 import { Stores, CommonStore } from '.';
 
@@ -16,7 +16,7 @@ class UtilsStore implements UtilStoreInterface {
   rootStore: Stores | null;
 
   constructor() {
-    this.history = createBrowserHistory() as CustomHistory<LocationState>;
+    this.history = createMemoryHistory() as any;
     this.rootStore = null;
   }
 
