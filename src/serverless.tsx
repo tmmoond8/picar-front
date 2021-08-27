@@ -5,7 +5,7 @@ import serverless from "serverless-http";
 import express from "express";
 import cors from "cors";
 import axios from 'axios';
-import parse5, { ParentNode, Element } from "parse5";
+import parse5, { ParentNode, Element, TextNode } from "parse5";
 import bodyParser from "body-parser";
 import { renderToString } from "react-dom/server";
 // @ts-ignore
@@ -69,9 +69,10 @@ interface MetaData { title: string, description: string, image?: string};
 function changeMeta(head: ParentNode, { title, description, image }: MetaData) {
   (head.childNodes as Element[]).forEach(({
     tagName,
-    attrs
+    attrs,
+    childNodes
   }) => {
-    if (tagName !== 'meta' || !attrs) return;
+    if (!attrs) return;
     if (tagName === 'meta') {
       setAttrsByProperty(attrs, 'og:title', title);
       setAttrsByProperty(attrs, 'twitter:title', title);
@@ -81,6 +82,9 @@ function changeMeta(head: ParentNode, { title, description, image }: MetaData) {
       if (image) {
         setAttrsByProperty(attrs, 'og:image', image);
       }
+    }
+    if (tagName === 'title' && childNodes[0]) {
+      (childNodes[0] as TextNode).value = 'title';
     }
   })
 }
