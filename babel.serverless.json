@@ -9,7 +9,9 @@
   ],
   "plugins": [
     "css-modules-transform",
-    "@babel/plugin-transform-runtime",
+    ["@babel/plugin-transform-runtime", {
+      "regenerator": true
+    }],
     "@babel/plugin-transform-modules-commonjs",
     ["@babel/plugin-proposal-decorators", { "legacy": true} ],
     "@babel/plugin-proposal-class-properties",
