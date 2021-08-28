@@ -101,6 +101,7 @@ const ArticleContainer = styled.div<{ desktop: boolean }>`
   background-color: ${colors.white};
   padding: 60px 0 0 0;
   overflow-y: auto;
+  height: 100%;
 
   & > [class*="ArticleHeader"] {
     position: absolute;
