@@ -16,7 +16,7 @@ const PLATFORMS = {
 } as const;
 
 interface Browserizr {
-    isAndroid (): boolean;
+	isAndroid (): boolean;
 	isAndroid3 (): boolean;
 	isAndroid4 (): boolean;
 	isAndroid5 (): boolean;
@@ -70,50 +70,31 @@ let platform: (keyof typeof PLATFORMS)[];
 
 const getPlatform = () => {
     if (!platform && globalThis?.location) {
-        import('@ionic/react').then(({ getPlatforms }) => {
-            platform = getPlatforms()
-        })
-        return [];
+				import('@ionic/react').then(({ getPlatforms }) => {
+					platform = getPlatforms()
+				})
     }
     return platform ?? [];
 }
 
 const getBrowserizr = () => {
     if (!brwoserizr && globalThis?.location) {
-        import('browserizr').then((Browserizr) => {
-            brwoserizr = Browserizr.detect();
-        })
-        brwoserizr = {} as Browserizr;
+			import('browserizr').then(module => {
+				const Browserizr = module.default;
+				brwoserizr = Browserizr.detect();
+			})
     }
-    return brwoserizr ?? {};
+    return brwoserizr;
 }
 
-export const isIos = () => {
-    return getPlatform().includes(PLATFORMS.ios);
-}
+export const isIos = () => getPlatform().includes(PLATFORMS.ios);
+export const isAndroid = () => getPlatform().includes(PLATFORMS.android);
+export const isDesktop = () => getPlatform().includes(PLATFORMS.desktop);
+export const isHybrid = () => getPlatform().includes(PLATFORMS.hybrid);
+export const isIosAndHybrid = () => isIos() && isHybrid();
 
-export const isAndroid = () => {
-    return getPlatform().includes(PLATFORMS.android);
-}
-
-export const isDesktop = () => {
-    return getPlatform().includes(PLATFORMS.desktop);
-}
-
-export const isHybrid = () => {
-    return getPlatform().includes(PLATFORMS.hybrid);
-}
-
-export const isIosAndHybrid = () => {
-    return isIos() && isHybrid();
-}
-
-export const isPreRendering = () => {
-    return window.navigator.userAgent === 'ReactSnap';
-}
-
-export const hasHomeBar = () => {
-    const b = getBrowserizr();
+export const hasHomeBar = async () => {
+    const b = await getBrowserizr();
     const hasPhysicalButton = b.isIPhone4() || b.isIPhone5() || b.isIPhone678() || b.isIPhone678plus();
     return isIos() && !hasPhysicalButton;
 }

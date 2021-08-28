@@ -52,10 +52,10 @@ let brwoserizr: Browserizr;
 
 const getBrowserizr = () => {
   if (!brwoserizr) {
-      import('browserizr').then((Browserizr) => {
-          brwoserizr = Browserizr.detect();
-      })
-      brwoserizr = {} as Browserizr;
+      import('browserizr').then((module) => {
+        const Browserizr = module.default;
+        brwoserizr = Browserizr.detect();
+      });
   }
   return brwoserizr;
 }
@@ -66,6 +66,8 @@ const getBrowserizr = () => {
   // 물리 버튼이 있으면 36
 export const getVirtualKeyboardHeight = () => {
   const browser = getBrowserizr();
+  if (!browser) return 40;
+
   if (!browser.isIOS()) {
     return 0;
   }

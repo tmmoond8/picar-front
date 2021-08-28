@@ -1,8 +1,8 @@
 const develop = {
   NAVER_CLIENT_ID: 'd3dL6VA0QQaGHiVMswZ2',
   NAVER_CLIENT_SECRET: 'eXGhuyO9QK',
-  NAVER_LOGIN_BRIDGE_URL: 'http://192.168.1.165:8200/login/naver/',
-  API_URL: 'http://192.168.1.165:6060/api',
+  NAVER_LOGIN_BRIDGE_URL: 'http://localhost:8200/login/naver/',
+  API_URL: 'http://localhost:6060/api',
 };
 
 const production = {
