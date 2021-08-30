@@ -27,3 +27,4 @@ export const checkUUID = (uuid: string):
 export const getUser = () => api.get('/auth/getUser');
 export const logout = () => api.get('/auth/logout');
 export const deleteUser = (code: string) => api.delete(`/auth/delete/${code}`);
+export const getAdmins = (): Promise<AxiosResponse<{ ok: boolean; message: string; admins: Profile[] }>> => api.get('/auth/list/owwner');
