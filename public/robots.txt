@@ -1,3 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
+User-agent: Googlebot
+Disallow: /owwner/
+
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://www.picar.kr/sitemap.xml

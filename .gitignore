@@ -17,6 +17,7 @@
 /resources/ios
 /resources/keys
 /lambda
+/build/sitemap.xml
 
 # misc
 .DS_Store

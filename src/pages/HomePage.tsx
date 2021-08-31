@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 import Page from './BasePage';
 import { observer, useStore } from '../stores';
@@ -17,6 +18,7 @@ const HomePage = () => {
 
   return (
     <Page>
+      <Link to="search" />
       {ui.queryMatch.Mobile && <MobileHome />}
       {(ui.queryMatch.Tablet || ui.queryMatch.Desktop) && <TabletHome />}
     </Page>
