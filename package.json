@@ -91,7 +91,8 @@
     "open-graph-scraper": "^4.9.0",
     "react-app-rewired": "^2.1.8",
     "react-snap": "^1.23.0",
-    "replace-in-files-cli": "^1.0.0"
+    "replace-in-files-cli": "^1.0.0",
+    "sync-fetch": "^0.3.0"
   },
   "scripts": {
     "dev": "PORT=8200 react-app-rewired start",
