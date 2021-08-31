@@ -100,11 +100,11 @@
     "dev:android": "ionic capacitor run android -l --external",
     "dev:lambda": "netlify-lambda serve src/functions",
     "babel:serverless": "yarn babel --config-file ./babel.serverless.json --out-dir lambda ./src --extensions \".ts,.tsx,.svg\"",
-    "build": "CI= react-app-rewired build && mv build/index.html build/server.html",
+    "build": "CI= react-app-rewired build",
     "build:netlify": "REACT_APP_GIT_HASH=$COMMIT_REF yarn build && yarn build:serverless",
     "build:mobile": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
-    "build:serverless": "yarn babel:serverless && yarn tool:replace-svg-to-js && yarn tool:remove-env-d-js && yarn tool:cp-html",
+    "build:serverless": "yarn babel:serverless && yarn tool:replace-svg-to-js && yarn tool:remove-env-d-js",
     "pre:prerender": "rm .env && cp .env.production.env .env",
     "prerender": "yarn pre:prerender && yarn build && react-snap && yarn zip:prerender yarn post:prerender",
     "post:prerender": "rm .env && mv .env_b .env",
@@ -112,7 +112,6 @@
     "tool:resources": "cordova-res ios && cordova-res android && node resources/script.js",
     "tool:replace-svg-to-js": "yarn replace-in-files --string='.svg' --replacement='.js' lambda/components/Icon/icons/index.js",
     "tool:remove-env-d-js": "rm lambda/react-app-env.d.js",
-    "tool:cp-html": "rm -rf lambda/asset && mkdir lambda/asset && cp build/server.html lambda/asset/",
     "eject": "react-app-rewired eject"
   },
   "reactSnap": {

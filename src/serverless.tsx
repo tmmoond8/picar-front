@@ -9,7 +9,7 @@ import parse5, { ParentNode, Element, TextNode } from "parse5";
 import bodyParser from "body-parser";
 import { renderToString } from "react-dom/server";
 // @ts-ignore
-import html from "../build/server.html";
+import html from "../build/index.html";
 // Import React application
 import App from "./App";
 
