@@ -66,12 +66,13 @@ function getHead(q: ParentNode[]) {
 }
 
 interface MetaData { title: string, description: string, image?: string};
-function changeMeta(head: ParentNode, { title, description, image }: MetaData) {
+function changeMeta(head: ParentNode, { title: _title, description, image }: MetaData) {
   (head.childNodes as Element[]).forEach(({
     tagName,
     attrs,
     childNodes
   }) => {
+    const title = `PICAR - ${_title}`;
     if (!attrs) return;
     if (tagName === 'meta') {
       setAttrsByProperty(attrs, 'og:title', title);
