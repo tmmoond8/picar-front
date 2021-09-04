@@ -11,17 +11,25 @@ export const getDateGoodLook = (lastModifiedDate: string) => {
     return '';
   }
   const diffTime = new Date().getTime() - lastDateTime;
-  if (diffTime < 60000) {
+  const lastDate = new Date(lastDateTime);
+  const [ year, month, date] = [lastDate.getFullYear(), lastDate.getMonth() + 1, lastDate.getDate()];
+
+  if (diffTime < 60 * 1000) {
     return '방금 전';
   }
+
+  if (year !== new Date().getFullYear()) {
+    return `${year}년 ${month}월 ${date}일`;
+  }
+
+  if (diffTime > 9 * 24 * 60 * 60 * 1000) {
+    return `${month}월 ${date}일`;
+  } 
+
   return dateFilter.reduce((accum, { unit, postfix }) => {
     if (accum) return accum;
     const d = Math.floor(diffTime / unit);
     if (d !== 0) {
-      if (diffTime > 1296000000) {
-        const date = new Date(lastDateTime).toLocaleDateString().match(/.+(?=.)/);
-        return date ? date[0] : '';
-      }
       return `${d}${postfix} 전`;
     }
     return '';
