@@ -1,22 +1,9 @@
-
-import serverless from "serverless-http";
-import express from "express";
-import cors from "cors";
-import axios from 'axios';
 import parse5, { ParentNode, Element, TextNode } from "parse5";
-import bodyParser from "body-parser";
+import axios from 'axios';
 // @ts-ignore
 import html from "../build/index.html";
 
-// Setup for Express
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use('/static', express.static('static'));
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
-app.get('*', async (req, res) => {
+const handler = async (event: any) => {
   const serverData = {
     from: 'server',
     article: null,
@@ -24,25 +11,27 @@ app.get('*', async (req, res) => {
   const document = parse5.parse(html);
   //SEO
   const head = getHead([document]);
-  if (req.path.startsWith('/article')) {
-    const { data: { ok, data } } = await axios.get(`https://api.picar.kr/api${req.path}`) 
-    const { content, title, photos, isDelete } = data;
-    serverData.article = data;
-    if (ok && !isDelete) {
-      changeMeta(head as ParentNode, {
-        title,
-        description: content,
-        image: photos ? photos.split(',')[0] : undefined,
-      });
-    }
+  const { data: { ok, data } } = await axios.get(`https://api.picar.kr/api${event.path}`) 
+  const { content, title, photos, isDelete } = data;
+  serverData.article = data;
+  if (ok && !isDelete) {
+    changeMeta(head as ParentNode, {
+      title,
+      description: content,
+      image: photos ? photos.split(',')[0] : undefined,
+    });
   }
 
   const result = parse5.serialize(document)
     .replace('__DATA_FROM_SERVER__', JSON.stringify(serverData))
-  res.send(result);
-});
 
-exports.handler = serverless(app);
+  return {
+    statusCode: 200,
+    body: result,
+  };
+};
+
+export { handler };
 
 function getHead(q: ParentNode[]) {
   while(q.length > 0) {

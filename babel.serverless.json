@@ -2,20 +2,13 @@
   "presets": [
     "@babel/typescript",
     "@babel/preset-react",
-    "@babel/preset-env",
-    ["@dr.pogodin/babel-preset-svgr", {
-      "mimicCreateReactApp": true
-    }]
+    "@babel/preset-env"
   ],
   "plugins": [
-    "css-modules-transform",
     ["@babel/plugin-transform-runtime", {
       "regenerator": true
     }],
     "@babel/plugin-transform-modules-commonjs",
-    ["@babel/plugin-proposal-decorators", { "legacy": true} ],
-    "@babel/plugin-proposal-class-properties",
-    "@babel/proposal-object-rest-spread",
     "transform-html-import-to-string"
   ]
 }
