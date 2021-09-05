@@ -1,17 +1,12 @@
 
-// @ts-ignore
-import React from "react";
 import serverless from "serverless-http";
 import express from "express";
 import cors from "cors";
 import axios from 'axios';
 import parse5, { ParentNode, Element, TextNode } from "parse5";
 import bodyParser from "body-parser";
-import { renderToString } from "react-dom/server";
 // @ts-ignore
 import html from "../build/index.html";
-// Import React application
-import App from "./App";
 
 // Setup for Express
 const app = express();
@@ -24,6 +19,7 @@ app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 app.get('*', async (req, res) => {
   const serverData = {
     from: 'server',
+    article: null,
   };
   const document = parse5.parse(html);
   //SEO
@@ -31,6 +27,7 @@ app.get('*', async (req, res) => {
   if (req.path.startsWith('/article')) {
     const { data: { ok, data } } = await axios.get(`https://api.picar.kr/api${req.path}`) 
     const { content, title, photos, isDelete } = data;
+    serverData.article = data;
     if (ok && !isDelete) {
       changeMeta(head as ParentNode, {
         title,
@@ -40,12 +37,8 @@ app.get('*', async (req, res) => {
     }
   }
 
-  const hash = process.env.COMMIT_REF ? `.${process.env.COMMIT_REF}` : '';
-  const renderString = renderToString(<App isSSR/>);
   const result = parse5.serialize(document)
-    .replace('<div id="root"></div>', `<div id="root">${renderString}</div>`)
     .replace('__DATA_FROM_SERVER__', JSON.stringify(serverData))
-    .replace('.chunk.js', hash +'.chunk.js').replace('.chunk.css', hash + '.chunk.css')
   res.send(result);
 });
 

@@ -5,8 +5,6 @@ const {
   useBabelRc,
 } = require('customize-cra');
 
-const hash = process.env.COMMIT_REF ? `.${process.env.COMMIT_REF}` : '';
-
 const output = () => (config) => {
   // 기본 js 파일명 변경
   config.output.filename = `static/js/[name]${hash}.js`
@@ -29,6 +27,6 @@ module.exports = {
     disableEsLint(), 
     addDecoratorsLegacy(), 
     useBabelRc(),
-    output(),
+    // output(),
   ),
 };
