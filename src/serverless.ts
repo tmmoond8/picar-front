@@ -23,7 +23,7 @@ const handler = async (event: any) => {
   }
 
   const result = parse5.serialize(document)
-    .replace('__DATA_FROM_SERVER__', JSON.stringify(serverData))
+    .replace('window.__DATA_FROM_SERVER__', JSON.stringify(serverData))
 
   return {
     statusCode: 200,
