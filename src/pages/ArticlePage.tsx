@@ -42,12 +42,14 @@ const ArticlePage: React.FC = () => {
   }, [article]);
 
   React.useEffect(() => {
+    
     if (!articleId) {
       return;
     }
+    
     const picarData = (window as any).__picar__;
     if (picarData && picarData.article) {
-      if (picarData.article.id === articleId) {
+      if (picarData.article.id.toString() === articleId) {
         setArticle(picarData.article);
         return;
       }
