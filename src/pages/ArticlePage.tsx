@@ -45,6 +45,13 @@ const ArticlePage: React.FC = () => {
     if (!articleId) {
       return;
     }
+    const picarData = (window as any).__picar__;
+    if (picarData && picarData.article) {
+      if (picarData.article.id === articleId) {
+        setArticle(picarData.article);
+        return;
+      }
+    }
     (async () => {
       const { data: { ok, data } } = await APIS.article.get(articleId);
       if (ok) {
