@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter, StaticRouter, Switch, Route } from 'react-router-dom';
 import AppDownloadPopUp from './components/AppDownloadPopup';
-import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
-import * as Pages from './pages';
 import { MobxProvider } from './stores';
 import Header from './components/Header';
+import LoadingPage from './pages/LoadingPage';
 import UiProvider from './components/UiProvider';
 import { useStore, observer } from './stores';
+
+const MyProfileEditPage = React.lazy(() => import('./pages/MyProfileEditPage'));
+const MyProfilePage = React.lazy(() => import('./pages/MyProfilePage'));
+const NotionEmbedPage = React.lazy(() => import('./pages/NotionEmbedPage'));
+const NewsPage = React.lazy(() => import('./pages/NewsPage'));
+const MyActivationsPage = React.lazy(() => import('./pages/MyActivationsPage'));
+const TestPage = React.lazy(() => import('./pages/TestPage'));
+const OwwnerPage = React.lazy(() => import('./pages/OwwnerPage'));
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
+const SearchPage = React.lazy(() => import('./pages/SearchPage'));
+const NotificationPage = React.lazy(() => import('./pages/NotificationPage'));
+const HomePage = React.lazy(() => import('./pages/HomePage'));
 
 const App: React.FC<{ isSSR?: boolean }> = ({ isSSR = false}) => {
   return (
@@ -32,53 +44,52 @@ function Routes({ isSSR }: { isSSR: boolean}) {
     <Router>
       <Page headerHeight={ui.header.height}>
         <Header {...ui.header} />
-        <Switch>
-          <Route exact path="/myProfile/edit">
-            <Pages.MyProfileEditPage />
-          </Route>
-          <Route exact path="/notice">
-            <Pages.NotionEmbedPage {...notionPages.notice} />
-          </Route>
-          <Route path="/notion/:id">
-            <Pages.NotionEmbedPage />
-          </Route>
-          <Route path="/qna">
-            <Pages.NotionEmbedPage {...notionPages.qna} />
-          </Route>
-          <Route exact path="/myProfile">
-            <Pages.MyProfilePage />
-          </Route>
-          <Route path="/news">
-            <Pages.NewsPage />
-          </Route>
-          <Route exact path="/prerendering">
-              <Pages.PreRenderingPage />
+        <Suspense fallback={<LoadingPage />}>
+          <Switch>
+            <Route exact path="/myProfile/edit">
+              <MyProfileEditPage />
             </Route>
-          <Route exact path="/myActivations">
-            <Pages.MyActivationsPage />
-          </Route>
-          <Route exact path="/test">
-            <Pages.TestPage />
-          </Route>
-          <Route exact path="/owwner">
-            <Pages.OwwnerPage />
-          </Route>
-          <Route exact path="/login">
-            <Pages.LoginPage />
-          </Route>
-          <Route exact path="/article/:articleId">
-            <Pages.ArticlePage />
-          </Route>
-          <Route exact path="/search">
-            <Pages.SearchPage />
-          </Route>
-          <Route exact path="/notification">
-            <Pages.NotificationPage />
-          </Route>
-          <Route path="/">
-            <Pages.HomePage />
-          </Route>
-        </Switch>
+            <Route exact path="/notice">
+              <NotionEmbedPage {...notionPages.notice} />
+            </Route>
+            <Route path="/notion/:id">
+              <NotionEmbedPage />
+            </Route>
+            <Route path="/qna">
+              <NotionEmbedPage {...notionPages.qna} />
+            </Route>
+            <Route exact path="/myProfile">
+              <MyProfilePage />
+            </Route>
+            <Route path="/news">
+              <NewsPage />
+            </Route>
+            <Route exact path="/myActivations">
+              <MyActivationsPage />
+            </Route>
+            <Route exact path="/test">
+              <TestPage />
+            </Route>
+            <Route exact path="/owwner">
+              <OwwnerPage />
+            </Route>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+            <Route exact path="/article/:articleId">
+              <ArticlePage />
+            </Route>
+            <Route exact path="/search">
+              <SearchPage />
+            </Route>
+            <Route exact path="/notification">
+              <NotificationPage />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </Suspense>
       </Page>
     </Router>
   )
@@ -95,12 +106,3 @@ const notionPages = {
   notice: { title: '공지사항', pageId: 'ae9ae015c5504dd886d3cc2af088c6f5' },
   qna: { title: '자주 묻는 질문', pageId: 'b070f0090c2f4391a002e49cb65a7a6d' }
 }
-
-const Location = styled.div`
-  position: fixed;
-  top: calc(${constants.safeTop} + 40px);
-  left: 20px;
-  font-size: 10px;
-  color: rgba(100, 100, 100, 0.5);
-  z-index: 1000000;
-`;
