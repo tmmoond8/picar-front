@@ -139,6 +139,12 @@
   </div>
   <script>
     window.__picar__ = window.__DATA_FROM_SERVER__;
+    document.addEventListener("DOMContentLoaded", () => {
+      const splashEl = document.querySelector<HTMLDivElement>('.splash');
+      if (!!splashEl) {
+        splashEl.style.display = 'none';
+      }
+    });
   </script>
 </body>
 
