@@ -1,7 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
+import PicarSuspense from '../components/PicarSuspense';
+import SuspenseFallback from '../components/PicarSuspense/SuspenseFallback';
 
 export default (function TestPage(): JSX.Element {
-  return <div></div>
+  return (
+    <PicarSuspense>
+      <SuspenseFallback />
+    </PicarSuspense>
+  );
 });

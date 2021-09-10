@@ -1,16 +1,16 @@
 /** @jsx jsx */
+import React from 'react';
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 
-const SpaceBetween: React.FC<{ children: React.ReactNode}> = ({ children }) => {
+
+export default function SpaceBetween({ children, className }: React.HtmlHTMLAttributes<HTMLElement>) {
   return (
-    <StyledSpaceBetween>
+    <StyledSpaceBetween className={className}>
       {children}
     </StyledSpaceBetween>
   )
-}
-
-export default SpaceBetween;
+};
 
 const StyledSpaceBetween = styled.div`
   display: flex;
