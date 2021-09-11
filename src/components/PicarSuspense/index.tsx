@@ -3,7 +3,7 @@ import SuspenseFallback from './SuspenseFallback';
 
 export default function PicarSuspense({children}: { children?: React.ReactNode}) {
   return (
-    <React.Suspense fallback={SuspenseFallback}>
+    <React.Suspense fallback={<SuspenseFallback />}>
       {children}
     </React.Suspense>
   )

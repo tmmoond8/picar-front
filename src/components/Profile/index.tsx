@@ -2,7 +2,6 @@ import React from 'react';
 import Squircle from '../Squircle';
 import * as Whos from './Who';
 import Profile from './Profile';
-import Form from './ModificationForm';
 import Header from './Header';
 import * as StylingComponent from './StylingComponent';
 import { useModal } from '../Modal';
@@ -11,7 +10,6 @@ export default {
   Photo: Squircle,
   Profile,
   Header,
-  Form,
   useOpenProfile,
   ...Whos,
   ...StylingComponent,

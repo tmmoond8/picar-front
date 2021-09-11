@@ -4,11 +4,11 @@ import { BrowserRouter, StaticRouter, Switch, Route } from 'react-router-dom';
 import AppDownloadPopUp from './components/AppDownloadPopup';
 import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
-import * as Pages from './pages';
 import { MobxProvider } from './stores';
 import Header from './components/Header';
 import UiProvider from './components/UiProvider';
 import { useStore, observer } from './stores';
+import PicarSuspense from './components/PicarSuspense';
 
 const App: React.FC<{ isSSR?: boolean }> = ({ isSSR = false}) => {
   return (
@@ -24,6 +24,19 @@ const App: React.FC<{ isSSR?: boolean }> = ({ isSSR = false}) => {
   );
 }
 
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const MyProfileEditPage = React.lazy(() => import('./pages/MyProfileEditPage'));
+const MyProfilePage = React.lazy(() => import('./pages/MyProfilePage'));
+const NotionEmbedPage = React.lazy(() => import('./pages/NotionEmbedPage'));
+const NewsPage = React.lazy(() => import('./pages/NewsPage'));
+const MyActivationsPage = React.lazy(() => import('./pages/MyActivationsPage'));
+const NotificationPage = React.lazy(() => import('./pages/NotificationPage'));
+const ArticlePage = React.lazy(() => import('./pages/ArticlePage'));
+const SearchPage = React.lazy(() => import('./pages/SearchPage'));
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const TestPage = React.lazy(() => import('./pages/TestPage'));
+const OwwnerPage = React.lazy(() => import('./pages/OwwnerPage'));
+
 function Routes({ isSSR }: { isSSR: boolean}) {
   const { ui } = useStore();
   const Router: typeof StaticRouter | BrowserRouter = isSSR ? StaticRouter : BrowserRouter;
@@ -32,53 +45,52 @@ function Routes({ isSSR }: { isSSR: boolean}) {
     <Router>
       <Page headerHeight={ui.header.height}>
         <Header {...ui.header} />
-        <Switch>
-          <Route exact path="/myProfile/edit">
-            <Pages.MyProfileEditPage />
-          </Route>
-          <Route exact path="/notice">
-            <Pages.NotionEmbedPage {...notionPages.notice} />
-          </Route>
-          <Route path="/notion/:id">
-            <Pages.NotionEmbedPage />
-          </Route>
-          <Route path="/qna">
-            <Pages.NotionEmbedPage {...notionPages.qna} />
-          </Route>
-          <Route exact path="/myProfile">
-            <Pages.MyProfilePage />
-          </Route>
-          <Route path="/news">
-            <Pages.NewsPage />
-          </Route>
-          <Route exact path="/prerendering">
-              <Pages.PreRenderingPage />
+        <PicarSuspense>
+          <Switch>
+            <Route exact path="/myProfile/edit">
+              <MyProfileEditPage />
             </Route>
-          <Route exact path="/myActivations">
-            <Pages.MyActivationsPage />
-          </Route>
-          <Route exact path="/test">
-            <Pages.TestPage />
-          </Route>
-          <Route exact path="/owwner">
-            <Pages.OwwnerPage />
-          </Route>
-          <Route exact path="/login">
-            <Pages.LoginPage />
-          </Route>
-          <Route exact path="/article/:articleId">
-            <Pages.ArticlePage />
-          </Route>
-          <Route exact path="/search">
-            <Pages.SearchPage />
-          </Route>
-          <Route exact path="/notification">
-            <Pages.NotificationPage />
-          </Route>
-          <Route path="/">
-            <Pages.HomePage />
-          </Route>
-        </Switch>
+            <Route exact path="/notice">
+              <NotionEmbedPage {...notionPages.notice} />
+            </Route>
+            <Route path="/notion/:id">
+              <NotionEmbedPage />
+            </Route>
+            <Route path="/qna">
+              <NotionEmbedPage {...notionPages.qna} />
+            </Route>
+            <Route exact path="/myProfile">
+              <MyProfilePage />
+            </Route>
+            <Route path="/news">
+              <NewsPage />
+            </Route>
+            <Route exact path="/myActivations">
+              <MyActivationsPage />
+            </Route>
+            <Route exact path="/test">
+              <TestPage />
+            </Route>
+            <Route exact path="/owwner">
+              <OwwnerPage />
+            </Route>
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
+            <Route exact path="/article/:articleId">
+              <ArticlePage />
+            </Route>
+            <Route exact path="/search">
+              <SearchPage />
+            </Route>
+            <Route exact path="/notification">
+              <NotificationPage />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </PicarSuspense>
       </Page>
     </Router>
   )

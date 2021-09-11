@@ -2,12 +2,12 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import Page from './BasePage';
-import Profile from '../components/Profile';
+import ProfileModificationForm from '../components/Profile/ModificationForm';
 
 const ProfileEditPage = () => {
   return (
     <StyledPage>
-      <Profile.Form />
+      <ProfileModificationForm />
     </StyledPage>
   );
 }
