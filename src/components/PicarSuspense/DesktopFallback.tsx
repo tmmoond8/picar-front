@@ -30,7 +30,7 @@ export default function DesktopFallback() {
             <Skeleton height={22} width={46} />
           </ContentHead>
           {Array.from({length: 5}).map((_, index) => (
-            <Article key={index}>
+            <Article key={`article-skeleton-${index}`}>
               <ArticleTop>
                 <Skeleton circle height={22} width={22} />
                 <Skeleton height={22} width={67} style={{marginLeft: '12px'}}/>
@@ -62,7 +62,7 @@ export default function DesktopFallback() {
             <Skeleton height={32} width={33} />
           </PopHead>
           {Array.from({ length: 7}).map((_, index) => (
-            <PopArticle >
+            <PopArticle key={`pop-article-skeleton-${index}`}>
               <Skeleton height={22} width={212} />
               <Skeleton height={18} width={101} style={{marginTop: '6px'}}/>
             </PopArticle>
