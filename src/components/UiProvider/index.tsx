@@ -10,6 +10,7 @@ import ModalViewer, {
 import { useStore, observer } from '../../stores';
 import 'react-toastify/dist/ReactToastify.css';
 import global from '../../types/global';
+import sessionStorage from '../../modules/sessionStorage';
 import { crossPlatform } from '../../modules';
 import { Profile as UserProfile } from '../../types/User';
 import { useCheckLogin, useBreakpoint } from '../../hooks';
@@ -43,6 +44,11 @@ const UiProvider: React.FC<{
         if (!!splashEl) {
           splashEl.style.display = 'none';
         }
+    })
+    window.addEventListener('unload', () => {
+      console.log('uload');
+      sessionStorage.clearScroll();
+      sessionStorage.clearPage();
     })
   }, [])
 

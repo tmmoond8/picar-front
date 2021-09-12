@@ -3,9 +3,9 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
-import { throttle, debounce } from 'throttle-debounce';
+import { throttle } from 'throttle-debounce';
 import { toast } from 'react-toastify';
-
+import sessionStorage from '../../modules/sessionStorage';
 import Icon from '../Icon';
 import Article from '../../types/Article';
 import { EmotionType } from '../../types/Emotion';
@@ -18,14 +18,20 @@ const ArticleList: React.FC<{
   className?: string;
   articles: Article[];
   bookmarks: Set<number>;
-  name?: string;
+  name: string;
   emptyString?: string;
 }> = ({
   articles: initArticles, bookmarks, className, emptyString, name,
 }) => {
     const { user } = useStore();
-    const { articles, loadMore, isEnd } = usePaging(initArticles)
+    const { articles, loadMore, isEnd } = usePaging(initArticles, name)
+    const listRef = React.useRef<HTMLOListElement>(null);
     const openArticleEditor = useOpenArticleEditor();
+    React.useEffect(() => {
+      if (listRef.current && sessionStorage.getScroll(name)) {
+        listRef.current.scrollTop = sessionStorage.getScroll(name);
+      }
+    }, [])
 
     const handleClickBookmark = React.useCallback(
       (articleId: number) => () => {
@@ -58,6 +64,7 @@ const ArticleList: React.FC<{
 
     const handleScroll = throttle(8, true, (e: React.MouseEvent<HTMLOListElement>) => {
       const { scrollHeight, scrollTop, clientHeight} = e.target as HTMLOListElement;
+      sessionStorage.setScroll(name, scrollTop);
       if (!isEnd && clientHeight + scrollTop + 40 > scrollHeight) {
         loadMore();
       }
@@ -65,6 +72,7 @@ const ArticleList: React.FC<{
 
     return (
       <StyledArticleList 
+        ref={listRef}
         data-id={name} 
         className={cx("ArticleList", className)}
         onScroll={handleScroll}
@@ -123,9 +131,9 @@ const Empty = styled.li`
   }
 `;
 
-function usePaging(initArticles: Article[]) {
+function usePaging(initArticles: Article[], group: string) {
   const SIZE = 12;
-  const [page, setPage ] = React.useState(1);
+  const [page, setPage ] = React.useState(sessionStorage.getPage(group));
   const [isEnd, setIsEnd] = React.useState(false);
   const [allArtciles, setAllArticles] = React.useState(initArticles);
   
@@ -143,9 +151,9 @@ function usePaging(initArticles: Article[]) {
       setIsEnd(true);
     } else {
       setPage(page + 1);
+      sessionStorage.setPage(group, page + 1);
     }
   }
-
 
   return {
     articles,

@@ -61,6 +61,7 @@ const SearchResults: React.FC<{search: string}> = ({search}) => {
         onChangeIndex={setTabIndex}
       >
         <ArticleList
+          name="search-article"
           articles={articles}
           bookmarks={user.bookmarks}
         />

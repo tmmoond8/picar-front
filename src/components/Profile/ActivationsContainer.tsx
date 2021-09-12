@@ -82,12 +82,14 @@ const UserActivations: React.FC<{
             onChangeIndex={handleOnChange}
           >
             <ArticleList
+              name="activation-article"
               articles={articles}
               bookmarks={user.bookmarks}
               emptyString='작성한 게시글이 없습니다.'
             />
             <CommentList comments={comments} />
             <ArticleList
+              name="activation-bookmark"
               articles={bookmarks}
               bookmarks={user.bookmarks}
               emptyString='북마크한 게시글이 없습니다.'

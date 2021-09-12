@@ -71,6 +71,7 @@ const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3y
             onChangeIndex={setTabIndex}
           >
             <ArticleList
+              name="profile-article"
               articles={articles}
               bookmarks={user.bookmarks}
               emptyString='작성한 게시글이 없습니다.'
