@@ -32,7 +32,8 @@ const Header: React.FC = () => {
   const handleGoBack = React.useCallback(() => {
     setStep(step - 1);
     (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
-  }, [step])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
   const alert = useAlert();
 
   const validate = React.useCallback(() => {
@@ -41,11 +42,11 @@ const Header: React.FC = () => {
       return false;
     }
     if (content.length === 0) {
-      toast.success('내용을 입력하세요.')
+      toast.success('내용을 입력하세요.');
       return false;
     }
     return true;
-  }, [title, content])
+  }, [title, content]);
 
   const handleClickUpdate = React.useCallback(async () => {
     if (!validate() || !article) return;
@@ -64,7 +65,17 @@ const Header: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [title, content, article, selected, thumbnail, photos, syncArticle, onClose]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    title,
+    content,
+    article,
+    selected,
+    thumbnail,
+    photos,
+    syncArticle,
+    onClose,
+  ]);
 
   const handleClickPost = React.useCallback(async () => {
     if (!validate()) return;
@@ -84,7 +95,17 @@ const Header: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [title, content, selected, thumbnail, photos, syncArticle, onClose, history]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    title,
+    content,
+    selected,
+    thumbnail,
+    photos,
+    syncArticle,
+    onClose,
+    history,
+  ]);
 
   const handleSubmit = React.useMemo(() => {
     return article ? handleClickUpdate : handleClickPost;
@@ -105,10 +126,12 @@ const Header: React.FC = () => {
     alert.open({
       title: `작성중인 글쓰기를 삭제하고
 이전페이지로 돌아갑니다`,
-      subtitle: `작성중인 글쓰기를 삭제하고 이전페이지로 돌아갑니다이전페이지로 돌아갑니다이전페이지로 돌아갑니다`,
-      handleConfirm: onClose
-    })
-  }, [title, content, photos])
+      subtitle:
+        '작성중인 글쓰기를 삭제하고 이전페이지로 돌아갑니다이전페이지로 돌아갑니다이전페이지로 돌아갑니다',
+      handleConfirm: onClose,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, content, photos]);
 
   const HeaderRight = (
     <SendButton onClick={handleSubmit} disabled={disabledWrite}>
@@ -118,7 +141,7 @@ const Header: React.FC = () => {
         color={disabledWrite ? colors.blackEB : colors.black22}
       />
     </SendButton>
-  )
+  );
 
   return (
     <StyledHeader
@@ -129,17 +152,19 @@ const Header: React.FC = () => {
       right={HeaderRight}
       hideRight={step !== 0}
     />
-  )
-}
+  );
+};
 
 export default observer(Header);
 
-const StyledHeader = styled(Carousel.Header) <{ hideRight: boolean }>`
-  ${p => p.hideRight && css`
-    .right {
-      display: none;
-    }
-  `}
+const StyledHeader = styled(Carousel.Header)<{ hideRight: boolean }>`
+  ${(p) =>
+    p.hideRight &&
+    css`
+      .right {
+        display: none;
+      }
+    `}
 `;
 
 const SendButton = styled.button<{ disabled: boolean }>`
@@ -148,11 +173,13 @@ const SendButton = styled.button<{ disabled: boolean }>`
   top: 18px;
   font-size: 16px;
   color: ${colors.primary};
-    padding: 0;
+  padding: 0;
   cursor: pointer;
 
-  ${p => p.disabled && css`
-    cursor: none;
-    pointer-events: none;
-  `}
+  ${(p) =>
+    p.disabled &&
+    css`
+      cursor: none;
+      pointer-events: none;
+    `}
 `;

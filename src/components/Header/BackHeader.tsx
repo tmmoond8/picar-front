@@ -13,12 +13,15 @@ const BackHeader: React.FC<{
     title?: string;
     right?: React.ReactNode;
     noBottomLine?: boolean;
-  }
+  };
 }> = ({ options = {}, className }) => {
   const { util } = useStore();
 
   return (
-    <StyledBack noBottomLine={options.noBottomLine ?? false} className={cx('BackHeader', className)}>
+    <StyledBack
+      noBottomLine={options.noBottomLine ?? false}
+      className={cx('BackHeader', className)}
+    >
       <h2 className="title">{options?.title || ''}</h2>
       <Icon
         icon="back"
@@ -29,7 +32,7 @@ const BackHeader: React.FC<{
       <div className="right">{options?.right}</div>
     </StyledBack>
   );
-}
+};
 
 export default observer(BackHeader);
 
@@ -43,7 +46,7 @@ const StyledBack = styled.nav<{ noBottomLine: boolean }>`
   padding: 0 18px;
   background: ${colors.white};
   color: ${colors.black100};
-  
+
   & > svg {
     position: absolute;
     left: 18px;
@@ -67,8 +70,4 @@ const StyledBack = styled.nav<{ noBottomLine: boolean }>`
       margin-left: 12px;
     }
   }
-  
-  ${p => !p.noBottomLine && css`
-    /* box-shadow: inset 0 -0.5px 0 0 ${colors.blackEB}; */
-  `}
 `;

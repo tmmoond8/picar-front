@@ -18,16 +18,16 @@ const SignUpContext = React.createContext<{
   setModel: (v: string) => void;
 }>({
   step: 0,
-  setStep: () => { },
-  nicknameField: ['', () => { }, () => { }],
-  emailField: ['', () => { }, () => { }],
+  setStep: () => {},
+  nicknameField: ['', () => {}, () => {}],
+  emailField: ['', () => {}, () => {}],
   ownerType: '',
-  setOwnerType: () => { },
+  setOwnerType: () => {},
   vendor: '',
-  setVendor: () => { },
-  onClose: () => { },
+  setVendor: () => {},
+  onClose: () => {},
   model: '',
-  setModel: () => { },
+  setModel: () => {},
 });
 
 SignUpContext.displayName = 'SignUpContext';
@@ -42,35 +42,31 @@ export const SignUpContextProvider: React.FC<{
   email?: string;
   name?: string;
   onClose: () => void;
-}> = ({
-  children,
-  email,
-  name,
-  onClose,
-}) => {
-    const [step, setStep] = React.useState(0);
-    const [model, setModel] = React.useState('');
-    const nicknameField = Input.useTextField(name || '');
-    const emailField = Input.useTextField(email || '');
-    const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
-    const [vendor, setVendor] = React.useState('');
+}> = ({ children, email, name, onClose }) => {
+  const [step, setStep] = React.useState(0);
+  const [model, setModel] = React.useState('');
+  const nicknameField = Input.useTextField(name || '');
+  const emailField = Input.useTextField(email || '');
+  const [ownerType, setOwnerType] = Input.useSwitch(ownerTypes);
+  const [vendor, setVendor] = React.useState('');
 
-    return (
-      <SignUpContext.Provider
-        value={{
-          step,
-          setStep,
-          nicknameField,
-          emailField,
-          ownerType,
-          setOwnerType,
-          vendor,
-          setVendor,
-          onClose,
-          model,
-          setModel,
-        }}>
-        {children}
-      </SignUpContext.Provider>
-    )
-  }
+  return (
+    <SignUpContext.Provider
+      value={{
+        step,
+        setStep,
+        nicknameField,
+        emailField,
+        ownerType,
+        setOwnerType,
+        vendor,
+        setVendor,
+        onClose,
+        model,
+        setModel,
+      }}
+    >
+      {children}
+    </SignUpContext.Provider>
+  );
+};

@@ -24,7 +24,7 @@ export const useFetch = (
           data: { data },
         } = await APIS.article.get(articleId);
         setArticle(data);
-      } catch (error) { }
+      } catch (error) {}
     };
     if (!existingArticle && articleId) {
       fetch();
@@ -40,7 +40,6 @@ const useArticleRemove = (handleClose: () => void) => {
 
   return React.useCallback(
     async (articleId?: number) => {
-
       alert.open({
         title: '현재 글을 삭제하시겠습니까?',
         subtitle: '현재 글을 삭제하고 이전페이지로 돌아갑니다.',
@@ -53,18 +52,21 @@ const useArticleRemove = (handleClose: () => void) => {
               data: { ok },
             } = await APIS.article.remove(articleId);
             if (ok) {
-              toast.success('글이 삭제 되었습니다.')
-              article.articles = article.articles.filter(({ id }) => articleId !== id);
+              toast.success('글이 삭제 되었습니다.');
+              article.articles = article.articles.filter(
+                ({ id }) => articleId !== id,
+              );
               util.history.goBack();
               // TODO 삭제된 글을 리스트에서도 삭제.
             }
           } catch (error) {
             console.log(error);
           }
-        }
-      })
+        },
+      });
       handleClose();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [handleClose],
   );
 };
@@ -75,7 +77,9 @@ export const useOpenArticleEditor = () => {
 
   const updateArticle = React.useCallback(
     (newArticle: Article) => {
-      article.articles = article.articles.map((article) => article.id === newArticle.id ? newArticle : article);
+      article.articles = article.articles.map((article) =>
+        article.id === newArticle.id ? newArticle : article,
+      );
     },
     [article.articles],
   );

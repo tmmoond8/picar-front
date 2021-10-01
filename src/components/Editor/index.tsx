@@ -36,40 +36,46 @@ const Editor: React.FC<{
   const handleGoBack = React.useCallback(() => {
     setStep(step - 1);
     (window as any).__OWNER__[CAROUSEL.EDITOR](step - 1);
-  }, [step])
+  }, [step]);
 
-  const handleSelect = React.useCallback((selected: string) => {
-    setSelected(selected);
-    handleGoBack();
-  }, [handleGoBack])
+  const handleSelect = React.useCallback(
+    (selected: string) => {
+      setSelected(selected);
+      handleGoBack();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [handleGoBack],
+  );
 
   return (
     <Styled.Page className="EditorPage">
-      <EditorContext.Provider value={{
-        article,
-        title,
-        content,
-        selected,
-        step,
-        photos,
-        thumbnail,
-        isOnImageUpload,
-        onClose,
-        setStep,
-        setTitle,
-        setContent,
-        setSelected,
-        syncArticle,
-        setPhotos,
-        setThumbnail,
-        setIsOnImageUpload,
-      }}>
+      <EditorContext.Provider
+        value={{
+          article,
+          title,
+          content,
+          selected,
+          step,
+          photos,
+          thumbnail,
+          isOnImageUpload,
+          onClose,
+          setStep,
+          setTitle,
+          setContent,
+          setSelected,
+          syncArticle,
+          setPhotos,
+          setThumbnail,
+          setIsOnImageUpload,
+        }}
+      >
         <Header />
         <Carousel
           id={CAROUSEL.EDITOR}
           index={step}
           gesture={false}
-          onChangeIndex={() => { }}
+          onChangeIndex={() => {}}
         >
           <Styled.Form className="Form">
             <Selector />
@@ -78,7 +84,11 @@ const Editor: React.FC<{
             <Content />
             <PhotoSection />
           </Styled.Form>
-          <Lounges handleSelect={handleSelect} myLounge={user.profile.group} all />
+          <Lounges
+            handleSelect={handleSelect}
+            myLounge={user.profile.group}
+            all
+          />
         </Carousel>
       </EditorContext.Provider>
     </Styled.Page>

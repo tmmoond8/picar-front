@@ -16,31 +16,38 @@ const NewsPage: React.FC = () => {
   const [news, setNews] = React.useState<NewsFeed[]>([]);
   React.useEffect(() => {
     (async () => {
-      const { data: { ok, news } } = await APIS.news.list();
+      const {
+        data: { ok, news },
+      } = await APIS.news.list();
       if (ok) {
         const newsFeed = news.reduce((accum: NewsFeed[], item) => {
-          return accum.find(({ id, title }) => item.id === id || title === item.title) ? accum : accum.concat(item);
-        }, [])
+          return accum.find(
+            ({ id, title }) => item.id === id || title === item.title,
+          )
+            ? accum
+            : accum.concat(item);
+        }, []);
         setNews(newsFeed);
       }
     })();
-  }, [])
+  }, []);
 
-  React.useEffect(() => { ui.scrollableElementSelector = `.NewsList`; }, [])
+  React.useEffect(() => {
+    ui.scrollableElementSelector = '.NewsList';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Page>
-      <Header >뉴스</Header>
+      <Header>뉴스</Header>
       <Content isMobile={ui.queryMatch.Mobile}>
-        {news.length > 0 && (
-          <News news={news} />
-        )}
+        {news.length > 0 && <News news={news} />}
         {news.length === 0 && <Loader size="32px" />}
       </Content>
       {ui.queryMatch.Mobile && <MenuBar />}
     </Page>
-  )
-}
+  );
+};
 
 export default observer(NewsPage);
 
@@ -64,10 +71,12 @@ const Header = styled.header`
 const Content = styled.div<{ isMobile: boolean }>`
   flex: 1;
   overflow-y: auto;
-  ${p => p.isMobile && css`
-    padding: 0 0 56px 0;
-  `};
-`
+  ${(p) =>
+    p.isMobile &&
+    css`
+      padding: 0 0 56px 0;
+    `};
+`;
 
 const MenuBar = styled(_MenuBar)`
   position: fixed;

@@ -19,40 +19,48 @@ const LoungeSelector: React.FC<{
   label?: string;
   all?: boolean;
   myLounge?: string;
-}> = ({
-  selected, setSelected, className, label, all = false, myLounge,
-}) => {
-    const modal = useModal();
-    const handleSelect = React.useCallback((value: string) => {
+}> = ({ selected, setSelected, className, label, all = false, myLounge }) => {
+  const modal = useModal();
+  const handleSelect = React.useCallback(
+    (value: string) => {
       modal.close();
       setSelected(value);
-    }, [setSelected, modal])
+    },
+    [setSelected, modal],
+  );
 
-    const handleOpenSelects = React.useCallback((e: React.MouseEvent) => {
+  const handleOpenSelects = React.useCallback(
+    (e: React.MouseEvent) => {
       e.preventDefault();
       modal.open({
         title: '라운지 선택',
         contents: (
           <React.Fragment>
-            <LoungeListComponent handleSelect={handleSelect} myLounge={myLounge} all={all} />
+            <LoungeListComponent
+              handleSelect={handleSelect}
+              myLounge={myLounge}
+              all={all}
+            />
           </React.Fragment>
         ),
         isFull: true,
         hasTitleLine: false,
-      })
-    }, [modal])
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [modal],
+  );
 
-    return (
-      <Box className={cx('SelectBox', className)}>
-        {label && <Label>{label}</Label>}
-        <StyledSelector className={'Selector'} onClick={handleOpenSelects}>
-          {selected}
-          <Icon icon="arrowDown" color={colors.black22} size="16px" />
-        </StyledSelector>
-      </Box>
-
-    )
-  }
+  return (
+    <Box className={cx('SelectBox', className)}>
+      {label && <Label>{label}</Label>}
+      <StyledSelector className={'Selector'} onClick={handleOpenSelects}>
+        {selected}
+        <Icon icon="arrowDown" color={colors.black22} size="16px" />
+      </StyledSelector>
+    </Box>
+  );
+};
 
 export default LoungeSelector;
 

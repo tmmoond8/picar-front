@@ -26,9 +26,9 @@ const BasePage: React.FC<{
 
   React.useEffect(() => {
     (async () => {
-      const appState: any = await App.addListener('appStateChange', async ({ isActive }) => {
+      App.addListener('appStateChange', async ({ isActive }) => {
         const uuid = storage.getUUID();
-        const provider = uuid && uuid.split('-')[0]
+        const provider = uuid && uuid.split('-')[0];
         if (isActive && uuid) {
           try {
             const {
@@ -36,7 +36,11 @@ const BasePage: React.FC<{
             } = await APIS.auth.checkUUID(uuid);
             storage.clearUUID();
             if (tokens) {
-              login(provider as LoginType, tokens.accessToken, tokens.refreshToken)
+              login(
+                provider as LoginType,
+                tokens.accessToken,
+                tokens.refreshToken,
+              );
               return;
             }
           } catch (error) {
@@ -45,21 +49,23 @@ const BasePage: React.FC<{
         }
       });
     })();
-  }, [App])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [App]);
 
   React.useEffect(() => {
     const { pathname, search, hash } = util.history.location;
     GA.trackPageView({ path: `${pathname}${search}${hash}` });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     util.history.location.pathname,
     util.history.location.search,
-    util.history.location.hash
+    util.history.location.hash,
   ]);
 
   return (
     <React.Fragment>
       <HiddenArea>
-        <LoginBox onClose={() => { }} />
+        <LoginBox onClose={() => {}} />
       </HiddenArea>
       {ui.queryMatch.Mobile && (
         <Page className={cx(className, 'MobilePage')}>{children}</Page>
@@ -80,11 +86,8 @@ const Page = styled.div`
   height: 100%;
 
   &.MobilePage {
-    padding: 
-      env(safe-area-inset-top)
-      env(safe-area-inset-right)
-      env(safe-area-inset-bottom)
-      env(safe-area-inset-left);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 `;
 

@@ -8,7 +8,6 @@ import ArticleList from '../ArticleList';
 import CommentList from '../ProfileCommentList';
 import Article from '../../types/Article';
 import Comment from '../../types/Comment';
-import { Profile as ProfileType } from '../../types/User';
 import Carousel from '../Carousel';
 import { Tabs, TabItem } from '../Tabs';
 import { CAROUSEL } from '../../types/constants';
@@ -20,7 +19,9 @@ const tabs = [
   { id: 'comment', display: '댓글' },
 ];
 
-const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3yb" }) => {
+const ProfileContainer: React.FC<{ userCode: string }> = ({
+  userCode = 'phupdv3yb',
+}) => {
   const [targetUser, setTargetUser] = React.useState<any | null>(null);
   const [articles, setArticles] = React.useState<Article[]>([]);
   const [comments, setComments] = React.useState<Comment[]>([]);
@@ -30,7 +31,7 @@ const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3y
     const tabIndex = tabs.findIndex(({ id }) => id === tab.id);
     (window as any).__OWNER__[CAROUSEL.PROFILE](tabIndex);
     setTabIndex(tabs.findIndex(({ id }) => id === tab.id));
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     (async () => {
@@ -50,8 +51,7 @@ const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3y
         setComments(commentData.userComments);
       }
     })();
-  }, [userCode])
-
+  }, [userCode]);
 
   return (
     <React.Fragment>
@@ -60,10 +60,14 @@ const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3y
           <StyledProfile {...targetUser} />
           <Tabs>
             {tabs.map((tab, index) => (
-              <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
+              <TabItem
+                key={tab.id}
+                handleClick={() => handleClickTab(tab)}
+                selected={index === tabIndex}
+              >
                 {tab.display}
-              </TabItem>)
-            )}
+              </TabItem>
+            ))}
           </Tabs>
           <StyledCarousel
             id={CAROUSEL.PROFILE}
@@ -74,15 +78,15 @@ const ProfileContainer: React.FC<{ userCode: string }> = ({ userCode = "phupdv3y
               name="profile-article"
               articles={articles}
               bookmarks={user.bookmarks}
-              emptyString='작성한 게시글이 없습니다.'
+              emptyString="작성한 게시글이 없습니다."
             />
             <CommentList comments={comments} />
           </StyledCarousel>
         </Container>
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default observer(ProfileContainer);
 

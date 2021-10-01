@@ -7,7 +7,7 @@ export { observer } from 'mobx-react';
 const ModalContext = React.createContext<{
   bottomSheets: ModalData[];
 }>({
-  bottomSheets: []
+  bottomSheets: [],
 });
 
 ModalContext.displayName = 'ModalContext';

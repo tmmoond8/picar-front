@@ -7,7 +7,7 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 
 interface CloseHeaderProps {
-  options?: Record<string, any>
+  options?: Record<string, any>;
   onClose?: () => void;
   className?: string;
 }
@@ -16,7 +16,7 @@ export default function CloseHeader(props: CloseHeaderProps): JSX.Element {
   const { options = {}, onClose, className } = props;
   const handleClose = React.useCallback(() => {
     if (typeof onClose === 'function') onClose();
-  }, [onClose])
+  }, [onClose]);
 
   return (
     <StyledClose className={className}>

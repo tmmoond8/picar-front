@@ -4,10 +4,13 @@ import Comment from '../../types/Comment';
 
 export { observer } from 'mobx-react';
 
-
 const CommentContext = React.createContext<{
   comments: Comment[];
-  handleWriteComment: (content: string, callback: Callback<Comment>, about?: string) => void;
+  handleWriteComment: (
+    content: string,
+    callback: Callback<Comment>,
+    about?: string,
+  ) => void;
   handleRemoveComment: (commentId: string) => void;
   handleClickReply: (commentId: string) => void;
   clearAbout: () => void;

@@ -12,7 +12,11 @@ export const getDateGoodLook = (lastModifiedDate: string) => {
   }
   const diffTime = new Date().getTime() - lastDateTime;
   const lastDate = new Date(lastDateTime);
-  const [ year, month, date] = [lastDate.getFullYear(), lastDate.getMonth() + 1, lastDate.getDate()];
+  const [year, month, date] = [
+    lastDate.getFullYear(),
+    lastDate.getMonth() + 1,
+    lastDate.getDate(),
+  ];
 
   if (diffTime < 60 * 1000) {
     return '방금 전';
@@ -24,7 +28,7 @@ export const getDateGoodLook = (lastModifiedDate: string) => {
 
   if (diffTime > 9 * 24 * 60 * 60 * 1000) {
     return `${month}월 ${date}일`;
-  } 
+  }
 
   return dateFilter.reduce((accum, { unit, postfix }) => {
     if (accum) return accum;
@@ -34,4 +38,4 @@ export const getDateGoodLook = (lastModifiedDate: string) => {
     }
     return '';
   }, '');
-}
+};

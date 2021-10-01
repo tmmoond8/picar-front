@@ -16,10 +16,10 @@ const DesktopHeader: React.FC = () => {
   const { user, util } = useStore();
   const openArticleEditor = useOpenArticleEditor();
 
-
   const handleClickLogo = React.useCallback(() => {
     util.history.push('/');
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClickWrite = React.useCallback(() => {
     if (user.needLogin()) {
@@ -36,12 +36,12 @@ const DesktopHeader: React.FC = () => {
         <UserBox className={cx('UserBox')}>
           <Notification />
           <UserProfile />
-          <WriteButton onClick={handleClickWrite} >글쓰기</WriteButton>
+          <WriteButton onClick={handleClickWrite}>글쓰기</WriteButton>
         </UserBox>
       </Container>
     </Header>
   );
-}
+};
 
 export default observer(DesktopHeader);
 
@@ -55,7 +55,7 @@ const Header = styled.header`
   box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
   background-color: ${colors.white};
   z-index: 10000;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ const WriteButton = styled(Button)`
   height: 44px;
   padding: 6px 20px;
   background-color: ${colors.primary3};
-  
+
   span {
     margin: 0;
     font-size: 15px;

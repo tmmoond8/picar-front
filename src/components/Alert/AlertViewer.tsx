@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css, keyframes } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
@@ -8,7 +8,7 @@ export interface AlertData {
   title: string;
   id: string;
   subtitle?: string;
-  handleConfirm: () =>void;
+  handleConfirm: () => void;
   handleClose: () => void;
 }
 
@@ -18,7 +18,6 @@ const AlertViewer: React.FC<AlertData> = ({
   handleConfirm,
   handleClose,
 }) => {
-
   return (
     <AlertContainer className="AlertContainer">
       <Box>
@@ -26,8 +25,18 @@ const AlertViewer: React.FC<AlertData> = ({
           <h3 className="Title">{title}</h3>
           {subtitle && <p className="Subtitle">{subtitle}</p>}
         </Content>
-        <ActionButton className="Confrim" onClick={() => { handleConfirm(); handleClose();}}>확인</ActionButton>
-        <ActionButton className="Cancel" onClick={handleClose}>취소</ActionButton>
+        <ActionButton
+          className="Confrim"
+          onClick={() => {
+            handleConfirm();
+            handleClose();
+          }}
+        >
+          확인
+        </ActionButton>
+        <ActionButton className="Cancel" onClick={handleClose}>
+          취소
+        </ActionButton>
       </Box>
     </AlertContainer>
   );
@@ -56,7 +65,6 @@ const Box = styled.section`
   border-radius: 8px;
   background-color: ${colors.white};
   transform: translateY(-50%);
-
 `;
 
 const Content = styled.div`

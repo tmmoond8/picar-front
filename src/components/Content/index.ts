@@ -7,5 +7,5 @@ export default {
   Spacing,
   HR,
   SpaceBetween,
-  FlexSpace
-}
+  FlexSpace,
+};

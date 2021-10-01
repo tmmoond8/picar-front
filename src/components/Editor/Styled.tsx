@@ -17,7 +17,6 @@ const Page = styled.div`
   height: 100%;
 
   #editorFlickingMoveTo {
-
     flex: 1;
     .eg-flick-camera > .Form,
     .eg-flick-camera > .AllLoungeList {

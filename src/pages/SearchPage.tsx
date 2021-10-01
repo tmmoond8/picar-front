@@ -8,39 +8,41 @@ import MenuBar from '../components/MenuBar';
 import APIS from '../apis';
 
 const SearchPage: React.FC = () => {
-  const { ui } = useStore()
+  const { ui } = useStore();
   const { state } = useLocation();
   const [search, setSearch] = React.useState('');
   const [recommendations, setrecommendations] = React.useState([]);
   const [isOnSearch, setIsOnSearch] = React.useState(false);
   const handleClickRecommendation = React.useCallback((keyword: string) => {
     setSearch(keyword);
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     if (recommendations.length === 0) {
       (async () => {
-        const { data: {
-          data
-        } } = await APIS.spreadSheet.get();
+        const {
+          data: { data },
+        } = await APIS.spreadSheet.get();
         setrecommendations(data);
       })();
     }
-  }, [recommendations])
+  }, [recommendations]);
 
   React.useEffect(() => {
     if (state && 'search' in state) {
       setSearch((state as any).search);
       setIsOnSearch(true);
     }
-  }, [state])
+  }, [state]);
 
   return (
     <SearchComponents.Page>
       {ui.queryMatch.Mobile && (
         <SearchComponents.Input
           search={search}
-          onChangeSearch={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setSearch(e.target.value)}
+          onChangeSearch={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+          ) => setSearch(e.target.value)}
           onClear={() => setSearch('')}
           isOnSearch={isOnSearch}
           setIsOnSearch={setIsOnSearch}
@@ -49,7 +51,10 @@ const SearchPage: React.FC = () => {
       {isOnSearch && !search && (
         <SearchComponents.SearchContent>
           <SearchComponents.Title>검색어 추천</SearchComponents.Title>
-          <SearchComponents.Recommendations recommendations={recommendations} handleClickRecommendation={handleClickRecommendation} />
+          <SearchComponents.Recommendations
+            recommendations={recommendations}
+            handleClickRecommendation={handleClickRecommendation}
+          />
         </SearchComponents.SearchContent>
       )}
       {!isOnSearch && (
@@ -60,7 +65,6 @@ const SearchPage: React.FC = () => {
           </SearchComponents.SearchContent>
           <MenuBar />
         </React.Fragment>
-
       )}
       {isOnSearch && search && (
         <React.Fragment>
@@ -68,6 +72,6 @@ const SearchPage: React.FC = () => {
         </React.Fragment>
       )}
     </SearchComponents.Page>
-  )
-}
+  );
+};
 export default observer(SearchPage);

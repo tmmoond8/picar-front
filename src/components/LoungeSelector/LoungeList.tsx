@@ -14,48 +14,57 @@ const LoungeList: React.FC<{
   myLounge?: string;
   all?: boolean;
 }> = ({ handleSelect, className, myLounge, all = false }) => {
-
   const [opend, setOpend] = React.useState({});
   const handleToggle = (name: string) => {
-    setOpend({ ...opend, [name]: !opend[name as keyof typeof opend] })
-  }
+    setOpend({ ...opend, [name]: !opend[name as keyof typeof opend] });
+  };
 
   return (
     <List className={cx('LoungeList', className)}>
       {VENDOR.map((vendor) => (
         <React.Fragment key={vendor.name}>
-          <Lounge lounge={vendor.name} icon={opend[vendor.name as keyof typeof opend] ? 'arrowUp' : 'arrowDown'} onClick={() => handleToggle(vendor.name)} />
+          <Lounge
+            lounge={vendor.name}
+            icon={
+              opend[vendor.name as keyof typeof opend] ? 'arrowUp' : 'arrowDown'
+            }
+            onClick={() => handleToggle(vendor.name)}
+          />
           <React.Fragment>
-            {opend[vendor.name as keyof typeof opend] && vendor.children.map((model) => (
-              <Lounge
-                key={model.name}
-                isSubMenu
-                lounge={model.name}
-                onClick={() => handleSelect(model.name)}
-                isMyLounge={myLounge === model.name}
-              />
-            ))}
+            {opend[vendor.name as keyof typeof opend] &&
+              vendor.children.map((model) => (
+                <Lounge
+                  key={model.name}
+                  isSubMenu
+                  lounge={model.name}
+                  onClick={() => handleSelect(model.name)}
+                  isMyLounge={myLounge === model.name}
+                />
+              ))}
           </React.Fragment>
         </React.Fragment>
       ))}
       <Lounge
-        lounge='기타 제조사'
+        lounge="기타 제조사"
         onClick={() => handleSelect('기타 제조사')}
-        isMyLounge={myLounge === ('기타 제조사')}
+        isMyLounge={myLounge === '기타 제조사'}
       />
 
       {all && <Spacing size={8} />}
-      {all && Object.values(LOUNGE_NAMES).filter(value => value !== LOUNGE_NAMES.ALL).map((name) => (
-        <Lounge
-          key={name}
-          lounge={name}
-          onClick={() => handleSelect(name)}
-          isMyLounge={myLounge === name}
-        />
-      ))}
+      {all &&
+        Object.values(LOUNGE_NAMES)
+          .filter((value) => value !== LOUNGE_NAMES.ALL)
+          .map((name) => (
+            <Lounge
+              key={name}
+              lounge={name}
+              onClick={() => handleSelect(name)}
+              isMyLounge={myLounge === name}
+            />
+          ))}
     </List>
-  )
-}
+  );
+};
 
 export default LoungeList;
 
@@ -77,7 +86,7 @@ const List = styled.ol`
       align-items: center;
     }
 
-    .Badge { 
+    .Badge {
       height: 16px;
       line-height: 13px;
       margin: 0 0 0 12px;
@@ -101,7 +110,7 @@ const List = styled.ol`
 `;
 
 const Spacing = styled.div<{ size: number }>`
-  height: ${p => p.size}px;
+  height: ${(p) => p.size}px;
   background-color: ${colors.blackF7};
 `;
 
@@ -118,14 +127,22 @@ const Lounge: React.FC<{
   isSubMenu = false,
   disabled = false,
   isMyLounge = false,
-  onClick = () => { },
+  onClick = () => {},
 }) => {
-    return (
-      <li
-        onClick={onClick}
-        className={cx('Lounge', disabled ? 'disabled' : '', isSubMenu ? 'subMenu' : '')}>
-        <p className="Name">{lounge}{isMyLounge && <span className="Badge">my</span>}</p>
-        {icon && <Icon icon={icon} size="16px" color={colors.blackBF} />}
-      </li>
-    )
-  }
+  return (
+    <li
+      onClick={onClick}
+      className={cx(
+        'Lounge',
+        disabled ? 'disabled' : '',
+        isSubMenu ? 'subMenu' : '',
+      )}
+    >
+      <p className="Name">
+        {lounge}
+        {isMyLounge && <span className="Badge">my</span>}
+      </p>
+      {icon && <Icon icon={icon} size="16px" color={colors.blackBF} />}
+    </li>
+  );
+};

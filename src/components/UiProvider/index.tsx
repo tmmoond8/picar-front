@@ -1,12 +1,13 @@
 import React from 'react';
-import ContextMenuViewer, { ContextMenuData, CustomContextMenuData, CustomContextMenuViewer } from '../ContextMenu';
+import ContextMenuViewer, {
+  ContextMenuData,
+  CustomContextMenuData,
+  CustomContextMenuViewer,
+} from '../ContextMenu';
 import ToastContainer from '../ToastContainer';
 import AlertViewer, { AlertData } from '../Alert';
 
-import ModalViewer, {
-  ModalData,
-  useModal,
-} from '../Modal';
+import ModalViewer, { ModalData, useModal } from '../Modal';
 import { useStore, observer } from '../../stores';
 import 'react-toastify/dist/ReactToastify.css';
 import global from '../../types/global';
@@ -33,24 +34,25 @@ const UiProvider: React.FC<{
   React.useEffect(() => {
     window.addEventListener('resize', () => {
       ui.contextMenus = [];
-    })
-  }, [])
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   user.needLogin = () => needLogin(user.profile.code);
 
   React.useEffect(() => {
     window.addEventListener('load', () => {
       const splashEl = document.querySelector<HTMLDivElement>('.splash');
-        if (!!splashEl) {
-          splashEl.style.display = 'none';
-        }
-    })
+      if (!!splashEl) {
+        splashEl.style.display = 'none';
+      }
+    });
     window.addEventListener('unload', () => {
       console.log('uload');
       sessionStorage.clearScroll();
       sessionStorage.clearPage();
-    })
-  }, [])
+    });
+  }, []);
 
   useSetupContextMenu(ui);
   useSetupModal(ui);
@@ -62,7 +64,9 @@ const UiProvider: React.FC<{
       {ui.contextMenus.map((contextMenu) => (
         <React.Fragment key={`${contextMenu.id}`}>
           {'menus' in contextMenu && <ContextMenuViewer {...contextMenu} />}
-          {'contents' in contextMenu && <CustomContextMenuViewer {...contextMenu} />}
+          {'contents' in contextMenu && (
+            <CustomContextMenuViewer {...contextMenu} />
+          )}
         </React.Fragment>
       ))}
       {ui.modals.map((modal) => (
@@ -91,10 +95,11 @@ function useSetupModal(ui: UiStore) {
   }, []);
 }
 
-
 function useSetupContextMenu(ui: UiStore) {
   React.useEffect(() => {
-    global.__OWNER__.openContextMenu = (data: ContextMenuData | CustomContextMenuData) => {
+    global.__OWNER__.openContextMenu = (
+      data: ContextMenuData | CustomContextMenuData,
+    ) => {
       ui.contextMenus = [...ui.contextMenus, data];
     };
     global.__OWNER__.closeContextMenu = (targetId: string) => {
@@ -117,8 +122,12 @@ function useSetupAlert(ui: UiStore) {
 }
 
 function useOrientation(orientation: 'portrait' | 'landscape') {
-  if (crossPlatform.isIosAndHybrid() && window.screen &&
-    window.screen.orientation && typeof window.screen.orientation.lock === 'function') {
+  if (
+    crossPlatform.isIosAndHybrid() &&
+    window.screen &&
+    window.screen.orientation &&
+    typeof window.screen.orientation.lock === 'function'
+  ) {
     try {
       window.screen.orientation.lock(orientation);
     } catch (error) {

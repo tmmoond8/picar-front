@@ -6,11 +6,12 @@ import { colors } from '../../styles';
 import Icon from '../Icon';
 import Comment from './Comment';
 import CommentEditor from './CommentEditor';
-import { useStore } from '../../stores';
 import { useCommentContext, observer } from './context';
 
-const CommentViewer: React.FC<{ className?: string; showCount: boolean }> = ({ className, showCount }) => {
-  const { ui } = useStore();
+const CommentViewer: React.FC<{ className?: string; showCount: boolean }> = ({
+  className,
+  showCount,
+}) => {
   const { comments, articleAuthorCode } = useCommentContext();
   return (
     <StyledComments className={cx('Comments', className)}>

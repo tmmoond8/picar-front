@@ -4,15 +4,13 @@ import styled from '@emotion/styled';
 import React from 'react';
 import Icon from '../Icon';
 
-const FloatingButton: React.FC<{ onClick: () => void; }> = ({
-  onClick
-}) => {
+const FloatingButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
   return (
-    <Button onClick={onClick} >
+    <Button onClick={onClick}>
       <Icon icon="editRound" size="56px" />
     </Button>
   );
-}
+};
 
 export default FloatingButton;
 

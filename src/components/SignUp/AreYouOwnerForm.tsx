@@ -48,7 +48,7 @@ const Form = styled.form`
   padding: 18px;
 `;
 
-const SelectButton = styled(Button.Full) <{ selected: boolean }>`
+const SelectButton = styled(Button.Full)<{ selected: boolean }>`
   justify-content: left;
   padding: 16px 20px;
   background-color: ${(p) =>

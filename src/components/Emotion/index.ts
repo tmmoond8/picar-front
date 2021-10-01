@@ -6,4 +6,4 @@ export default {
   Box: EmotionBox,
   Counter: EmotionCounter,
   Band: EmotionBand,
-}
+};

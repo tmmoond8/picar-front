@@ -16,35 +16,48 @@ const PopularArticles: React.FC<{}> = () => {
   const [page, setPage] = React.useState(0);
   const [popArticles, setPopArticles] = React.useState<ArticleType[]>([]);
   const articles = React.useMemo(() => {
-    return popArticles.filter((_, index) => index >= (page * SIZE) && index < (page + 1) * SIZE);
+    return popArticles.filter(
+      (_, index) => index >= page * SIZE && index < (page + 1) * SIZE,
+    );
   }, [page, popArticles]);
   const pagePrev = React.useCallback(() => {
     setPage(Math.max(page - 1, 0));
-  }, [page])
+  }, [page]);
   const pageNext = React.useCallback(() => {
     setPage(Math.min(page + 1, Math.floor(popArticles.length / SIZE)));
-  }, [page, popArticles])
+  }, [page, popArticles]);
 
   useInitBefore(async () => {
     const { data } = await APIS.article.listPop();
-    setPopArticles(data.articles)
+    setPopArticles(data.articles);
   });
 
-  const handleClickLink = React.useCallback((articleId: number) => {
-    util.history.push(`/article/${articleId}`);
-  }, [util.history, util])
+  const handleClickLink = React.useCallback(
+    (articleId: number) => {
+      util.history.push(`/article/${articleId}`);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [util.history, util],
+  );
 
   return (
     <StyledPopularArticles className="PopularArticles">
       <Header>
         <h3>인기 글</h3>
         <Navigations>
-          <NavItem onClick={pagePrev} disabled={page === 0}><Icon icon="arrowLeft" /></NavItem>
-          <NavItem onClick={pageNext} disabled={page === Math.floor(popArticles.length / SIZE)}><Icon icon="arrowRight" /></NavItem>
+          <NavItem onClick={pagePrev} disabled={page === 0}>
+            <Icon icon="arrowLeft" />
+          </NavItem>
+          <NavItem
+            onClick={pageNext}
+            disabled={page === Math.floor(popArticles.length / SIZE)}
+          >
+            <Icon icon="arrowRight" />
+          </NavItem>
         </Navigations>
       </Header>
       <List>
-        {articles.map(article => (
+        {articles.map((article) => (
           <Article key={article.id} onClick={() => handleClickLink(article.id)}>
             <h4>{article.title}</h4>
             <h6>{article.group}</h6>
@@ -90,8 +103,8 @@ const NavItem = styled.div<{ disabled: boolean }>`
   justify-content: center;
   width: 32px;
   cursor: pointer;
-  color: ${p => p.disabled ? colors.blackEB : colors.black33};
-  
+  color: ${(p) => (p.disabled ? colors.blackEB : colors.black33)};
+
   & + & {
     border-left: 1px solid ${colors.blackEB};
   }
@@ -100,12 +113,14 @@ const NavItem = styled.div<{ disabled: boolean }>`
     cursor: pointer;
     color: ${colors.black33};
   }
-  ${p => p.disabled && css`
-    pointer-events: none;
-    .Icon {
-      color: ${colors.blackEB};
-    }
-  `};
+  ${(p) =>
+    p.disabled &&
+    css`
+      pointer-events: none;
+      .Icon {
+        color: ${colors.blackEB};
+      }
+    `};
 `;
 
 const List = styled.ul`
@@ -130,7 +145,7 @@ const Article = styled.li`
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; 
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
 

@@ -10,36 +10,49 @@ import { getDateGoodLook } from '../../modules/string';
 import Icon from '../Icon';
 import Center from '../Center';
 
-const ProfileCommentList: React.FC<{ comments: Comment[]; className?: string }> = ({ comments, className }) => {
+const ProfileCommentList: React.FC<{
+  comments: Comment[];
+  className?: string;
+}> = ({ comments, className }) => {
   const { util } = useStore();
 
-  const handleClickArticle = React.useCallback((id: number) => {
-    util.history.push(`/article/${id}`);
-  }, [util.history]);
+  const handleClickArticle = React.useCallback(
+    (id: number) => {
+      util.history.push(`/article/${id}`);
+    },
+    [util.history],
+  );
 
   return (
     <List className={cx('ProfileCommentList', className)}>
       {comments.map((comment) => (
-        <Item key={comment.id} className="Comment" onClick={() => handleClickArticle(comment.articleId)}>
+        <Item
+          key={comment.id}
+          className="Comment"
+          onClick={() => handleClickArticle(comment.articleId)}
+        >
           <h2 className="CommentContent">{comment.content}</h2>
-          <h3 className="ArticleTitle"><Icon icon="articleNew" size="16px" />{comment.article!.title}</h3>
+          <h3 className="ArticleTitle">
+            <Icon icon="articleNew" size="16px" />
+            {comment.article!.title}
+          </h3>
           <div className="CommentFooter">
             <span>{getDateGoodLook(comment.createAt)}</span>
-            {!!comment.replies!.length && <span>답글 {comment.replies!.length}</span>}
+            {!!comment.replies!.length && (
+              <span>답글 {comment.replies!.length}</span>
+            )}
             <span>{comment.article!.group}</span>
           </div>
         </Item>
       ))}
       {comments.length === 0 && (
-        <EmptyText >
-          <Center>
-            작성하신 댓글이 없습니다.
-          </Center>
+        <EmptyText>
+          <Center>작성하신 댓글이 없습니다.</Center>
         </EmptyText>
       )}
     </List>
-  )
-}
+  );
+};
 
 export default observer(ProfileCommentList);
 

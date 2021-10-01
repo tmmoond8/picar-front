@@ -1,6 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { ModalData } from '../components/Modal';
-import { ContextMenuData, CustomContextMenuData } from '../components/ContextMenu';
+import {
+  ContextMenuData,
+  CustomContextMenuData,
+} from '../components/ContextMenu';
 import { AlertData } from '../components/Alert';
 
 type OwnerGlobal = typeof globalThis & {

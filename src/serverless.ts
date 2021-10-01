@@ -1,7 +1,8 @@
-import parse5, { ParentNode, Element, TextNode } from "parse5";
+import parse5, { ParentNode, Element, TextNode } from 'parse5';
 import axios from 'axios';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import html from "../build/index.html";
+import html from '../build/index.html';
 
 const handler = async (event: any) => {
   const serverData = {
@@ -11,7 +12,9 @@ const handler = async (event: any) => {
   const document = parse5.parse(html);
   //SEO
   const head = getHead([document]);
-  const { data: { ok, data } } = await axios.get(`https://api.picar.kr/api${event.path}`) 
+  const {
+    data: { ok, data },
+  } = await axios.get(`https://api.picar.kr/api${event.path}`);
   const { content, title, photos, isDelete } = data;
   serverData.article = data;
   if (ok && !isDelete) {
@@ -22,8 +25,9 @@ const handler = async (event: any) => {
     });
   }
 
-  const result = parse5.serialize(document)
-    .replace('window.__DATA_FROM_SERVER__', JSON.stringify(serverData))
+  const result = parse5
+    .serialize(document)
+    .replace('window.__DATA_FROM_SERVER__', JSON.stringify(serverData));
 
   return {
     statusCode: 200,
@@ -34,7 +38,7 @@ const handler = async (event: any) => {
 export { handler };
 
 function getHead(q: ParentNode[]) {
-  while(q.length > 0) {
+  while (q.length > 0) {
     const target = q.shift();
     if (!target) {
       return null;
@@ -47,13 +51,16 @@ function getHead(q: ParentNode[]) {
   }
 }
 
-interface MetaData { title: string, description: string, image?: string};
-function changeMeta(head: ParentNode, { title: _title, description, image }: MetaData) {
-  (head.childNodes as Element[]).forEach(({
-    tagName,
-    attrs,
-    childNodes
-  }) => {
+interface MetaData {
+  title: string;
+  description: string;
+  image?: string;
+}
+function changeMeta(
+  head: ParentNode,
+  { title: _title, description, image }: MetaData,
+) {
+  (head.childNodes as Element[]).forEach(({ tagName, attrs, childNodes }) => {
     const title = `PICAR - ${_title}`;
     if (!attrs) return;
     if (tagName === 'meta') {
@@ -69,13 +76,18 @@ function changeMeta(head: ParentNode, { title: _title, description, image }: Met
     if (tagName === 'title' && childNodes[0]) {
       (childNodes[0] as TextNode).value = 'title';
     }
-  })
+  });
 }
 
 type Attrs = Element['attrs'];
 
 function setAttrsByName(attrs: Attrs, attrName: string, value: string) {
-  if (attrs && Array.from(attrs).some(({ name, value }) => name === 'name' && value === attrName )) {
+  if (
+    attrs &&
+    Array.from(attrs).some(
+      ({ name, value }) => name === 'name' && value === attrName,
+    )
+  ) {
     const content = Array.from(attrs).find(({ name }) => name === 'content');
     if (content) {
       content.value = value;
@@ -83,7 +95,12 @@ function setAttrsByName(attrs: Attrs, attrName: string, value: string) {
   }
 }
 function setAttrsByProperty(attrs: Attrs, attrName: string, value: string) {
-  if (attrs && Array.from(attrs).some(({ name, value }) => name === 'property' && value === attrName )) {
+  if (
+    attrs &&
+    Array.from(attrs).some(
+      ({ name, value }) => name === 'property' && value === attrName,
+    )
+  ) {
     const content = Array.from(attrs).find(({ name }) => name === 'content');
     if (content) {
       content.value = value;

@@ -1,6 +1,9 @@
 import { action, observable } from 'mobx';
 import { initalHeader, HeaderProps, headerType } from '../components/Header';
-import { ContextMenuData, CustomContextMenuData } from '../components/ContextMenu';
+import {
+  ContextMenuData,
+  CustomContextMenuData,
+} from '../components/ContextMenu';
 import { ModalData } from '../components/Modal';
 import { AlertData } from '../components/Alert';
 import { BreakPoints } from '../styles/mediaQuery';
@@ -46,7 +49,7 @@ class UiStore implements UiStoreInterface {
       Mobile: false,
       Tablet: false,
       Desktop: false,
-    }
+    };
   }
 
   @action
@@ -111,14 +114,19 @@ class UiStore implements UiStoreInterface {
   useTopButton() {
     return () => {
       let scrollableElement: HTMLElement | null = null;
-      if (typeof this.scrollableElementSelector === 'string' && this.scrollableElementSelector) {
-        scrollableElement = document.querySelector(this.scrollableElementSelector);
+      if (
+        typeof this.scrollableElementSelector === 'string' &&
+        this.scrollableElementSelector
+      ) {
+        scrollableElement = document.querySelector(
+          this.scrollableElementSelector,
+        );
       }
       if (scrollableElement !== null) {
         scrollableElement.style.scrollBehavior = 'smooth';
         scrollableElement.scrollTop = 0;
       }
-    }
+    };
   }
 }
 

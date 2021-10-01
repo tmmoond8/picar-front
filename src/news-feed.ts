@@ -38,7 +38,12 @@ let existedSet = new Set();
 const getOgImage = async (url: string) => {
   try {
     const { result } = await ogs({ url });
-    return result && 'ogImage' in result && ((result.ogImage as ogs.OpenGraphImage).url) || '';
+    return (
+      (result &&
+        'ogImage' in result &&
+        (result.ogImage as ogs.OpenGraphImage).url) ||
+      ''
+    );
   } catch (error) {
     console.warn(error);
     return '';
@@ -48,7 +53,7 @@ const getOgImage = async (url: string) => {
 async function append(feed: Feed) {
   if (!existedSet.has(feed.link)) {
     try {
-      const image = await getOgImage(feed.link ?? "");
+      const image = await getOgImage(feed.link ?? '');
       feed.thumbnail = image;
       await sheetsApi.append(feed);
       return true;
@@ -72,7 +77,7 @@ const filter = (feeds: Feed[]) =>
   feeds.filter((feed) => feed.title?.match(reg)) ||
   feeds.filter((feed) => feed.content?.match(reg)).length > 2;
 
-const generateID = (dateStr = "", title = "") =>
+const generateID = (dateStr = '', title = '') =>
   `${format(new Date(dateStr), 'yyyy-MM-dd:hh')}_${encodeURIComponent(title)
     .replace(/[E%]/gi, '')
     .substr(0, 5)}`;
@@ -111,7 +116,10 @@ const parseHMG = async () => {
     content: rawData.contentSnippet,
     link: rawData.link,
     pubDate: rawData.pubDate,
-    id: `${publisher}_${generateID(rawData.pubDate ?? "", rawData.title ?? "")}`,
+    id: `${publisher}_${generateID(
+      rawData.pubDate ?? '',
+      rawData.title ?? '',
+    )}`,
   }));
   return filter(feeds);
 };
@@ -172,7 +180,7 @@ exports.handler = async function (event: any) {
   const {
     data: { data },
   } = await sheetsApi.get();
-  existedSet = new Set(data.map(({ link }: { link: string;}) => link));
+  existedSet = new Set(data.map(({ link }: { link: string }) => link));
   const result = await parseAll();
   return {
     statusCode: 200,

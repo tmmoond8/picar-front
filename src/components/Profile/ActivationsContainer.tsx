@@ -29,25 +29,33 @@ const UserActivations: React.FC<{
   const [comments, setComments] = React.useState<Comment[]>([]);
   const [bookmarks, setBookmarks] = React.useState<Article[]>([]);
   const { user } = useStore();
-  const [tabIndex, setTabIndex] = React.useState(tabs.findIndex(({ id }) => id === tab));
+  const [tabIndex, setTabIndex] = React.useState(
+    tabs.findIndex(({ id }) => id === tab),
+  );
   const handleClickTab = React.useCallback((tab) => {
     const tabIndex = tabs.findIndex(({ id }) => id === tab.id);
     (window as any).__OWNER__[CAROUSEL.PROFILE](tabIndex);
     setTabIndex(tabs.findIndex(({ id }) => id === tab.id));
-  }, [])
+  }, []);
 
-  const handleOnChange = React.useCallback((index) => {
-    setTabIndex(index);
-    if (typeof onChange === 'function') {
-      onChange(index);
-    }
-  }, [setTabIndex])
+  const handleOnChange = React.useCallback(
+    (index) => {
+      setTabIndex(index);
+      if (typeof onChange === 'function') {
+        onChange(index);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [setTabIndex],
+  );
 
   React.useEffect(() => {
     (async () => {
       const articlePromise = APIS.article.getUserArticles(userCode);
       const commentPromise = APIS.comment.getUserComments(userCode);
-      const bookmarkPromise = APIS.article.listBookmark((Array.from(user.bookmarks)));
+      const bookmarkPromise = APIS.article.listBookmark(
+        Array.from(user.bookmarks),
+      );
       const { data: articleData } = await articlePromise;
       if (articleData.ok) {
         setArticles(articleData.articles);
@@ -61,9 +69,14 @@ const UserActivations: React.FC<{
         setBookmarks(bookmarkData.articles);
       }
     })();
-  }, [userCode])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userCode]);
 
-  const bookmarkedArticles = React.useMemo(() => articles.filter((article) => user.bookmarks.has(article.id)), [articles])
+  const bookmarkedArticles = React.useMemo(
+    () => articles.filter((article) => user.bookmarks.has(article.id)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [articles],
+  );
 
   return (
     <React.Fragment>
@@ -71,10 +84,14 @@ const UserActivations: React.FC<{
         <Container className={cx('ActivationsContainer', className)}>
           <Tabs>
             {tabs.map((tab, index) => (
-              <TabItem key={tab.id} handleClick={() => handleClickTab(tab)} selected={index === tabIndex}>
+              <TabItem
+                key={tab.id}
+                handleClick={() => handleClickTab(tab)}
+                selected={index === tabIndex}
+              >
                 {tab.display}
-              </TabItem>)
-            )}
+              </TabItem>
+            ))}
           </Tabs>
           <StyledCarousel
             id={CAROUSEL.PROFILE}
@@ -85,21 +102,21 @@ const UserActivations: React.FC<{
               name="activation-article"
               articles={articles}
               bookmarks={user.bookmarks}
-              emptyString='작성한 게시글이 없습니다.'
+              emptyString="작성한 게시글이 없습니다."
             />
             <CommentList comments={comments} />
             <ArticleList
               name="activation-bookmark"
               articles={bookmarks}
               bookmarks={user.bookmarks}
-              emptyString='북마크한 게시글이 없습니다.'
+              emptyString="북마크한 게시글이 없습니다."
             />
           </StyledCarousel>
         </Container>
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default observer(UserActivations);
 

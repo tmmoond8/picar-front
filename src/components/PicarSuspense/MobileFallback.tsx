@@ -12,30 +12,37 @@ export default function MobileFallback() {
     <Fallback>
       <Head>
         <Skeleton height={22} width={82} />
-        <Skeleton height={22} width={46} style={{marginLeft: '16px'}}/>
-        <Skeleton height={22} width={46} style={{marginLeft: '16px'}}/>
-        <Skeleton height={22} width={46} style={{marginLeft: '16px'}}/>
+        <Skeleton height={22} width={46} style={{ marginLeft: '16px' }} />
+        <Skeleton height={22} width={46} style={{ marginLeft: '16px' }} />
+        <Skeleton height={22} width={46} style={{ marginLeft: '16px' }} />
       </Head>
       <Body>
-        {Array.from({length: 5}).map((_, index) => (
+        {Array.from({ length: 5 }).map((_, index) => (
           <Article key={index}>
             <ArticleTop>
               <Skeleton circle height={22} width={22} />
-              <Skeleton height={22} width={67} style={{marginLeft: '12px'}}/>
+              <Skeleton height={22} width={67} style={{ marginLeft: '12px' }} />
               <Content.FlexSpace />
               <Skeleton height={22} width={46} />
             </ArticleTop>
             <ArticleMid>
               <FlexColumn>
-                <Skeleton height={22} width={ui.queryMatch.Desktop ? 189 : 122} />
-                <Skeleton height={22} width={ui.queryMatch.Desktop ? 289 : 220} style={{marginTop: '12px'}}/>
+                <Skeleton
+                  height={22}
+                  width={ui.queryMatch.Desktop ? 189 : 122}
+                />
+                <Skeleton
+                  height={22}
+                  width={ui.queryMatch.Desktop ? 289 : 220}
+                  style={{ marginTop: '12px' }}
+                />
               </FlexColumn>
               <Content.FlexSpace />
               <Skeleton height={80} width={80} />
             </ArticleMid>
             <ArticleBottom>
               <Skeleton height={22} width={32} />
-              <Skeleton height={22} width={32} style={{marginLeft: '12px'}}/>
+              <Skeleton height={22} width={32} style={{ marginLeft: '12px' }} />
               <Content.FlexSpace />
               <Skeleton height={22} width={32} />
             </ArticleBottom>
@@ -50,7 +57,7 @@ export default function MobileFallback() {
         <Skeleton height={28} width={28} />
       </Bottom>
     </Fallback>
-  )
+  );
 }
 
 const Fallback = styled.div`

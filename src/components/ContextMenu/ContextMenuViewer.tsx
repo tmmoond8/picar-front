@@ -43,7 +43,7 @@ const ContextMenuViewer: React.FC<ContextMenuData> = ({
     if (ref.current) {
       setWidth(ref.current.clientWidth);
     }
-  }, [])
+  }, []);
 
   return (
     <StyledContextMenus
@@ -97,9 +97,11 @@ const Menu = styled.li<{ underline: boolean }>`
   width: 160px;
   height: 48px;
   padding: 0 20px;
-  ${p => p.underline && css`
-    border-bottom: 1px solid ${colors.blackF5F6F7};
-  `}
+  ${(p) =>
+    p.underline &&
+    css`
+      border-bottom: 1px solid ${colors.blackF5F6F7};
+    `}
   cursor: pointer;
   :hover {
     background-color: ${colors.blackEB};

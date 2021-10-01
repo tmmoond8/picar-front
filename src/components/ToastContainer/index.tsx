@@ -10,7 +10,7 @@ const Container = () => {
 
   return (
     <StyledToastContainer
-      position={ui.queryMatch.Mobile ? "bottom-center" : "top-center"}
+      position={ui.queryMatch.Mobile ? 'bottom-center' : 'top-center'}
       autoClose={3000}
       hideProgressBar
       closeOnClick={false}
@@ -21,7 +21,7 @@ const Container = () => {
 };
 export default observer(Container);
 
-const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
+const StyledToastContainer = styled(ToastContainer)<{ desktop: boolean }>`
   & {
     width: 100%;
     bottom: 66px;
@@ -49,17 +49,19 @@ const StyledToastContainer = styled(ToastContainer) <{ desktop: boolean }>`
     display: none;
   }
   & {
-    ${p => p.desktop && css`
-    top: 64px;
-    bottom: auto;
-    padding: 0;
-    .Toastify__toast {
-      color: ${colors.primary};
-      font-weight: bold;
-      font-size: 15px;
-      border-radius: 0;
-      background-color: ${colors.primaryE};
-    }
-  `}
+    ${(p) =>
+      p.desktop &&
+      css`
+        top: 64px;
+        bottom: auto;
+        padding: 0;
+        .Toastify__toast {
+          color: ${colors.primary};
+          font-weight: bold;
+          font-size: 15px;
+          border-radius: 0;
+          background-color: ${colors.primaryE};
+        }
+      `}
   }
 `;

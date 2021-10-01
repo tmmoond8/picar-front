@@ -49,6 +49,7 @@ const CommentEditor = () => {
       },
       about ?? undefined,
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [about, clearAbout, content, handleClose, handleWriteComment, user]);
 
   const placeholder = React.useMemo(() => {
@@ -62,11 +63,10 @@ const CommentEditor = () => {
       typeof handleClose === 'function' && handleClose();
       return;
     }
-  }, [user, handleClose])
-
+  }, [user, handleClose]);
 
   return (
-    <Editor hasContent={content.length > 0} className="CommentWrapper" >
+    <Editor hasContent={content.length > 0} className="CommentWrapper">
       {user.isLogined && (
         <React.Fragment>
           <Content
@@ -77,13 +77,19 @@ const CommentEditor = () => {
             onInput={handleChangeContent}
           />
           <UserPhoto src={profilePhoto} />
-          {ui.queryMatch.Mobile && <SendIconButton
-            disabled={disabled}
-            icon="send"
-            size="24px"
-            onClick={handleClickSend}
-          />}
-          {!ui.queryMatch.Mobile && <SendButton disabled={disabled} onClick={handleClickSend}>댓글작성</SendButton>}
+          {ui.queryMatch.Mobile && (
+            <SendIconButton
+              disabled={disabled}
+              icon="send"
+              size="24px"
+              onClick={handleClickSend}
+            />
+          )}
+          {!ui.queryMatch.Mobile && (
+            <SendButton disabled={disabled} onClick={handleClickSend}>
+              댓글작성
+            </SendButton>
+          )}
         </React.Fragment>
       )}
       {!user.isLogined && (
@@ -95,7 +101,7 @@ const CommentEditor = () => {
 
 export default observer(CommentEditor);
 
-const Editor = styled.div<{ hasContent: boolean; }>`
+const Editor = styled.div<{ hasContent: boolean }>`
   display: flex;
   position: fixed;
   left: 0;
@@ -179,7 +185,7 @@ const UserPhoto = styled(Profile.Photo)`
   animation: ${pop} 0.3s ease-in-out;
 `;
 
-const SendIconButton = styled(Icon) <{ disabled: boolean }>`
+const SendIconButton = styled(Icon)<{ disabled: boolean }>`
   && {
     align-self: flex-end;
     order: 2;
@@ -188,15 +194,15 @@ const SendIconButton = styled(Icon) <{ disabled: boolean }>`
     color: ${colors.primary};
     cursor: pointer;
     ${(p) =>
-    p.disabled &&
-    css`
+      p.disabled &&
+      css`
         color: ${colors.primaryE};
         pointer-events: none;
       `}
   }
 `;
 
-const SendButton = styled(Button) <{ disabled: boolean }>`
+const SendButton = styled(Button)<{ disabled: boolean }>`
   && {
     position: absolute;
     bottom: 18px;
@@ -206,9 +212,9 @@ const SendButton = styled(Button) <{ disabled: boolean }>`
     color: ${colors.blackBF};
     border: none;
     outline: none;
-    pointer-events: ${p => p.disabled ? 'none' : 'pointer'};
+    pointer-events: ${(p) => (p.disabled ? 'none' : 'pointer')};
   }
-`
+`;
 
 const NeedLogin = styled.div`
   width: 100%;

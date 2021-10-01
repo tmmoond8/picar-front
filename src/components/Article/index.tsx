@@ -11,7 +11,7 @@ import PicarHelmet from '../PicarHelmet';
 
 import IArticle from '../../types/Article';
 import { colors } from '../../styles';
-import { useOG } from '../../hooks'
+import { useOG } from '../../hooks';
 import ArticleContext from './context';
 
 import { useFetch as useFetchEmotion } from '../Emotion/hooks';
@@ -21,7 +21,7 @@ const Article: React.FC<{
   article: IArticle;
   commentCount: number;
 }> = ({ article, commentCount }) => {
-  const { emotionCounts, setEmotionCounts } = useFetchEmotion(article.id);
+  const { emotionCounts } = useFetchEmotion(article.id);
   useOG(article);
   return (
     <ArticleContext.Provider
@@ -40,7 +40,7 @@ const Article: React.FC<{
           />
           <ArticleHeader />
           {!article.isDelete && (
-            <React.Fragment >
+            <React.Fragment>
               <ArticleHead />
               <ArticleBody />
               <ArticleFooter />

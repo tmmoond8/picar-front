@@ -12,106 +12,122 @@ import Icon, { IconKey } from '../Icon';
 import { colors } from '../../styles';
 import { VENDOR } from '../../types/constants';
 
-const VendorForm = observer(({ handleNext, handleSignUp, setVendor, setModel, hideHead = false }: {
-  handleNext: () => void;
-  handleSignUp?: (group?: string) => void;
-  setVendor: (v: string) => void;
-  setModel: (v: string) => void;
-  hideHead?: boolean;
-}) => {
-
-  const handleClickVendor = React.useMemo(() => {
-    return throttle(1000, true, (vendor?: string) => {
-      if (vendor) {
-        setVendor(vendor);
-        handleNext();
-      } else {
-        setVendor('기타 제조사');
-        setModel('기타 제조사');
-        if (handleSignUp) {
-          handleSignUp('기타 제조사');
+const VendorForm = observer(
+  ({
+    handleNext,
+    handleSignUp,
+    setVendor,
+    setModel,
+    hideHead = false,
+  }: {
+    handleNext: () => void;
+    handleSignUp?: (group?: string) => void;
+    setVendor: (v: string) => void;
+    setModel: (v: string) => void;
+    hideHead?: boolean;
+  }) => {
+    const handleClickVendor = React.useMemo(() => {
+      return throttle(1000, true, (vendor?: string) => {
+        if (vendor) {
+          setVendor(vendor);
+          handleNext();
+        } else {
+          setVendor('기타 제조사');
+          setModel('기타 제조사');
+          if (handleSignUp) {
+            handleSignUp('기타 제조사');
+          }
         }
-      }
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleNext])
+      });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [handleNext]);
 
-  return (
-    <Form className={cx('LoungeForm')}>
-      {!hideHead && (
-        <React.Fragment>
-          <Input.Label
-            label="오너클럽을 선택하세요"
-            subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
-          />
-          <Content.Spacing size={30} />
-        </React.Fragment>
-      )}
-      <SelectList className={cx('LoungeSelector')}>
-        {VENDOR.map((vendor) => (
-          <SelectItem
-            key={vendor.name}
-            onClick={() => handleClickVendor(vendor.name)}
-            hasRightArrow
-          >
-            <VendorName>
-              {vendor.icon && <Icon icon={vendor.icon as IconKey} size="40px" />}
-              <span>{vendor.name}</span>
-            </VendorName>
-            <Icon icon="arrowRight" color={colors.black33} />
+    return (
+      <Form className={cx('LoungeForm')}>
+        {!hideHead && (
+          <React.Fragment>
+            <Input.Label
+              label="오너클럽을 선택하세요"
+              subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
+            />
+            <Content.Spacing size={30} />
+          </React.Fragment>
+        )}
+        <SelectList className={cx('LoungeSelector')}>
+          {VENDOR.map((vendor) => (
+            <SelectItem
+              key={vendor.name}
+              onClick={() => handleClickVendor(vendor.name)}
+              hasRightArrow
+            >
+              <VendorName>
+                {vendor.icon && (
+                  <Icon icon={vendor.icon as IconKey} size="40px" />
+                )}
+                <span>{vendor.name}</span>
+              </VendorName>
+              <Icon icon="arrowRight" color={colors.black33} />
+            </SelectItem>
+          ))}
+          <SelectItem onClick={() => handleClickVendor()}>
+            기타 제조사
           </SelectItem>
-        ))}
-        <SelectItem onClick={() => handleClickVendor()}>
-          기타 제조사
-        </SelectItem>
-      </SelectList>
-    </Form >
-  );
-});
+        </SelectList>
+      </Form>
+    );
+  },
+);
 
-const ModelForm = observer(({ vendor, model, setModel, hideHead = false, handlePrev }: {
-  vendor: string;
-  model: string;
-  hideHead?: boolean;
-  handlePrev: () => void;
-  setModel: (v: string) => void;
-}) => {
-  const models = React.useMemo(() => {
-    return VENDOR.find(({ name }) => name === vendor)?.children ?? [];
-  }, [vendor])
+const ModelForm = observer(
+  ({
+    vendor,
+    model,
+    setModel,
+    hideHead = false,
+    handlePrev,
+  }: {
+    vendor: string;
+    model: string;
+    hideHead?: boolean;
+    handlePrev: () => void;
+    setModel: (v: string) => void;
+  }) => {
+    const models = React.useMemo(() => {
+      return VENDOR.find(({ name }) => name === vendor)?.children ?? [];
+    }, [vendor]);
 
-  return (
-    <Form>
-      {!hideHead && (
-        <React.Fragment>
-          <Input.Label
-            label="오너클럽을 선택하세요"
-            subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
-          />
-          <Content.Spacing size={30} />
-        </React.Fragment>
-      )}
+    return (
+      <Form>
+        {!hideHead && (
+          <React.Fragment>
+            <Input.Label
+              label="오너클럽을 선택하세요"
+              subLabel="선택하신 차량 클럽으로 대표라운지가 설정됩니다."
+            />
+            <Content.Spacing size={30} />
+          </React.Fragment>
+        )}
 
-      <SelectList >
-        <SelectItem onClick={handlePrev}>
-          이전으로
-        </SelectItem>
-        {models.length > 0 && models.map((vendor) => (
-          <SelectItem
-            key={vendor.name}
-            onClick={() => setModel(vendor.name)}
-            selected={model === vendor.name}
-          >
-            <VendorName>
-              <span>{vendor.name}</span>
-            </VendorName>
-          </SelectItem>
-        ))}
-      </SelectList>
-      {/* <IsModel404>내가 원하는 클럽이 없나요?</IsModel404> */}
-    </Form>
-  );
-});
+        <SelectList>
+          <SelectItem onClick={handlePrev}>이전으로</SelectItem>
+          {models.length > 0 &&
+            models.map((vendor) => (
+              <SelectItem
+                key={vendor.name}
+                onClick={() => setModel(vendor.name)}
+                selected={model === vendor.name}
+              >
+                <VendorName>
+                  <span>{vendor.name}</span>
+                </VendorName>
+              </SelectItem>
+            ))}
+        </SelectList>
+        {/* <IsModel404>내가 원하는 클럽이 없나요?</IsModel404> */}
+      </Form>
+    );
+  },
+);
 
 const BottomCTA = observer((props: { onClick: () => void }) => {
   const { onClick } = props;
@@ -128,7 +144,7 @@ export default {
   VendorForm,
   ModelForm,
   BottomCTA,
-}
+};
 
 const Form = styled.form`
   width: 100%;
@@ -163,13 +179,15 @@ const SelectItem = styled.li<{ hasRightArrow?: boolean; selected?: boolean }>`
   border-radius: 8px;
   background-color: ${colors.blackF7};
   color: ${colors.black33};
-  font-size: 16px; 
+  font-size: 16px;
   cursor: pointer;
 
-  ${p => p.selected && css`
-    border: solid 1px ${colors.black22};
-    background-color: ${colors.transparent};
-  `}
+  ${(p) =>
+    p.selected &&
+    css`
+      border: solid 1px ${colors.black22};
+      background-color: ${colors.transparent};
+    `}
 
   &:active {
     background-color: ${colors.blackEB};

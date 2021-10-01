@@ -4,7 +4,7 @@ export type Meta = {
   title: string;
   content: string;
   photos: string;
-}
+};
 
 const r = (key: string, value: string) => {
   const h = document.querySelector('head');
@@ -14,7 +14,7 @@ const r = (key: string, value: string) => {
       meta.content = value;
     }
   }
-}
+};
 
 const useOG = ({ title, content, photos }: Meta) => {
   const image = photos ? photos.split(',')[0] : null;
@@ -31,7 +31,8 @@ const useOG = ({ title, content, photos }: Meta) => {
     }
     r('property="twitter:title"', title);
     r('property="twitter:description"', content);
-  }, [])
-}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+};
 
 export default useOG;

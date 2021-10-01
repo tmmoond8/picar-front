@@ -5,7 +5,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import ModalHeader from './ModalHeader';
-import { colors, constants } from '../../styles'
+import { colors, constants } from '../../styles';
 import { useStore, observer } from '../../stores';
 
 export const HEADER_TYPE = {
@@ -75,12 +75,14 @@ const ModalViewer = React.forwardRef(
           ref={ref as React.RefObject<HTMLDivElement>}
           isFull={isFull}
         >
-          {!noHeader && <ModalHeader
-            title={title}
-            handleClose={handleClose}
-            noRadius={isFull}
-            hasTitleLine={hasTitleLine}
-          />}
+          {!noHeader && (
+            <ModalHeader
+              title={title}
+              handleClose={handleClose}
+              noRadius={isFull}
+              hasTitleLine={hasTitleLine}
+            />
+          )}
           <ModalBody>{contents}</ModalBody>
         </ModalBox>
       </Wrapper>
@@ -104,20 +106,22 @@ const Wrapper = styled.div<{ open: boolean; desktop: boolean }>`
   background-color: ${(p) => (p.open ? colors.dimmed : colors.notDimmed)};
   z-index: 10005;
   transition: background-color 0.2s ease 0s;
-  ${p => p.desktop && css`
-  align-items: center;
-    .ModalBox {
-      top: 0;
-      max-width: 414px;
-      max-height: 680px;
-      border-radius: 3px;
-      overflow: hidden;
-      border-radius: 0;
-      .ModalHeader {
+  ${(p) =>
+    p.desktop &&
+    css`
+      align-items: center;
+      .ModalBox {
+        top: 0;
+        max-width: 414px;
+        max-height: 680px;
+        border-radius: 3px;
+        overflow: hidden;
         border-radius: 0;
+        .ModalHeader {
+          border-radius: 0;
+        }
       }
-    }
-  `}
+    `}
 `;
 
 const ModalBox = styled.div<{ open: boolean; isFull: boolean }>`

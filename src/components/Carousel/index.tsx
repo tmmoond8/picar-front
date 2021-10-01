@@ -18,7 +18,9 @@ interface CraouselProps {
   onChangeIndex: (i: number) => void;
 }
 
-type CarouselComponent = React.FC<CraouselProps> & { Header: React.FC<CarouselHeaderProps> };
+type CarouselComponent = React.FC<CraouselProps> & {
+  Header: React.FC<CarouselHeaderProps>;
+};
 
 const Carousel: CarouselComponent = ({
   id,
@@ -44,7 +46,7 @@ const Carousel: CarouselComponent = ({
         );
         timer = setTimeout(() => {
           (flickingRef.current as any).forced = false;
-        }, 500)
+        }, 500);
       };
     }
     return () => clearTimeout(timer);
@@ -55,7 +57,7 @@ const Carousel: CarouselComponent = ({
     if (!gesture && !(flickingRef.current as any).forced) {
       e.stop();
     }
-  }
+  };
 
   return (
     <Self id={id} className={cx('carousel-container', className)}>
@@ -64,7 +66,7 @@ const Carousel: CarouselComponent = ({
         tag="div"
         viewportTag="div"
         cameraTag="div"
-        onChange={e => {
+        onChange={(e) => {
           onChangeIndex(e.index);
         }}
         onMoveStart={customEvent as any}
@@ -99,7 +101,7 @@ const Carousel: CarouselComponent = ({
       </Flicking>
     </Self>
   );
-}
+};
 
 Carousel.Header = CarouselHeader;
 export default observer(Carousel);

@@ -28,7 +28,6 @@ const CommentNotification: React.FC<Notification & { className?: string }> = ({
       try {
         await APIS.notification.checkView(id);
         userStore.checkNotifications([id]);
-
       } catch (error) {
         console.error(error);
       }
@@ -36,13 +35,20 @@ const CommentNotification: React.FC<Notification & { className?: string }> = ({
     setTimeout(() => {
       history.push(`/article/${articleId}`);
     }, 50);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
   return (
-    <NotificationItem isViewd={isViewd} className={className} onClick={handleCheckView}>
+    <NotificationItem
+      isViewd={isViewd}
+      className={className}
+      onClick={handleCheckView}
+    >
       <Profile.Photo src={user.profileImage} size={48} />
       <Contents>
-        <Title>{`${user.name}  님이 ${type === 'comment' ? '댓글' : '답글'}을 남겼습니다.`}</Title>
+        <Title>{`${user.name}  님이 ${
+          type === 'comment' ? '댓글' : '답글'
+        }을 남겼습니다.`}</Title>
         <ArticleTitle>
           <Icon icon="articleNew" size="16px" />
           {targetContent}
@@ -58,7 +64,7 @@ export default observer(CommentNotification);
 const NotificationItem = styled.li<{ isViewd: boolean }>`
   display: flex;
   padding: 10px 18px 12px 18px;
-  background-color: ${p => p.isViewd ? colors.white : colors.primaryE};
+  background-color: ${(p) => (p.isViewd ? colors.white : colors.primaryE)};
   cursor: pointer;
   .UserProfilePhoto {
     margin: 0 12px 0 0;

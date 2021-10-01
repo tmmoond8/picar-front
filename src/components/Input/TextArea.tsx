@@ -10,14 +10,23 @@ const TextArea: React.FC<{
   name?: string;
   text: string;
   setText: (text: string) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
-}> = ({ name, className, text, setText, placeholder = '', onKeyDown = () => {} }) => {
+}> = ({
+  name,
+  className,
+  text,
+  setText,
+  placeholder = '',
+  onKeyDown = () => {},
+}) => {
   return (
     <StyledTextArea className={cx(className, name)}>
-      <HiddenText className={cx('Input', 'HiddenText')}>{text || 'ㅤ'}</HiddenText>
-      <TextAreaBox 
-        value={text} 
+      <HiddenText className={cx('Input', 'HiddenText')}>
+        {text || 'ㅤ'}
+      </HiddenText>
+      <TextAreaBox
+        value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={placeholder}
         className={cx('Input', 'TextAreaBox')}

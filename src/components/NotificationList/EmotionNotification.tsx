@@ -17,7 +17,7 @@ const emotionMap: Record<keyof typeof EMOTION_TYPE, string> = {
   [EMOTION_TYPE.SAD]: '슬퍼요',
   [EMOTION_TYPE.LAUGHING]: '재밌어요',
   [EMOTION_TYPE.ANGRY]: '화나요',
-}
+};
 
 const EmotionNotification: React.FC<Notification & { className?: string }> = ({
   className,
@@ -27,7 +27,7 @@ const EmotionNotification: React.FC<Notification & { className?: string }> = ({
   emotion,
   isViewd,
   id,
-  articleId
+  articleId,
 }) => {
   const { user: userStore, util } = useStore();
   const history = util.useHistory();
@@ -36,7 +36,6 @@ const EmotionNotification: React.FC<Notification & { className?: string }> = ({
       try {
         await APIS.notification.checkView(id);
         userStore.checkNotifications([id]);
-
       } catch (error) {
         console.error(error);
       }
@@ -44,13 +43,20 @@ const EmotionNotification: React.FC<Notification & { className?: string }> = ({
     setTimeout(() => {
       history.push(`/article/${articleId}`);
     }, 50);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
   return (
-    <NotificationItem className={className} isViewd={isViewd} onClick={handleCheckView}>
+    <NotificationItem
+      className={className}
+      isViewd={isViewd}
+      onClick={handleCheckView}
+    >
       <Profile.Photo src={user.profileImage} size={48} />
       <Contents>
-        <Title>{`${user.name} 님이 당신의 댓글에 ‘${emotionMap[emotion as keyof typeof EMOTION_TYPE]}’로 공감하였어요.`}</Title>
+        <Title>{`${user.name} 님이 당신의 댓글에 ‘${
+          emotionMap[emotion as keyof typeof EMOTION_TYPE]
+        }’로 공감하였어요.`}</Title>
         <ArticleTitle>
           <Icon icon="articleNew" size="16px" />
           {targetContent}
@@ -66,7 +72,7 @@ export default observer(EmotionNotification);
 const NotificationItem = styled.li<{ isViewd: boolean }>`
   display: flex;
   padding: 10px 18px 12px 18px;
-  background-color: ${p => p.isViewd ? colors.white : colors.primaryE};
+  background-color: ${(p) => (p.isViewd ? colors.white : colors.primaryE)};
   cursor: pointer;
   .UserProfilePhoto {
     margin: 0 12px 0 0;

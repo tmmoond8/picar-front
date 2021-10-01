@@ -1,10 +1,13 @@
 import React from 'react';
 import AndroidDownloadPopup from './AndroidDownloadPopup';
-import { appDownChecker, crossPlatform } from '../../modules'
+import { appDownChecker, crossPlatform } from '../../modules';
 
 const AppDownloadPopup = () => {
   const [isShown, setIsShown] = React.useState(appDownChecker.needShow());
-  const isAndroidShown = React.useMemo(() => isShown && !crossPlatform.isHybrid() && crossPlatform.isAndroid(), [isShown]);
+  const isAndroidShown = React.useMemo(
+    () => isShown && !crossPlatform.isHybrid() && crossPlatform.isAndroid(),
+    [isShown],
+  );
 
   const handleClickClose = React.useCallback(() => {
     appDownChecker.saveLocal();
@@ -18,14 +21,14 @@ const AppDownloadPopup = () => {
 
   return (
     <React.Fragment>
-      {(false && isAndroidShown) && (
+      {false && isAndroidShown && (
         <AndroidDownloadPopup
           onClose={handleClickClose}
           onClickNoShow={handleClickNoShow}
         />
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default AppDownloadPopup;

@@ -12,11 +12,13 @@ const TabletNavigation: React.FC = () => {
   const { article } = useStore();
   const handleClickTopMenu = React.useCallback((group: string) => {
     article.selectedGroup = group;
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const handleClickBottomMenu = React.useCallback((lounge: string) => {
     article.selectedLounge = lounge;
     article.selectedGroup = LOUNGE;
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Navigation className={cx('TabletNavigation')}>
@@ -26,8 +28,10 @@ const TabletNavigation: React.FC = () => {
             key={name}
             selected={article.selectedGroup === name}
             onClick={() => handleClickTopMenu(name)}
-          >{name}</TopMenu>)
-        )}
+          >
+            {name}
+          </TopMenu>
+        ))}
       </Top>
       {article.selectedGroup === LOUNGE && (
         <Bottom>
@@ -37,15 +41,16 @@ const TabletNavigation: React.FC = () => {
                 key={name}
                 selected={article.selectedLounge === name}
                 onClick={() => handleClickBottomMenu(name)}
-              >{name}</BottomMenu>
+              >
+                {name}
+              </BottomMenu>
             ))}
           </SubMenus>
         </Bottom>
       )}
     </Navigation>
-
-  )
-}
+  );
+};
 
 export default observer(TabletNavigation);
 
@@ -67,10 +72,12 @@ const TopMenu = styled.li<{ selected: boolean }>`
   font-weight: bold;
   letter-spacing: -0.28px;
   color: ${colors.blackAA};
-  ${p => p.selected && css`
-    color: ${colors.black22};
-    border-bottom: 2px solid ${colors.black22};
-  `}
+  ${(p) =>
+    p.selected &&
+    css`
+      color: ${colors.black22};
+      border-bottom: 2px solid ${colors.black22};
+    `}
 `;
 
 const Bottom = styled.div`
@@ -84,7 +91,7 @@ const Bottom = styled.div`
 const SubMenus = styled.ul`
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   position: relative;
   top: -1px;
   min-width: 600px;
@@ -102,13 +109,16 @@ const BottomMenu = styled.li<{ selected: boolean }>`
   &:hover {
     color: ${colors.blackAA};
     background-color: ${colors.blackEB};
-    box-shadow: inset 0 0 0 20px ${colors.blackF5F6F7}, 0 0 0 8px ${colors.blackF5F6F7};
+    box-shadow: inset 0 0 0 20px ${colors.blackF5F6F7},
+      0 0 0 8px ${colors.blackF5F6F7};
   }
 
-  ${p => p.selected && css`
-    color: ${colors.black22};
-    &:hover {
+  ${(p) =>
+    p.selected &&
+    css`
       color: ${colors.black22};
-    }
-  `}
+      &:hover {
+        color: ${colors.black22};
+      }
+    `}
 `;

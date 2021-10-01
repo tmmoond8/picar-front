@@ -10,12 +10,16 @@ const Album: React.FC<{ photos: string[] }> = ({ photos }) => {
     <React.Fragment>
       {hasPhoto && (
         <PhotoList>
-          {photos.map((photo, index) => <li key={`${index}_${photo}`}><Image src={photo} /></li>)}
+          {photos.map((photo, index) => (
+            <li key={`${index}_${photo}`}>
+              <Image src={photo} />
+            </li>
+          ))}
         </PhotoList>
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default Album;
 

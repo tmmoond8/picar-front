@@ -1,11 +1,11 @@
 import React from 'react';
-import { Plugins } from '@capacitor/core'
+import { Plugins } from '@capacitor/core';
 import { useStore } from '../stores';
 import { useAlert } from '../components/Alert';
 import { isAndroid } from '../modules/crossPlatform';
 
 export const useAndroid = () => {
-  const { ui, util }  = useStore();
+  const { ui, util } = useStore();
   const alert = useAlert();
   const handler = () => {
     if (ui.modals.length > 0) {
@@ -23,18 +23,19 @@ export const useAndroid = () => {
           alert.close();
           setTimeout(() => {
             Plugins.App.exitApp();
-          }, 300)
+          }, 300);
         },
-      })
+      });
     }
-  }
+  };
 
   React.useEffect(() => {
     if (isAndroid()) {
       Plugins.App.addListener('backButton', handler);
       return () => {
-        Plugins.App.removeAllListeners()
+        Plugins.App.removeAllListeners();
       };
     }
-  }, [])
-}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+};

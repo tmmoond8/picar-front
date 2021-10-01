@@ -14,66 +14,82 @@ import MenuBar from '../MenuBar';
 
 const GAP = 24;
 
-const Tablet: React.FC<{ children: React.ReactNode }> = observer(({ children }) => {
-  const { ui } = useStore();
-  const handleClickGoTop = ui.useTopButton();
-  return (
-    <Layout className="TabletLayout">
-      <DesktopHeader />
-      <Body className="TabletBody">
-        <Contents className="TabletContents">
-          <ButtonGoTop className="GoTop" onClick={handleClickGoTop} notDesktop={!ui.queryMatch.Desktop}>
-            <Icon icon="back" size="24px" color={colors.black99} />
-          </ButtonGoTop>
-          {children}
-        </Contents>
-        <Right className="TabletRight">
-          <Aside.PopularArticles />
-          {/* <Aside.Advertisement /> */}
-          {/* <Aside.DownloadApp /> */}
-          <Aside.Copyrights />
-        </Right>
-      </Body>
-    </Layout>
-  );
-});
-
-const Desktop: React.FC<{ children: React.ReactNode }> = observer(({ children }) => {
-  const { ui, article } = useStore();
-  const handleClickGoTop = React.useCallback(() => {
-    const currentList = document.querySelector(`.ArticleList[data-id="${article.selectedGroup}"]`);
-    if (currentList) {
-      currentList.scrollTop = 0;
-    }
-  }, [article.selectedGroup])
-  return (
-    <Layout>
-      <StyledMenuBar />
-      <Body>
-        {false && <Left>
-          <FixedBox>
-            <LoungeSelector />
-            <MyActivity />
-          </FixedBox>
-        </Left>}
-        <Contents>
-          <ButtonGoTop className="GoTop" onClick={handleClickGoTop} notDesktop={!ui.queryMatch.Desktop}>
-            <Icon icon="back" size="24px" color={colors.black99} />
-          </ButtonGoTop>
-          {children}
-        </Contents>
-        <Right>
-          <FixedBox>
+const Tablet: React.FC<{ children: React.ReactNode }> = observer(
+  ({ children }) => {
+    const { ui } = useStore();
+    const handleClickGoTop = ui.useTopButton();
+    return (
+      <Layout className="TabletLayout">
+        <DesktopHeader />
+        <Body className="TabletBody">
+          <Contents className="TabletContents">
+            <ButtonGoTop
+              className="GoTop"
+              onClick={handleClickGoTop}
+              notDesktop={!ui.queryMatch.Desktop}
+            >
+              <Icon icon="back" size="24px" color={colors.black99} />
+            </ButtonGoTop>
+            {children}
+          </Contents>
+          <Right className="TabletRight">
             <Aside.PopularArticles />
-            <Aside.Advertisement />
-            <Aside.DownloadApp />
+            {/* <Aside.Advertisement /> */}
+            {/* <Aside.DownloadApp /> */}
             <Aside.Copyrights />
-          </FixedBox>
-        </Right>
-      </Body>
-    </Layout>
-  );
-});
+          </Right>
+        </Body>
+      </Layout>
+    );
+  },
+);
+
+const Desktop: React.FC<{ children: React.ReactNode }> = observer(
+  ({ children }) => {
+    const { ui, article } = useStore();
+    const handleClickGoTop = React.useCallback(() => {
+      const currentList = document.querySelector(
+        `.ArticleList[data-id="${article.selectedGroup}"]`,
+      );
+      if (currentList) {
+        currentList.scrollTop = 0;
+      }
+    }, [article.selectedGroup]);
+    return (
+      <Layout>
+        <StyledMenuBar />
+        <Body>
+          {false && (
+            <Left>
+              <FixedBox>
+                <LoungeSelector />
+                <MyActivity />
+              </FixedBox>
+            </Left>
+          )}
+          <Contents>
+            <ButtonGoTop
+              className="GoTop"
+              onClick={handleClickGoTop}
+              notDesktop={!ui.queryMatch.Desktop}
+            >
+              <Icon icon="back" size="24px" color={colors.black99} />
+            </ButtonGoTop>
+            {children}
+          </Contents>
+          <Right>
+            <FixedBox>
+              <Aside.PopularArticles />
+              <Aside.Advertisement />
+              <Aside.DownloadApp />
+              <Aside.Copyrights />
+            </FixedBox>
+          </Right>
+        </Body>
+      </Layout>
+    );
+  },
+);
 export default {
   Tablet,
   Desktop,
@@ -171,7 +187,9 @@ const ButtonGoTop = styled.div<{ notDesktop: boolean }>`
     transform: rotate(90deg);
     cursor: pointer;
   }
-  ${p => p.notDesktop && css`
-    left: 16px;
-  `}
+  ${(p) =>
+    p.notDesktop &&
+    css`
+      left: 16px;
+    `}
 `;

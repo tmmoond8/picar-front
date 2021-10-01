@@ -6,10 +6,10 @@ import UserList from './UserList';
 import * as StylingComponents from './StylingComponent';
 
 export default {
-    Input: SearchInput,
-    PopArticles: PopularArticleList,
-    Recommendations: Recommendations,
-    SearchResults: SearchResults,
-    UserList: UserList,
-    ...StylingComponents,
-}
+  Input: SearchInput,
+  PopArticles: PopularArticleList,
+  Recommendations: Recommendations,
+  SearchResults: SearchResults,
+  UserList: UserList,
+  ...StylingComponents,
+};

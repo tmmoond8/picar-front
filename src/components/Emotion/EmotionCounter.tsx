@@ -22,42 +22,40 @@ const EmotionCounter: React.FC<{
   myEmotion,
   handleEmotionUpdate,
 }) => {
-    const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
-    const modal = useModal();
+  const [emotionCount, setEmotionCount] = React.useState(_emotionCount);
+  const modal = useModal();
 
-    const handleClickEmotion = () => {
-      modal.open({
-        title: `공감 ${emotionCount}`,
-        contents: (
-          <EmotionBox
-            articleId={articleId}
-            myEmotion={myEmotion}
-            handleClose={modal.close}
-            setEmotionCount={setEmotionCount}
-            handleEmotionUpdate={handleEmotionUpdate}
-          />
-        ),
-      });
-    };
-    // const color = React.useMemo(() => (myEmotion ? colors.primary : undefined), [
-    //   myEmotion,
-    // ]);
-    return (
-      <EmotionCounterButton
-        icon={<Icon icon="emojiSmile" size="18px" />}
-        onClick={handleClickEmotion}
-        hasMyEmotion={!!myEmotion}
-      >
-        <span className="Counter">
-          {emotionCount}
-        </span>
-      </EmotionCounterButton>
-    );
+  const handleClickEmotion = () => {
+    modal.open({
+      title: `공감 ${emotionCount}`,
+      contents: (
+        <EmotionBox
+          articleId={articleId}
+          myEmotion={myEmotion}
+          handleClose={modal.close}
+          setEmotionCount={setEmotionCount}
+          handleEmotionUpdate={handleEmotionUpdate}
+        />
+      ),
+    });
   };
+  // const color = React.useMemo(() => (myEmotion ? colors.primary : undefined), [
+  //   myEmotion,
+  // ]);
+  return (
+    <EmotionCounterButton
+      icon={<Icon icon="emojiSmile" size="18px" />}
+      onClick={handleClickEmotion}
+      hasMyEmotion={!!myEmotion}
+    >
+      <span className="Counter">{emotionCount}</span>
+    </EmotionCounterButton>
+  );
+};
 
 export default EmotionCounter;
 
-const EmotionCounterButton = styled(Button) <{ hasMyEmotion: boolean }>`
+const EmotionCounterButton = styled(Button)<{ hasMyEmotion: boolean }>`
   && {
     border-radius: 4px;
     border: solid 1px #ebebeb;
@@ -70,13 +68,16 @@ const EmotionCounterButton = styled(Button) <{ hasMyEmotion: boolean }>`
     .Counter {
       margin-left: 0;
     }
-    ${p => p.hasMyEmotion && css`
-      color: ${colors.primary2};
-      background-color: ${colors.primaryE};
-      border: solid 1px ${colors.transparent};
-      .Counter, .Icon.emojiSmile {
+    ${(p) =>
+      p.hasMyEmotion &&
+      css`
         color: ${colors.primary2};
-      }
-    `}
+        background-color: ${colors.primaryE};
+        border: solid 1px ${colors.transparent};
+        .Counter,
+        .Icon.emojiSmile {
+          color: ${colors.primary2};
+        }
+      `}
   }
 `;

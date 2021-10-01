@@ -42,7 +42,7 @@ const customReset = css`
   * {
     font-weight: 500;
     box-sizing: border-box;
-    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   }
 
   .OwnerBottomSheetWrapper {

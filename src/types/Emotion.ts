@@ -1,10 +1,10 @@
-import Emotion from "../components/Emotion";
+import Emotion from '../components/Emotion';
 
 export const EMOTION_TYPE = {
   LOVE: 'LOVE',
   SAD: 'SAD',
   LAUGHING: 'LAUGHING',
-  ANGRY: 'ANGRY'
+  ANGRY: 'ANGRY',
 } as const;
 
 export type EmotionType = keyof typeof EMOTION_TYPE;
@@ -14,7 +14,7 @@ export const EMOTION_ICON = {
   SAD: 'emojiSad',
   LAUGHING: 'emojiLaughing',
   ANGRY: 'emojiAngry',
-}
+};
 
 export type EmotionIcon = typeof EMOTION_ICON[keyof typeof EMOTION_ICON];
 
@@ -32,9 +32,9 @@ export default interface Emotion {
 }
 
 export enum UpdateStatus {
-  created= 'created',
-  updated= 'updated',
-  removed= 'removed',
+  created = 'created',
+  updated = 'updated',
+  removed = 'removed',
 }
 
 export type UpdateStatusKey = keyof typeof UpdateStatus;

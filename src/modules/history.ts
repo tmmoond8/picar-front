@@ -1,10 +1,12 @@
 import { Path, LocationState, History } from 'history';
-import sessionStorage from '../modules/sessionStorage'
+import sessionStorage from '../modules/sessionStorage';
 export interface CustomHistory<T> extends History<T> {
   goBack: () => number;
 }
 
-export default (history: History<LocationState>): CustomHistory<LocationState> => {
+export default (
+  history: History<LocationState>,
+): CustomHistory<LocationState> => {
   sessionStorage.initStack();
   return {
     ...history,
@@ -36,6 +38,6 @@ export default (history: History<LocationState>): CustomHistory<LocationState> =
         history.replace('/');
       }
       return stack;
-    }
+    },
   };
-}
+};

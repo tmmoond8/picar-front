@@ -1,29 +1,31 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
 
 import Icon from '../Icon';
 
-const Recommendations: React.FC<{ 
+const Recommendations: React.FC<{
   recommendations: { keywords: string }[];
   handleClickRecommendation: (keyword: string) => void;
 }> = ({ recommendations, handleClickRecommendation }) => {
-  
   return (
     <Wrapper>
       <RecommendationCards>
         {recommendations.map(({ keywords }, idx) => (
-          <RecommendationCard key={keywords + idx} onClick={() => handleClickRecommendation(keywords)}>
-            <Icon icon="trending" size="20px"/>
+          <RecommendationCard
+            key={keywords + idx}
+            onClick={() => handleClickRecommendation(keywords)}
+          >
+            <Icon icon="trending" size="20px" />
             {keywords}
           </RecommendationCard>
         ))}
       </RecommendationCards>
     </Wrapper>
-  )
-}
+  );
+};
 
 export default Recommendations;
 

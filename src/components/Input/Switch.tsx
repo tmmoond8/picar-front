@@ -74,10 +74,10 @@ export default function Switch(props: SwitchProps): JSX.Element {
     { value: left, displayName: leftDisplay },
     { value: right, displayName: rightDisplay },
   ] = values;
-  const isRight = React.useMemo(() => currentValue === right, [
-    currentValue,
-    right,
-  ]);
+  const isRight = React.useMemo(
+    () => currentValue === right,
+    [currentValue, right],
+  );
   return (
     <Wrapper className={cx('Switch', className)}>
       {label && <span role="label">{label}</span>}

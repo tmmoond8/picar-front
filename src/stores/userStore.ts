@@ -10,13 +10,15 @@ import { LOUNGE } from '../types/constants';
 const initalProfile = {
   code: 'guest',
   name: 'guest',
-  thumbnail: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
-  profileImage: 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
+  thumbnail:
+    'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
+  profileImage:
+    'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1604485453/noticon/s1qvpjwfeim5gqbvm2cl.png',
   description: '',
   group: '테슬라 모델Y',
   isOwner: true,
   email: 'test@gmail.com',
-}
+};
 
 export interface UserStoreInterface extends CommonStore {
   profile: Profile;
@@ -63,9 +65,7 @@ class UserStore implements UserStoreInterface {
   async fetch() {
     try {
       const {
-        data: {
-          ok, data
-        },
+        data: { ok, data },
       } = await APIS.auth.getUser();
       if (ok) {
         this.setProfile(data);
@@ -79,7 +79,8 @@ class UserStore implements UserStoreInterface {
   setProfile(profile: Profile) {
     this.profile = profile;
     this.fetchUserData();
-    this.rootStore!.article.selectedLounge = profile.group ?? this.rootStore!.article.selectedGroup;
+    this.rootStore!.article.selectedLounge =
+      profile.group ?? this.rootStore!.article.selectedGroup;
     this.rootStore!.article.selectedGroup = LOUNGE;
   }
 
@@ -95,7 +96,7 @@ class UserStore implements UserStoreInterface {
           }
           accum[comment.articleId].push(comment);
           return accum;
-        }, {} as Record<number, Comment[]>)
+        }, {} as Record<number, Comment[]>);
       }
     } catch (error) {
       console.error(error);
@@ -111,7 +112,7 @@ class UserStore implements UserStoreInterface {
         this.emotions = emotions.reduce((accum, emotion) => {
           accum[emotion.articleId] = emotion.type;
           return accum;
-        }, {} as Record<number, EmotionType>)
+        }, {} as Record<number, EmotionType>);
       }
     } catch (error) {
       console.error(error);
@@ -128,7 +129,7 @@ class UserStore implements UserStoreInterface {
       this.emotions = {
         ...this.emotions,
         [articleId]: emotionType,
-      }
+      };
     }
   }
 
@@ -147,9 +148,7 @@ class UserStore implements UserStoreInterface {
 
   async fetchNotification() {
     try {
-      const {
-        data,
-      } = await APIS.notification.list();
+      const { data } = await APIS.notification.list();
       if (data.ok) {
         this.notifications = data.notifications;
       }
@@ -183,12 +182,12 @@ class UserStore implements UserStoreInterface {
 
   @action
   async checkNotifications(notificationIds: string[]) {
-    this.notifications = this.notifications.map(noti => {
+    this.notifications = this.notifications.map((noti) => {
       if (notificationIds.includes(noti.id)) {
         noti.isViewd = true;
       }
       return noti;
-    })
+    });
   }
 
   @computed

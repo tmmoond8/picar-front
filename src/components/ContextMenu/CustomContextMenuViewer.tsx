@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css, keyframes } from '@emotion/core';
+import { jsx, keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { usePosition } from './hooks';
@@ -22,7 +22,7 @@ const CustomContextMenuViewer: React.FC<CustomContextMenuData> = ({
   contents,
   handleClose,
 }) => {
-  const [ width, setWidth ] = React.useState(0);
+  const [width, setWidth] = React.useState(0);
   const { x, y } = usePosition(targetElement, width, alignX);
   const ref = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -37,7 +37,7 @@ const CustomContextMenuViewer: React.FC<CustomContextMenuData> = ({
     if (ref.current) {
       setWidth(ref.current.clientWidth);
     }
-  }, [])
+  }, []);
 
   return (
     <StyledCustomContextMenus

@@ -10,10 +10,8 @@ import { useMoreMenu } from './hooks';
 import { useArticleContext, observer } from './context';
 
 const ArticleHeader: React.FC = () => {
-  const { user, ui, util, article: articleStore } = useStore();
-  const {
-    article,
-  } = useArticleContext();
+  const { user, ui, util } = useStore();
+  const { article } = useArticleContext();
 
   const bookmark = React.useMemo(() => {
     return article?.id && user.bookmarks.has(article.id);
@@ -38,24 +36,33 @@ const ArticleHeader: React.FC = () => {
 
   return (
     <Header desktop={ui.queryMatch.Desktop}>
-      <Icon icon="back" size="24px" color={colors.black} onClick={handleGoBack} />
-      {article && !article.isDelete && (<Right>
-        <Icon
-          icon="bookmarkOutline"
-          size="24px"
-          color={bookmark ? colors.black : colors.transparent}
-          onClick={handleClickBookmark}
-        />
-        {user.profile.code === article?.author.code && <Icon
-          icon="more"
-          size="24px"
-          color={colors.black}
-          onClick={handleClickMore}
-        />}
-      </Right>)}
+      <Icon
+        icon="back"
+        size="24px"
+        color={colors.black}
+        onClick={handleGoBack}
+      />
+      {article && !article.isDelete && (
+        <Right>
+          <Icon
+            icon="bookmarkOutline"
+            size="24px"
+            color={bookmark ? colors.black : colors.transparent}
+            onClick={handleClickBookmark}
+          />
+          {user.profile.code === article?.author.code && (
+            <Icon
+              icon="more"
+              size="24px"
+              color={colors.black}
+              onClick={handleClickMore}
+            />
+          )}
+        </Right>
+      )}
     </Header>
   );
-}
+};
 
 export default observer(ArticleHeader);
 
@@ -65,10 +72,12 @@ const Header = styled.nav<{ desktop: boolean }>`
   justify-content: space-between;
   height: 60px;
   padding: 0 20px;
-  ${p => p.desktop && css`
-    box-shadow: 0 1px ${colors.blackF5F6F7};
-    height: 56px;
-  `}
+  ${(p) =>
+    p.desktop &&
+    css`
+      box-shadow: 0 1px ${colors.blackF5F6F7};
+      height: 56px;
+    `}
 `;
 
 const Right = styled.div`

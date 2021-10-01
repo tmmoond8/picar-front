@@ -26,19 +26,37 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
     storage.setUUID(uuid);
     setTimeout(() => {
       if (isHybrid()) {
-        Browser.open({ url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`, windowName: 'kakaoLoginPage' });
+        Browser.open({
+          url: `${env.REACT_APP_KAKAO_LOGIN_BRIDGE_URL}?uuid=${uuid}`,
+          windowName: 'kakaoLoginPage',
+        });
       } else {
-        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code&state=kakao`
+        window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_LOGIN_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&response_type=code&state=kakao`;
       }
     }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modal])
+  }, [modal]);
 
   return (
-    <KakaoIcon onClick={handleKakaoLogin} xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+    <KakaoIcon
+      onClick={handleKakaoLogin}
+      xmlns="http://www.w3.org/2000/svg"
+      width="60"
+      height="60"
+      viewBox="0 0 60 60"
+    >
       <g fill="none" fillRule="evenodd">
-        <path fill="#FFE048" d="M0 0L60 0 60 60 0 60z" transform="translate(-116 -659) translate(0 462) translate(116 197)" />
-        <path fill="#3C1E1E" fillRule="nonzero" d="M30 45c-8.836 0-16-5.743-16-12.83 0-4.554 2.967-8.551 7.424-10.833l-1.508-5.713c-.058-.175-.01-.36.115-.487.087-.088.202-.137.327-.137.096 0 .192.039.278.107l6.483 4.446c.941-.136 1.902-.214 2.88-.214C38.836 19.339 46 25.08 46 32.169S38.835 45 30 45" transform="translate(-116 -659) translate(0 462) translate(116 197) matrix(1 0 0 -1 0 60)" />
+        <path
+          fill="#FFE048"
+          d="M0 0L60 0 60 60 0 60z"
+          transform="translate(-116 -659) translate(0 462) translate(116 197)"
+        />
+        <path
+          fill="#3C1E1E"
+          fillRule="nonzero"
+          d="M30 45c-8.836 0-16-5.743-16-12.83 0-4.554 2.967-8.551 7.424-10.833l-1.508-5.713c-.058-.175-.01-.36.115-.487.087-.088.202-.137.327-.137.096 0 .192.039.278.107l6.483 4.446c.941-.136 1.902-.214 2.88-.214C38.836 19.339 46 25.08 46 32.169S38.835 45 30 45"
+          transform="translate(-116 -659) translate(0 462) translate(116 197) matrix(1 0 0 -1 0 60)"
+        />
       </g>
     </KakaoIcon>
   );
@@ -46,4 +64,4 @@ export default function KakaoLogin(props: KakaoLoginProps): JSX.Element {
 
 const KakaoIcon = styled.svg`
   border-radius: 22px;
-`
+`;

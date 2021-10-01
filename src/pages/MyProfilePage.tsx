@@ -28,7 +28,8 @@ const Mobile = () => {
     if (!user.isLogined) {
       util.history.replace('/');
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <React.Fragment>
@@ -45,7 +46,10 @@ const Mobile = () => {
           <HR height={1} color={colors.blackF5F6F7} marginTop={12} />
           <Profile.UserHistoryMenus>
             {menus.map(({ menu, icon, key }) => (
-              <Profile.UserHistoryMenu key={key} onClick={() => handleOpenUserActivations(key)}>
+              <Profile.UserHistoryMenu
+                key={key}
+                onClick={() => handleOpenUserActivations(key)}
+              >
                 <Icon icon={icon as IconKey} size="36px" />
                 <span>{menu}</span>
               </Profile.UserHistoryMenu>
@@ -67,12 +71,12 @@ const Mobile = () => {
       <MenuBar />
     </React.Fragment>
   );
-}
+};
 
 const Tablet = () => {
   const { user, ui } = useStore();
   const { profileImage, name, group, description, code } = user.profile;
-  ui.scrollableElementSelector = `.MyProfileWrapper`;
+  ui.scrollableElementSelector = '.MyProfileWrapper';
 
   return (
     <TabletWrapper className="MyProfileWrapper">
@@ -89,11 +93,11 @@ const Tablet = () => {
       <Activations
         userCode={user.profile.code}
         tab={'article'}
-        onChange={() => { }}
+        onChange={() => {}}
       />
     </TabletWrapper>
   );
-}
+};
 
 export default observer(() => {
   const { ui } = useStore();
@@ -103,7 +107,7 @@ export default observer(() => {
       {ui.queryMatch.Mobile && <Mobile />}
       {(ui.queryMatch.Tablet || ui.queryMatch.Desktop) && <Tablet />}
     </StyledPage>
-  )
+  );
 });
 
 const StyledPage = styled(Page)`
@@ -134,7 +138,8 @@ const TabletWrapper = styled.div`
 
   .eg-flick-camera > * {
     overflow-y: visible;
-    .ArticleCard, .Comment {
+    .ArticleCard,
+    .Comment {
       margin-top: 1px;
       box-shadow: 0 -1px #f5f6f7;
     }
@@ -154,17 +159,18 @@ const Activations = styled(ActivationsContainer)`
       margin-left: 20px;
     }
   }
-  
+
   #${CAROUSEL.PROFILE} {
     overflow: auto;
     height: auto;
     > div {
-      height: 100%; 
+      height: 100%;
       .eg-flick-panel {
         height: 100%;
       }
     }
-    .eg-flick-camera, .eg-flick-viewport {
+    .eg-flick-camera,
+    .eg-flick-viewport {
       height: 100% !important;
     }
   }
@@ -179,7 +185,8 @@ const Activations = styled(ActivationsContainer)`
     }
   }
 
-  .ArticleList, .ProfileCommentList {
+  .ArticleList,
+  .ProfileCommentList {
     overflow-y: auto;
   }
 `;
@@ -188,15 +195,19 @@ function useProfileHandler() {
   const { util } = useStore();
 
   const handleModifyProfile = React.useCallback(() => {
-    util.history.push('/myProfile/edit')
+    util.history.push('/myProfile/edit');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleOpenUserActivations = React.useCallback((menu) => {
-    util.history.push('/myActivations', { menu })
-  }, [util]);
+  const handleOpenUserActivations = React.useCallback(
+    (menu) => {
+      util.history.push('/myActivations', { menu });
+    },
+    [util],
+  );
 
   return {
     handleModifyProfile,
     handleOpenUserActivations,
-  }
+  };
 }

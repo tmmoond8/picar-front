@@ -7,27 +7,35 @@ import { useStore, observer } from '../../stores';
 
 import { colors } from '../../styles';
 
-export const Tabs: React.FC<{ children: React.ReactNode; className?: string; }> = observer(({ children, className }) => {
-  const { ui } = useStore();
-  return (
-    <StyledTabs className={cx('Tabs', className)} desktop={ui.queryMatch.Desktop}>
-      {children}
-    </StyledTabs>
-  )
-});
+export const Tabs: React.FC<{ children: React.ReactNode; className?: string }> =
+  observer(({ children, className }) => {
+    const { ui } = useStore();
+    return (
+      <StyledTabs
+        className={cx('Tabs', className)}
+        desktop={ui.queryMatch.Desktop}
+      >
+        {children}
+      </StyledTabs>
+    );
+  });
 
 export const TabItem: React.FC<{
-  children: React.ReactNode,
-  handleClick: () => void,
+  children: React.ReactNode;
+  handleClick: () => void;
   className?: string;
   selected: boolean;
 }> = ({ className, children, selected, handleClick }) => {
   return (
-    <StyledTabItem className={cx('TabItem', className)} selected={selected} onClick={handleClick}>
+    <StyledTabItem
+      className={cx('TabItem', className)}
+      selected={selected}
+      onClick={handleClick}
+    >
       {children}
     </StyledTabItem>
-  )
-}
+  );
+};
 
 const StyledTabs = styled.ol<{ desktop: boolean }>`
   display: flex;
@@ -39,9 +47,11 @@ const StyledTabs = styled.ol<{ desktop: boolean }>`
   .tab + .tab {
     margin: 0 0 0 18px;
   }
-  ${p => p.desktop && css`
-    height: 56px;
-  `}
+  ${(p) =>
+    p.desktop &&
+    css`
+      height: 56px;
+    `}
 `;
 
 const StyledTabItem = styled.li<{ selected: boolean }>`
@@ -53,10 +63,12 @@ const StyledTabItem = styled.li<{ selected: boolean }>`
   font-size: 15px;
   font-weight: 400;
   text-align: center;
-  color: ${p => p.selected ? colors.black33 : colors.blackBF};
+  color: ${(p) => (p.selected ? colors.black33 : colors.blackBF)};
 
   cursor: pointer;
-  ${p => p.selected && css`
-    box-shadow: inset 0 -1px 0 0 ${colors.black33};
-  `}
+  ${(p) =>
+    p.selected &&
+    css`
+      box-shadow: inset 0 -1px 0 0 ${colors.black33};
+    `}
 `;

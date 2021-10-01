@@ -10,7 +10,7 @@ const ProfileEditPage = () => {
       <ProfileModificationForm />
     </StyledPage>
   );
-}
+};
 
 export default ProfileEditPage;
 

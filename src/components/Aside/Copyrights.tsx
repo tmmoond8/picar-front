@@ -5,7 +5,6 @@ import React from 'react';
 import { colors } from '../../styles';
 
 const Advertisement: React.FC<{}> = () => {
-
   return (
     <StyledAdvertisement>
       <Rules>
@@ -13,7 +12,7 @@ const Advertisement: React.FC<{}> = () => {
         <Link>개인정보처리방침</Link>
         <Link>광고정보</Link>
       </Rules>
-        © 2021 picar, All rights reserved.
+      © 2021 picar, All rights reserved.
     </StyledAdvertisement>
   );
 };
@@ -34,6 +33,4 @@ const Rules = styled.div`
   }
 `;
 
-const Link = styled.a`
-  
-`;
+const Link = styled.a``;

@@ -37,29 +37,27 @@ const Comment: React.FC<CommentProps> = ({
   isDelete,
 }) => {
   const { user } = useStore();
-  const {
-    handleClickReply,
-    handleRemoveComment,
-    about,
-    userCode,
-    editorRef,
-  } = useCommentContext();
+  const { handleClickReply, handleRemoveComment, about, userCode, editorRef } =
+    useCommentContext();
   const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
   const isArticleAuthorsComment = React.useMemo(
     () => commentAuthorCode === articleAuthorCode,
     [articleAuthorCode, commentAuthorCode],
   );
-  const isCommentAuthor = React.useMemo(() => userCode === commentAuthorCode, [
-    commentAuthorCode,
-    userCode,
-  ]);
+  const isCommentAuthor = React.useMemo(
+    () => userCode === commentAuthorCode,
+    [commentAuthorCode, userCode],
+  );
   const handleOpenProfile = Profile.useOpenProfile();
 
   return (
     <React.Fragment>
       <StyledComment isFocus={isFocus}>
-        <ProfilePhoto src={thumbnail} onClick={() => handleOpenProfile(commentAuthorCode)} />
+        <ProfilePhoto
+          src={thumbnail}
+          onClick={() => handleOpenProfile(commentAuthorCode)}
+        />
         <ContentBox>
           <Profile.WhoDot
             name={name}

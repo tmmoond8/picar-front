@@ -85,6 +85,7 @@
     "sync-fetch": "^0.3.0"
   },
   "scripts": {
+    "lint": "eslint --ext .tsx --ext .ts src/** --fix",
     "dev": "PORT=8200 react-app-rewired start",
     "dev:ios": "ionic capacitor run ios -l --external",
     "dev:android": "ionic capacitor run android -l --external",

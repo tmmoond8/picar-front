@@ -8,21 +8,29 @@ import { useArticleContext, observer } from './context';
 
 const ArticleBody = () => {
   const { article } = useArticleContext();
-  const urlPattern = /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi
+  const urlPattern =
+    /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gi;
   const content = React.useMemo(() => {
-    return article!.content.replace(urlPattern, `<a href="$&" target="_blank">$&</a>`)
-  }, [article!.content])
+    return article!.content.replace(
+      urlPattern,
+      '<a href="$&" target="_blank">$&</a>',
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article!.content]);
   const photos = React.useMemo(() => {
-    return article!.photos ? article!.photos.split(',').filter(p => !!p) : []
-  }, [article!.photos])
+    return article!.photos ? article!.photos.split(',').filter((p) => !!p) : [];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article!.photos]);
 
   return (
     <Body>
       <Lounge>{article!.group}</Lounge>
       <Title>{article!.title}</Title>
-      <Content dangerouslySetInnerHTML={{
-        __html: content
-      }}/>
+      <Content
+        dangerouslySetInnerHTML={{
+          __html: content,
+        }}
+      />
       <Album photos={photos} />
     </Body>
   );

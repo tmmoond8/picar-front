@@ -15,7 +15,7 @@ export default function DesktopFallback() {
         <DesktopHeaderSpaceBetween>
           <Logo color={colors.black40} />
           <DesktopHeaderRight>
-            <Skeleton circle={true} height={48} width={48}/>
+            <Skeleton circle={true} height={48} width={48} />
             <Skeleton height={44} width={82} />
             <Skeleton height={44} width={82} />
           </DesktopHeaderRight>
@@ -29,25 +29,40 @@ export default function DesktopFallback() {
             <Skeleton height={22} width={46} />
             <Skeleton height={22} width={46} />
           </ContentHead>
-          {Array.from({length: 5}).map((_, index) => (
+          {Array.from({ length: 5 }).map((_, index) => (
             <Article key={`article-skeleton-${index}`}>
               <ArticleTop>
                 <Skeleton circle height={22} width={22} />
-                <Skeleton height={22} width={67} style={{marginLeft: '12px'}}/>
+                <Skeleton
+                  height={22}
+                  width={67}
+                  style={{ marginLeft: '12px' }}
+                />
                 <Content.FlexSpace />
                 <Skeleton height={22} width={46} />
               </ArticleTop>
               <ArticleMid>
                 <FlexColumn>
-                  <Skeleton height={22} width={ui.queryMatch.Desktop ? 189 : 122} />
-                  <Skeleton height={22} width={ui.queryMatch.Desktop ? 289 : 220} style={{marginTop: '12px'}}/>
+                  <Skeleton
+                    height={22}
+                    width={ui.queryMatch.Desktop ? 189 : 122}
+                  />
+                  <Skeleton
+                    height={22}
+                    width={ui.queryMatch.Desktop ? 289 : 220}
+                    style={{ marginTop: '12px' }}
+                  />
                 </FlexColumn>
                 <Content.FlexSpace />
                 <Skeleton height={80} width={80} />
               </ArticleMid>
               <ArticleBottom>
                 <Skeleton height={22} width={32} />
-                <Skeleton height={22} width={32} style={{marginLeft: '12px'}}/>
+                <Skeleton
+                  height={22}
+                  width={32}
+                  style={{ marginLeft: '12px' }}
+                />
                 <Content.FlexSpace />
                 <Skeleton height={22} width={32} />
               </ArticleBottom>
@@ -55,22 +70,22 @@ export default function DesktopFallback() {
           ))}
         </DesktopLeft>
         <DesktopRight>
-          <PopHead >
+          <PopHead>
             <Skeleton height={28} width={56} />
             <Content.FlexSpace />
             <Skeleton height={32} width={33} />
             <Skeleton height={32} width={33} />
           </PopHead>
-          {Array.from({ length: 7}).map((_, index) => (
+          {Array.from({ length: 7 }).map((_, index) => (
             <PopArticle key={`pop-article-skeleton-${index}`}>
               <Skeleton height={22} width={212} />
-              <Skeleton height={18} width={101} style={{marginTop: '6px'}}/>
+              <Skeleton height={18} width={101} style={{ marginTop: '6px' }} />
             </PopArticle>
           ))}
         </DesktopRight>
       </DesktopBody>
     </Desktop>
-  )
+  );
 }
 
 const Desktop = styled.div`
@@ -94,7 +109,7 @@ const DesktopHeaderSpaceBetween = styled(Content.SpaceBetween)`
   width: 100%;
   max-width: 952px;
   padding: 0 32px;
-`
+`;
 
 const DesktopHeaderRight = styled.div`
   span {

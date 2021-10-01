@@ -33,9 +33,9 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     onChange,
     errorMessage,
     className,
-    onBlur = () => { },
-    onFocus = () => { },
-    onKeyDown = () => { },
+    onBlur = () => {},
+    onFocus = () => {},
+    onKeyDown = () => {},
     onClear,
     autocomplete = true,
     type = 'text',
@@ -62,6 +62,7 @@ const TextField: React.FC<TextFieldProps> = (props) => {
     setFocus(true);
     onFocus();
     ui.setKeyboardMargin(getVirtualKeyboardHeight());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ui]);
 
   const handleBlur = React.useCallback(() => {

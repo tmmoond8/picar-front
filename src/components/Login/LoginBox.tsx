@@ -14,9 +14,7 @@ const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       </GuideText>
       <LoginButtons>
         <li>
-          <KakaoLogin
-            onClose={onClose}
-          />
+          <KakaoLogin onClose={onClose} />
         </li>
         <li className="naver-login">
           <NaverLogin onClose={onClose} />
@@ -24,7 +22,7 @@ const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       </LoginButtons>
     </Box>
   );
-}
+};
 
 export default LoginBox;
 

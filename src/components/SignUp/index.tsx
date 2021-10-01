@@ -39,7 +39,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
     setVendor,
     model,
     setModel,
-    onClose
+    onClose,
   } = useSignUpContext();
   const { util } = useStore();
   const history = util.useHistory();
@@ -54,44 +54,51 @@ const SignUp: React.FC<SignUpProps> = (props) => {
   const handlePrev = React.useCallback(() => {
     setStep(step - 1);
     setModel('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, setStep]);
 
-  const handleSignUp = React.useCallback(async (group?: string) => {
-    try {
-      const { data: { profile, token } } = await API.auth.signup({
-        ...props,
-        name: nicknameField[0],
-        email: emailField[0],
-        isOwner: ownerType === ownerTypes[0].value,
-        group: group ?? model,
-      });
-      const openerUUID = localStorage.getUUID();
-      if (profile.code) {
-        if (openerUUID) {
-          localStorage.clearUUID();
+  const handleSignUp = React.useCallback(
+    async (group?: string) => {
+      try {
+        const {
+          data: { profile, token },
+        } = await API.auth.signup({
+          ...props,
+          name: nicknameField[0],
+          email: emailField[0],
+          isOwner: ownerType === ownerTypes[0].value,
+          group: group ?? model,
+        });
+        const openerUUID = localStorage.getUUID();
+        if (profile.code) {
+          if (openerUUID) {
+            localStorage.clearUUID();
+          }
+          if (crossPlatform.isHybrid()) {
+            localStorage.setToken(token);
+          } else {
+            history.replace('/');
+          }
+          setTimeout(() => {
+            window.location.reload();
+          }, 600);
         }
-        if (crossPlatform.isHybrid()) {
-          localStorage.setToken(token);
-        } else {
-          history.replace('/');
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 600)
+      } catch (error) {
+      } finally {
+        onClose();
       }
-    } catch (error) {
-    } finally {
-      onClose();
-    }
-  }, [
-    emailField,
-    model,
-    nicknameField,
-    props.onSetUserProfile,
-    onClose,
-    ownerType,
-    props,
-  ]);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      emailField,
+      model,
+      nicknameField,
+      props.onSetUserProfile,
+      onClose,
+      ownerType,
+      props,
+    ],
+  );
 
   const BottomCTA = [
     <NicknameForm.BottomCTA onClick={handleNext} />,
@@ -112,7 +119,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
       <SignUpCarousel
         id={CAROUSEL.SIGNUP}
         index={step}
-        onChangeIndex={(i) => { }}
+        onChangeIndex={(i) => {}}
         gesture={false}
       >
         <NicknameForm />
@@ -139,14 +146,10 @@ const SignUp: React.FC<SignUpProps> = (props) => {
 const SignUpWithProvider: React.FC<SignUpProps> = (props) => {
   const { email, name, onClose } = props;
   return (
-    <SignUpContextProvider
-      email={email}
-      name={name}
-      onClose={onClose}
-    >
+    <SignUpContextProvider email={email} name={name} onClose={onClose}>
       <SignUp {...props} />
     </SignUpContextProvider>
-  )
-}
+  );
+};
 
 export default observer(SignUpWithProvider);

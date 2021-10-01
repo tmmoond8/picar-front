@@ -10,7 +10,10 @@ export const base = css`
   backface-visibility: hidden;
 `;
 
-export const customStyle = (p: { color?: string; cursor: string }): SerializedStyles => css`
+export const customStyle = (p: {
+  color?: string;
+  cursor: string;
+}): SerializedStyles => css`
   color: currentColor;
   fill: currentColor;
   ${p.color && `fill: ${p.color};`}

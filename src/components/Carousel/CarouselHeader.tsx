@@ -6,18 +6,22 @@ import cx from 'classnames';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 
-
 export interface CarouselHeaderProps {
   step: number;
   title: string;
   right?: React.ReactNode;
-  className?: string; 
+  className?: string;
   onBack: () => void;
   onClose: () => void;
 }
 
 const CarouselHeader: React.FC<CarouselHeaderProps> = ({
-  step, onBack, onClose, title, right, className
+  step,
+  onBack,
+  onClose,
+  title,
+  right,
+  className,
 }) => {
   const handleClick = React.useCallback(() => {
     if (step === 0) {
@@ -40,7 +44,7 @@ const CarouselHeader: React.FC<CarouselHeaderProps> = ({
       <div className="right">{right}</div>
     </Header>
   );
-}
+};
 
 export default CarouselHeader;
 

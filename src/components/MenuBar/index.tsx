@@ -21,7 +21,7 @@ const activeMap = {
   '/myProfile': 'MyProfile',
 } as const;
 
-const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
+const MenuBar: React.FC<{ className?: string; floatingButton?: boolean }> = ({
   className,
   floatingButton = false,
 }) => {
@@ -56,7 +56,8 @@ const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
       console.log('need');
       return;
     }
-    moveTo('/notification')
+    moveTo('/notification');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moveTo]);
   const handleClickProfile = useCallback(() => {
     if (user.needLogin()) {
@@ -65,7 +66,10 @@ const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
     moveTo('/myProfile');
   }, [moveTo, user]);
 
-  const hasNotfi = React.useMemo(() => user.notifications.some(noti => !noti.isViewd), [user.notifications])
+  const hasNotfi = React.useMemo(
+    () => user.notifications.some((noti) => !noti.isViewd),
+    [user.notifications],
+  );
 
   return (
     <React.Fragment>
@@ -86,7 +90,9 @@ const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
           <MenuItem
             className="Notification"
             hasNoti={hasNotfi}
-            icon={<Icon icon="notification" size="24px" color={colors.black33} />}
+            icon={
+              <Icon icon="notification" size="24px" color={colors.black33} />
+            }
             name="알림"
             onClick={handleClickNotification}
           />
@@ -106,7 +112,6 @@ const MenuBar: React.FC<{ className?: string, floatingButton?: boolean }> = ({
       </MenuBarContainer>
       {floatingButton && <FloatingButon onClick={handleClickWrite} />}
     </React.Fragment>
-
   );
 };
 
@@ -127,11 +132,12 @@ const Menus = styled.ul<{ selected: typeof activeMap[keyof typeof activeMap] }>`
   justify-content: space-between;
   min-height: 60px;
   margin: 0 auto;
-  .MenuBarItem, .Icon {
+  .MenuBarItem,
+  .Icon {
     color: ${colors.black99};
     cursor: pointer;
   }
-  .MenuBarItem.${p => p.selected} {
+  .MenuBarItem.${(p) => p.selected} {
     color: ${colors.black33};
     .Icon {
       color: ${colors.black33};

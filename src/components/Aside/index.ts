@@ -8,4 +8,4 @@ export default {
   Copyrights,
   PopularArticles,
   DownloadApp,
-}
+};

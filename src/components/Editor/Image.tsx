@@ -16,22 +16,24 @@ const Image: React.FC<{
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(!photoUrl);
-    }, 500)
+    }, 500);
     return () => {
       clearTimeout(timer);
-    }
+    };
   }, [photoUrl]);
 
   return (
     <Wrapper isLoading={isLoading || isOnThumnbailUpload}>
       <img src={preUploadUrl} alt="image for article" />
-      {(isLoading || isOnThumnbailUpload) && <Loader icon="loading" size="24px" />}
+      {(isLoading || isOnThumnbailUpload) && (
+        <Loader icon="loading" size="24px" />
+      )}
       <ClearButton onClick={clear}>
         <Icon icon="close" size="16px" />
       </ClearButton>
     </Wrapper>
   );
-}
+};
 
 export default Image;
 
@@ -49,11 +51,13 @@ const Wrapper = styled.figure<{ isLoading: boolean }>`
     object-position: top;
   }
 
-  ${p => p.isLoading && css`
-    img {
-      filter: brightness(0.5);
-    }
-  `}
+  ${(p) =>
+    p.isLoading &&
+    css`
+      img {
+        filter: brightness(0.5);
+      }
+    `}
 `;
 
 const Loader = styled(Icon)`

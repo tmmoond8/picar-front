@@ -16,20 +16,14 @@ import { colors } from '../../styles';
 const ModificationForm = () => {
   const { user, util, ui } = useStore();
   const location = useLocation();
-  const {
-    preUploadUrl,
-    profileUrl,
-    setProfileUrl,
-    setPreUploadUrl,
-  } = PhotoUploader.usePhotoUPloader(user.profile.profileImage);
+  const { preUploadUrl, profileUrl, setProfileUrl, setPreUploadUrl } =
+    PhotoUploader.usePhotoUPloader(user.profile.profileImage);
   const nicknameSkip = (value: string) => value.length > 10;
   const [name, onChangeName] = Input.useTextField(
     user.profile.name,
     nicknameSkip,
   );
-  const [group, setGroup] = useSelector(
-    user.profile.group,
-  );
+  const [group, setGroup] = useSelector(user.profile.group);
   const descriptionSkip = (value: string) => value.length > 80;
   const [description, onChangeDescription] = Input.useTextField(
     user.profile.description ?? '',
@@ -39,21 +33,24 @@ const ModificationForm = () => {
   const setProfile = React.useCallback((url: string) => {
     setProfileUrl(url);
     setLoading(false);
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSetPreLoadImage = (preLoadImage: string) => {
     setPreUploadUrl(preLoadImage);
     setLoading(true);
-  }
+  };
 
   React.useEffect(() => {
     if (location.state && 'focus' in location.state) {
-      const focusedElement = document.querySelector(`#${location.state['focus']}`);
+      const focusedElement = document.querySelector(
+        `#${location.state['focus']}`,
+      );
       if (focusedElement) {
         (focusedElement as HTMLElement).focus();
       }
     }
-  }, [location.state])
+  }, [location.state]);
 
   const handleSubmit = React.useCallback(async () => {
     try {
@@ -74,21 +71,23 @@ const ModificationForm = () => {
     } catch (error) {
       console.log(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [description, group, name, user.profile, profileUrl]);
 
-  const notChanged = user.profile.profileImage === profileUrl &&
+  const notChanged =
+    user.profile.profileImage === profileUrl &&
     user.profile.name === name &&
     user.profile.group === group &&
-    user.profile.description === description
+    user.profile.description === description;
 
-  const disabled =
-    loading || notChanged || name.length === 0;
+  const disabled = loading || notChanged || name.length === 0;
 
   return (
     <React.Fragment>
       <Header
         options={{
-          title: "프로필 수정", right: (
+          title: '프로필 수정',
+          right: (
             <SubmitButton
               icon="vCheck"
               size="24px"
@@ -96,7 +95,7 @@ const ModificationForm = () => {
               onClick={handleSubmit}
               disabled={disabled}
             />
-          )
+          ),
         }}
         desktop={!ui.queryMatch.Mobile}
       />
@@ -119,7 +118,12 @@ const ModificationForm = () => {
           label="닉네임"
           maxLength={10}
         />
-        <Selector label="오너클럽" selected={group} setSelected={setGroup} myLounge={user.profile.group} />
+        <Selector
+          label="오너클럽"
+          selected={group}
+          setSelected={setGroup}
+          myLounge={user.profile.group}
+        />
         <InputBox
           id="ProfileIntoduction"
           onChange={onChangeDescription}
@@ -197,20 +201,24 @@ const Selector = styled(LoungeSelector)`
   }
 `;
 
-const Header = styled(BackHeader) <{ desktop: boolean }>`
-  ${p => p.desktop && css`
-    .Icon.back {
-      display: none;
-    }
-    box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
-  `}
+const Header = styled(BackHeader)<{ desktop: boolean }>`
+  ${(p) =>
+    p.desktop &&
+    css`
+      .Icon.back {
+        display: none;
+      }
+      box-shadow: 0 1px 0 0 ${colors.blackF5F6F7};
+    `}
 `;
 
-const SubmitButton = styled(Icon) <{ disabled: boolean }>`
+const SubmitButton = styled(Icon)<{ disabled: boolean }>`
   && {
-    ${p => p.disabled && css`
-      pointer-events: none;
-      color: ${colors.blackD9};
-    `}
+    ${(p) =>
+      p.disabled &&
+      css`
+        pointer-events: none;
+        color: ${colors.blackD9};
+      `}
   }
 `;

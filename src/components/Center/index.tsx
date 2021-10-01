@@ -2,13 +2,16 @@ import React, { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import cx from 'classnames';
 
-export default function Center({ children, className }: HTMLAttributes<HTMLDivElement>) {
+export default function Center({
+  children,
+  className,
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <CenterContainer className={cx('CenterContainer', className)}>
       {children}
     </CenterContainer>
   );
-};
+}
 
 const CenterContainer = styled.div`
   display: flex;

@@ -3,12 +3,13 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-
 const Advertisement: React.FC<{}> = () => {
-
   return (
     <AdLink target="_blank">
-      <Img src="https://static.picar.kr/dhfi7dxpu/image/upload/v1622347340/picar/pc-card-r-ad_tbsfyv.png" alt="picar banner" />
+      <Img
+        src="https://static.picar.kr/dhfi7dxpu/image/upload/v1622347340/picar/pc-card-r-ad_tbsfyv.png"
+        alt="picar banner"
+      />
     </AdLink>
   );
 };

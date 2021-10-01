@@ -11,13 +11,13 @@ const Content: React.FC = () => {
     <Wrapper>
       <StyledContent
         name="Content"
-        text={content} 
+        text={content}
         setText={setContent}
         placeholder={content.length > 0 ? '' : '내용을 입력하세요.'}
       />
     </Wrapper>
-  )
-}
+  );
+};
 
 export default observer(Content);
 

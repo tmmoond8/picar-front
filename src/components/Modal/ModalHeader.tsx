@@ -7,7 +7,6 @@ import Button from '../Button';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 
-
 const ModalHeader: React.FC<{
   className?: string;
   title: string;
@@ -15,17 +14,25 @@ const ModalHeader: React.FC<{
   noRadius?: boolean;
   hasTitleLine?: boolean;
 }> = ({
-  className, title, handleClose, noRadius = false, hasTitleLine = true
+  className,
+  title,
+  handleClose,
+  noRadius = false,
+  hasTitleLine = true,
 }) => {
-    return (
-      <Head className={cx('ModalHeader', className)} noRadius={noRadius} hasTitleLine={hasTitleLine}>
-        <Title>{title}</Title>
-        <CloseButton onClick={handleClose}>
-          <Icon icon="close" size="24px" color={colors.black33} />
-        </CloseButton>
-      </Head>
-    );
-  }
+  return (
+    <Head
+      className={cx('ModalHeader', className)}
+      noRadius={noRadius}
+      hasTitleLine={hasTitleLine}
+    >
+      <Title>{title}</Title>
+      <CloseButton onClick={handleClose}>
+        <Icon icon="close" size="24px" color={colors.black33} />
+      </CloseButton>
+    </Head>
+  );
+};
 
 export default React.memo(ModalHeader);
 
@@ -39,7 +46,8 @@ const Head = styled.div<{ noRadius: boolean; hasTitleLine: boolean }>`
   align-items: center;
   border-radius: ${(p) => (p.noRadius ? 'none' : '12px 12px 0 0')};
   background-color: ${colors.white};
-  /* box-shadow: inset 0 -0.5px 0 0 ${p => p.hasTitleLine ? colors.blackBF : colors.transparent}; */
+  /* box-shadow: inset 0 -0.5px 0 0 ${(p) =>
+    p.hasTitleLine ? colors.blackBF : colors.transparent}; */
 `;
 
 const Title = styled.h2`

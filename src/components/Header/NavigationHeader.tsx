@@ -16,50 +16,48 @@ import LoungeForm from '../SignUp/LoungeForm';
 const SelectModel: React.FC<{
   selectedItem: string;
   handleSelect: (v: string) => void;
-}> = ({
-  handleSelect,
-  selectedItem,
+}> = ({ handleSelect, selectedItem }) => {
+  const step = React.useRef(0);
+  const [vendor, setVendor] = React.useState('');
+  const handleNext = () => {
+    (window as any).__OWNER__[CAROUSEL.LOUNGE_SELECTOR](step.current + 1);
+    step.current = step.current + 1;
+  };
+  const handlePrev = () => {
+    (window as any).__OWNER__[CAROUSEL.LOUNGE_SELECTOR](step.current - 1);
+    step.current = step.current - 1;
+    setVendor('');
+  };
+
+  return (
+    <CarouselWrapper>
+      <Carousel
+        id={CAROUSEL.LOUNGE_SELECTOR}
+        index={step.current}
+        onChangeIndex={() => ''}
+        gesture={false}
+      >
+        <LoungeForm.VendorForm
+          handleNext={handleNext}
+          setVendor={setVendor}
+          setModel={handleSelect}
+          hideHead
+        />
+        <LoungeForm.ModelForm
+          vendor={vendor}
+          model={selectedItem}
+          hideHead
+          setModel={handleSelect}
+          handlePrev={handlePrev}
+        />
+      </Carousel>
+    </CarouselWrapper>
+  );
+};
+
+const NavigationHeader: React.FC<{ underline?: boolean }> = ({
+  underline = false,
 }) => {
-    const step = React.useRef(0);
-    const [vendor, setVendor] = React.useState('');
-    const handleNext = () => {
-      (window as any).__OWNER__[CAROUSEL.LOUNGE_SELECTOR](step.current + 1);
-      step.current = step.current + 1;
-    }
-    const handlePrev = () => {
-      (window as any).__OWNER__[CAROUSEL.LOUNGE_SELECTOR](step.current - 1);
-      step.current = step.current - 1;
-      setVendor('');
-    }
-
-    return (
-      <CarouselWrapper>
-        <Carousel
-          id={CAROUSEL.LOUNGE_SELECTOR}
-          index={step.current}
-          onChangeIndex={() => ''}
-          gesture={false}
-        >
-          <LoungeForm.VendorForm
-            handleNext={handleNext}
-            setVendor={setVendor}
-            setModel={handleSelect}
-            hideHead
-          />
-          <LoungeForm.ModelForm
-            vendor={vendor}
-            model={selectedItem}
-            hideHead
-            setModel={handleSelect}
-            handlePrev={handlePrev}
-          />
-        </Carousel>
-      </CarouselWrapper>
-
-    )
-  }
-
-const NavigationHeader: React.FC<{ underline?: boolean }> = ({ underline = false }) => {
   const { article } = useStore();
   const modal = useModal();
   const handleSelect = (model: string) => {
@@ -68,11 +66,16 @@ const NavigationHeader: React.FC<{ underline?: boolean }> = ({ underline = false
     setTimeout(() => {
       modal.close();
     }, 100);
-  }
+  };
   const handleOpenBottomSheet = React.useCallback(() => {
     modal.open({
       title: '오너클럽을 선택하세요',
-      contents: <SelectModel selectedItem={article.selectedLounge} handleSelect={handleSelect} />,
+      contents: (
+        <SelectModel
+          selectedItem={article.selectedLounge}
+          handleSelect={handleSelect}
+        />
+      ),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article.selectedGroup, article.selectedLounge, modal]);
@@ -144,9 +147,11 @@ const Header = styled.nav<{ underline: boolean }>`
   height: ${HEIGHT}px;
   width: 100%;
   background: ${colors.white};
-  ${p => p.underline && css`
-    box-shadow: inset 0 -0.5px 0 0 ${colors.blackEB};
-  `}
+  ${(p) =>
+    p.underline &&
+    css`
+      box-shadow: inset 0 -0.5px 0 0 ${colors.blackEB};
+    `}
 `;
 
 const List = styled.ol`
@@ -169,7 +174,7 @@ const Item = styled.li<{ selected: boolean }>`
   cursor: pointer;
 `;
 
-const LougeSelector = styled(Item) <{ selected: boolean }>`
+const LougeSelector = styled(Item)<{ selected: boolean }>`
   display: flex;
   svg {
     color: ${(p) => (p.selected ? colors.primary : colors.blackBF)};

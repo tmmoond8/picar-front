@@ -18,7 +18,7 @@ export { useAndroid } from './android';
 
 export default {
   auth,
-}
+};
 export const useTextInput = inputHooks.useTextInput;
 export const useTextarea = inputHooks.useTextarea;
 
@@ -41,11 +41,7 @@ export const useCheckLogin = (
       if (code === 'guest') {
         modal.open({
           title: '',
-          contents: (
-            <LoginBox
-              onClose={modal.close}
-            />
-          ),
+          contents: <LoginBox onClose={modal.close} />,
           hasTitleLine: false,
         });
 
@@ -53,6 +49,7 @@ export const useCheckLogin = (
       }
       return false;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [modal, handleSetUserProfile],
   );
 };
@@ -80,20 +77,16 @@ export const useBreakpoint = () => {
       return;
     }
     const mobile = window.matchMedia(`(max-width: ${BreakPoints.Tablet}px)`);
-    mobile.addEventListener(
-      'change',
-      () => {
-        mobileValue.current = mobile.matches;
-        setTimeout(() => {
-          setQueryMatch({
-            Mobile: mobileValue.current,
-            Tablet: tabletValue.current,
-            Desktop: desktopValue.current,
-          });
-        }, 50);
-      }
-        ,
-    );
+    mobile.addEventListener('change', () => {
+      mobileValue.current = mobile.matches;
+      setTimeout(() => {
+        setQueryMatch({
+          Mobile: mobileValue.current,
+          Tablet: tabletValue.current,
+          Desktop: desktopValue.current,
+        });
+      }, 50);
+    });
     const tablet = window.matchMedia(
       `(min-width: ${BreakPoints.Tablet}px) and (max-width: ${BreakPoints.Desktop}px)`,
     );
@@ -108,19 +101,16 @@ export const useBreakpoint = () => {
       }, 50);
     });
     const desktop = window.matchMedia(`(min-width: ${BreakPoints.Desktop}px)`);
-    desktop.addEventListener(
-      'change',
-      () => {
-        desktopValue.current = desktop.matches;
-        setTimeout(() => {
-          setQueryMatch({
-            Mobile: mobileValue.current,
-            Tablet: tabletValue.current,
-            Desktop: desktopValue.current,
-          });
-        }, 50);
-      },
-    );
+    desktop.addEventListener('change', () => {
+      desktopValue.current = desktop.matches;
+      setTimeout(() => {
+        setQueryMatch({
+          Mobile: mobileValue.current,
+          Tablet: tabletValue.current,
+          Desktop: desktopValue.current,
+        });
+      }, 50);
+    });
   }, []);
 
   React.useEffect(() => {

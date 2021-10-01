@@ -12,22 +12,20 @@ interface Params {
   label?: string;
 }
 
-interface ClickParams
-  extends Omit<Params, "category"> {
-  action: "Clicked";
+interface ClickParams extends Omit<Params, 'category'> {
+  action: 'Clicked';
 }
 
-interface ModalOpenParams
-  extends Omit<Params, "category"> {
-  action: "Modal Opened";
+interface ModalOpenParams extends Omit<Params, 'category'> {
+  action: 'Modal Opened';
 }
 
 class GATracker {
-  private env: "development" | "production" | "test";
+  private env: 'development' | 'production' | 'test';
 
   constructor() {
     if (!env.REACT_APP_GA_TRACKING_ID) {
-      throw new Error("GA_TRACKING_ID must be provided.");
+      throw new Error('GA_TRACKING_ID must be provided.');
     }
 
     this.env = env.NODE_ENV;
@@ -38,7 +36,7 @@ class GATracker {
   }
 
   private get isProduction() {
-    return this.env === "production";
+    return this.env === 'production';
   }
 
   public trackPageView({ path }: PageViewParams) {
@@ -62,11 +60,11 @@ class GATracker {
   }
 
   public trackProfileSectionEvent(params: ClickParams) {
-    this.trackEvent({ category: "Profile", ...params });
+    this.trackEvent({ category: 'Profile', ...params });
   }
 
   public trackModalOpen(params: ModalOpenParams) {
-    this.trackEvent({ category: "Modal", ...params });
+    this.trackEvent({ category: 'Modal', ...params });
   }
 }
 

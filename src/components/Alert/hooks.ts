@@ -5,7 +5,9 @@ import global from '../../types/global';
 export const useAlert = () => {
   const elementId = `alert${Math.random().toString(32).split('.')[1]}`;
   const close = () => {
-    const alertElement: HTMLElement | null = document.querySelector(`#${elementId}`);
+    const alertElement: HTMLElement | null = document.querySelector(
+      `#${elementId}`,
+    );
     if (alertElement) {
       alertElement.style!.opacity = '0';
     }
@@ -13,7 +15,9 @@ export const useAlert = () => {
   };
 
   const open = (alertData: Omit<AlertData, 'id' | 'handleClose'>) => {
-    const alertElement: HTMLElement | null = document.querySelector(`#${elementId}`);
+    const alertElement: HTMLElement | null = document.querySelector(
+      `#${elementId}`,
+    );
     if (alertElement) {
       global.__OWNER__.closeAlert(elementId);
       global.__OWNER__.openAlert({

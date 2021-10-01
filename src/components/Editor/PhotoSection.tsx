@@ -11,67 +11,91 @@ import PhotoUploader from '../PhotoUploader';
 import { useEditorContext, observer } from './context';
 
 const PhotoSection: React.FC = () => {
-  const { photos, setPhotos, setThumbnail, setIsOnImageUpload } = useEditorContext();
-  const [postImages, setPostImages] = React.useState<(string)[]>(photos ? photos.split(',') : []);
-  const [preUploads, setPreUploades] = React.useState<(string)[]>(photos ? photos.split(',') : []);
+  const { photos, setPhotos, setThumbnail, setIsOnImageUpload } =
+    useEditorContext();
+  const [postImages, setPostImages] = React.useState<string[]>(
+    photos ? photos.split(',') : [],
+  );
+  const [preUploads, setPreUploades] = React.useState<string[]>(
+    photos ? photos.split(',') : [],
+  );
   const [isOnThumnbailUpload, setIsOnThumnbailUpload] = React.useState(false);
   const nextIndex = React.useMemo(() => {
-    return Math.max(postImages.filter(p => !!p).length, preUploads.filter(p => !!p).length)
-  }, [postImages, preUploads])
+    return Math.max(
+      postImages.filter((p) => !!p).length,
+      preUploads.filter((p) => !!p).length,
+    );
+  }, [postImages, preUploads]);
 
   const handleClear = (index: number) => {
-    setPostImages([...postImages.slice(0, index), ...postImages.slice(index + 1)]);
-    setPreUploades([...preUploads.slice(0, index), ...preUploads.slice(index + 1)]);
-  }
+    setPostImages([
+      ...postImages.slice(0, index),
+      ...postImages.slice(index + 1),
+    ]);
+    setPreUploades([
+      ...preUploads.slice(0, index),
+      ...preUploads.slice(index + 1),
+    ]);
+  };
 
   const setUploadUrl = (index: number, uploadUrl: string) => {
     postImages[index] = uploadUrl;
     setPostImages([...postImages]);
-  }
+  };
   const setPreUploadUrl = (index: number, preLoadingImage: string) => {
     preUploads[index] = preLoadingImage;
     setPreUploades([...preUploads]);
-  }
+  };
 
   React.useEffect(() => {
-    setPhotos(postImages.join(','))
+    setPhotos(postImages.join(','));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postImages]);
 
   React.useEffect(() => {
     const firstImage = photos.split(',')[0];
     if (firstImage) {
       setIsOnThumnbailUpload(true);
-      API.imageUpload(firstImage, 'picar_thumbnail')
-        .then(thumbnail => {
-          setThumbnail(thumbnail.imgUrl);
-          setIsOnThumnbailUpload(false);
-        })
+      API.imageUpload(firstImage, 'picar_thumbnail').then((thumbnail) => {
+        setThumbnail(thumbnail.imgUrl);
+        setIsOnThumnbailUpload(false);
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photos.split(',')[0]]);
 
   React.useEffect(() => {
-    setIsOnImageUpload(isOnThumnbailUpload || (postImages.length !== preUploads.length))
+    setIsOnImageUpload(
+      isOnThumnbailUpload || postImages.length !== preUploads.length,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postImages, preUploads, isOnThumnbailUpload]);
 
   return (
     <React.Fragment>
       <PhotoRow>
-        {preUploads.filter(img => !!img).map((_, index) => (
-          <li key={`${preUploads[index]}`} >
-            <Image
-              isOnThumnbailUpload={index === 0 && isOnThumnbailUpload}
-              photoUrl={postImages[index]}
-              preUploadUrl={preUploads[index]}
-              clear={() => handleClear(index)}
-            />
-          </li>
-        ))}
+        {preUploads
+          .filter((img) => !!img)
+          .map((_, index) => (
+            <li key={`${preUploads[index]}`}>
+              <Image
+                isOnThumnbailUpload={index === 0 && isOnThumnbailUpload}
+                photoUrl={postImages[index]}
+                preUploadUrl={preUploads[index]}
+                clear={() => handleClear(index)}
+              />
+            </li>
+          ))}
       </PhotoRow>
       <HR full marginTop={15} />
       <Tools>
         <PhotoUploader.Uploader
-          setPreUploadUrl={(preloadingUrl: string) => setPreUploadUrl(nextIndex, preloadingUrl)}
-          setUploadedUrl={(uploadUrl: string) => setUploadUrl(nextIndex, uploadUrl)}
+          setPreUploadUrl={(preloadingUrl: string) =>
+            setPreUploadUrl(nextIndex, preloadingUrl)
+          }
+          setUploadedUrl={(uploadUrl: string) =>
+            setUploadUrl(nextIndex, uploadUrl)
+          }
         >
           <UploadButton
             onClick={() => {
@@ -82,8 +106,8 @@ const PhotoSection: React.FC = () => {
         </PhotoUploader.Uploader>
       </Tools>
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default observer(PhotoSection);
 

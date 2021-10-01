@@ -10,19 +10,27 @@ interface MenuItemProps {
   name: string;
   onClick: () => void;
   className?: string;
-  hasNoti?: boolean
+  hasNoti?: boolean;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
-  icon, name, onClick, className, hasNoti = false,
+  icon,
+  name,
+  onClick,
+  className,
+  hasNoti = false,
 }) => {
   return (
-    <Item onClick={onClick} className={cx("MenuBarItem", className)} hasNoti={hasNoti}>
+    <Item
+      onClick={onClick}
+      className={cx('MenuBarItem', className)}
+      hasNoti={hasNoti}
+    >
       {icon}
       <p>{name}</p>
     </Item>
   );
-}
+};
 
 export default MenuItem;
 
@@ -33,13 +41,13 @@ const Item = styled.li<{ hasNoti: boolean }>`
   align-items: center;
   flex: 1 1 74px;
   cursor: pointer;
-  
+
   p {
     font-size: 10px;
   }
 
   &::after {
-    content: ${p => p.hasNoti ? "''" : 'none'};
+    content: ${(p) => (p.hasNoti ? "''" : 'none')};
     position: absolute;
     top: 0;
     right: 0;

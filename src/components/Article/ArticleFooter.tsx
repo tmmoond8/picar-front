@@ -15,14 +15,10 @@ import { useArticleContext, observer } from './context';
 import { EmotionType } from '../../types/Emotion';
 import APIS from '../../apis';
 
-const windowNavigator = (globalThis?.navigator as any);
+const windowNavigator = globalThis?.navigator as any;
 
 const ArticleFooter = () => {
-  const {
-    article,
-    commentCount,
-    emotionCounts,
-  } = useArticleContext();
+  const { article, commentCount, emotionCounts } = useArticleContext();
   const { user, util } = useStore();
   const modal = useModal();
   const [views, setViews] = React.useState(0);
@@ -53,12 +49,12 @@ const ArticleFooter = () => {
     if (user.needLogin()) {
       return;
     }
-    const commentEditor = document.querySelector<HTMLDivElement>(
-      '.CommentEditor',
-    );
+    const commentEditor =
+      document.querySelector<HTMLDivElement>('.CommentEditor');
     if (commentEditor) {
       commentEditor.focus();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -74,7 +70,8 @@ const ArticleFooter = () => {
         }
       })();
     }
-  }, [article?.id])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article?.id]);
 
   return (
     <React.Fragment>
@@ -88,26 +85,33 @@ const ArticleFooter = () => {
       </InteractionCounter>
       <Content.HR size={1} color="" />
       <InteractionPanel>
-        <Interaction hasInteraction={!!user.emotions[article!.id]} onClick={handleClickEmotion}>
+        <Interaction
+          hasInteraction={!!user.emotions[article!.id]}
+          onClick={handleClickEmotion}
+        >
           <Icon icon="emojiSmileOutline" size="20px" /> 공감표현
         </Interaction>
-        <Interaction hasInteraction={!!user.comments[article!.id]} onClick={handleClickComment}>
+        <Interaction
+          hasInteraction={!!user.comments[article!.id]}
+          onClick={handleClickComment}
+        >
           <Icon icon="chatOutline" size="20px" /> 댓글쓰기
         </Interaction>
         <Interaction
           hasInteraction={false}
           onClick={() => {
             if (windowNavigator.share) {
-              windowNavigator.share({
-                title: 'picar',
-                text: article?.title,
-                url: window.location.href,
-              })
+              windowNavigator
+                .share({
+                  title: 'picar',
+                  text: article?.title,
+                  url: window.location.href,
+                })
                 .then(() => console.log('Successful share'))
                 .catch((error: unknown) => console.log('Error sharing', error));
             } else {
               copy(window.location.href);
-              toast("주소가 복사되었습니다.");
+              toast('주소가 복사되었습니다.');
             }
           }}
         >
@@ -167,10 +171,12 @@ const Interaction = styled.li<{ hasInteraction: boolean }>`
     margin-right: 6px;
   }
 
-  ${p => p.hasInteraction && css`
-    color: ${colors.primary2};
-    .Icon {
+  ${(p) =>
+    p.hasInteraction &&
+    css`
       color: ${colors.primary2};
-    }
-  `}
+      .Icon {
+        color: ${colors.primary2};
+      }
+    `}
 `;

@@ -15,25 +15,36 @@ interface WhoProps {
 }
 
 export const WhoDot: React.FC<WhoProps> = (props) => {
-  const { name, group, className, nameColor, right, onClick = () => { } } = props;
+  const {
+    name,
+    group,
+    className,
+    nameColor,
+    right,
+    onClick = () => {},
+  } = props;
   return (
     <StyledWhotDot className={cx(className, 'Who')} nameColor={nameColor}>
-      <p className="user-name" onClick={onClick}>{name}</p>
+      <p className="user-name" onClick={onClick}>
+        {name}
+      </p>
       {group && <p className="user-group">{group}</p>}
       {right && right}
     </StyledWhotDot>
   );
-}
+};
 
 export const Who: React.FC<WhoProps> = (props) => {
   const { name, group, className, onClick } = props;
   return (
     <StyledWho className={cx(className, 'Who')}>
-      <p className="user-name" onClick={onClick}>{name}</p>
+      <p className="user-name" onClick={onClick}>
+        {name}
+      </p>
       <p className="user-group">{group}</p>
     </StyledWho>
   );
-}
+};
 
 const StyledWhotDot = styled.div<{ nameColor?: string }>`
   display: flex;
@@ -44,8 +55,8 @@ const StyledWhotDot = styled.div<{ nameColor?: string }>`
     color: ${colors.black50};
     cursor: pointer;
     ${(p) =>
-    p.nameColor &&
-    css`
+      p.nameColor &&
+      css`
         color: ${colors.primary2};
       `}
   }

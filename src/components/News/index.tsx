@@ -10,46 +10,44 @@ import { colors } from '../../styles';
 import { getDateGoodLook } from '../../modules/string';
 
 const newLogs = {
-  'Herald News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726879/noticon/jtbkem1oqk1ro1yrpuls.png',
-  'HyundaiMotorGroup': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726833/noticon/dlq88x31qrnbd5c3wtkp.png',
-  'NewsWire': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726900/noticon/exjodth7nm0ffv8q1zvo.png',
-  'ET News': 'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726863/noticon/kakndsc5wpxxlopsw0f8.png',
+  'Herald News':
+    'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726879/noticon/jtbkem1oqk1ro1yrpuls.png',
+  HyundaiMotorGroup:
+    'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726833/noticon/dlq88x31qrnbd5c3wtkp.png',
+  NewsWire:
+    'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726900/noticon/exjodth7nm0ffv8q1zvo.png',
+  'ET News':
+    'https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1622726863/noticon/kakndsc5wpxxlopsw0f8.png',
 } as const;
 
 const NewsList: React.FC<{
   className?: string;
   news: NewsFeed[];
-}> = ({
-  className, news,
-}) => {
-    return (
-      <List className={cx("NewsList", className)}>
-        {news.map((feed) => (
-          <Card
-            key={feed.id}
-            onClick={() => window.open(feed.link)}
-          >
-            <CardHead>
-              <PublisherLogo
-                src={newLogs[feed.publisher as keyof typeof newLogs]}
-                size={24}
-              />
-              <Profile.WhoDot name={feed.publisher} />
-              <p className="feed-time">{getDateGoodLook(feed.pubDate)}</p>
-            </CardHead>
-            <CardBody >
-              <div className="NewsCardContentWrapper">
-                <p className="NewsCardTitle">{feed.title}</p>
-                <p className="NewsCardContent">{feed.content}</p>
-              </div>
-              <Thumbnail src={feed.thumbnail} />
-            </CardBody>
-          </Card>
-        ))
-        }
-      </List >
-    );
-  }
+}> = ({ className, news }) => {
+  return (
+    <List className={cx('NewsList', className)}>
+      {news.map((feed) => (
+        <Card key={feed.id} onClick={() => window.open(feed.link)}>
+          <CardHead>
+            <PublisherLogo
+              src={newLogs[feed.publisher as keyof typeof newLogs]}
+              size={24}
+            />
+            <Profile.WhoDot name={feed.publisher} />
+            <p className="feed-time">{getDateGoodLook(feed.pubDate)}</p>
+          </CardHead>
+          <CardBody>
+            <div className="NewsCardContentWrapper">
+              <p className="NewsCardTitle">{feed.title}</p>
+              <p className="NewsCardContent">{feed.content}</p>
+            </div>
+            <Thumbnail src={feed.thumbnail} />
+          </CardBody>
+        </Card>
+      ))}
+    </List>
+  );
+};
 
 export default React.memo(NewsList);
 

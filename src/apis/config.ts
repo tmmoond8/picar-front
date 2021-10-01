@@ -4,9 +4,10 @@ import storage from '../modules/localStorage';
 import { isHybrid } from '../modules/crossPlatform';
 
 export const apiConfig = {
-  baseURL: env.NODE_ENV === 'development'
-    ? `${window.location.origin}/api`.replace(':8200', ':6060')
-    : env.REACT_APP_API_URL,
+  baseURL:
+    env.NODE_ENV === 'development'
+      ? `${window.location.origin}/api`.replace(':8200', ':6060')
+      : env.REACT_APP_API_URL,
   withCredentials: true,
 };
 
@@ -18,12 +19,12 @@ if (isHybrid()) {
       config.headers = {
         ...config.headers,
         ['X-Custom-Token']: token,
-      }
+      };
       return config;
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
   api.interceptors.response.use(
     (response) => {
@@ -34,8 +35,8 @@ if (isHybrid()) {
     },
     (error) => {
       return Promise.reject(error);
-    }
-  )
+    },
+  );
 }
 
 export default api;

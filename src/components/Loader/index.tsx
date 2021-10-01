@@ -12,7 +12,10 @@ interface WrapperSize {
   height: number;
   width: number;
 }
-const Loader: React.FC<{ className?: string; size?: string; }> = ({ className, size = "16px" }) => {
+const Loader: React.FC<{ className?: string; size?: string }> = ({
+  className,
+  size = '16px',
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const { top, left, width, height } = useParentSize(ref);
 
@@ -28,7 +31,7 @@ const Loader: React.FC<{ className?: string; size?: string; }> = ({ className, s
       <Icon icon="loading" size={size} />
     </ParentFullWrapper>
   );
-}
+};
 
 export default Loader;
 
@@ -37,10 +40,10 @@ const ParentFullWrapper = styled.div<WrapperSize>`
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: ${p => p.top}px;
-  left: ${p => p.left}px;
-  width: ${p => p.width}px;
-  height: ${p => p.height}px;
+  top: ${(p) => p.top}px;
+  left: ${(p) => p.left}px;
+  width: ${(p) => p.width}px;
+  height: ${(p) => p.height}px;
   & > svg {
     @keyframes rotate {
       100% {
@@ -60,8 +63,12 @@ function useParentSize(ref: RefObject<HTMLDivElement>): WrapperSize {
   });
 
   useEffect(() => {
-    const { width = 0, height = 0, left = -9999, top = 0 } =
-      ref.current?.parentElement?.getBoundingClientRect() ?? {};
+    const {
+      width = 0,
+      height = 0,
+      left = -9999,
+      top = 0,
+    } = ref.current?.parentElement?.getBoundingClientRect() ?? {};
     setWrapperSize({
       top,
       left,
@@ -73,8 +80,12 @@ function useParentSize(ref: RefObject<HTMLDivElement>): WrapperSize {
   useLayoutEffect(() => {
     const resizeEvent = debounce(300, () => {
       if (ref.current) {
-        const { width = 0, height = 0, left = -9999, top = 0 } =
-          ref.current?.parentElement?.getBoundingClientRect() ?? {};
+        const {
+          width = 0,
+          height = 0,
+          left = -9999,
+          top = 0,
+        } = ref.current?.parentElement?.getBoundingClientRect() ?? {};
         setWrapperSize({
           top,
           left,
@@ -96,4 +107,4 @@ function useParentSize(ref: RefObject<HTMLDivElement>): WrapperSize {
     width: wrapperSize.width,
     height: wrapperSize.height,
   };
-};
+}

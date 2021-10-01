@@ -18,15 +18,12 @@ const PopularArticleList: React.FC = () => {
 
   return (
     <List className="PopularArticleList">
-      {article.popArticles.map(article => (
-        <Item
-          key={article.id}
-          {...article}
-        />
+      {article.popArticles.map((article) => (
+        <Item key={article.id} {...article} />
       ))}
     </List>
-  )
-}
+  );
+};
 
 export default observer(PopularArticleList);
 
@@ -34,7 +31,6 @@ const List = styled.ol`
   padding: 0 18px;
   background-color: ${colors.white};
 `;
-
 
 const ArticleItem = styled.li`
   display: flex;
@@ -74,9 +70,9 @@ const Thumbnail = styled.img`
 const Item = observer((article: Article) => {
   const { util } = useStore();
   const handleLink = React.useCallback(() => {
-    util.history.push(`/article/${article.id}`)
+    util.history.push(`/article/${article.id}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [article.id])
+  }, [article.id]);
   console.log(article.photos);
   return (
     <ArticleItem onClick={handleLink}>
@@ -86,5 +82,5 @@ const Item = observer((article: Article) => {
       </TextContent>
       {article.thumbnail && <Thumbnail src={article.thumbnail} />}
     </ArticleItem>
-  )
-})
+  );
+});

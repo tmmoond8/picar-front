@@ -15,25 +15,28 @@ export default {
   ...StylingComponent,
 };
 
-type ProfileContainerImportType = typeof import("./ProfileContainer");
+type ProfileContainerImportType = typeof import('./ProfileContainer');
 let DynamicProfileContainer: Promise<ProfileContainerImportType>;
 
 function useOpenProfile() {
   const modal = useModal();
 
-  const handleOpenProfile = React.useCallback((userCode: string) => {
-    if (!DynamicProfileContainer) {
-      DynamicProfileContainer = import('./ProfileContainer');  
-    }
-    DynamicProfileContainer.then((ProfileContainer: ProfileContainerImportType) => {
-      modal.open({
-        title: '',
-        isFull: true,
-        contents: (
-          <ProfileContainer.default userCode={userCode}/>
-        ),
-      });
-    })
-  }, [modal])
+  const handleOpenProfile = React.useCallback(
+    (userCode: string) => {
+      if (!DynamicProfileContainer) {
+        DynamicProfileContainer = import('./ProfileContainer');
+      }
+      DynamicProfileContainer.then(
+        (ProfileContainer: ProfileContainerImportType) => {
+          modal.open({
+            title: '',
+            isFull: true,
+            contents: <ProfileContainer.default userCode={userCode} />,
+          });
+        },
+      );
+    },
+    [modal],
+  );
   return handleOpenProfile;
 }

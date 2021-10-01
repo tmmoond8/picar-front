@@ -1,7 +1,12 @@
 import React from 'react';
 import API from '../../apis';
-import { EmotionCount, EMOTION_TYPE, EMOTION_ICON, EmotionType, UpdateStatus } from '../../types/Emotion';
-
+import {
+  EmotionCount,
+  EMOTION_TYPE,
+  EMOTION_ICON,
+  EmotionType,
+  UpdateStatus,
+} from '../../types/Emotion';
 
 const defaultEmotions: EmotionCount[] = [
   {
@@ -27,58 +32,66 @@ const defaultEmotions: EmotionCount[] = [
 ];
 
 export const useFetch = (articleId: number | string) => {
-  const [emotionCounts, setEmotionCounts] = React.useState<EmotionCount[]>(defaultEmotions);
+  const [emotionCounts, setEmotionCounts] =
+    React.useState<EmotionCount[]>(defaultEmotions);
   React.useEffect(() => {
     (async () => {
-      const { data: { emotionCount, ok } } = await API.emotion.get(articleId);
+      const {
+        data: { emotionCount, ok },
+      } = await API.emotion.get(articleId);
       if (ok) {
-        setEmotionCounts(emotionCounts.map(emotion => ({
-          ...emotion,
-          count: emotionCount[emotion.type]
-        })));
+        setEmotionCounts(
+          emotionCounts.map((emotion) => ({
+            ...emotion,
+            count: emotionCount[emotion.type],
+          })),
+        );
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleId])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [articleId]);
 
   return {
     emotionCounts,
     setEmotionCounts,
   };
-}
+};
 
-export const useCUD = (articleId: number, callback: (result: {
-  updateStatus: UpdateStatus;
-  emotionCount: Record<EmotionType, number>;
-  yourEmotion: EmotionType;
-}) => void) => {
-  const handleCUD = React.useCallback(async (type: EmotionType) => {
-    try {
-      const { data: {
-        ok,
-        updateStatus,
-        emotionCount,
-        yourEmotion,
-      }} = await API.emotion.cud({
-        articleId,
-        type,
-      });
-      if (ok) {
-        callback({
-          updateStatus,
-          emotionCount,
-          yourEmotion,
+export const useCUD = (
+  articleId: number,
+  callback: (result: {
+    updateStatus: UpdateStatus;
+    emotionCount: Record<EmotionType, number>;
+    yourEmotion: EmotionType;
+  }) => void,
+) => {
+  const handleCUD = React.useCallback(
+    async (type: EmotionType) => {
+      try {
+        const {
+          data: { ok, updateStatus, emotionCount, yourEmotion },
+        } = await API.emotion.cud({
+          articleId,
+          type,
         });
-      } else {
-        callback({
-          updateStatus: UpdateStatus.updated,
-          emotionCount,
-          yourEmotion,
-        });
+        if (ok) {
+          callback({
+            updateStatus,
+            emotionCount,
+            yourEmotion,
+          });
+        } else {
+          callback({
+            updateStatus: UpdateStatus.updated,
+            emotionCount,
+            yourEmotion,
+          });
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch(error) {
-      console.error(error);
-    }
-  },[articleId, callback]);
+    },
+    [articleId, callback],
+  );
   return handleCUD;
-}
+};

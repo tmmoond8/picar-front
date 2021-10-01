@@ -13,6 +13,6 @@ export default {
   Label,
   Switch,
   ...hooks,
-}
+};
 
 export type TextFieldHandler = _TextFieldHandler;

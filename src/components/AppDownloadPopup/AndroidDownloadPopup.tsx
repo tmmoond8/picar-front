@@ -39,10 +39,10 @@ const ActionButtons = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 8px;
-  
+
   .NoShow {
     color: ${colors.blackEB};
-    font-size: 18px;  
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: -0.15px;
     text-decoration: underline;
@@ -52,7 +52,7 @@ const ActionButtons = styled.div`
     display: flex;
     align-items: center;
     color: ${colors.blackEB};
-    font-size: 18px;  
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: -0.15px;
     cursor: pointer;
@@ -63,10 +63,12 @@ const ActionButtons = styled.div`
   }
 `;
 
-
-const thumbnail = 'https://static.owwners.com/dhfi7dxpu/image/upload/c_thumb,w_200,g_face/v1617705694/owner/contents_3x_tdbye5.png';
-const src = 'https://static.picar.kr/dhfi7dxpu/image/upload/v1626445430/picar/contents_j2xorw.png';
-const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.tmmoond8.picar';
+const thumbnail =
+  'https://static.owwners.com/dhfi7dxpu/image/upload/c_thumb,w_200,g_face/v1617705694/owner/contents_3x_tdbye5.png';
+const src =
+  'https://static.picar.kr/dhfi7dxpu/image/upload/v1626445430/picar/contents_j2xorw.png';
+const playStoreUrl =
+  'https://play.google.com/store/apps/details?id=com.tmmoond8.picar';
 
 const AndroidDownloadPopup: React.FC<{
   onClose: () => void;
@@ -75,9 +77,13 @@ const AndroidDownloadPopup: React.FC<{
   return (
     <Shadower>
       <Box>
-        <a href={playStoreUrl} target="_blank"><StyledImage src={src} placeholder={thumbnail} /></a>
+        <a href={playStoreUrl} target="_blank">
+          <StyledImage src={src} placeholder={thumbnail} />
+        </a>
         <ActionButtons>
-          <button className="NoShow" onClick={onClickNoShow}>3일간 보지 않기</button>
+          <button className="NoShow" onClick={onClickNoShow}>
+            3일간 보지 않기
+          </button>
           <button className="CloseButton" onClick={onClose}>
             <span>닫기</span>
             <Icon icon="close" size="24px" />
@@ -85,7 +91,7 @@ const AndroidDownloadPopup: React.FC<{
         </ActionButtons>
       </Box>
     </Shadower>
-  )
-}
+  );
+};
 
 export default AndroidDownloadPopup;

@@ -14,14 +14,10 @@ const Notification = () => {
 
   return (
     <StyledNotification onClick={handleClickNotification}>
-      <Icon
-        icon="notification"
-        size="24px"
-        color={colors.black33}
-      />
+      <Icon icon="notification" size="24px" color={colors.black33} />
     </StyledNotification>
-  )
-}
+  );
+};
 
 export default observer(Notification);
 
@@ -55,9 +51,15 @@ function useNotification() {
       contextMenu.open({
         targetElement: e.target as HTMLElement,
         alignX: 'right',
-        contents: <NotificationList onClick={contextMenu.close} notifications={user.notifications} />
+        contents: (
+          <NotificationList
+            onClick={contextMenu.close}
+            notifications={user.notifications}
+          />
+        ),
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [contextMenu],
   );
 }

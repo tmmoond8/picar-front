@@ -10,19 +10,19 @@ import UiProvider from './components/UiProvider';
 import { useStore, observer } from './stores';
 import PicarSuspense from './components/PicarSuspense';
 
-const App: React.FC<{ isSSR?: boolean }> = ({ isSSR = false}) => {
+const App: React.FC<{ isSSR?: boolean }> = ({ isSSR = false }) => {
   return (
     <React.StrictMode>
       <MobxProvider>
         <UiProvider>
           <GlobalStyles />
           <AppDownloadPopUp />
-          <Routes isSSR={isSSR}/>
+          <Routes isSSR={isSSR} />
         </UiProvider>
       </MobxProvider>
     </React.StrictMode>
   );
-}
+};
 
 const HomePage = React.lazy(() => import('./pages/HomePage'));
 const MyProfileEditPage = React.lazy(() => import('./pages/MyProfileEditPage'));
@@ -37,10 +37,12 @@ const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 const TestPage = React.lazy(() => import('./pages/TestPage'));
 const OwwnerPage = React.lazy(() => import('./pages/OwwnerPage'));
 
-function Routes({ isSSR }: { isSSR: boolean}) {
+function Routes({ isSSR }: { isSSR: boolean }) {
   const { ui } = useStore();
-  const Router: typeof StaticRouter | BrowserRouter = isSSR ? StaticRouter : BrowserRouter;
-  
+  const Router: typeof StaticRouter | BrowserRouter = isSSR
+    ? StaticRouter
+    : BrowserRouter;
+
   return (
     <Router>
       <Page headerHeight={ui.header.height}>
@@ -93,7 +95,7 @@ function Routes({ isSSR }: { isSSR: boolean}) {
         </PicarSuspense>
       </Page>
     </Router>
-  )
+  );
 }
 
 export default observer(App);
@@ -105,14 +107,5 @@ const Page = styled.div<{ headerHeight: number }>`
 
 const notionPages = {
   notice: { title: '공지사항', pageId: 'ae9ae015c5504dd886d3cc2af088c6f5' },
-  qna: { title: '자주 묻는 질문', pageId: 'b070f0090c2f4391a002e49cb65a7a6d' }
-}
-
-const Location = styled.div`
-  position: fixed;
-  top: calc(${constants.safeTop} + 40px);
-  left: 20px;
-  font-size: 10px;
-  color: rgba(100, 100, 100, 0.5);
-  z-index: 1000000;
-`;
+  qna: { title: '자주 묻는 질문', pageId: 'b070f0090c2f4391a002e49cb65a7a6d' },
+};

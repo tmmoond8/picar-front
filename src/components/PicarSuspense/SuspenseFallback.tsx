@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useStore, observer } from '../../stores';
@@ -17,8 +16,8 @@ export default observer(function SuspenseFallback() {
         {ui.queryMatch.Mobile && <MobileFallback />}
       </SkeletonTheme>
     </Wrapper>
-  )
-})
+  );
+});
 
 const Wrapper = styled.div`
   height: 100%;

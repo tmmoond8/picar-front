@@ -6,22 +6,33 @@ import React from 'react';
 import { Profile as ProfileType } from '../../types/User';
 import Profile from '../Profile';
 
-const UserList: React.FC<{ users: ProfileType[]; renderRight?: (email: string) => React.ReactNode }> = ({ users, renderRight }) => {
+const UserList: React.FC<{
+  users: ProfileType[];
+  renderRight?: (email: string) => React.ReactNode;
+}> = ({ users, renderRight }) => {
   const handleOpenProfile = Profile.useOpenProfile();
 
   return (
     <List className="UserList">
       {users.map(({ code, profileImage, name, group, email }) => (
-        <User key={code} >
-          <Profile.Photo src={profileImage} size={48} onClick={() => handleOpenProfile(code)} />
-          <Profile.Who name={name} group={group} onClick={() => handleOpenProfile(code)} />
+        <User key={code}>
+          <Profile.Photo
+            src={profileImage}
+            size={48}
+            onClick={() => handleOpenProfile(code)}
+          />
+          <Profile.Who
+            name={name}
+            group={group}
+            onClick={() => handleOpenProfile(code)}
+          />
           <Spacer />
           {renderRight && renderRight(email)}
         </User>
       ))}
     </List>
-  )
-}
+  );
+};
 
 const List = styled.ol`
   width: 100%;

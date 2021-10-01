@@ -22,10 +22,12 @@ const UserProfile = () => {
           <Profile.Photo src={user.profile.profileImage} size={36} />
         </ProfilePhoto>
       )}
-      {!user.isLogined && <LoginButton onClick={user.needLogin}>로그인</LoginButton>}
+      {!user.isLogined && (
+        <LoginButton onClick={user.needLogin}>로그인</LoginButton>
+      )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default observer(UserProfile);
 
@@ -103,23 +105,26 @@ function useProfile() {
                 handleConfirm: async () => {
                   alert.close();
                   try {
-                    const { data: { ok } } = await APIS.auth.logout();
+                    const {
+                      data: { ok },
+                    } = await APIS.auth.logout();
                     if (ok) {
                       storage.clearToken();
                       setTimeout(() => {
                         window.location.href = '/';
-                      }, 300)
+                      }, 300);
                     }
                   } catch (error) {
                     console.error(error);
                   }
                 },
-              })
+              });
             },
           },
         ],
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [contextMenu],
   );
   return handleClickProfile;

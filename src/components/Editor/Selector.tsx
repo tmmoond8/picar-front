@@ -12,15 +12,16 @@ const Selector: React.FC = () => {
   const handleNext = React.useCallback(() => {
     setStep(step + 1);
     (window as any).__OWNER__[CAROUSEL.EDITOR](step + 1);
-  }, [step])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   return (
     <StyledSelector onClick={handleNext}>
       {selected}
       <Icon icon="selectorDown" size="16px" />
     </StyledSelector>
-  )
-}
+  );
+};
 
 export default observer(Selector);
 
@@ -42,4 +43,4 @@ const StyledSelector = styled.button`
     margin: 0 0 0 6px;
     cursor: pointer;
   }
-`
+`;
