@@ -144,7 +144,7 @@
       window.AppleID.auth.init({
         clientId: "com.tmmoond8.picar", // This is the service ID we created.
         scope: "name email", // To tell apple we want the user name and emails fields in the response it sends us.
-        redirectURI: "https://www.picar.kr/login/apple/redirect.html", // As registered along with our service ID
+        redirectURI: `https://picar-api.loca.lt/api/auth/login/apple`, // As registered along with our service ID
         state: "origin:web", // Any string of your choice that you may use for some logic. It's optional and you may omit it.
         usePopup: false, // Important if we want to capture the data apple sends on the client side.
       });
