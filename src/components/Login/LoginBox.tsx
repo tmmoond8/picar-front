@@ -5,6 +5,7 @@ import React from 'react';
 
 import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
+import AppleLogin from './AppleLogin';
 
 const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   return (
@@ -18,6 +19,9 @@ const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         </li>
         <li className="naver-login">
           <NaverLogin onClose={onClose} />
+        </li>
+        <li>
+          <AppleLogin onClose={onClose} />
         </li>
       </LoginButtons>
     </Box>
@@ -44,7 +48,7 @@ const LoginButtons = styled.ol`
       border-radius: 22.5px;
     }
   }
-  .naver-login {
+  li + li {
     margin-left: 24px;
   }
 `;
