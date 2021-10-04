@@ -20,7 +20,7 @@ interface LoginParams {
   handleSignUp: (d: any) => void;
 }
 
-export type LoginType = 'naver' | 'kakao';
+export type LoginType = 'naver' | 'kakao' | 'apple';
 
 export const kakaoLogin = async (params: LoginParams) => {
   const { accessToken, refreshToken, handleSignIn, handleSignUp } = params;
@@ -90,6 +90,37 @@ export const naverLogin = async (params: LoginParams) => {
   }
 };
 
+export const appleLogin = async (params: LoginParams) => {
+  const { accessToken, refreshToken, handleSignIn, handleSignUp } = params;
+  const tokens = { accessToken, refreshToken };
+  storage.clearUUID();
+  const { data } = await APIS.auth.appleLogin(tokens);
+  if ('profile' in data) {
+    storage.setToken(data.token);
+    return setTimeout(() => {
+      window.location.replace('/');
+    }, 50);
+  }
+  if ('user' in data) {
+    const appleUser = (data as any).user;
+    const {
+      data: { data: userProfile },
+    } = await APIS.auth.check(appleUser.id, 'apple');
+    if (userProfile) {
+      handleSignIn(userProfile);
+      return;
+    }
+
+    const user: Partial<SignUpUser> = {
+      email: appleUser.email,
+      snsId: appleUser.id.toString(),
+      provider: 'apple',
+    };
+
+    handleSignUp({ ...user, ...tokens });
+  }
+};
+
 export const useLogin = () => {
   const { user, util } = useStore();
   const modal = useModal();
@@ -141,7 +172,7 @@ export const useLogin = () => {
 
   return {
     login: (
-      provider: 'naver' | 'kakao',
+      provider: 'naver' | 'kakao' | 'apple',
       accessToken: string,
       refreshToken: string,
     ) => {
@@ -161,13 +192,22 @@ export const useLogin = () => {
           handleSignIn,
         });
       }
+      if (provider === 'apple') {
+        appleLogin({
+          accessToken,
+          refreshToken,
+          handleSignUp,
+          handleSignIn,
+        });
+      }
     },
-    getToken: (provider: 'naver' | 'kakao', code: string) => {
+    getToken: (provider: 'naver' | 'kakao' | 'apple', code: string) => {
       if (provider === 'kakao')
         return axios.post(
           `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${env.REACT_APP_KAKAO_USER_API_KEY}&redirect_uri=${env.REACT_APP_LOGIN_URL}&code=${code}`,
         );
       if (provider === 'naver') return APIS.auth.getNaverToken(code);
+      if (provider === 'apple') return APIS.auth.getAppleToken(code);
       return Promise.resolve({ data: {} });
     },
   };

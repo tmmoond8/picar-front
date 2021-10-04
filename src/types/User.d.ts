@@ -14,7 +14,7 @@ export default interface User extends Profile {
 }
 
 export interface SignUpUser {
-  provider: 'kakao' | 'naver';
+  provider: 'kakao' | 'naver' | 'apple';
   snsId: string;
   name?: string;
   thumbnail?: string;

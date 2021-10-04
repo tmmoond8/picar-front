@@ -24,12 +24,23 @@ export const naverLogin = (body: {
     { profile?: Profile; token: string } | { naverUser?: NaverUser }
   >
 > => api.post('/auth/login/naver', body);
+export const appleLogin = (body: {
+  accessToken: string;
+  refreshToken: string;
+  uuid?: string;
+}): Promise<AxiosResponse<{ profile?: Profile; token: string } | any>> =>
+  api.post('/auth/login/apple', body);
 
 export const getNaverToken = (
   code: string,
 ): Promise<
   AxiosResponse<{ ok: boolean; accessToken: string; refreshToken: string }>
 > => api.post('/auth/token', { code, provider: 'naver' });
+export const getAppleToken = (
+  code: string,
+): Promise<
+  AxiosResponse<{ ok: boolean; accessToken: string; refreshToken: string }>
+> => api.post('/auth/token', { code, provider: 'apple' });
 export const owwnerLogin = (body: { email: string; password: string }) =>
   api.post('/auth/login/owwner', body);
 export const check = (
