@@ -76,12 +76,8 @@ const SignUp: React.FC<SignUpProps> = (props) => {
           }
           if (crossPlatform.isHybrid()) {
             localStorage.setToken(token);
-          } else {
-            history.replace('/');
-          }
-          setTimeout(() => {
             window.location.reload();
-          }, 600);
+          }
         }
       } catch (error) {
       } finally {
