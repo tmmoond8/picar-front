@@ -2,6 +2,7 @@ import { observable, action, computed } from 'mobx';
 import APIS from '../apis';
 import { Profile } from '../types/User';
 import { Notification } from '../types/Notification';
+import { Report } from '../types/Report';
 import Comment from '../types/Comment';
 import { EmotionType } from '../types/Emotion';
 import { Stores, CommonStore } from '.';
@@ -26,9 +27,16 @@ export interface UserStoreInterface extends CommonStore {
   emotions: Record<number, EmotionType>;
   comments: Record<number, Comment[]>;
   notifications: Notification[];
+  reports: Report[];
   setProfile: (profile: Profile) => void;
   addBookmark: (articleId?: number) => void;
   removeBookmark: (articleId?: number) => void;
+  addReport: (
+    articleId: number,
+    reportContent: string,
+    commentId?: string,
+  ) => void;
+  removeReport: (articleId: number, commentId?: string) => void;
   needLogin: () => boolean;
   setEmotion: (articleId: number, emotionType: EmotionType) => void;
   checkNotifications: (notificationIds: string[]) => void;
@@ -41,6 +49,7 @@ class UserStore implements UserStoreInterface {
   @observable emotions: Record<number, EmotionType>;
   @observable comments: Record<number, Comment[]>;
   @observable notifications: Notification[];
+  @observable reports: Report[];
   @observable needLogin: () => boolean;
   rootStore: Stores | null;
 
@@ -50,6 +59,7 @@ class UserStore implements UserStoreInterface {
     this.emotions = {};
     this.comments = {};
     this.notifications = [];
+    this.reports = [];
     this.fetch();
     this.needLogin = () => (console.log('need initialized'), true);
     this.rootStore = null;
@@ -60,6 +70,7 @@ class UserStore implements UserStoreInterface {
     this.fetchEmotion();
     this.fetchComment();
     this.fetchNotification();
+    this.fetchReport();
   }
 
   async fetch() {
@@ -157,6 +168,17 @@ class UserStore implements UserStoreInterface {
     }
   }
 
+  async fetchReport() {
+    try {
+      const { data } = await APIS.report.list();
+      if (data.ok) {
+        this.reports = data.reports;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   @action
   async addBookmark(articleId?: number) {
     if (!articleId) return;
@@ -175,6 +197,41 @@ class UserStore implements UserStoreInterface {
       const newBookmarks = new Set(this.bookmarks);
       newBookmarks.delete(articleId);
       this.bookmarks = newBookmarks;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  @action
+  async addReport(
+    articleId: number,
+    reportContent: string,
+    commentId?: string,
+  ) {
+    try {
+      const { data } = await APIS.report.add(
+        articleId,
+        reportContent,
+        commentId,
+      );
+      if (data.ok) {
+        this.reports = [...this.reports, data.report];
+      }
+    } catch (error) {
+      console.error('error', error);
+    }
+  }
+
+  @action
+  async removeReport(articleId: number, commentId?: string) {
+    try {
+      await APIS.report.remove(articleId, commentId);
+      this.reports = this.reports.filter(
+        (article) =>
+          !(article.articleId === articleId && commentId
+            ? commentId === article.commentId
+            : !commentId),
+      );
     } catch (error) {
       console.error(error);
     }

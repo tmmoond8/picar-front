@@ -26,6 +26,7 @@ interface ModalViewerProps {
   isFull?: boolean;
   hasTitleLine?: boolean;
   noBlur?: boolean;
+  hasBottomCTA?: boolean;
 }
 
 export type ModalData = ModalViewerProps;
@@ -42,6 +43,7 @@ const ModalViewer = React.forwardRef(
       isFull = false,
       hasTitleLine = true,
       noBlur = false,
+      hasBottomCTA = false,
     } = props;
     const { ui } = useStore();
     const [open, setOpen] = React.useState<boolean>(false);
@@ -83,7 +85,7 @@ const ModalViewer = React.forwardRef(
               hasTitleLine={hasTitleLine}
             />
           )}
-          <ModalBody>{contents}</ModalBody>
+          <ModalBody hasBottomCTA={hasBottomCTA}>{contents}</ModalBody>
         </ModalBox>
       </Wrapper>
     );
@@ -133,10 +135,15 @@ const ModalBox = styled.div<{ open: boolean; isFull: boolean }>`
   transform: translateY(${(p) => (p.open ? '0' : '100vh')});
 `;
 
-const ModalBody = styled.div`
+const ModalBody = styled.div<{ hasBottomCTA: boolean }>`
   flex: 1;
   padding: 0;
   background-color: ${colors.white};
   color: ${colors.black22};
   overflow: auto;
+  ${(p) =>
+    p.hasBottomCTA &&
+    css`
+      padding-bottom: 80px;
+    `}
 `;

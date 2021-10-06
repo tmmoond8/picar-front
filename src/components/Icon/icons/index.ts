@@ -57,3 +57,4 @@ export { ReactComponent as selectorDown } from './selector-down.svg';
 export { ReactComponent as logoKia } from './logo-kia.svg';
 export { ReactComponent as logoTesla } from './logo-tesla.svg';
 export { ReactComponent as logoHyundai } from './logo-hyundai.svg';
+export { ReactComponent as alarmLight } from './alarm-light.svg';

@@ -9,6 +9,7 @@ import * as notification from './notification';
 import * as spreadSheet from './spreadSheet';
 import * as notion from './notion';
 import * as news from './news';
+import * as report from './report';
 import firebase from './firebaseDB';
 
 export default {
@@ -24,4 +25,5 @@ export default {
   firebase,
   notion,
   news,
+  report,
 };
