@@ -30,6 +30,7 @@ const CommentViewer: React.FC<{ className?: string; showCount: boolean }> = ({
             content={comment.content}
             thumbnail={comment.author.thumbnail}
             isDelete={comment.isDelete}
+            articleId={comment.articleId}
           >
             <ReplyList className="ReplyList">
               {comment.replies &&
@@ -45,6 +46,7 @@ const CommentViewer: React.FC<{ className?: string; showCount: boolean }> = ({
                     content={reply.content}
                     thumbnail={reply.author.thumbnail}
                     isDelete={reply.isDelete}
+                    articleId={comment.articleId}
                   />
                 ))}
             </ReplyList>

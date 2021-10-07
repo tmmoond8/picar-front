@@ -8,6 +8,7 @@ import Profile from '../Profile';
 import Icon from '../Icon';
 import { colors } from '../../styles';
 import { useStore, observer } from '../../stores';
+import { useReport } from '../../hooks';
 import { useCommentContext } from './context';
 import { getDateGoodLook } from '../../modules/string';
 
@@ -22,6 +23,7 @@ interface CommentProps {
   createAt: string;
   children?: React.ReactNode;
   isDelete: boolean;
+  articleId: number;
 }
 
 const Comment: React.FC<CommentProps> = ({
@@ -35,19 +37,20 @@ const Comment: React.FC<CommentProps> = ({
   children,
   id,
   isDelete,
+  articleId,
 }) => {
   const { user } = useStore();
   const { handleClickReply, handleRemoveComment, about, userCode, editorRef } =
     useCommentContext();
+  const { openReport, openCancelReport } = useReport({
+    articleId,
+  });
   const isFocus = React.useMemo(() => about === id, [about, id]);
   const isReply = React.useMemo(() => children === undefined, [children]);
-  const isArticleAuthorsComment = React.useMemo(
-    () => commentAuthorCode === articleAuthorCode,
-    [articleAuthorCode, commentAuthorCode],
-  );
-  const isCommentAuthor = React.useMemo(
-    () => userCode === commentAuthorCode,
-    [commentAuthorCode, userCode],
+  const isArticleAuthorsComment = commentAuthorCode === articleAuthorCode;
+  const isCommentAuthor = userCode === commentAuthorCode;
+  const isAlreadyReport = user.reports.some(
+    (report) => report.commentId === id && report.articleId === articleId,
   );
   const handleOpenProfile = Profile.useOpenProfile();
 
@@ -65,9 +68,11 @@ const Comment: React.FC<CommentProps> = ({
             onClick={() => handleOpenProfile(commentAuthorCode)}
             nameColor={isArticleAuthorsComment ? colors.primary : undefined}
             right={
-              isArticleAuthorsComment ? (
-                <EditorBadge icon="editRound" size="16px" />
-              ) : undefined
+              <React.Fragment>
+                {isArticleAuthorsComment && (
+                  <EditorBadge icon="editRound" size="16px" />
+                )}
+              </React.Fragment>
             }
           />
           <Content>{content}</Content>
@@ -86,6 +91,20 @@ const Comment: React.FC<CommentProps> = ({
               }}
             >
               답글 달기
+            </span>
+          )}
+          {!isCommentAuthor && (
+            <span
+              className={cx('report-btn')}
+              onClick={() => {
+                if (isAlreadyReport) {
+                  openCancelReport(id);
+                } else {
+                  openReport(id);
+                }
+              }}
+            >
+              {isAlreadyReport ? '신고 취소' : '신고 하기'}
             </span>
           )}
           {isCommentAuthor && (
@@ -147,7 +166,8 @@ const ContentBox = styled.div`
     color: ${colors.black99};
     line-height: normal;
   }
-  .reply-btn {
+  .reply-btn,
+  .report-btn {
     margin-left: 20px;
     font-size: 13px;
     color: ${colors.black66};

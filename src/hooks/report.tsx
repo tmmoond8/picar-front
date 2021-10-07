@@ -48,7 +48,7 @@ export const useReport = ({ articleId }: { articleId?: number }) => {
             <Button.BottomCTA
               onClick={() => {
                 modal.close();
-                handleSubmit();
+                handleSubmit(commentId);
               }}
               disabled={false}
             >
