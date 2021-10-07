@@ -54,8 +54,8 @@ const Option = styled.li`
   margin: 16px 0 0 0;
 
   input[type='radio']:after {
-    width: 13px;
-    height: 13px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     top: -2px;
     left: -1px;

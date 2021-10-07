@@ -50,6 +50,9 @@ const ArticleHeader: React.FC = () => {
   const handleClickMore = useMoreMenu(article ?? undefined);
   const handleGoBack = () => util.history.goBack();
   const handleAddReport = (commentId?: string) => {
+    if (user.needLogin()) {
+      return;
+    }
     if (article?.id) {
       modal.open({
         title: '게시글 신고',
