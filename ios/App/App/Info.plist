@@ -1,185 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-	<dict>
-		<key>
+<dict>
+	<key>
 			CFBundleDevelopmentRegion
 		</key>
-		<string>
+	<string>
 			en
 		</string>
-		<key>
+	<key>
 			CFBundleDisplayName
 		</key>
-		<string>
+	<string>
 			picar
 		</string>
-		<key>
+	<key>
 			CFBundleExecutable
 		</key>
-		<string>
+	<string>
 			$(EXECUTABLE_NAME)
 		</string>
-		<key>
+	<key>
 			CFBundleIdentifier
 		</key>
-		<string>
+	<string>
 			$(PRODUCT_BUNDLE_IDENTIFIER)
 		</string>
-		<key>
+	<key>
 			CFBundleInfoDictionaryVersion
 		</key>
-		<string>
+	<string>
 			6.0
 		</string>
-		<key>
+	<key>
 			CFBundleName
 		</key>
-		<string>
+	<string>
 			$(PRODUCT_NAME)
 		</string>
-		<key>
+	<key>
 			CFBundlePackageType
 		</key>
-		<string>
+	<string>
 			APPL
 		</string>
-		<key>
+	<key>
 			CFBundleShortVersionString
 		</key>
-		<string>
+	<string>
 			1.0
 		</string>
-		<key>
+	<key>
 			CFBundleURLTypes
 		</key>
-		<array>
-			<dict>
-				<key>
-					CFBundleURLName
-				</key>
-				<string>
-					com.getcapacitor.capacitor
-				</string>
-				<key>
-					CFBundleURLSchemes
-				</key>
-				<array>
-					<string>
-						capacitor
-					</string>
-				</array>
-			</dict>
-		</array>
-		<key>
-			CFBundleVersion
-		</key>
-		<string>
-			1
-		</string>
-		<key>
-			LSRequiresIPhoneOS
-		</key>
-		<true />
-		<key>
-			NSAppTransportSecurity
-		</key>
+	<array>
 		<dict>
 			<key>
+					CFBundleURLName
+				</key>
+			<string>
+					com.getcapacitor.capacitor
+				</string>
+			<key>
+					CFBundleURLSchemes
+				</key>
+			<array>
+				<string>
+						capacitor
+					</string>
+			</array>
+		</dict>
+	</array>
+	<key>
+			CFBundleVersion
+		</key>
+	<string>
+			1
+		</string>
+	<key>
+			LSRequiresIPhoneOS
+		</key>
+	<true/>
+	<key>
+			NSAppTransportSecurity
+		</key>
+	<dict>
+		<key>
 				NSAllowsArbitraryLoads
 			</key>
-			<true />
-		</dict>
-		<key>
+		<true/>
+	</dict>
+	<key>
 			NSCameraUsageDescription
 		</key>
-		<string>
+	<string>
 			To Take Photos and Video
 		</string>
-		<key>
+	<key>
 			NSLocationAlwaysUsageDescription
 		</key>
-		<string>
+	<string>
 			Always allow Geolocation?
 		</string>
-		<key>
+	<key>
 			NSLocationWhenInUseUsageDescription
 		</key>
-		<string>
+	<string>
 			Allow Geolocation?
 		</string>
-		<key>
+	<key>
 			NSMicrophoneUsageDescription
 		</key>
-		<string>
+	<string>
 			To Record Audio With Video
 		</string>
-		<key>
+	<key>
 			NSPhotoLibraryAddUsageDescription
 		</key>
-		<string>
+	<string>
 			Store camera photos to camera
 		</string>
-		<key>
+	<key>
 			NSPhotoLibraryUsageDescription
 		</key>
-		<string>
+	<string>
 			To Pick Photos from Library
 		</string>
-		<key>
+	<key>
 			UILaunchStoryboardName
 		</key>
-		<string>
+	<string>
 			LaunchScreen
 		</string>
-		<key>
+	<key>
 			UIMainStoryboardFile
 		</key>
-		<string>
+	<string>
 			Main
 		</string>
-		<key>
+	<key>
 			UIRequiredDeviceCapabilities
 		</key>
-		<array>
-			<string>
+	<array>
+		<string>
 				armv7
 			</string>
-		</array>
-		<key>
+	</array>
+	<key>
 			UISupportedInterfaceOrientations
 		</key>
-		<array>
-			<string>
+	<array>
+		<string>
 				UIInterfaceOrientationPortrait
 			</string>
-			<string>
+		<string>
 				UIInterfaceOrientationLandscapeLeft
 			</string>
-			<string>
+		<string>
 				UIInterfaceOrientationLandscapeRight
 			</string>
-		</array>
-		<key>
+	</array>
+	<key>
 			UISupportedInterfaceOrientations~ipad
 		</key>
-		<array>
-			<string>
+	<array>
+		<string>
 				UIInterfaceOrientationPortrait
 			</string>
-			<string>
+		<string>
 				UIInterfaceOrientationPortraitUpsideDown
 			</string>
-			<string>
+		<string>
 				UIInterfaceOrientationLandscapeLeft
 			</string>
-			<string>
+		<string>
 				UIInterfaceOrientationLandscapeRight
 			</string>
-		</array>
-		<key>
+	</array>
+	<key>
 			UIViewControllerBasedStatusBarAppearance
 		</key>
-		<true />
-	</dict>
+	<true/>
+	<key>CFBundleDisplayName</key>
+	<string>picar</string>
+</dict>
 </plist>

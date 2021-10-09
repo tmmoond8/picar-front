@@ -15,7 +15,7 @@ import { colors } from '../../styles';
 
 const ModificationForm = () => {
   const { user, util, ui } = useStore();
-  const location = useLocation();
+  const location = useLocation<Record<string, string>>();
   const { preUploadUrl, profileUrl, setProfileUrl, setPreUploadUrl } =
     PhotoUploader.usePhotoUPloader(user.profile.profileImage);
   const nicknameSkip = (value: string) => value.length > 10;

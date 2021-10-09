@@ -10,7 +10,7 @@ import { useTextField } from '../Input/hooks';
 
 const Search: React.FC = () => {
   const { util } = useStore();
-  const { state } = useLocation();
+  const { state } = useLocation<Record<string, string>>();
   const [search, onChangeSearch] = useTextField('');
 
   const handleKeyDown = React.useCallback(

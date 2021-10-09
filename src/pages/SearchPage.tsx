@@ -9,7 +9,7 @@ import APIS from '../apis';
 
 const SearchPage: React.FC = () => {
   const { ui } = useStore();
-  const { state } = useLocation();
+  const { state } = useLocation<Record<string, string>>();
   const [search, setSearch] = React.useState('');
   const [recommendations, setrecommendations] = React.useState([]);
   const [isOnSearch, setIsOnSearch] = React.useState(false);
