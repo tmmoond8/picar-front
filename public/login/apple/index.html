@@ -97,7 +97,6 @@
     <p id="checkToken">checkToken</p>
     <p id="test1">test1</p>
   </div>
-  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
     integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
     crossorigin="anonymous"></script>
@@ -107,35 +106,25 @@
     const { uuid, code } = getQuery();
     const { APPLE_LOGIN_KEY, APPLE_USER_API_KEY, APPLE_LOGIN_BRIDGE_URL, API_URL, APPLE_LOGIN_REDIRECT_URL } = window.__PICAR__;
 
-    console.log('window.__PICAR__', window.__PICAR__);
-    //Listen for authorization success
-    document.addEventListener('AppleIDSignInOnSuccess', (data) => {
-        //handle successful response
-        console.log('AppleIDSignInOnSuccess', data);
-    });
-    //Listen for authorization failures
-    document.addEventListener('AppleIDSignInOnFailure', (error) => {
-        //handle error.
-        console.log('AppleIDSignInOnFailure', error)
-    });
-    
-    if (window.AppleID) {
-      window.AppleID.auth.init({
-        clientId: "com.tmmoond8.picar", // This is the service ID we created.
-        scope: "name email", // To tell apple we want the user name and emails fields in the response it sends us.
-        redirectURI: APPLE_LOGIN_REDIRECT_URL, // As registered along with our service ID
-        state: "origin:web", // Any string of your choice that you may use for some logic. It's optional and you may omit it.
-        usePopup: false, // Important if we want to capture the data apple sends on the client side.
-      });
-    }
+    const config = {
+      client_id: "com.tmmoond8.picar", // This is the service ID we created.
+      redirect_uri: APPLE_LOGIN_REDIRECT_URL, // As registered along with our service ID
+      response_type: 'code',
+      state: "origin:web", // Any string of your choice that you may use for some logic. It's optional and you may omit it.
+      scope: "name email", // To tell apple we want the user name and emails fields in the response it sends us.
+      response_mode: 'form_post',
+      m: 11,
+      v: '1.5.4',
+    };
+    const queryString = Object.entries(config).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
 
     showLog();
     checkAppleSignIn();
 
     async function checkAppleSignIn() {
       try {
-        await AppleID.auth.signIn();
-      } catch(error) {
+        location.href = `https://appleid.apple.com/auth/authorize?${queryString}`;
+      } catch (error) {
         console.log(error);
       }
     }
@@ -146,7 +135,7 @@
         return accum;
       }, {});
     }
-    
+
     function showLog() {
       const { uuid, code } = getQuery();
       const locationHref = document.querySelector('#locationHref');
