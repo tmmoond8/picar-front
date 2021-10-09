@@ -98,7 +98,7 @@
     "build:serverless": "yarn babel:serverless",
     "sync:ios": "ionic capacitor sync ios --no-build",
     "sync:android": "ionic capacitor sync android --no-build",
-    "tool:resources": "cordova-res ios && cordova-res android && node scripts/resources/script.js",
+    "tool:resources": "cordova-res ios && cordova-res android && node scripts/generateResources.js",
     "tool:generate-sitemap": "node scripts/sitemap",
     "eject": "react-app-rewired eject"
   },
