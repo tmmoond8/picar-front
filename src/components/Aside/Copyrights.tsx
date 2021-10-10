@@ -1,10 +1,11 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import { colors } from '../../styles';
 
-const Advertisement: React.FC<{}> = () => {
+const Advertisement: React.FC = () => {
   return (
     <StyledAdvertisement>
       <Rules>

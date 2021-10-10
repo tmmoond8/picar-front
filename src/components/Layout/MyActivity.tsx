@@ -1,9 +1,10 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-const MyActivity: React.FC<{}> = () => {
+const MyActivity: React.FC = () => {
   return <StyledMyActivity className="MyActivity">MyActivity</StyledMyActivity>;
 };
 

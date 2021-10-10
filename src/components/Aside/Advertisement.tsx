@@ -1,9 +1,10 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-const Advertisement: React.FC<{}> = () => {
+const Advertisement: React.FC = () => {
   return (
     <AdLink target="_blank">
       <Img

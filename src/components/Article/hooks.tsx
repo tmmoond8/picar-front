@@ -81,12 +81,14 @@ export const useOpenArticleEditor = () => {
         article.id === newArticle.id ? newArticle : article,
       );
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [article.articles],
   );
   const appendArticle = React.useCallback(
     (newArticle: Article) => {
       article.articles = [newArticle, ...article.articles];
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [article.articles],
   );
 

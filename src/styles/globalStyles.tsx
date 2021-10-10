@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, Global, css } from '@emotion/core';
 import emotionReset from 'emotion-reset';

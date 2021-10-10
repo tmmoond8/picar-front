@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/interface-name-prefix */
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
@@ -7,11 +7,11 @@ import React from 'react';
 import { useStore } from '../../stores';
 
 export const headerType = {
-  Navigation: 'Navigation' as 'Navigation',
-  Back: 'Back' as 'Back',
-  Close: 'Close' as 'Close',
-  None: 'None' as 'None',
-};
+  Navigation: 'Navigation',
+  Back: 'Back',
+  Close: 'Close',
+  None: 'None',
+} as const;
 
 export interface HeaderProps {
   type: keyof typeof headerType;

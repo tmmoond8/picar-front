@@ -18,10 +18,13 @@
     "isolatedModules": true,
     "noEmit": true,
     "experimentalDecorators": true,
-    "jsx": "preserve",
-    "typeRoots" : ["./src/types"]
+    "jsx": "react-jsx",
+    "typeRoots": [
+      "./src/types"
+    ],
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"
-  ],
+  ]
 }

@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
@@ -6,7 +7,7 @@ import Icon from '../Icon';
 import { toast } from 'react-toastify';
 import { colors } from '../../styles';
 
-const DownloadApp: React.FC<{}> = () => {
+const DownloadApp: React.FC = () => {
   return (
     <StyledDownloadApp>
       <Header>

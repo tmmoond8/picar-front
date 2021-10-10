@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
@@ -11,7 +12,7 @@ import { useStore, observer } from '../../stores';
 
 const SIZE = 8;
 
-const PopularArticles: React.FC<{}> = () => {
+const PopularArticles: React.FC = () => {
   const { util } = useStore();
   const [page, setPage] = React.useState(0);
   const [popArticles, setPopArticles] = React.useState<ArticleType[]>([]);

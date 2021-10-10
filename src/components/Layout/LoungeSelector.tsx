@@ -1,9 +1,10 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 
-const LoungeSelector: React.FC<{}> = () => {
+const LoungeSelector: React.FC = () => {
   return (
     <StyledLoungeSelector className="LoungeSelector">
       LoungeSelector

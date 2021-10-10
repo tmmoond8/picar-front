@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
