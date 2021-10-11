@@ -176,8 +176,11 @@ const ContentBox = styled.div`
     line-height: normal;
     cursor: pointer;
   }
+  .report-btn {
+    margin-left: 8px;
+  }
   .delete-btn {
-    margin-left: 10px;
+    margin-left: 8px;
     font-size: 13px;
     color: ${colors.black66};
     font-weight: 500;
