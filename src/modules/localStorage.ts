@@ -1,4 +1,3 @@
-import { isHybrid } from '../modules/crossPlatform';
 const STORAGE_KEYS = {
   PICAR_UUID: 'PICAR_UUID',
   PICAR_TOKEN: 'PICAR_TOKEN',
@@ -15,20 +14,13 @@ const storage = {
     localStorage.setItem(STORAGE_KEYS.PICAR_UUID, '');
   },
   getToken: () => {
-    if (isHybrid()) {
-      return localStorage.getItem(STORAGE_KEYS.PICAR_TOKEN) || null;
-    }
-    return null;
+    return localStorage.getItem(STORAGE_KEYS.PICAR_TOKEN) || null;
   },
   setToken: (uuid: string) => {
-    if (isHybrid()) {
-      localStorage.setItem(STORAGE_KEYS.PICAR_TOKEN, uuid);
-    }
+    localStorage.setItem(STORAGE_KEYS.PICAR_TOKEN, uuid);
   },
   clearToken: () => {
-    if (isHybrid()) {
-      localStorage.setItem(STORAGE_KEYS.PICAR_TOKEN, '');
-    }
+    localStorage.setItem(STORAGE_KEYS.PICAR_TOKEN, '');
   },
 };
 

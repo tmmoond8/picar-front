@@ -18,6 +18,7 @@ export * from './report';
 export { default as useOG } from './og';
 export { useAndroid } from './android';
 export { default as useStateRef } from './useStateRef';
+export { default as useGlobalEvents } from './useGlobalEvents';
 
 export default {
   auth,
