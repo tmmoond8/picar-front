@@ -105,14 +105,15 @@
   <script>
     const { uuid, code } = getQuery();
     const { KAKAO_LOGIN_KEY, KAKAO_USER_API_KEY, KAKAO_LOGIN_BRIDGE_URL, API_URL } = window.__PICAR__;
+    const encodedRedirectUrl = encodeURIComponent(KAKAO_LOGIN_BRIDGE_URL);
     if (uuid) {
       // start
       localStorage.setItem('uuid', uuid);
-      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&response_type=code`
+      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_LOGIN_KEY}&redirect_uri=${encodedRedirectUrl}&response_type=code`
     }
     if (code) {
-      const checkToken = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_USER_API_KEY}&redirect_uri=${KAKAO_LOGIN_BRIDGE_URL}&code=${code}`;
-      axios.get(checkToken)
+      const checkToken = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_USER_API_KEY}&redirect_uri=${encodedRedirectUrl}&code=${code}`;
+      axios.post(checkToken)
         .then(({ data }) => {
           // 개발용
           document.querySelector('#test1').textContent = JSON.stringify(data);
