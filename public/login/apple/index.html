@@ -102,20 +102,46 @@
     const { uuid, code } = getQuery();
     const { APPLE_LOGIN_KEY, APPLE_USER_API_KEY, APPLE_LOGIN_BRIDGE_URL, API_URL, APPLE_LOGIN_REDIRECT_URL } = window.__PICAR__;
 
-    const config = {
-      client_id: "com.tmmoond8.picar-web", // This is the service ID we created.
-      redirect_uri: APPLE_LOGIN_REDIRECT_URL, // As registered along with our service ID
-      response_type: "code id_token",
-      state: "origin:web", // Any string of your choice that you may use for some logic. It's optional and you may omit it.
-      scope: "name email", // To tell apple we want the user name and emails fields in the response it sends us.
-      response_mode: "form_post",
-      m: 11,
-      v: "1.5.4",
-    };
-    const queryString = Object.entries(config).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+    if (uuid) {
+      localStorage.setItem('uuid', uuid);
+      const config = {
+        client_id: "com.tmmoond8.picar-web", // This is the service ID we created.
+        redirect_uri: APPLE_LOGIN_REDIRECT_URL, // As registered along with our service ID
+        response_type: "code id_token",
+        state: "origin:web", // Any string of your choice that you may use for some logic. It's optional and you may omit it.
+        scope: "name email", // To tell apple we want the user name and emails fields in the response it sends us.
+        response_mode: "form_post",
+        m: 11,
+        v: "1.5.4",
+      };
+      const queryString = Object.entries(config).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+      location.href = `https://appleid.apple.com/auth/authorize?${queryString}`;
+    }
+
+    if (code) {
+      const checkToken = `${API_URL}/auth/token`;
+      fetch(checkToken, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code, provider: 'apple', app: 'app' }),
+      })
+        .then(r => r.json()).then((tokens) => {
+          // 개발용
+          document.querySelector('#test1').textContent = JSON.stringify(tokens);
+          return loginApple(tokens);
+        })
+        .then(r => r.json()).then((data) => {
+          if (data) {
+            // 개발용
+            document.querySelector("#guide--text").innerHTML = "애플로그인 인증 성공!<br> 창이 닫히면 로그인이 완료됩니다."
+            window.close();
+          }
+        })
+    }
 
     showLog();
-    location.href = `https://appleid.apple.com/auth/authorize?${queryString}`;
 
     function getQuery() {
       return window.location.search.replace('?', '').split('&').reduce((accum, item) => {
@@ -143,6 +169,26 @@
       if (isDev) {
         document.querySelector('#dev--log').style.display = 'block';
       }
+    }
+    
+    function loginApple(p) {
+      const { access_token, refresh_token } = p;
+      const uuid = localStorage.getItem('uuid');
+      console.log('uuid', uuid, p);
+      if (uuid) {
+        const body = {
+          accessToken: access_token,
+          refreshToken: refresh_token,
+        }
+        return fetch(`${API_URL}/auth/uuid/${uuid}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body)
+        });
+      }
+      throw new Error('uuid not existed')
     }
   </script>
 </body>

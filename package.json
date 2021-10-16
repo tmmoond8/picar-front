@@ -87,20 +87,23 @@
   "scripts": {
     "lint": "eslint --ext .tsx --ext .ts src/** --fix",
     "dev": "PORT=8200 react-app-rewired start",
-    "dev:ios": "ionic capacitor run ios -l --external",
-    "dev:android": "ionic capacitor run android -l --external",
+    "dev:ios": "ionic capacitor run ios -l --host=localhost --port=8200",
+    "dev:android": "ionic capacitor run android -l --host=localhost --port=8200",
     "dev:lambda": "netlify-lambda serve src/functions",
     "babel:serverless": "yarn babel --config-file ./babel.serverless.json --out-dir lambda ./src/serverless.ts ./src/news-feed.ts  --extensions \".ts,d.ts\"",
     "build": "CI= react-app-rewired build",
     "build:netlify": "yarn build && yarn tool:generate-sitemap && yarn build:serverless",
     "build:mobile": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios && capacitor copy android",
+    "build:ios": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:serverless": "yarn babel:serverless",
     "sync:ios": "ionic capacitor sync ios --no-build",
     "sync:android": "ionic capacitor sync android --no-build",
     "tool:resources": "cordova-res ios && cordova-res android && node scripts/generateResources.js",
     "tool:generate-sitemap": "node scripts/sitemap",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "lt:picar": "lt -p 8200 -s picar -l localhost",
+    "lt:static": "lt -p 5500 -s static"
   },
   "eslintConfig": {
     "extends": "react-app"

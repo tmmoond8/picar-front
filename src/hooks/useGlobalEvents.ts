@@ -12,23 +12,12 @@ export default function useGlobalEvents() {
   const { login } = useLogin();
   const loginCallback = async () => {
     const uuid = storage.getUUID();
-    APIS.test.log({
-      message: 'loginCallback 0',
-    });
     const provider = uuid && uuid.split('-')[0];
     if (uuid) {
-      APIS.test.log({
-        message: 'loginCallback 1',
-        uuid,
-      });
       try {
         const {
           data: { tokens },
         } = await APIS.auth.checkUUID(uuid);
-        APIS.test.log({
-          message: 'loginCallback 2',
-          tokens: JSON.stringify(tokens),
-        });
         storage.clearUUID();
         if (tokens) {
           login(provider as LoginType, tokens.accessToken, tokens.refreshToken);

@@ -127,7 +127,8 @@ export const useLogin = () => {
   const handleClose = React.useCallback(() => {
     modal.close();
     setTimeout(() => {
-      window.location.href = '/';
+      // FIXME 리다이렉션 동작 체킹
+      // window.location.href = '/';
     }, 200);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

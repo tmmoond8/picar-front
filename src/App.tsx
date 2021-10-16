@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { BrowserRouter, StaticRouter, Switch, Route } from 'react-router-dom';
 import AppDownloadPopUp from './components/AppDownloadPopup';
-import { constants } from './styles';
 import GlobalStyles from './styles/globalStyles';
 import { MobxProvider } from './stores';
 import Header from './components/Header';

@@ -114,15 +114,14 @@ export default observer(ArticlePage);
 
 const ArticleContainer = styled.div<{ desktop: boolean }>`
   background-color: ${colors.white};
-  padding: 60px 0 0 0;
   overflow-y: auto;
   height: 100%;
-
+  // FIXME 리다이렉션 동작 체킹
   & > [class*='ArticleHeader'] {
-    position: absolute;
-    top: 0;
+    /* position: absolute; */
+    /* top: 0; */
     width: 100%;
     background-color: ${colors.white};
-    z-index: 1000;
+    /* z-index: 1000; */
   }
 `;

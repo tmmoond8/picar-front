@@ -27,6 +27,7 @@
 .env.test.env
 .env.production.env
 .env.mobile.env
+.env.dev.mobile.env
 
 npm-debug.log*
 yarn-debug.log*
