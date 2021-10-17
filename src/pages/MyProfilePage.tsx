@@ -43,6 +43,7 @@ const Mobile = () => {
             profileImage={profileImage}
             description={description}
             code={code}
+            canEdit
           />
           <HR height={1} color={colors.blackF5F6F7} marginTop={12} />
           <Profile.UserHistoryMenus>
@@ -89,6 +90,7 @@ const Tablet = () => {
           profileImage={profileImage}
           description={description}
           code={code}
+          canEdit
         />
       </Body>
       <Activations

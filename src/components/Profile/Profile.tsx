@@ -12,8 +12,17 @@ import { Profile as TProfile } from '../../types/User';
 const Profile: React.FC<
   Pick<TProfile, 'name' | 'group' | 'profileImage' | 'description' | 'code'> & {
     className?: string;
+    canEdit?: boolean;
   }
-> = ({ name, group, description, profileImage, className, code }) => {
+> = ({
+  name,
+  group,
+  description,
+  profileImage,
+  className,
+  code,
+  canEdit = false,
+}) => {
   const { util, user } = useStore();
   const handleClickEditIntroduction = React.useCallback(() => {
     util.history.push('/myProfile/edit', { focus: 'ProfileIntoduction' });
@@ -31,7 +40,7 @@ const Profile: React.FC<
       <h2 className="Name">{name}</h2>
       <h4 className="Group">{group}</h4>
       {description && <p className="Introduction">{description}</p>}
-      {!description && code === user.profile.code && (
+      {!description && code === user.profile.code && canEdit && (
         <p className="EditIntrodution" onClick={handleClickEditIntroduction}>
           프로필 소개 추가...
         </p>
