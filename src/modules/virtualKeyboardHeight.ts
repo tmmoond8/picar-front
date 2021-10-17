@@ -1,3 +1,5 @@
+import { isHybrid } from './crossPlatform';
+
 interface Browserizr {
   isAndroid(): boolean;
   isAndroid3(): boolean;
@@ -60,7 +62,7 @@ const getBrowserizr = () => {
   return brwoserizr;
 };
 
-// ios 가 아니면 항상 0
+// ios 가 아니거나 앱이면 항상 0
 // ios 도 debice 물리버튼이 있는 버전과 없는 버전
 // 물리 버튼이 없는 버전은 40
 // 물리 버튼이 있으면 36
@@ -68,7 +70,7 @@ export const getVirtualKeyboardHeight = () => {
   const browser = getBrowserizr();
   if (!browser) return 40;
 
-  if (!browser.isIOS()) {
+  if (!browser.isIOS() || isHybrid()) {
     return 0;
   }
 
@@ -80,10 +82,6 @@ export const getVirtualKeyboardHeight = () => {
     browser.isIPhone678plus()
   ) {
     return 36;
-  }
-
-  if (browser.isIPhoneX()) {
-    return 40;
   }
 
   return 40;

@@ -8,6 +8,7 @@ import { ModalData } from '../components/Modal';
 import { AlertData } from '../components/Alert';
 import { BreakPoints } from '../styles/mediaQuery';
 import { CommonStore, Stores } from '.';
+import { getVirtualKeyboardHeight } from '../modules/virtualKeyboardHeight';
 
 type BreakPointKeys = keyof typeof BreakPoints;
 
@@ -50,6 +51,11 @@ class UiStore implements UiStoreInterface {
       Tablet: false,
       Desktop: false,
     };
+
+    // 동적 임포트 미리 실행
+    setTimeout(() => {
+      getVirtualKeyboardHeight();
+    }, 1000);
   }
 
   @action
