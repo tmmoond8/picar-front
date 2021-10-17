@@ -55,8 +55,8 @@ const Page = styled.div`
   height: 100%;
 
   &.MobilePage {
-    padding: env(safe-area-inset-top) env(safe-area-inset-right)
-      env(safe-area-inset-bottom) env(safe-area-inset-left);
+    border-top: white solid env(safe-area-inset-top);
+    border-bottom: white solid env(safe-area-inset-bottom);
   }
 `;
 
