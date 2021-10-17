@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
-
+import { useAlert } from '../Alert';
 import Profile from '../Profile';
 import Icon from '../Icon';
 import { colors } from '../../styles';
@@ -41,6 +41,7 @@ const Comment: React.FC<CommentProps> = ({
   articleId,
 }) => {
   const { user } = useStore();
+  const alert = useAlert();
   const { handleClickReply, handleRemoveComment, about, userCode, editorRef } =
     useCommentContext();
   const { openReport, openCancelReport } = useReport({
@@ -112,7 +113,12 @@ const Comment: React.FC<CommentProps> = ({
             <span
               className={cx('delete-btn')}
               onClick={() => {
-                handleRemoveComment(id);
+                alert.open({
+                  title: '댓글을 삭제하시겠어요?',
+                  handleConfirm: () => {
+                    handleRemoveComment(id);
+                  },
+                });
               }}
             >
               삭제

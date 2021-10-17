@@ -6,7 +6,7 @@ import React from 'react';
 
 import { useStore, observer } from '../../stores';
 import CommentContext from './context';
-import CommentViewer from './CommentViewer';
+import CommentContainer from './CommentContainer';
 import { colors } from '../../styles';
 import { useFetch, useWriteComment, useAbout, useRemoveComment } from './hooks';
 
@@ -78,7 +78,7 @@ const CommentArea: React.FC<{
 
 export default observer(CommentArea);
 
-const ResponsibleComment = styled(CommentViewer)<{ desktop: boolean }>`
+const ResponsibleComment = styled(CommentContainer)<{ desktop: boolean }>`
   ${(p) =>
     p.desktop &&
     css`
