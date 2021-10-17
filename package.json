@@ -93,7 +93,7 @@
     "babel:serverless": "yarn babel --config-file ./babel.serverless.json --out-dir lambda ./src/serverless.ts ./src/news-feed.ts  --extensions \".ts,d.ts\"",
     "build": "CI= react-app-rewired build",
     "build:netlify": "yarn build && yarn tool:generate-sitemap && yarn build:serverless",
-    "build:mobile": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios && capacitor copy android",
+    "build:mobile": "dotenv -e .env.mobile.env react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:ios": "dotenv -e .env.production.env react-app-rewired build && capacitor copy ios",
     "build:local": "react-app-rewired build && capacitor copy ios && capacitor copy android",
     "build:serverless": "yarn babel:serverless",
