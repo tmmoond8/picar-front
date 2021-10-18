@@ -218,5 +218,8 @@ const DeletedComment = styled.div`
 `;
 
 const EditorBadge = styled(Icon)`
-  margin-left: 8px;
+  && {
+    height: 16px;
+    margin-left: 8px;
+  }
 `;
