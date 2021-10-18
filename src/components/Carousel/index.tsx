@@ -86,7 +86,7 @@ const Carousel: CarouselComponent = ({
         inputType={['touch', 'mouse']}
         thresholdAngle={45}
         bounce={10}
-        autoResize={ui.queryMatch.Desktop}
+        autoResize
         adaptive={true}
         zIndex={2000}
         bound={false}
