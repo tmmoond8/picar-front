@@ -103,7 +103,7 @@
     const { APPLE_LOGIN_KEY, APPLE_USER_API_KEY, APPLE_LOGIN_BRIDGE_URL, API_URL, APPLE_LOGIN_REDIRECT_URL } = window.__PICAR__;
 
     if (uuid) {
-      localStorage.setItem('uuid', uuid);
+      document.cookie = `uuid=${uuid}`;
       const config = {
         client_id: "com.tmmoond8.picar-web", // This is the service ID we created.
         redirect_uri: APPLE_LOGIN_REDIRECT_URL, // As registered along with our service ID
@@ -173,8 +173,18 @@
     
     function loginApple(p) {
       const { access_token, refresh_token } = p;
-      const uuid = localStorage.getItem('uuid');
-      console.log('uuid', uuid, p);
+      const getUUID = () => {
+        if (!document.cookie) return null;
+        const cookieMap = document.cookie.split(';');
+        if (cookieMap.length === 0) return null;
+        const uuidMap = cookieMap.find(v => {
+          const [key, value] = v.split('=');
+          return key === 'uuid'
+        });
+        if (!uuidMap) return null;
+        return uuidMap.split('=')[1];
+      }
+      const uuid = document.cookie && document.cookie.split('=').length > 1 && document.cookie.split('=')[1];
       if (uuid) {
         const body = {
           accessToken: access_token,
