@@ -3,6 +3,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
+import { throttle } from 'throttle-debounce';
 import cx from 'classnames';
 
 import { NewsFeed } from '../../types/News';
@@ -24,9 +25,23 @@ const newLogs = {
 const NewsList: React.FC<{
   className?: string;
   news: NewsFeed[];
-}> = ({ className, news }) => {
+}> = ({ className, news: allNews }) => {
+  const { news, loadMore, isEnd } = usePaging(allNews);
+
+  const handleScroll = throttle(
+    8,
+    true,
+    (e: React.UIEvent<HTMLOListElement>) => {
+      const { scrollHeight, scrollTop, clientHeight } =
+        e.target as HTMLOListElement;
+      if (!isEnd && clientHeight + scrollTop + 60 > scrollHeight) {
+        loadMore();
+      }
+    },
+  );
+
   return (
-    <List className={cx('NewsList', className)}>
+    <List className={cx('NewsList', className)} onScroll={handleScroll}>
       {news.map((feed) => (
         <Card key={feed.id} onClick={() => window.open(feed.link)}>
           <CardHead>
@@ -128,3 +143,32 @@ const Thumbnail = styled.img`
 const PublisherLogo = styled(Profile.Photo)`
   margin: 0 8px 0 0;
 `;
+
+function usePaging(initNews: NewsFeed[]) {
+  const SIZE = 12;
+  const [page, setPage] = React.useState(1);
+  const [isEnd, setIsEnd] = React.useState(false);
+  const [allNews, setAllNews] = React.useState(initNews);
+
+  React.useEffect(() => {
+    setAllNews(initNews);
+  }, [initNews]);
+
+  const news = React.useMemo(() => {
+    return allNews.slice(0, page * SIZE);
+  }, [allNews, page]);
+
+  const loadMore = () => {
+    if (initNews.length === news.length) {
+      setIsEnd(true);
+    } else {
+      setPage(page + 1);
+    }
+  };
+
+  return {
+    news,
+    loadMore,
+    isEnd,
+  };
+}
