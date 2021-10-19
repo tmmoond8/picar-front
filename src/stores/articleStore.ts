@@ -15,6 +15,7 @@ export interface ArticleStoreInterface extends CommonStore {
   chargementArticles: Article[];
   popArticles: Article[];
   showOffArticles: Article[];
+  fetchList: () => void;
 }
 
 class ArticleStore implements ArticleStoreInterface {
