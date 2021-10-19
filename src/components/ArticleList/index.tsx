@@ -104,15 +104,18 @@ const ArticleList: React.FC<{
       onTouchStart={pullDownHandler.onTouchStart}
       onTouchMove={(e) => {
         pullDownHandler.onTouchMove(e);
-        const progress =
-          120 * Math.log2(pullDownHandler.pullRef.current / (32 * WEIGHT));
+        // const progress =
+        //   120 * Math.log2(pullDownHandler.pullRef.current / (32 * WEIGHT));
+        const progress = pullDownHandler.pullRef.current;
         if (
           loaderRef.current &&
           pullDownHandler.pullRef.current &&
           loaderContainerRef.current
         ) {
           loaderRef.current!.style.strokeDasharray = `${progress} 360`;
-          loaderRef.current!.style.transform = `rotate(${pullDownHandler.pullRef.current}deg)`;
+          loaderRef.current!.style.transform = `rotate(${
+            pullDownHandler.pullRef.current / 2
+          }deg)`;
           loaderContainerRef.current!.style.top = `${Math.min(
             progress / 2 - 60,
             20,
