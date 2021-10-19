@@ -61,7 +61,7 @@ export function usePullDownRefresh(listRef: React.RefObject<HTMLOListElement>) {
   );
 
   const onTouchMove = throttle(
-    32,
+    16,
     true,
     (e: React.TouchEvent<HTMLOListElement>) => {
       if (!listRef.current) {

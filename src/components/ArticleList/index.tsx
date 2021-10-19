@@ -93,6 +93,8 @@ const ArticleList: React.FC<{
     clear();
   }, [articles]);
 
+  const WEIGHT = 2;
+
   return (
     <StyledArticleList
       ref={listRef}
@@ -102,7 +104,8 @@ const ArticleList: React.FC<{
       onTouchStart={pullDownHandler.onTouchStart}
       onTouchMove={(e) => {
         pullDownHandler.onTouchMove(e);
-        const progress = 120 * Math.log2(pullDownHandler.pullRef.current / 16);
+        const progress =
+          120 * Math.log2(pullDownHandler.pullRef.current / (32 * WEIGHT));
         if (
           loaderRef.current &&
           pullDownHandler.pullRef.current &&
@@ -115,7 +118,7 @@ const ArticleList: React.FC<{
             20,
           )}px`;
           const svgEl = loaderContainerRef.current!.querySelector('svg');
-          if (pullDownHandler.pullRef.current > 78) {
+          if (pullDownHandler.pullRef.current > 156 * WEIGHT) {
             svgEl!.style.backgroundImage =
               "url('https://www.picar.kr/logo192.png')";
           } else {
@@ -126,7 +129,7 @@ const ArticleList: React.FC<{
       onTouchEnd={(e) => {
         pullDownHandler.onTouchEnd(e);
         if (loaderRef.current && pullDownHandler.pullRef.current) {
-          if (pullDownHandler.pullRef.current > 78) {
+          if (pullDownHandler.pullRef.current > 156 * WEIGHT) {
             articleStore.fetchList();
             setOnRefresh(true);
           } else {
