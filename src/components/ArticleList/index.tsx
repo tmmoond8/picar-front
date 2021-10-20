@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, css, keyframes } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import cx from 'classnames';
@@ -28,7 +28,7 @@ const ArticleList: React.FC<{
   const [onRefresh, setOnRefresh] = React.useState(false);
   const listRef = React.useRef<HTMLOListElement>(null);
   const loaderContainerRef = React.useRef<HTMLDivElement>(null);
-  const loaderRef = React.useRef<SVGCircleElement>(null);
+  const loaderRef = React.useRef<SVGSVGElement>(null);
   const pullDownHandler = usePullDownRefresh(listRef);
   const openArticleEditor = useOpenArticleEditor();
 
@@ -81,17 +81,29 @@ const ArticleList: React.FC<{
   );
 
   const clear = () => {
-    loaderRef.current!.style.strokeDasharray = '1 360';
-    loaderRef.current!.style.transform = 'rotate(0deg)';
+    if (loaderRef.current) {
+      loaderRef.current.style.transform = 'scale(1)';
+      loaderRef.current.style.transition = 'all 0.1s ease-out';
+      loaderRef.current.style.opacity = '1';
+    }
     loaderContainerRef.current!.style.top = '-60px';
-    const svgEl = loaderContainerRef.current!.querySelector('svg');
-    svgEl!.style.backgroundImage = 'none';
   };
 
   React.useEffect(() => {
     setOnRefresh(false);
     clear();
   }, [articles]);
+
+  React.useEffect(() => {
+    if (onRefresh) {
+      if (loaderRef.current) {
+        loaderRef.current.style.transition = 'all 0.3s ease-out';
+        loaderRef.current.style.transform = 'scale(3)';
+        loaderRef.current.style.opacity = '0';
+      }
+    } else {
+    }
+  }, [onRefresh]);
 
   const WEIGHT = 2;
 
@@ -104,29 +116,20 @@ const ArticleList: React.FC<{
       onTouchStart={pullDownHandler.onTouchStart}
       onTouchMove={(e) => {
         pullDownHandler.onTouchMove(e);
-        // const progress =
-        //   120 * Math.log2(pullDownHandler.pullRef.current / (32 * WEIGHT));
         const progress = pullDownHandler.pullRef.current;
         if (
           loaderRef.current &&
           pullDownHandler.pullRef.current &&
           loaderContainerRef.current
         ) {
-          loaderRef.current!.style.strokeDasharray = `${progress} 360`;
-          loaderRef.current!.style.transform = `rotate(${
-            pullDownHandler.pullRef.current / 2
-          }deg)`;
-          loaderContainerRef.current!.style.top = `${Math.min(
-            progress / 2 - 60,
-            20,
-          )}px`;
-          const svgEl = loaderContainerRef.current!.querySelector('svg');
-          if (pullDownHandler.pullRef.current > 156 * WEIGHT) {
-            svgEl!.style.backgroundImage =
-              "url('https://www.picar.kr/logo192.png')";
-          } else {
-            svgEl!.style.backgroundImage = 'none';
-          }
+          loaderRef.current!.style.transform = `rotate(${-Math.min(
+            pullDownHandler.pullRef.current * 3,
+            900,
+          )}deg)`;
+
+          loaderContainerRef.current!.style.top = onRefresh
+            ? '20px'
+            : `${Math.min(progress / 2 - 60, 20)}px`;
         }
       }}
       onTouchEnd={(e) => {
@@ -143,18 +146,14 @@ const ArticleList: React.FC<{
     >
       <CircularProgressbar ref={loaderContainerRef} onRefresh={onRefresh}>
         <svg
-          className="svg-container"
-          height="100"
-          width="100"
-          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          ref={loaderRef}
+          fill={colors.primary}
         >
-          <circle
-            className="loader-svg"
-            cx="50"
-            cy="50"
-            r="45"
-            ref={loaderRef}
-          ></circle>
+          <path d="M13.5 2c-5.288 0-9.649 3.914-10.377 9h-3.123l4 5.917 4-5.917h-2.847c.711-3.972 4.174-7 8.347-7 4.687 0 8.5 3.813 8.5 8.5s-3.813 8.5-8.5 8.5c-3.015 0-5.662-1.583-7.171-3.957l-1.2 1.775c1.916 2.536 4.948 4.182 8.371 4.182 5.797 0 10.5-4.702 10.5-10.5s-4.703-10.5-10.5-10.5z" />
         </svg>
       </CircularProgressbar>
       {articles.map((article) => (
@@ -214,12 +213,6 @@ const Empty = styled.li`
   }
 `;
 
-const spin = keyframes`
-  100% {
-    transform: rotate(360deg);
-  }
-`;
-
 const CircularProgressbar = styled.div<{ onRefresh: boolean }>`
   position: absolute;
   display: flex;
@@ -231,29 +224,7 @@ const CircularProgressbar = styled.div<{ onRefresh: boolean }>`
   svg {
     width: 44px;
     height: 44px;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: ${colors.white};
     border-radius: 50%;
-
-    ${(p) =>
-      p.onRefresh &&
-      css`
-        animation: ${spin} 1s infinite linear;
-      `}
-
-    .loader-svg {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      fill: none;
-      stroke-width: 8px;
-      stroke-linecap: round;
-      stroke: ${colors.primary};
-      stroke-dasharray: 1 360;
-      stroke-dashoffset: 0;
-      transform-origin: center;
-    }
   }
 `;

@@ -118,4 +118,7 @@ const Self = styled.div`
     width: 100%;
     overflow: hidden;
   }
+  .eg-flick-camera {
+    transition: all 0.1s ease-out;
+  }
 `;
