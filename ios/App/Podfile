@@ -17,4 +17,6 @@ end
 target 'App' do
   capacitor_pods
   # Add your Pods here
+  pod 'FirebaseCore', '7.11.0'
+  pod 'Firebase/Messaging', '7.11.0'
 end
