@@ -16,6 +16,7 @@ React + Ionic으로 만든 전기차 커뮤니티 - 피카 입니다.
 
 - [React](https://reactjs.org/)
 - [Ionic](https://ionicframework.com/docs/react)
+- [Capacitor](https://capacitorjs.com/)
 - [Emotion](https://emotion.sh/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Mobx](https://mobx.js.org/README.html)
