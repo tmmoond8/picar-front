@@ -5,7 +5,7 @@ const TARGET_IOS_ICON = 'ios/App/App/Assets.xcassets/AppIcon.appiconset/';
 const TARGET_IOS_SPLASH = 'ios/App/App/Assets.xcassets/Splash.imageset/';
 const SOURCE_ANDROID_ICON = 'resources/android/icon/';
 const SOURCE_ANDROID_SPLASH = 'resources/android/splash/';
-const TARGET_ANDROID_ICON = 'android/app/src/miconain/res/';
+const TARGET_ANDROID_ICON = 'android/app/src/main/res/';
 const TARGET_ANDROID_SPLASH = 'android/app/src/main/res/';
 const IOS_ICONS = [
   { source: 'icon-20.png', target: 'AppIcon-20x20@1x.png' },

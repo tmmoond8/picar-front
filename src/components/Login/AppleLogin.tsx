@@ -3,13 +3,11 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-import { Plugins } from '@capacitor/core';
+import { Browser } from '@capacitor/browser';
 import storage from '../../modules/localStorage';
 import { isHybrid } from '../../modules/crossPlatform';
 import { useModal } from '../Modal';
 import env from '../../env';
-
-const { Browser } = Plugins;
 
 interface AppleLoginProps {
   onClose: () => void;

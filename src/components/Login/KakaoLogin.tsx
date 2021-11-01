@@ -2,15 +2,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import { Plugins } from '@capacitor/core';
+import { Browser } from '@capacitor/browser';
 import React from 'react';
 import storage from '../../modules/localStorage';
 
 import { useModal } from '../Modal';
 import env from '../../env';
 import { isHybrid } from '../../modules/crossPlatform';
-
-const { Browser } = Plugins;
 
 interface KakaoLoginProps {
   onClose: () => void;

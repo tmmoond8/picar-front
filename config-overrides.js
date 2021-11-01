@@ -6,9 +6,5 @@ const {
 } = require('customize-cra');
 
 module.exports = {
-  webpack: override(
-    disableEsLint(), 
-    addDecoratorsLegacy(), 
-    useBabelRc(),
-  ),
+  webpack: override(disableEsLint(), addDecoratorsLegacy(), useBabelRc()),
 };

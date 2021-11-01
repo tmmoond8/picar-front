@@ -6,7 +6,7 @@ import React from 'react';
 
 import cx from 'classnames';
 import { useStore, observer } from '../stores';
-import { useSetupHistory, useAndroid, useGlobalEvents } from '../hooks';
+import { useSetupHistory, useAndroid, useIos, useGlobalEvents } from '../hooks';
 import GA from '../modules/ga';
 import Layout from '../components/Layout';
 import LoginBox from '../components/Login/LoginBox';
@@ -20,6 +20,7 @@ const BasePage: React.FC<{
   useGlobalEvents();
   useSetupHistory();
   useAndroid();
+  useIos();
 
   React.useEffect(() => {
     const { pathname, search, hash } = util.history.location;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plugins } from '@capacitor/core';
+import { App } from '@capacitor/app';
 import { useStore } from '../stores';
 import { useAlert } from '../components/Alert';
 import { isAndroid } from '../modules/crossPlatform';
@@ -22,7 +22,7 @@ export const useAndroid = () => {
         handleConfirm: async () => {
           alert.close();
           setTimeout(() => {
-            Plugins.App.exitApp();
+            App.exitApp();
           }, 300);
         },
       });
@@ -31,9 +31,9 @@ export const useAndroid = () => {
 
   React.useEffect(() => {
     if (isAndroid()) {
-      Plugins.App.addListener('backButton', handler);
+      App.addListener('backButton', handler);
       return () => {
-        Plugins.App.removeAllListeners();
+        App.removeAllListeners();
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

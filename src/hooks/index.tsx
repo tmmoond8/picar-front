@@ -17,6 +17,7 @@ import * as auth from './auth';
 export * from './report';
 export { default as useOG } from './og';
 export { useAndroid } from './android';
+export { useIos } from './ios';
 export { default as useStateRef } from './useStateRef';
 export { default as useGlobalEvents } from './useGlobalEvents';
 

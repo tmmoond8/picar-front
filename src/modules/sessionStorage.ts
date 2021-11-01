@@ -2,11 +2,20 @@ const STORAGE_KEYS = {
   STACK: 'APP_STACK',
   SCROLL: 'PICAR_SCROLL',
   PAGE: 'PICAR_PAGE',
+  INIT: 'PICAR_INIT',
 } as const;
 
 const sessionStorage = globalThis?.sessionStorage;
 
 const storage = {
+  isInitialized: () => {
+    if (!sessionStorage) return true;
+    const isInitialized = sessionStorage.getItem(STORAGE_KEYS.INIT);
+    if (isInitialized !== 'true') {
+      sessionStorage.setItem(STORAGE_KEYS.INIT, 'true');
+    }
+    return isInitialized === 'true';
+  },
   initStack: () => {
     if (!sessionStorage) return;
     const currentStack = sessionStorage.getItem(STORAGE_KEYS.STACK);

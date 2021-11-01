@@ -1,11 +1,10 @@
 import React from 'react';
-import { Plugins } from '@capacitor/core';
+import { Browser } from '@capacitor/browser';
+import { App } from '@capacitor/app';
 import storage from '../modules/localStorage';
 import { useLogin, LoginType } from '../hooks/auth';
 import APIS from '../apis';
 import { isIos } from '../modules/crossPlatform';
-
-const { Browser, App } = Plugins;
 
 export default function useGlobalEvents() {
   const needInitRef = React.useRef(true);

@@ -1,16 +1,25 @@
 {
-  "appId": "com.tmmoond8.picar",
-  "appName": "피카",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "build",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 2000,
-      "backgroundColor": "#ffffffff",
-      "androidSplashResourceName": "splash",
-      "androidScaleType": "CENTER_CROP"
-    }
-  },
-  "cordova": {}
+	"appId": "com.tmmoond8.picar",
+	"appName": "피카",
+	"bundledWebRuntime": false,
+	"webDir": "build",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 2000,
+			"backgroundColor": "#ffffffff",
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP"
+		},
+		"LocalNotifications": {
+			"smallIcon": "ic_stat_icon_config_sample",
+			"iconColor": "#CE0B7C"
+		},
+		"PushNotifications": {
+			"presentationOptions": [
+				"badge",
+				"sound",
+				"alert"
+			]
+		}
+	}
 }
