@@ -7,10 +7,13 @@ import {
   Token,
   ActionPerformed,
 } from '@capacitor/push-notifications';
-import { toast } from 'react-toastify';
 
 export const useIos = () => {
   const [notifications, setNotifications] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    console.log('noti', notifications);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const register = () => {
     // Register with Apple / Google to receive push via APNS/FCM
@@ -18,18 +21,19 @@ export const useIos = () => {
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration', (token: Token) => {
-      toast('Push registration success');
+      console.info('Push registration success');
     });
 
     // Some issue with our setup and push will not work
     PushNotifications.addListener('registrationError', (error: any) => {
-      toast('Error on registration: ' + JSON.stringify(error));
+      console.info('Error on registration: ' + JSON.stringify(error));
     });
 
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener(
       'pushNotificationReceived',
       (notification: PushNotificationSchema) => {
+        console.log('ddd', notification);
         setNotifications((notifications) => [
           ...notifications,
           {
@@ -65,9 +69,9 @@ export const useIos = () => {
         if (res.receive !== 'granted') {
           PushNotifications.requestPermissions().then((res) => {
             if (res.receive === 'denied') {
-              toast('Push Notification permission denied');
+              console.info('Push Notification permission denied');
             } else {
-              toast('Push Notification permission granted');
+              console.info('Push Notification permission granted');
               register();
             }
           });
