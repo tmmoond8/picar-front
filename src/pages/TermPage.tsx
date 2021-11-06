@@ -4,17 +4,12 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
 import _Page from './BasePage';
-import { colors, constants } from '../styles';
+import { colors, desktop } from '../styles';
 import _MenuBar from '../components/MenuBar';
 import { useStore, observer } from '../stores';
 
-const NewsPage: React.FC = () => {
+const TermPage: React.FC = () => {
   const { ui } = useStore();
-
-  React.useEffect(() => {
-    ui.scrollableElementSelector = '.NewsList';
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Page>
@@ -24,9 +19,8 @@ const NewsPage: React.FC = () => {
           <h2>제 1조 목적</h2>
           <p>
             본 약관은 회원(본 약관에 동의한 자를 말하며 이하 "회원"이라고
-            합니다)이 벨로그(이하 "회사"라고 합니다)가 제공하는 서비스를
-            이용함에 있어 회사와 회원의 권리 의무 및 책임사항을 규정함을
-            목적으로 합니다.
+            합니다)이 피카(이하 "회사"라고 합니다)가 제공하는 서비스를 이용함에
+            있어 회사와 회원의 권리 의무 및 책임사항을 규정함을 목적으로 합니다.
           </p>
           <h2>제 2조 정의</h2>
           <p>이 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
@@ -259,12 +253,11 @@ const NewsPage: React.FC = () => {
           <p>본 약관은 2018년 8월 25일부터 적용됩니다.</p>
         </div>
       </Content>
-      {ui.queryMatch.Mobile && <MenuBar />}
     </Page>
   );
 };
 
-export default observer(NewsPage);
+export default observer(TermPage);
 
 const Page = styled(_Page)`
   display: flex;
@@ -287,14 +280,12 @@ const Content = styled.div<{ isMobile: boolean }>`
   flex: 1;
   overflow-y: auto;
   background-color: white;
-  margin-bottom: 18px;
-  padding: 24px 20px 60px 24px;
+  margin-bottom: 0;
+  padding: 24px 20px 80px 24px;
 
-  ${(p) =>
-    p.isMobile &&
-    css`
-      padding: 0 0 56px 0;
-    `};
+  ${desktop(css`
+    margin-bottom: 18px;
+  `)}
 
   h2 {
     font-size: 28px;
@@ -313,10 +304,4 @@ const Content = styled.div<{ isMobile: boolean }>`
     line-height: 24px;
     color: grey;
   }
-`;
-
-const MenuBar = styled(_MenuBar)`
-  position: fixed;
-  bottom: ${constants.safeBottom};
-  left: 0;
 `;

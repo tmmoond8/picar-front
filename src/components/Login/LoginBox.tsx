@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import React from 'react';
-
+import { colors } from '../../styles';
 import KakaoLogin from './KakaoLogin';
 import NaverLogin from './NaverLogin';
 import AppleLogin from './AppleLogin';
@@ -25,6 +25,14 @@ const LoginBox: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <AppleLogin onClose={onClose} />
         </li>
       </LoginButtons>
+      <PolicyBox>
+        <a href="/term" target="_blank">
+          서비스 이용약관
+        </a>
+        <a href="/privacyPolicy" target="_blank">
+          개인정보 처리방침
+        </a>
+      </PolicyBox>
     </Box>
   );
 };
@@ -59,4 +67,11 @@ const GuideText = styled.h2`
   line-height: 1.33;
   letter-spacing: -0.5px;
   text-align: center;
+`;
+
+const PolicyBox = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  padding: 16px 0;
+  color: ${colors.black77};
 `;
