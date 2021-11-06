@@ -9,7 +9,7 @@ const Advertisement: React.FC = () => {
   return (
     <StyledAdvertisement>
       <Rules>
-        <Link>이용약관</Link>
+        <Link href="/term">이용약관</Link>
         <Link>개인정보처리방침</Link>
         <Link>광고정보</Link>
       </Rules>

@@ -35,6 +35,7 @@ const SearchPage = React.lazy(() => import('./pages/SearchPage'));
 const LoginPage = React.lazy(() => import('./pages/LoginPage'));
 const TestPage = React.lazy(() => import('./pages/TestPage'));
 const OwwnerPage = React.lazy(() => import('./pages/OwwnerPage'));
+const TermPage = React.lazy(() => import('./pages/TermPage'));
 
 function Routes({ isSSR }: { isSSR: boolean }) {
   const { ui } = useStore();
@@ -86,6 +87,9 @@ function Routes({ isSSR }: { isSSR: boolean }) {
             </Route>
             <Route exact path="/notification">
               <NotificationPage />
+            </Route>
+            <Route exact path="/term">
+              <TermPage />
             </Route>
             <Route path="/">
               <HomePage />
