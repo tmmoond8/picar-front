@@ -42,6 +42,10 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>카메라 접근을 허용해주세요</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>앨범 접근을 허용해주세요</string>
 	<key>UIStatusBarStyle</key>
 		<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
