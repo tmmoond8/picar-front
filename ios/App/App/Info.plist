@@ -43,9 +43,9 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>카메라 접근을 허용해주세요</string>
+	<string>"피카(PICAR)"가 게시글에 사진을 등록하거나 내 프로필 사진을 설정하기 위해 사진을 촬영하도록 허용합니다. </string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>앨범 접근을 허용해주세요</string>
+	<string>"피카(PICAR)"가 게시글에 사진을 등록하거나 내 프로필 사진을 설정하기 위해 사진 라이브러리에 접근하도록 허용합니다. </string>
 	<key>UIStatusBarStyle</key>
 		<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
