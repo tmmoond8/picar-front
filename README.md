@@ -6,6 +6,8 @@ React + Ionic으로 만든 전기차 커뮤니티 - 피카 입니다.
 
 [🔗ㅤ플레이 스토어 방문](https://play.google.com/store/apps/details?id=com.tmmoond8.picar)  
 
+[🔗ㅤ앱 스토어 방문](https://apps.apple.com/kr/app/%ED%94%BC%EC%B9%B4-%EC%A0%84%EA%B8%B0%EC%B0%A8-%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0/id1590699820?l=en)  
+
 
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/27b9e7d0-52c4-42ca-933d-12f112d6517b/deploy-status)](https://app.netlify.com/sites/modest-brown-97e552/deploys)
