@@ -10,7 +10,7 @@ import ArticleType from '../../types/Article';
 import { useInitBefore } from '../../hooks';
 import { useStore, observer } from '../../stores';
 
-const SIZE = 8;
+const SIZE = 5;
 
 const PopularArticles: React.FC = () => {
   const { util } = useStore();
@@ -125,8 +125,8 @@ const NavItem = styled.div<{ disabled: boolean }>`
 `;
 
 const List = styled.ul`
-  /* height: 393px; */
-  height: 624px;
+  height: 393px;
+  /* height: 624px; */
   padding: 4px 0;
 `;
 

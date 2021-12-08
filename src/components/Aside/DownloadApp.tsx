@@ -16,16 +16,17 @@ const DownloadApp: React.FC = () => {
       <Body>
         <Link
           className="AppStoreLink"
-          onClick={() => toast.success('지원 준비 중 입니다.')}
+          href="https://apps.apple.com/kr/app/%ED%94%BC%EC%B9%B4-%EC%A0%84%EA%B8%B0%EC%B0%A8-%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0/id1590699820?l=en"
+          target="_blank"
         >
           <Icon icon="appStore" size="18px" color={colors.black66} />
           App Store
         </Link>
         <Link
-          className="AppStoreLink"
-          onClick={() => toast.success('지원 준비 중 입니다.')}
+          className="PlayStoreLink"
+          href="https://play.google.com/store/apps/details?id=com.tmmoond8.picar"
+          target="_blank"
         >
-          {/* <Link className="PlayStoreLink" href="https://play.google.com/store/apps/details?id=com.tmmoond8.picar" target="_blank"> */}
           <Icon icon="googlePlay" size="18px" color={colors.black66} />
           Google Play
         </Link>
@@ -85,10 +86,5 @@ const Link = styled.a`
 
   .Icon {
     margin-right: 12px;
-  }
-
-  &.AppStoreLink {
-    cursor: auto;
-    background-color: ${colors.blackF5F6F7};
   }
 `;

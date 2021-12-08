@@ -36,7 +36,7 @@ const Tablet: React.FC<{ children: React.ReactNode }> = observer(
           <Right className="TabletRight">
             <Aside.PopularArticles />
             {/* <Aside.Advertisement /> */}
-            {/* <Aside.DownloadApp /> */}
+            <Aside.DownloadApp />
             <Aside.Copyrights />
           </Right>
         </Body>
