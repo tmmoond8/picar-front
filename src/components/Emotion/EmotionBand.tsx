@@ -132,7 +132,7 @@ const FoldUnFoldButton = styled(Icon)`
   position: absolute;
   top: 50%;
   left: 18px;
-  transform: translateY(-50%);
+  transform: translate3d(0, -50%, 0);
   padding: 10px;
   box-sizing: content-box;
   z-index: 10;

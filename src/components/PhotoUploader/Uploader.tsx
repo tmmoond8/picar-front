@@ -119,10 +119,10 @@ const Loader = styled(Icon)`
 
   @keyframes rotate {
     to {
-      transform: translate(-50%, -50%) rotate(360deg);
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
     }
     from {
-      transform: translate(-50%, -50%) rotate(0deg);
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
     }
   }
   animation: rotate 1.5s linear infinite;

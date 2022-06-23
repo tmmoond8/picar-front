@@ -37,7 +37,7 @@ const StitchecRectagle = styled(Icon)`
   z-index: 10;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50px);
+  transform: translate3d(-50%, -50px, 0);
 `;
 
 const NotificationText = styled.h3`
@@ -47,6 +47,6 @@ const NotificationText = styled.h3`
   font-size: 17px;
   line-height: 1.18;
   color: ${colors.black99};
-  transform: translate(-50%, 30px);
+  transform: translate3d(-50%, 30px, 0);
   z-index: 10;
 `;

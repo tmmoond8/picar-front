@@ -60,11 +60,11 @@ const Indicator = styled.div<{ isRight: boolean }>`
   width: calc(50% - 10px);
   background-color: ${colors.white};
   border-radius: 3px;
-  transform: translateX(0);
+  transform: translate3d(0, 0, 0);
   ${(p) =>
     p.isRight &&
     css`
-      transform: translateX(calc(100% + 6px));
+      transform: translate3d(calc(100% + 6px), 0, 0);
     `}
   transition: transform 0.2s ease-out;
 `;

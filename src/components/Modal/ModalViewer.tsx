@@ -133,7 +133,7 @@ const ModalBox = styled.div<{ open: boolean; isFull: boolean }>`
   height: ${({ isFull }) => (isFull ? '100%' : 'auto')};
   width: 100%;
   transition: all 0.2s ease 0s;
-  transform: translateY(${(p) => (p.open ? '0' : '100vh')});
+  transform: translate3d(0, ${(p) => (p.open ? '0' : '100vh')}, 0);
 `;
 
 const ModalBody = styled.div<{ hasBottomCTA: boolean }>`

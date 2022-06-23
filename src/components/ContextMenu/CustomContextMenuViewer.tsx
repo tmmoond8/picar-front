@@ -58,11 +58,11 @@ export default React.memo(CustomContextMenuViewer);
 
 const popup = keyframes`
   from {
-    transform: translateY(-20px);
+    transform: translate3d(0, -20px, 0);
     opacity: 0.2;
   } 
   to {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
   }
 `;

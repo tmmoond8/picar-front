@@ -56,7 +56,7 @@ const Item = styled.li<{ hasNoti: boolean }>`
     width: 6px;
     height: 6px;
     margin: 0 auto;
-    transform: translateX(12px);
+    transform: translate3d(12px, 0, 0);
     background-color: ${colors.primary};
     border-radius: 6px;
   }

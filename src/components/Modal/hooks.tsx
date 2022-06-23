@@ -10,7 +10,7 @@ export const useModal = () => {
     isOpen = false;
     const modalEl: HTMLElement | null = document.querySelector(`#${id}`);
     if (modalEl) {
-      modalEl.style!.transform = 'translateY(100vh)';
+      modalEl.style!.transform = 'translate3d(0, 100vh, 0)';
     }
     setTimeout(() => {
       global.__OWNER__.closeModal(id);

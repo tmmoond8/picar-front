@@ -65,7 +65,7 @@ const Box = styled.section`
   margin: auto;
   border-radius: 8px;
   background-color: ${colors.white};
-  transform: translateY(-50%);
+  transform: translate3d(0, -50%, 0);
 `;
 
 const Content = styled.div`
